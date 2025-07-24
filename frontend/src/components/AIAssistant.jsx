@@ -59,9 +59,9 @@ const AIAssistant = ({ isOpen, onClose }) => {
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="right" className="w-[420px] p-0 flex flex-col animate-slide-in-bottom">
-        <SheetHeader className="p-6 border-b animate-fade-in-down">
+        <SheetHeader className="p-6 border-b animate-entrance-down">
           <SheetTitle className="flex items-center gap-2">
-            <Bot className="text-[#5945a3] animate-pulse-soft" size={24} />
+            <Bot className="text-[#5945a3] icon-refined" size={24} />
             Pecunia AI Assistant
           </SheetTitle>
           <p className="text-sm text-gray-600 text-left animate-fade-in-up animate-stagger-1">
