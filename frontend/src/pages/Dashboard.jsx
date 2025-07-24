@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
 import { Button } from "../components/ui/button";
@@ -22,15 +22,27 @@ import {
   AlertCircle,
   CheckCircle,
   ArrowUpRight,
-  BarChart3
+  BarChart3,
+  Sparkles,
+  Loader2
 } from "lucide-react";
 import { mockData } from "../data/mockData";
 import PieChartComponent from "../components/charts/PieChart";
 import { useToast } from "../hooks/use-toast";
+import { useAI } from "../contexts/AIContext";
 
 const Dashboard = () => {
   const { dashboard, pecuniaScore } = mockData;
   const { toast } = useToast();
+  const { 
+    aiInsights, 
+    loading: aiLoading, 
+    getInsights, 
+    analyzeSpending, 
+    optimizeBudget,
+    userProfile,
+    updateUserProfile 
+  } = useAI();
   
   // State for interactive features
   const [selectedChart, setSelectedChart] = useState(null);
@@ -38,37 +50,60 @@ const Dashboard = () => {
   const [monthlyBudget, setMonthlyBudget] = useState(5000);
   const [activityFilter, setActivityFilter] = useState('all');
   const [showAllActivity, setShowAllActivity] = useState(false);
+  const [spendingAnalysis, setSpendingAnalysis] = useState(null);
+
+  // Load AI insights on component mount
+  useEffect(() => {
+    if (!aiInsights) {
+      getInsights();
+    }
+  }, []);
 
   // Interactive handlers
   const handleChartClick = (chartType, data) => {
     setSelectedChart({ type: chartType, data });
   };
 
-  const handleBudgetSave = () => {
+  const handleBudgetSave = async () => {
     setBudgetEdit(false);
+    
+    // Update user profile with new budget
+    await updateUserProfile({ monthly_budget: monthlyBudget });
+    
     toast({
-      title: "Budget Updated!",
-      description: `Monthly budget set to $${monthlyBudget.toLocaleString()}`,
+      title: "Budget Updated! 🎯",
+      description: `Monthly budget set to $${monthlyBudget.toLocaleString()}. AI insights refreshed!`,
     });
   };
 
-  const handleInsightAction = (action) => {
+  const handleInsightAction = async (action) => {
     switch(action) {
       case 'emergency_fund':
+        await updateUserProfile({ 
+          emergency_fund: userProfile.emergency_fund + 2750 
+        });
         toast({
-          title: "Goal Updated!",
+          title: "Goal Updated! 💰",
           description: "Added $2,750 to Emergency Fund goal",
         });
         break;
       case 'dining_alert':
         toast({
-          title: "Budget Alert Set!",
+          title: "Budget Alert Set! 🚨",
           description: "You'll get notified when dining expenses exceed 20%",
+        });
+        break;
+      case 'analyze_spending':
+        const analysis = await analyzeSpending(dashboard.recentActivity);
+        setSpendingAnalysis(analysis);
+        toast({
+          title: "Spending Analysis Complete! 📊",
+          description: "AI has analyzed your spending patterns",
         });
         break;
       default:
         toast({
-          title: "Action Complete!",
+          title: "Action Complete",
           description: "Your request has been processed",
         });
     }
