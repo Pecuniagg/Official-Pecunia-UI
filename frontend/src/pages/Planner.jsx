@@ -123,7 +123,7 @@ const Planner = () => {
     }
   };
 
-  const handleCreatePlan = () => {
+  const handleCreatePlan = async () => {
     if (!newPlan.title || !newPlan.budget || !newPlan.dates.start) {
       toast({
         title: "Missing Information",
@@ -133,10 +133,52 @@ const Planner = () => {
       return;
     }
 
-    toast({
-      title: "Plan Created! 🎯",
-      description: `${newPlan.title} has been added to your plans`,
-    });
+    setGeneratingPlan(true);
+    
+    try {
+      // Generate AI travel plan
+      const aiPlan = await createTravelPlan({
+        budget: parseFloat(newPlan.budget),
+        duration: newPlan.dates.end ? 
+          Math.ceil((newPlan.dates.end - newPlan.dates.start) / (1000 * 60 * 60 * 24)) + ' days' : 
+          '3 days',
+        location: newPlan.location || 'flexible',
+        style: newPlan.category?.toLowerCase() || 'balanced',
+        interests: [newPlan.category],
+        group_size: newPlan.participants
+      });
+
+      if (aiPlan) {
+        const customPlan = {
+          id: Date.now(),
+          title: aiPlan.title || newPlan.title,
+          description: aiPlan.description || newPlan.description,
+          estimatedBudget: parseFloat(newPlan.budget),
+          vibe: newPlan.category || 'Custom',
+          image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=srgb&fm=jpg&w=400&h=300',
+          aiGenerated: true,
+          aiPlan: aiPlan
+        };
+
+        setAiGeneratedPlans(prev => [customPlan, ...prev]);
+        
+        toast({
+          title: "AI Plan Created! 🎯",
+          description: `${aiPlan.title} has been generated with detailed itinerary`,
+        });
+      } else {
+        toast({
+          title: "Plan Created! 🎯",
+          description: `${newPlan.title} has been added to your plans`,
+        });
+      }
+    } catch (error) {
+      console.error('Error creating AI plan:', error);
+      toast({
+        title: "Plan Created! 🎯",
+        description: `${newPlan.title} has been added to your plans (AI enhancement unavailable)`,
+      });
+    }
 
     setNewPlan({
       title: '',
@@ -149,6 +191,51 @@ const Planner = () => {
       priority: 'medium'
     });
     setShowPlanCreator(false);
+    setGeneratingPlan(false);
+  };
+
+  const generateMoreAIPlans = async () => {
+    setGeneratingPlan(true);
+    
+    try {
+      // Generate multiple AI plans based on user preferences
+      const preferences = [
+        { budget: 800, style: 'relaxing', location: 'beach destination' },
+        { budget: 1200, style: 'adventure', location: 'mountain destination' },
+        { budget: 600, style: 'cultural', location: 'historic city' }
+      ];
+
+      for (const pref of preferences) {
+        const aiPlan = await createTravelPlan(pref);
+        if (aiPlan) {
+          const generatedPlan = {
+            id: Date.now() + Math.random(),
+            title: aiPlan.title,
+            description: aiPlan.description,
+            estimatedBudget: pref.budget,
+            vibe: pref.style.charAt(0).toUpperCase() + pref.style.slice(1),
+            image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=srgb&fm=jpg&w=400&h=300',
+            aiGenerated: true,
+            aiPlan: aiPlan
+          };
+          
+          setAiGeneratedPlans(prev => [...prev, generatedPlan]);
+        }
+      }
+
+      toast({
+        title: "New AI Plans Generated! ✨",
+        description: "Fresh travel ideas based on your preferences",
+      });
+    } catch (error) {
+      console.error('Error generating AI plans:', error);
+      toast({
+        title: "Generation Complete",
+        description: "Some plans may not have AI enhancements",
+      });
+    }
+    
+    setGeneratingPlan(false);
   };
 
   const handleBooking = (planId) => {
