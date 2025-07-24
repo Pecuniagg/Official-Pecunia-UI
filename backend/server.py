@@ -59,6 +59,7 @@ class TravelPlanRequest(BaseModel):
 
 class SpendingAnalysisRequest(BaseModel):
     transactions: List[Dict[str, Any]]
+# Original Models
 class StatusCheck(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_name: str
