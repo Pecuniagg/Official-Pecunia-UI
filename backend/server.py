@@ -68,7 +68,66 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
-# Add your routes to the router instead of directly to app
+# AI Endpoints
+@api_router.post("/ai/chat")
+async def ai_chat(request: ChatMessage):
+    """AI chat endpoint for conversational assistance"""
+    try:
+        response = await pecunia_ai.generate_chat_response(
+            request.message, 
+            request.user_context
+        )
+        return {"response": response}
+    except Exception as e:
+        logger.error(f"AI chat error: {e}")
+        raise HTTPException(status_code=500, detail="AI service temporarily unavailable")
+
+@api_router.post("/ai/financial-insights")
+async def get_financial_insights(request: FinancialInsightRequest):
+    """Generate comprehensive financial insights"""
+    try:
+        user_data = request.dict()
+        insights = await pecunia_ai.get_financial_insights(user_data)
+        return insights
+    except Exception as e:
+        logger.error(f"Financial insights error: {e}")
+        raise HTTPException(status_code=500, detail="Unable to generate insights")
+
+@api_router.post("/ai/goal-strategy")
+async def get_goal_strategy(request: GoalStrategyRequest):
+    """Generate goal achievement strategy"""
+    try:
+        strategy = await pecunia_ai.generate_goal_strategy(
+            request.goal, 
+            request.user_context
+        )
+        return strategy
+    except Exception as e:
+        logger.error(f"Goal strategy error: {e}")
+        raise HTTPException(status_code=500, detail="Unable to generate strategy")
+
+@api_router.post("/ai/travel-plan")
+async def create_travel_plan(request: TravelPlanRequest):
+    """Generate personalized travel plans"""
+    try:
+        preferences = request.dict()
+        plan = await pecunia_ai.create_travel_plan(preferences)
+        return plan
+    except Exception as e:
+        logger.error(f"Travel plan error: {e}")
+        raise HTTPException(status_code=500, detail="Unable to create travel plan")
+
+@api_router.post("/ai/spending-analysis")
+async def analyze_spending(request: SpendingAnalysisRequest):
+    """Analyze spending patterns and trends"""
+    try:
+        analysis = await pecunia_ai.analyze_spending_patterns(request.transactions)
+        return analysis
+    except Exception as e:
+        logger.error(f"Spending analysis error: {e}")
+        raise HTTPException(status_code=500, detail="Unable to analyze spending")
+
+# Original endpoints
 @api_router.get("/")
 async def root():
     return {"message": "Hello World"}
