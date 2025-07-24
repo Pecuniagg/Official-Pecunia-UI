@@ -102,10 +102,10 @@ const Layout = ({ children }) => {
             
             <div className="flex items-center gap-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3b345b]" size={16} />
                 <Input 
                   placeholder="Search..." 
-                  className="pl-10 w-80 bg-gray-50 border-0 focus:bg-white transition-all duration-200"
+                  className="pl-10 w-80 bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-[#5945a3] transition-all duration-200"
                 />
               </div>
               
