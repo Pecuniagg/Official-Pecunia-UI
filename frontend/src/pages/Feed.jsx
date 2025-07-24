@@ -20,7 +20,7 @@ const Feed = () => {
   };
 
   const PopularTickers = () => (
-    <Card className="sticky top-4">
+    <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
       <CardHeader>
         <h3 className="font-semibold text-gray-900">Popular Tickers</h3>
       </CardHeader>
