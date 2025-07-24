@@ -27,7 +27,38 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 
-# Define Models
+# AI Models
+class ChatMessage(BaseModel):
+    message: str
+    user_context: Optional[Dict[str, Any]] = None
+
+class FinancialInsightRequest(BaseModel):
+    monthly_budget: Optional[float] = 5000
+    monthly_income: Optional[float] = 6500
+    monthly_expenses: Optional[float] = 3750
+    savings_rate: Optional[float] = 23
+    pecunia_score: Optional[int] = 782
+    total_assets: Optional[float] = 56000
+    total_liabilities: Optional[float] = 10000
+    emergency_fund: Optional[float] = 8500
+    age: Optional[int] = 28
+    expenses: Optional[Dict[str, Any]] = {}
+    goals: Optional[List[Dict[str, Any]]] = []
+
+class GoalStrategyRequest(BaseModel):
+    goal: Dict[str, Any]
+    user_context: Dict[str, Any]
+
+class TravelPlanRequest(BaseModel):
+    budget: Optional[float] = 1500
+    duration: Optional[str] = "3 days"
+    location: Optional[str] = "flexible"
+    style: Optional[str] = "balanced"
+    interests: Optional[List[str]] = []
+    group_size: Optional[int] = 2
+
+class SpendingAnalysisRequest(BaseModel):
+    transactions: List[Dict[str, Any]]
 class StatusCheck(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_name: str
