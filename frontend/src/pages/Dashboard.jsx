@@ -13,7 +13,7 @@ const Dashboard = () => {
     <div className="space-y-8">
       {/* Hero Banner */}
       <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white">
-        <h1 className="text-3xl font-bold mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+        <h1 className="text-3xl font-bold text-[#0a0a0f]" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           My Financial Life Today
         </h1>
         <p className="text-lg opacity-90">
