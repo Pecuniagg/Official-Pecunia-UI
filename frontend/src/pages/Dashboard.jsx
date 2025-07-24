@@ -651,21 +651,22 @@ const Dashboard = () => {
       </div>
 
       {/* Interactive Recent Activity */}
-      <Card className="shadow-lg">
+      <Card className="shadow-lg card-refined animate-entrance animate-delay-4">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Recent Activity</CardTitle>
           <div className="flex items-center gap-2">
             <Tabs value={activityFilter} onValueChange={setActivityFilter} className="w-auto">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="income">Income</TabsTrigger>
-                <TabsTrigger value="expenses">Expenses</TabsTrigger>
+                <TabsTrigger value="all" className="btn-refined">All</TabsTrigger>
+                <TabsTrigger value="income" className="btn-refined">Income</TabsTrigger>
+                <TabsTrigger value="expenses" className="btn-refined">Expenses</TabsTrigger>
               </TabsList>
             </Tabs>
             <Button 
               variant="outline" 
               size="sm"
               onClick={() => toast({ title: "Add Transaction", description: "Recording new transaction..." })}
+              className="btn-refined focus-refined"
             >
               <Plus size={16} className="mr-1" />
               Add
@@ -677,7 +678,7 @@ const Dashboard = () => {
             {(showAllActivity ? filteredActivity : filteredActivity.slice(0, 5)).map((activity, index) => (
               <div 
                 key={index} 
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                className={`flex items-center justify-between p-4 bg-gray-50 rounded-lg hover-subtle cursor-pointer group animate-slide-left animate-delay-${index + 1}`}
                 onClick={() => toast({ 
                   title: "Transaction Details", 
                   description: `${activity.description} - ${activity.date} - Category: ${activity.amount > 0 ? 'Income' : 'Expense'}` 
@@ -697,7 +698,7 @@ const Dashboard = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity btn-refined"
                     onClick={(e) => {
                       e.stopPropagation();
                       toast({ title: "Edit Transaction", description: "Opening transaction editor..." });
@@ -711,10 +712,11 @@ const Dashboard = () => {
           </div>
           
           {filteredActivity.length > 5 && (
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 animate-scale-gentle animate-delay-6">
               <Button 
                 variant="outline" 
                 onClick={() => setShowAllActivity(!showAllActivity)}
+                className="btn-refined"
               >
                 {showAllActivity ? 'Show Less' : `Show All ${filteredActivity.length} Transactions`}
               </Button>
