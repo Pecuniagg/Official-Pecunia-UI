@@ -38,7 +38,8 @@ import {
   CheckCircle,
   AlertCircle,
   TrendingUp,
-  MoreHorizontal
+  MoreHorizontal,
+  Target
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 import { useToast } from '../hooks/use-toast';
