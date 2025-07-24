@@ -552,51 +552,59 @@ const Planner = () => {
     const isSaved = savedPlans.includes(plan.id);
     
     return (
-      <Card className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group overflow-hidden">
+      <Card className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group overflow-hidden hover-lift card-entrance">
         <div className="relative">
           <img 
             src={plan.image} 
             alt={plan.title}
-            className="w-full h-48 object-cover"
+            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute top-3 right-3 flex gap-2">
-            <Badge className="bg-white/90 text-gray-700">
+            <Badge className="bg-white/90 text-gray-700 animate-fade-in-down animate-stagger-1">
               {plan.vibe}
             </Badge>
             <Button
               variant="ghost"
               size="sm"
-              className={`bg-white/80 hover:bg-white ${isSaved ? 'text-red-500' : 'text-gray-600'} opacity-0 group-hover:opacity-100 transition-all`}
+              className={`bg-white/80 hover:bg-white ${isSaved ? 'text-red-500' : 'text-gray-600'} opacity-0 group-hover:opacity-100 transition-all hover-scale-small animate-wiggle`}
               onClick={() => handlePlanAction('like', plan.id, plan.title)}
             >
-              <Heart size={16} fill={isSaved ? 'currentColor' : 'none'} />
+              <Heart size={16} fill={isSaved ? 'currentColor' : 'none'} className="hover-bounce" />
             </Button>
           </div>
           <div className="absolute bottom-3 left-3">
-            <Badge className="bg-green-600 text-white">
+            <Badge className="bg-green-600 text-white animate-fade-in-up animate-stagger-2">
               ${plan.estimatedBudget}
             </Badge>
           </div>
+          {plan.aiGenerated && (
+            <div className="absolute top-3 left-3">
+              <Badge className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white animate-glow">
+                <Sparkles size={12} className="mr-1" />
+                AI
+              </Badge>
+            </div>
+          )}
         </div>
         
         <CardContent className="p-6">
-          <h3 className="font-bold text-lg mb-2">{plan.title}</h3>
-          <p className="text-gray-600 text-sm mb-4">{plan.description}</p>
+          <h3 className="font-bold text-lg mb-2 animate-fade-in-up animate-stagger-3">{plan.title}</h3>
+          <p className="text-gray-600 text-sm mb-4 animate-fade-in-up animate-stagger-4">{plan.description}</p>
           
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 animate-fade-in-up animate-stagger-5">
             <div className="flex items-center gap-2">
-              <MapPin size={14} className="text-gray-500" />
+              <MapPin size={14} className="text-gray-500 hover-scale-small transition-transform duration-200" />
               <span className="text-sm text-gray-600">Location varies</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock size={14} className="text-gray-500" />
+              <Clock size={14} className="text-gray-500 hover-scale-small transition-transform duration-200" />
               <span className="text-sm text-gray-600">2-3 days</span>
             </div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 animate-fade-in-up animate-stagger-6">
             <Button 
-              className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f]"
+              className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-ripple hover-lift"
               onClick={() => setSelectedPlan(plan)}
             >
               <Eye size={14} className="mr-1" />
@@ -606,7 +614,7 @@ const Planner = () => {
               variant="outline" 
               size="sm"
               onClick={() => handlePlanAction('save', plan.id, plan.title)}
-              className={isSaved ? 'bg-blue-50 border-blue-200' : ''}
+              className={`hover-scale-small btn-ripple ${isSaved ? 'bg-blue-50 border-blue-200 success-bounce' : ''}`}
             >
               <Bookmark size={14} fill={isSaved ? 'currentColor' : 'none'} />
             </Button>
@@ -614,6 +622,7 @@ const Planner = () => {
               variant="outline" 
               size="sm"
               onClick={() => handlePlanAction('share', plan.id, plan.title)}
+              className="hover-scale-small btn-ripple"
             >
               <Share2 size={14} />
             </Button>
