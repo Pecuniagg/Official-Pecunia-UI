@@ -110,9 +110,9 @@ const Layout = ({ children }) => {
                 />
               </div>
               
-              <Button variant="ghost" size="sm" className="relative hover:bg-gray-50 hover-scale-small btn-ripple">
-                <Bell size={20} className="text-[#3b345b] transition-colors duration-200" />
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-[#b37e91] rounded-full animate-pulse-soft"></span>
+              <Button variant="ghost" size="sm" className="relative hover:bg-gray-50 btn-refined focus-refined">
+                <Bell size={20} className="text-[#3b345b] icon-refined" />
+                <span className="absolute -top-1 -right-1 h-3 w-3 bg-[#b37e91] rounded-full notification-refined"></span>
               </Button>
               
               <Avatar className="h-8 w-8 hover-scale-small transition-transform duration-200">
