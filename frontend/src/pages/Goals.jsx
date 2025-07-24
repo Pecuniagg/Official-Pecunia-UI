@@ -34,7 +34,6 @@ import {
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 import { useToast } from '../hooks/use-toast';
-import { format } from 'date-fns';
 
 const Goals = () => {
   const [viewMode, setViewMode] = useState('grid');
