@@ -64,7 +64,7 @@ const Layout = ({ children }) => {
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                         isActive(item.href)
                           ? "bg-[#5945a3] text-white shadow-lg transform scale-105"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                          : "text-[#3b345b] hover:bg-gray-50 hover:text-[#0a0a0f]"
                       }`}
                     >
                       <Icon size={20} />
