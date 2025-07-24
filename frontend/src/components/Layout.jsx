@@ -21,6 +21,7 @@ import { Input } from "./ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Toaster } from "./ui/toaster";
 import AIAssistant from "./AIAssistant";
 import QuickActionPanel from "./QuickActionPanel";
 
