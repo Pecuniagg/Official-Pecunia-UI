@@ -126,10 +126,10 @@ const Feed = () => {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           Feed
         </h1>
-        <p className="text-gray-600">The social finance stream</p>
+        <p className="text-[#3b345b]">The social finance stream</p>
       </div>
 
       <div className="grid grid-cols-12 gap-8">
