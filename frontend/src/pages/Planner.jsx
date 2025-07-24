@@ -186,10 +186,10 @@ const Planner = () => {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           AI Planner
         </h1>
-        <p className="text-gray-600">Let AI plan your perfect experiences within your budget</p>
+        <p className="text-[#3b345b]">Let AI plan your perfect experiences within your budget</p>
       </div>
 
       {/* AI Summary Banner */}
