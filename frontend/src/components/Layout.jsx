@@ -146,6 +146,9 @@ const Layout = ({ children }) => {
       
       {/* Quick Action Panel */}
       <QuickActionPanel isOpen={showQuickActions} onClose={() => setShowQuickActions(false)} />
+      
+      {/* Toast Notifications */}
+      <Toaster />
     </div>
   );
 };
