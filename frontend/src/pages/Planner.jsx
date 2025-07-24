@@ -53,7 +53,7 @@ const Planner = () => {
             <img 
               src={plan.image} 
               alt={plan.title}
-              className="w-full h-64 object-cover rounded-lg"
+              className="w-full h-64 object-cover rounded-lg shadow-md"
             />
 
             <div className="grid grid-cols-2 gap-4">
