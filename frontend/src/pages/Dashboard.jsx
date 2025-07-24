@@ -1,9 +1,150 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
-import { TrendingUp, TrendingDown, DollarSign, PiggyBank, CreditCard, Target } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
+import { 
+  TrendingUp, 
+  TrendingDown, 
+  DollarSign, 
+  PiggyBank, 
+  CreditCard, 
+  Target,
+  Edit,
+  Plus,
+  Filter,
+  Eye,
+  MoreHorizontal,
+  AlertCircle,
+  CheckCircle,
+  ArrowUpRight
+} from "lucide-react";
 import { mockData } from "../data/mockData";
 import PieChartComponent from "../components/charts/PieChart";
+import { useToast } from "../hooks/use-toast";
+
+const Dashboard = () => {
+  const { dashboard, pecuniaScore } = mockData;
+  const { toast } = useToast();
+  
+  // State for interactive features
+  const [selectedChart, setSelectedChart] = useState(null);
+  const [budgetEdit, setBudgetEdit] = useState(false);
+  const [monthlyBudget, setMonthlyBudget] = useState(5000);
+  const [activityFilter, setActivityFilter] = useState('all');
+  const [showAllActivity, setShowAllActivity] = useState(false);
+
+  // Interactive handlers
+  const handleChartClick = (chartType, data) => {
+    setSelectedChart({ type: chartType, data });
+  };
+
+  const handleBudgetSave = () => {
+    setBudgetEdit(false);
+    toast({
+      title: "Budget Updated!",
+      description: `Monthly budget set to $${monthlyBudget.toLocaleString()}`,
+    });
+  };
+
+  const handleInsightAction = (action) => {
+    switch(action) {
+      case 'emergency_fund':
+        toast({
+          title: "Goal Updated!",
+          description: "Added $2,750 to Emergency Fund goal",
+        });
+        break;
+      case 'dining_alert':
+        toast({
+          title: "Budget Alert Set!",
+          description: "You'll get notified when dining expenses exceed 20%",
+        });
+        break;
+      default:
+        toast({
+          title: "Action Complete!",
+          description: "Your request has been processed",
+        });
+    }
+  };
+
+  const ChartDetailModal = ({ chart, onClose }) => (
+    <Dialog open={!!chart} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <BarChart3 className="text-[#5945a3]" size={20} />
+            {chart?.type} Breakdown
+          </DialogTitle>
+        </DialogHeader>
+        
+        {chart && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-semibold mb-4">Category Details</h3>
+                <div className="space-y-3">
+                  {chart.data.map((item, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div 
+                          className="w-4 h-4 rounded-full"
+                          style={{ backgroundColor: ['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f'][index] }}
+                        />
+                        <span className="font-medium">{item.name}</span>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-semibold">${item.value.toLocaleString()}</div>
+                        <div className="text-sm text-gray-500">{item.percentage}%</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold mb-4">Quick Actions</h3>
+                <div className="space-y-2">
+                  <Button className="w-full justify-start" variant="outline">
+                    <Edit size={16} className="mr-2" />
+                    Edit Categories
+                  </Button>
+                  <Button className="w-full justify-start" variant="outline">
+                    <Plus size={16} className="mr-2" />
+                    Add New Category
+                  </Button>
+                  <Button className="w-full justify-start" variant="outline">
+                    <Filter size={16} className="mr-2" />
+                    Set Category Budget
+                  </Button>
+                  <Button className="w-full justify-start" variant="outline">
+                    <Eye size={16} className="mr-2" />
+                    View Trends
+                  </Button>
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <h4 className="font-medium text-[#1e1b24] mb-2">💡 AI Insight</h4>
+              <p className="text-sm text-[#1e1b24]">
+                Based on your {chart.type.toLowerCase()} patterns, you could save $150/month by optimizing your largest category. 
+                Would you like personalized recommendations?
+              </p>
+              <Button size="sm" className="mt-3 bg-[#5945a3] hover:bg-[#4a3d8f]">
+                Get Recommendations
+              </Button>
+            </div>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
 
 
 const Dashboard = () => {
