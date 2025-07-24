@@ -246,7 +246,7 @@ const Planner = () => {
     setShowBookingModal(null);
   };
 
-  const filteredPlans = plans.filter(plan => {
+  const filteredPlans = [...plans, ...aiGeneratedPlans].filter(plan => {
     const matchesFilter = activeFilter === 'All' || plan.vibe === activeFilter;
     const matchesBudget = budgetRange === 'all' || 
       (budgetRange === '$0-1K' && plan.estimatedBudget <= 1000) ||
