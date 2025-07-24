@@ -446,21 +446,21 @@ const Dashboard = () => {
         {/* Right Column */}
         <div className="col-span-3 space-y-8">
           {/* Interactive Pecunia Score */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift card-entrance">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Pecunia Score</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Score History", description: "Viewing score improvement tips..." })}
-                className="text-[#5945a3] hover:bg-purple-50"
+                className="text-[#5945a3] hover:bg-purple-50 hover-scale-small"
               >
                 <Eye size={16} />
               </Button>
             </CardHeader>
             <CardContent className="text-center">
               <div 
-                className="relative w-32 h-32 mx-auto mb-4 cursor-pointer hover:scale-105 transition-transform"
+                className="relative w-32 h-32 mx-auto mb-4 cursor-pointer hover-scale transition-transform duration-300 animate-morphing"
                 onClick={() => toast({ title: "Score Breakdown", description: "Credit: 780, Savings: 795, Debt Ratio: 770" })}
               >
                 <svg className="w-32 h-32 transform -rotate-90">
@@ -481,6 +481,7 @@ const Dashboard = () => {
                     fill="none"
                     strokeDasharray={`${(pecuniaScore.current / 100) * 351.86} 351.86`}
                     strokeLinecap="round"
+                    className="progress-animate"
                   />
                   <defs>
                     <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -490,16 +491,16 @@ const Dashboard = () => {
                   </defs>
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-bold">{pecuniaScore.current}</span>
+                  <span className="text-3xl font-bold counter-animate">{pecuniaScore.current}</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mb-3">
+              <p className="text-sm text-gray-600 mb-3 animate-fade-in-up animate-stagger-3">
                 +{pecuniaScore.change} from last month
               </p>
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="w-full"
+                className="w-full hover-bounce btn-ripple"
                 onClick={() => toast({ title: "Improvement Plan", description: "3 steps to reach 800+ score" })}
               >
                 Improve Score
