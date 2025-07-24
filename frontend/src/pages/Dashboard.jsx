@@ -314,33 +314,34 @@ const Dashboard = () => {
         {/* Center Column */}
         <div className="col-span-3 space-y-8">
           {/* Interactive Budget Summary */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="shadow-lg card-refined">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Budget Summary</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => setBudgetEdit(!budgetEdit)}
-                className="text-[#5945a3] hover:bg-purple-50"
+                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
               >
                 <Edit size={16} />
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
               {budgetEdit ? (
-                <div className="space-y-3">
+                <div className="space-y-3 animate-scale-gentle">
                   <Label htmlFor="budget">Monthly Budget</Label>
                   <Input
                     id="budget"
                     type="number"
                     value={monthlyBudget}
                     onChange={(e) => setMonthlyBudget(Number(e.target.value))}
+                    className="input-refined focus-refined"
                   />
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f]">
+                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined">
                       Save
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)}>
+                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)} className="btn-refined">
                       Cancel
                     </Button>
                   </div>
@@ -355,12 +356,14 @@ const Dashboard = () => {
                     <span className="text-sm text-gray-600">Spent</span>
                     <span className="font-semibold text-[#b37e91]">$3,750</span>
                   </div>
-                  <Progress value={75} className="w-full" />
+                  <div className="progress-refined">
+                    <Progress value={75} className="w-full" />
+                  </div>
                   <div className="text-sm text-gray-600">75% of budget used</div>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="w-full"
+                    className="w-full btn-refined"
                     onClick={() => toast({ title: "Budget Alert", description: "Alert set for 90% budget usage" })}
                   >
                     Set Alert
@@ -371,14 +374,14 @@ const Dashboard = () => {
           </Card>
 
           {/* Interactive Cash Flow */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="shadow-lg card-refined">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Cash Flow</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Cash Flow Details", description: "Opening detailed cash flow analysis..." })}
-                className="text-[#5945a3] hover:bg-purple-50"
+                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
               >
                 <ArrowUpRight size={16} />
               </Button>
@@ -407,7 +410,7 @@ const Dashboard = () => {
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="w-full"
+                className="w-full btn-refined"
                 onClick={() => toast({ title: "Investment Suggestion", description: "Consider investing your surplus in index funds" })}
               >
                 Optimize Surplus
@@ -416,14 +419,14 @@ const Dashboard = () => {
           </Card>
 
           {/* Financial Streams */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="shadow-lg card-refined">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Income Streams</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Add Income", description: "Adding new income source..." })}
-                className="text-[#5945a3] hover:bg-purple-50"
+                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
               >
                 <Plus size={16} />
               </Button>
@@ -432,7 +435,7 @@ const Dashboard = () => {
               {dashboard.incomeStreams.map((stream, index) => (
                 <div 
                   key={index} 
-                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer"
+                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer hover-subtle"
                   onClick={() => toast({ title: `${stream.source} Details`, description: "Opening income stream details..." })}
                 >
                   <span className="text-sm text-gray-600">{stream.source}</span>
