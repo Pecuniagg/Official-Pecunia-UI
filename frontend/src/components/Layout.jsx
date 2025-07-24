@@ -47,28 +47,28 @@ const Layout = ({ children }) => {
       <div className="fixed inset-y-0 left-0 w-[280px] bg-white border-r border-gray-100">
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="p-8">
-            <h1 className="text-2xl font-bold tracking-tight" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+          <div className="p-8 animate-fade-in-down">
+            <h1 className="text-2xl font-bold tracking-tight hover-glow transition-all duration-300" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
               Pecunia
             </h1>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-6">
+          <nav className="flex-1 px-6 animate-fade-in-left animate-stagger-2">
             <ul className="space-y-2">
-              {navigation.map((item) => {
+              {navigation.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <li key={item.name}>
+                  <li key={item.name} className={`animate-fade-in-left animate-stagger-${index + 1}`}>
                     <Link
                       to={item.href}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 nav-item hover-lift ${
                         isActive(item.href)
-                          ? "bg-[#5945a3] text-white shadow-lg transform scale-105"
-                          : "text-[#3b345b] hover:bg-gray-50 hover:text-[#0a0a0f]"
+                          ? "bg-[#5945a3] text-white shadow-lg transform scale-105 animate-glow"
+                          : "text-[#3b345b] hover:bg-gray-50 hover:text-[#0a0a0f] hover-scale-small"
                       }`}
                     >
-                      <Icon size={20} />
+                      <Icon size={20} className="hover-scale-small transition-transform duration-200" />
                       {item.name}
                     </Link>
                   </li>
