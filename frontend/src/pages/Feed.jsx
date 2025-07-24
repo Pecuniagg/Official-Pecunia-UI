@@ -42,7 +42,7 @@ const Feed = () => {
   );
 
   const Associates = () => (
-    <Card className="sticky top-4">
+    <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
       <CardHeader>
         <h3 className="font-semibold text-gray-900">Your Associates</h3>
       </CardHeader>
