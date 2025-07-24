@@ -579,23 +579,23 @@ const Goals = () => {
   });
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-entrance">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center animate-entrance-down">
         <div>
-          <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+          <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2 animate-slide-left" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
             Goals
           </h1>
-          <p className="text-[#3b345b] mt-2">Track your financial objectives and milestones</p>
+          <p className="text-[#3b345b] mt-2 animate-slide-left animate-delay-1">Track your financial objectives and milestones</p>
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 animate-slide-right animate-delay-2">
           <div className="flex bg-gray-100 rounded-lg p-1">
             <Button
               variant={viewMode === 'grid' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('grid')}
-              className={viewMode === 'grid' ? 'bg-white shadow-sm' : ''}
+              className={viewMode === 'grid' ? 'bg-white shadow-sm btn-refined' : 'btn-refined focus-refined'}
             >
               Grid
             </Button>
@@ -603,16 +603,16 @@ const Goals = () => {
               variant={viewMode === 'table' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('table')}
-              className={viewMode === 'table' ? 'bg-white shadow-sm' : ''}
+              className={viewMode === 'table' ? 'bg-white shadow-sm btn-refined' : 'btn-refined focus-refined'}
             >
               Table
             </Button>
           </div>
           <Button 
-            className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90"
+            className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
             onClick={() => setShowNewGoal(true)}
           >
-            <Plus size={16} className="mr-2" />
+            <Plus size={16} className="mr-2 icon-refined" />
             New Goal
           </Button>
         </div>
