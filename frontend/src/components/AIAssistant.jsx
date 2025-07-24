@@ -58,13 +58,13 @@ const AIAssistant = ({ isOpen, onClose }) => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-[420px] p-0 flex flex-col">
-        <SheetHeader className="p-6 border-b">
+      <SheetContent side="right" className="w-[420px] p-0 flex flex-col animate-slide-in-bottom">
+        <SheetHeader className="p-6 border-b animate-fade-in-down">
           <SheetTitle className="flex items-center gap-2">
-            <Bot className="text-[#5945a3]" size={24} />
+            <Bot className="text-[#5945a3] animate-pulse-soft" size={24} />
             Pecunia AI Assistant
           </SheetTitle>
-          <p className="text-sm text-gray-600 text-left">
+          <p className="text-sm text-gray-600 text-left animate-fade-in-up animate-stagger-1">
             Your personal financial advisor powered by AI
           </p>
         </SheetHeader>
@@ -72,13 +72,13 @@ const AIAssistant = ({ isOpen, onClose }) => {
         {/* Messages */}
         <div id="ai-chat-messages" className="flex-1 overflow-y-auto p-6 space-y-4">
           {chatHistory.length === 0 && (
-            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 animate-scale-in">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Bot className="text-[#5945a3]" size={16} />
+                  <Bot className="text-[#5945a3] animate-bounce-soft" size={16} />
                   <span className="font-medium">Welcome!</span>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-gray-700 animate-fade-in-up animate-stagger-1">
                   Hi! I'm Pecunia AI. I can help you with budgeting, investment advice, goal planning, 
                   and personalized financial insights based on your data. What would you like to know?
                 </p>
@@ -86,15 +86,16 @@ const AIAssistant = ({ isOpen, onClose }) => {
             </Card>
           )}
 
-          {chatHistory.map((msg) => (
+          {chatHistory.map((msg, index) => (
             <div
               key={msg.id}
-              className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} ai-insight animate-fade-in-up`}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <Card className={`max-w-[80%] ${
+              <Card className={`max-w-[80%] hover-scale-small transition-transform duration-200 ${
                 msg.type === 'user' 
-                  ? 'bg-[#5945a3] text-white' 
-                  : 'bg-gray-50 border-gray-200'
+                  ? 'bg-[#5945a3] text-white animate-fade-in-right' 
+                  : 'bg-gray-50 border-gray-200 animate-fade-in-left'
               }`}>
                 <CardContent className="p-3">
                   <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
@@ -108,7 +109,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
 
           {isTyping && (
             <div className="flex justify-start">
-              <Card className="bg-gray-50 border-gray-200">
+              <Card className="bg-gray-50 border-gray-200 animate-scale-in">
                 <CardContent className="p-3">
                   <div className="flex items-center gap-2">
                     <Loader2 className="animate-spin" size={16} />
