@@ -241,3 +241,5 @@
 ## agent_communication:
   - agent: "main"
     message: "Application is fully deployed and running. All services (backend:8001, frontend:3000, mongodb) are operational. OpenAI API key configured. Ready for user requirements and enhancements."
+  - agent: "main"
+    message: "ANIMATION REFINEMENT COMPLETE: Completely overhauled animation system to be more intentional, seamless, and natural. Removed ALL pulsating animations and replaced with strategic, hardware-accelerated animations using cubic-bezier easing curves. Updated all major components including Dashboard, Goals, Planner, Layout, and AIAssistant. Animations now respect user preferences and are accessibility compliant."
