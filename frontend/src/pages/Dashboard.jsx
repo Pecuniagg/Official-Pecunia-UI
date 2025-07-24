@@ -509,49 +509,93 @@ const Dashboard = () => {
 
           {/* Interactive AI Insights */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-gray-50 to-white">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <Target className="text-[#5945a3]" size={20} />
                 AI Insights
               </CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => getInsights()}
+                disabled={aiLoading}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                {aiLoading ? <Loader2 className="animate-spin" size={16} /> : <Sparkles size={16} />}
+              </Button>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                <p className="text-sm text-[#1e1b24] mb-2">
-                  💡 Consider investing your surplus $2,750 in your emergency fund
-                </p>
-                <Button 
-                  size="xs" 
-                  className="bg-[#5945a3] hover:bg-[#4a3d8f]"
-                  onClick={() => handleInsightAction('emergency_fund')}
-                >
-                  Do It
-                </Button>
-              </div>
-              <div className="p-3 bg-green-50 rounded-lg border border-green-100">
-                <p className="text-sm text-[#1e1b24] mb-2">
-                  🎯 You're 15% ahead of your savings goal this month
-                </p>
-                <Button 
-                  size="xs" 
-                  variant="outline"
-                  onClick={() => toast({ title: "Goal Progress", description: "Opening savings goal details..." })}
-                >
-                  View Goal
-                </Button>
-              </div>
-              <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100">
-                <p className="text-sm text-[#1e1b24] mb-2">
-                  ⚠️ Dining expenses increased by 25% this month
-                </p>
-                <Button 
-                  size="xs" 
-                  variant="outline"
-                  onClick={() => handleInsightAction('dining_alert')}
-                >
-                  Set Alert
-                </Button>
-              </div>
+              {aiLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="animate-spin mr-2" size={20} />
+                  <span className="text-gray-600">AI is analyzing your finances...</span>
+                </div>
+              ) : aiInsights?.insights ? (
+                aiInsights.insights.slice(0, 3).map((insight, index) => (
+                  <div key={index} className={`p-3 rounded-lg border ${
+                    insight.type === 'success' ? 'bg-green-50 border-green-100' : 
+                    insight.type === 'warning' ? 'bg-yellow-50 border-yellow-100' : 
+                    'bg-blue-50 border-blue-100'
+                  }`}>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <p className="text-sm text-[#1e1b24] mb-2">
+                          {insight.type === 'success' ? '✅' : insight.type === 'warning' ? '⚠️' : '💡'} {insight.description}
+                        </p>
+                        {insight.action && (
+                          <Button 
+                            size="xs" 
+                            className="bg-[#5945a3] hover:bg-[#4a3d8f]"
+                            onClick={() => handleInsightAction(insight.type)}
+                          >
+                            {insight.action}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Fallback to mock data
+                <>
+                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
+                    <p className="text-sm text-[#1e1b24] mb-2">
+                      💡 Consider investing your surplus $2,750 in your emergency fund
+                    </p>
+                    <Button 
+                      size="xs" 
+                      className="bg-[#5945a3] hover:bg-[#4a3d8f]"
+                      onClick={() => handleInsightAction('emergency_fund')}
+                    >
+                      Do It
+                    </Button>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-lg border border-green-100">
+                    <p className="text-sm text-[#1e1b24] mb-2">
+                      🎯 You're 15% ahead of your savings goal this month
+                    </p>
+                    <Button 
+                      size="xs" 
+                      variant="outline"
+                      onClick={() => toast({ title: "Goal Progress", description: "Opening savings goal details..." })}
+                    >
+                      View Goal
+                    </Button>
+                  </div>
+                  <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+                    <p className="text-sm text-[#1e1b24] mb-2">
+                      ⚠️ Dining expenses increased by 25% this month
+                    </p>
+                    <Button 
+                      size="xs" 
+                      variant="outline"
+                      onClick={() => handleInsightAction('dining_alert')}
+                    >
+                      Set Alert
+                    </Button>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
 
