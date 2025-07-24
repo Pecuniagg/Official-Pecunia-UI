@@ -121,12 +121,12 @@ const Profile = () => {
   return (
     <div className="space-y-8">
       {/* Profile Header */}
-      <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white">
+      <Card className="bg-gradient-to-r from-[#5945a3] via-[#b37e91] to-[#3b345b] text-white">
         <CardContent className="p-8">
           <div className="flex items-center gap-6">
             <Avatar className="h-20 w-20 border-4 border-white/20">
               <AvatarImage src="/api/placeholder/80/80" />
-              <AvatarFallback className="text-2xl">JD</AvatarFallback>
+              <AvatarFallback className="text-2xl bg-[#1e1b24] text-white">JD</AvatarFallback>
             </Avatar>
             <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">{profile.name}</h1>
