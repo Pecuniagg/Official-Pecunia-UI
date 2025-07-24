@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Progress } from "../components/ui/progress";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../components/ui/dialog";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
@@ -21,7 +21,8 @@ import {
   MoreHorizontal,
   AlertCircle,
   CheckCircle,
-  ArrowUpRight
+  ArrowUpRight,
+  BarChart3
 } from "lucide-react";
 import { mockData } from "../data/mockData";
 import PieChartComponent from "../components/charts/PieChart";
@@ -73,9 +74,16 @@ const Dashboard = () => {
     }
   };
 
+  const handleAccountAction = (accountName, action) => {
+    toast({
+      title: `${action} ${accountName}`,
+      description: `Account action completed successfully`,
+    });
+  };
+
   const ChartDetailModal = ({ chart, onClose }) => (
     <Dialog open={!!chart} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <BarChart3 className="text-[#5945a3]" size={20} />
@@ -90,7 +98,7 @@ const Dashboard = () => {
                 <h3 className="font-semibold mb-4">Category Details</h3>
                 <div className="space-y-3">
                   {chart.data.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                       <div className="flex items-center gap-3">
                         <div 
                           className="w-4 h-4 rounded-full"
@@ -110,19 +118,35 @@ const Dashboard = () => {
               <div>
                 <h3 className="font-semibold mb-4">Quick Actions</h3>
                 <div className="space-y-2">
-                  <Button className="w-full justify-start" variant="outline">
+                  <Button 
+                    className="w-full justify-start" 
+                    variant="outline"
+                    onClick={() => toast({ title: "Category Editor", description: "Opening category management..." })}
+                  >
                     <Edit size={16} className="mr-2" />
                     Edit Categories
                   </Button>
-                  <Button className="w-full justify-start" variant="outline">
+                  <Button 
+                    className="w-full justify-start" 
+                    variant="outline"
+                    onClick={() => toast({ title: "New Category", description: "Add new expense category..." })}
+                  >
                     <Plus size={16} className="mr-2" />
                     Add New Category
                   </Button>
-                  <Button className="w-full justify-start" variant="outline">
+                  <Button 
+                    className="w-full justify-start" 
+                    variant="outline"
+                    onClick={() => toast({ title: "Budget Limits", description: "Setting category budgets..." })}
+                  >
                     <Filter size={16} className="mr-2" />
                     Set Category Budget
                   </Button>
-                  <Button className="w-full justify-start" variant="outline">
+                  <Button 
+                    className="w-full justify-start" 
+                    variant="outline"
+                    onClick={() => toast({ title: "Trend Analysis", description: "Analyzing spending patterns..." })}
+                  >
                     <Eye size={16} className="mr-2" />
                     View Trends
                   </Button>
@@ -136,7 +160,11 @@ const Dashboard = () => {
                 Based on your {chart.type.toLowerCase()} patterns, you could save $150/month by optimizing your largest category. 
                 Would you like personalized recommendations?
               </p>
-              <Button size="sm" className="mt-3 bg-[#5945a3] hover:bg-[#4a3d8f]">
+              <Button 
+                size="sm" 
+                className="mt-3 bg-[#5945a3] hover:bg-[#4a3d8f]"
+                onClick={() => toast({ title: "AI Recommendations", description: "Generating personalized suggestions..." })}
+              >
                 Get Recommendations
               </Button>
             </div>
@@ -146,9 +174,12 @@ const Dashboard = () => {
     </Dialog>
   );
 
-
-const Dashboard = () => {
-  const { dashboard, pecuniaScore } = mockData;
+  const filteredActivity = dashboard.recentActivity.filter(activity => {
+    if (activityFilter === 'all') return true;
+    if (activityFilter === 'income') return activity.amount > 0;
+    if (activityFilter === 'expenses') return activity.amount < 0;
+    return true;
+  });
 
   return (
     <div className="space-y-8">
@@ -164,82 +195,158 @@ const Dashboard = () => {
 
       {/* Main Grid */}
       <div className="grid grid-cols-12 gap-8">
-        {/* Left Column - Charts */}
+        {/* Left Column - Interactive Charts */}
         <div className="col-span-6 space-y-8">
           {/* Expenses Chart */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <CreditCard className="text-[#5945a3]" size={20} />
                 Monthly Expenses
               </CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => handleChartClick('Expenses', dashboard.expenses)}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <Eye size={16} />
+              </Button>
             </CardHeader>
             <CardContent>
-              <PieChartComponent 
-                data={dashboard.expenses} 
-                colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
-              />
+              <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer">
+                <PieChartComponent 
+                  data={dashboard.expenses} 
+                  colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
+                />
+              </div>
             </CardContent>
           </Card>
 
           {/* Assets Chart */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <PiggyBank className="text-[#5945a3]" size={20} />
                 Assets Distribution
               </CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => handleChartClick('Assets', dashboard.assets)}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <Eye size={16} />
+              </Button>
             </CardHeader>
             <CardContent>
-              <PieChartComponent 
-                data={dashboard.assets} 
-                colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b']}
-              />
+              <div onClick={() => handleChartClick('Assets', dashboard.assets)} className="cursor-pointer">
+                <PieChartComponent 
+                  data={dashboard.assets} 
+                  colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b']}
+                />
+              </div>
             </CardContent>
           </Card>
 
           {/* Liabilities Chart */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <CreditCard className="text-[#b37e91]" size={20} />
                 Liabilities
               </CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => handleChartClick('Liabilities', dashboard.liabilities)}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <Eye size={16} />
+              </Button>
             </CardHeader>
             <CardContent>
-              <PieChartComponent 
-                data={dashboard.liabilities} 
-                colors={['#b37e91', '#3b345b', '#1e1b24']}
-              />
+              <div onClick={() => handleChartClick('Liabilities', dashboard.liabilities)} className="cursor-pointer">
+                <PieChartComponent 
+                  data={dashboard.liabilities} 
+                  colors={['#b37e91', '#3b345b', '#1e1b24']}
+                />
+              </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Center Column */}
         <div className="col-span-3 space-y-8">
-          {/* Budget Summary */}
+          {/* Interactive Budget Summary */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Budget Summary</CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setBudgetEdit(!budgetEdit)}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <Edit size={16} />
+              </Button>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Monthly Budget</span>
-                <span className="font-semibold">$5,000</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Spent</span>
-                <span className="font-semibold text-[#b37e91]">$3,750</span>
-              </div>
-              <Progress value={75} className="w-full" />
-              <div className="text-sm text-gray-600">75% of budget used</div>
+              {budgetEdit ? (
+                <div className="space-y-3">
+                  <Label htmlFor="budget">Monthly Budget</Label>
+                  <Input
+                    id="budget"
+                    type="number"
+                    value={monthlyBudget}
+                    onChange={(e) => setMonthlyBudget(Number(e.target.value))}
+                  />
+                  <div className="flex gap-2">
+                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f]">
+                      Save
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-gray-600">Monthly Budget</span>
+                    <span className="font-semibold">${monthlyBudget.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-gray-600">Spent</span>
+                    <span className="font-semibold text-[#b37e91]">$3,750</span>
+                  </div>
+                  <Progress value={75} className="w-full" />
+                  <div className="text-sm text-gray-600">75% of budget used</div>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => toast({ title: "Budget Alert", description: "Alert set for 90% budget usage" })}
+                  >
+                    Set Alert
+                  </Button>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          {/* Cash Flow */}
+          {/* Interactive Cash Flow */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Cash Flow</CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => toast({ title: "Cash Flow Details", description: "Opening detailed cash flow analysis..." })}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <ArrowUpRight size={16} />
+              </Button>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
@@ -262,17 +369,37 @@ const Dashboard = () => {
                   <span className="font-bold text-green-600">+$2,750</span>
                 </div>
               </div>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => toast({ title: "Investment Suggestion", description: "Consider investing your surplus in index funds" })}
+              >
+                Optimize Surplus
+              </Button>
             </CardContent>
           </Card>
 
           {/* Financial Streams */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Income Streams</CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => toast({ title: "Add Income", description: "Adding new income source..." })}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <Plus size={16} />
+              </Button>
             </CardHeader>
             <CardContent className="space-y-3">
               {dashboard.incomeStreams.map((stream, index) => (
-                <div key={index} className="flex justify-between items-center">
+                <div 
+                  key={index} 
+                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer"
+                  onClick={() => toast({ title: `${stream.source} Details`, description: "Opening income stream details..." })}
+                >
                   <span className="text-sm text-gray-600">{stream.source}</span>
                   <span className="font-medium">${stream.amount.toLocaleString()}</span>
                 </div>
@@ -283,13 +410,24 @@ const Dashboard = () => {
 
         {/* Right Column */}
         <div className="col-span-3 space-y-8">
-          {/* Pecunia Score */}
+          {/* Interactive Pecunia Score */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Pecunia Score</CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => toast({ title: "Score History", description: "Viewing score improvement tips..." })}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <Eye size={16} />
+              </Button>
             </CardHeader>
             <CardContent className="text-center">
-              <div className="relative w-32 h-32 mx-auto mb-4">
+              <div 
+                className="relative w-32 h-32 mx-auto mb-4 cursor-pointer hover:scale-105 transition-transform"
+                onClick={() => toast({ title: "Score Breakdown", description: "Credit: 780, Savings: 795, Debt Ratio: 770" })}
+              >
                 <svg className="w-32 h-32 transform -rotate-90">
                   <circle
                     cx="64"
@@ -320,13 +458,21 @@ const Dashboard = () => {
                   <span className="text-3xl font-bold">{pecuniaScore.current}</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 mb-3">
                 +{pecuniaScore.change} from last month
               </p>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => toast({ title: "Improvement Plan", description: "3 steps to reach 800+ score" })}
+              >
+                Improve Score
+              </Button>
             </CardContent>
           </Card>
 
-          {/* AI Snapshot */}
+          {/* Interactive AI Insights */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-gray-50 to-white">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -336,36 +482,82 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                <p className="text-sm text-[#1e1b24]">
+                <p className="text-sm text-[#1e1b24] mb-2">
                   💡 Consider investing your surplus $2,750 in your emergency fund
                 </p>
+                <Button 
+                  size="xs" 
+                  className="bg-[#5945a3] hover:bg-[#4a3d8f]"
+                  onClick={() => handleInsightAction('emergency_fund')}
+                >
+                  Do It
+                </Button>
               </div>
               <div className="p-3 bg-green-50 rounded-lg border border-green-100">
-                <p className="text-sm text-[#1e1b24]">
+                <p className="text-sm text-[#1e1b24] mb-2">
                   🎯 You're 15% ahead of your savings goal this month
                 </p>
+                <Button 
+                  size="xs" 
+                  variant="outline"
+                  onClick={() => toast({ title: "Goal Progress", description: "Opening savings goal details..." })}
+                >
+                  View Goal
+                </Button>
               </div>
               <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100">
-                <p className="text-sm text-[#1e1b24]">
+                <p className="text-sm text-[#1e1b24] mb-2">
                   ⚠️ Dining expenses increased by 25% this month
                 </p>
+                <Button 
+                  size="xs" 
+                  variant="outline"
+                  onClick={() => handleInsightAction('dining_alert')}
+                >
+                  Set Alert
+                </Button>
               </div>
             </CardContent>
           </Card>
 
-          {/* Quick Account Summary */}
+          {/* Interactive Account Summary */}
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Accounts</CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => toast({ title: "Add Account", description: "Connect new bank account..." })}
+                className="text-[#5945a3] hover:bg-purple-50"
+              >
+                <Plus size={16} />
+              </Button>
             </CardHeader>
             <CardContent className="space-y-3">
               {dashboard.accounts.map((account, index) => (
-                <div key={index} className="flex justify-between items-center">
+                <div 
+                  key={index} 
+                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer group"
+                  onClick={() => handleAccountAction(account.name, 'View')}
+                >
                   <div>
                     <p className="font-medium text-sm">{account.name}</p>
                     <p className="text-xs text-gray-500">{account.type}</p>
                   </div>
-                  <span className="font-semibold">${account.balance.toLocaleString()}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold">${Math.abs(account.balance).toLocaleString()}</span>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAccountAction(account.name, 'Manage');
+                      }}
+                    >
+                      <MoreHorizontal size={14} />
+                    </Button>
+                  </div>
                 </div>
               ))}
             </CardContent>
@@ -373,30 +565,84 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Recent Activity */}
+      {/* Interactive Recent Activity */}
       <Card className="shadow-lg">
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Recent Activity</CardTitle>
+          <div className="flex items-center gap-2">
+            <Tabs value={activityFilter} onValueChange={setActivityFilter} className="w-auto">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="income">Income</TabsTrigger>
+                <TabsTrigger value="expenses">Expenses</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => toast({ title: "Add Transaction", description: "Recording new transaction..." })}
+            >
+              <Plus size={16} className="mr-1" />
+              Add
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {dashboard.recentActivity.map((activity, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+            {(showAllActivity ? filteredActivity : filteredActivity.slice(0, 5)).map((activity, index) => (
+              <div 
+                key={index} 
+                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                onClick={() => toast({ 
+                  title: "Transaction Details", 
+                  description: `${activity.description} - ${activity.date} - Category: ${activity.amount > 0 ? 'Income' : 'Expense'}` 
+                })}
+              >
                 <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#5945a3] rounded-full"></div>
+                  <div className={`w-2 h-2 rounded-full ${activity.amount > 0 ? 'bg-green-500' : 'bg-[#5945a3]'}`}></div>
                   <div>
                     <p className="font-medium">{activity.description}</p>
                     <p className="text-sm text-gray-500">{activity.date}</p>
                   </div>
                 </div>
-                <span className={`font-semibold ${activity.amount > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                  {activity.amount > 0 ? '+' : ''}${Math.abs(activity.amount).toLocaleString()}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className={`font-semibold ${activity.amount > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                    {activity.amount > 0 ? '+' : ''}${Math.abs(activity.amount).toLocaleString()}
+                  </span>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toast({ title: "Edit Transaction", description: "Opening transaction editor..." });
+                    }}
+                  >
+                    <Edit size={14} />
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
+          
+          {filteredActivity.length > 5 && (
+            <div className="text-center mt-4">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowAllActivity(!showAllActivity)}
+              >
+                {showAllActivity ? 'Show Less' : `Show All ${filteredActivity.length} Transactions`}
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
+
+      {/* Chart Detail Modal */}
+      <ChartDetailModal 
+        chart={selectedChart} 
+        onClose={() => setSelectedChart(null)} 
+      />
     </div>
   );
 };
