@@ -81,9 +81,9 @@ const Layout = ({ children }) => {
           <div className="p-6 border-t border-gray-100 animate-fade-in-up animate-stagger-6">
             <Button
               onClick={() => setShowAI(true)}
-              className="w-full flex items-center gap-3 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 transition-all duration-300 hover-lift btn-ripple animate-pulse-soft"
+              className="w-full flex items-center gap-3 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
             >
-              <Bot size={20} className="animate-pulse-soft" />
+              <Bot size={20} className="icon-refined" />
               Ask Pecunia
             </Button>
           </div>
