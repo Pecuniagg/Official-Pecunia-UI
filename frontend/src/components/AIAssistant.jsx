@@ -123,7 +123,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
 
         {/* Suggested Prompts */}
         {chatHistory.length === 0 && !isTyping && (
-          <div className="px-6 pb-4">
+          <div className="px-6 pb-4 animate-fade-in-up animate-stagger-2">
             <p className="text-sm text-gray-600 mb-3">Try asking:</p>
             <div className="grid grid-cols-1 gap-2">
               {suggestedPrompts.map((prompt, index) => (
@@ -131,11 +131,11 @@ const AIAssistant = ({ isOpen, onClose }) => {
                   key={index}
                   variant="outline"
                   size="sm"
-                  className="justify-start text-left h-auto p-3 hover:bg-[#5945a3] hover:text-white transition-all"
+                  className={`justify-start text-left h-auto p-3 hover:bg-[#5945a3] hover:text-white transition-all hover-lift btn-ripple animate-fade-in-up animate-stagger-${index + 3}`}
                   onClick={() => handlePromptClick(prompt)}
                   disabled={isTyping}
                 >
-                  <Sparkles size={14} className="mr-2 flex-shrink-0" />
+                  <Sparkles size={14} className="mr-2 flex-shrink-0 hover-rotate transition-transform duration-200" />
                   <span className="text-xs">{prompt}</span>
                 </Button>
               ))}
@@ -145,8 +145,8 @@ const AIAssistant = ({ isOpen, onClose }) => {
 
         {/* Context Info */}
         {userProfile && (
-          <div className="px-6 pb-2">
-            <div className="text-xs text-gray-500 bg-gray-50 rounded p-2">
+          <div className="px-6 pb-2 animate-fade-in-up animate-stagger-4">
+            <div className="text-xs text-gray-500 bg-gray-50 rounded p-2 hover-scale-small transition-transform duration-200">
               <strong>Context:</strong> Pecunia Score: {userProfile.pecunia_score} | 
               Budget: ${userProfile.monthly_budget.toLocaleString()} | 
               Savings: {userProfile.savings_rate}%
@@ -155,30 +155,30 @@ const AIAssistant = ({ isOpen, onClose }) => {
         )}
 
         {/* Input */}
-        <div className="border-t p-4">
+        <div className="border-t p-4 animate-fade-in-up animate-stagger-5">
           <div className="flex gap-2">
             <Input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Ask Pecunia anything..."
               onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-              className="flex-1"
+              className="flex-1 input-focus"
               disabled={isTyping}
             />
             <Button 
               onClick={handleSend}
-              className="bg-[#5945a3] hover:bg-[#4a3d8f]"
+              className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-ripple hover-scale-small"
               size="sm"
               disabled={!message.trim() || isTyping}
             >
               {isTyping ? (
                 <Loader2 className="animate-spin" size={16} />
               ) : (
-                <Send size={16} />
+                <Send size={16} className="hover-bounce transition-transform duration-200" />
               )}
             </Button>
           </div>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-500 mt-2 animate-fade-in-up animate-stagger-6">
             Press Enter to send, Shift+Enter for new line
           </p>
         </div>
