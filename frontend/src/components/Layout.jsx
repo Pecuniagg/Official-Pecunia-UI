@@ -93,31 +93,31 @@ const Layout = ({ children }) => {
       {/* Main Content */}
       <div className="flex-1 ml-[280px]">
         {/* Top Bar */}
-        <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/80 backdrop-blur-md border-b border-gray-100 z-10">
+        <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/80 backdrop-blur-md border-b border-gray-100 z-10 animate-fade-in-down">
           <div className="flex items-center justify-between h-full px-8">
             <div className="flex items-center gap-6">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-xl font-semibold text-gray-900 animate-fade-in-right animate-stagger-1">
                 {navigation.find(nav => nav.href === location.pathname)?.name || "Dashboard"}
               </h2>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 animate-fade-in-left animate-stagger-2">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3b345b]" size={16} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3b345b] transition-colors duration-200" size={16} />
                 <Input 
                   placeholder="Search..." 
-                  className="pl-10 w-80 bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-[#5945a3] transition-all duration-200"
+                  className="pl-10 w-80 bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-[#5945a3] transition-all duration-200 input-focus hover-scale-small"
                 />
               </div>
               
-              <Button variant="ghost" size="sm" className="relative hover:bg-gray-50">
-                <Bell size={20} className="text-[#3b345b]" />
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-[#b37e91] rounded-full"></span>
+              <Button variant="ghost" size="sm" className="relative hover:bg-gray-50 hover-scale-small btn-ripple">
+                <Bell size={20} className="text-[#3b345b] transition-colors duration-200" />
+                <span className="absolute -top-1 -right-1 h-3 w-3 bg-[#b37e91] rounded-full animate-pulse-soft"></span>
               </Button>
               
-              <Avatar className="h-8 w-8">
+              <Avatar className="h-8 w-8 hover-scale-small transition-transform duration-200">
                 <AvatarImage src="/api/placeholder/32/32" />
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarFallback className="bg-[#5945a3] text-white">JD</AvatarFallback>
               </Avatar>
             </div>
           </div>
