@@ -134,10 +134,10 @@ const Goals = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+          <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
             Goals
           </h1>
-          <p className="text-gray-600 mt-2">Track your financial objectives and milestones</p>
+          <p className="text-[#3b345b] mt-2">Track your financial objectives and milestones</p>
         </div>
         
         <div className="flex items-center gap-4">
