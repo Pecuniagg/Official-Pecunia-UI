@@ -924,9 +924,19 @@ const Planner = () => {
 
       {/* Load More */}
       <div className="text-center">
-        <Button variant="outline" size="lg" className="px-8">
-          <Sparkles size={16} className="mr-2" />
-          Generate More Plans
+        <Button 
+          variant="outline" 
+          size="lg" 
+          className="px-8"
+          onClick={generateMoreAIPlans}
+          disabled={generatingPlan}
+        >
+          {generatingPlan ? (
+            <Loader2 className="animate-spin mr-2" size={16} />
+          ) : (
+            <Sparkles size={16} className="mr-2" />
+          )}
+          {generatingPlan ? 'Generating AI Plans...' : 'Generate More Plans'}
         </Button>
       </div>
 
