@@ -109,8 +109,8 @@ const Layout = ({ children }) => {
                 />
               </div>
               
-              <Button variant="ghost" size="sm" className="relative">
-                <Bell size={20} />
+              <Button variant="ghost" size="sm" className="relative hover:bg-gray-50">
+                <Bell size={20} className="text-[#3b345b]" />
                 <span className="absolute -top-1 -right-1 h-3 w-3 bg-[#b37e91] rounded-full"></span>
               </Button>
               
