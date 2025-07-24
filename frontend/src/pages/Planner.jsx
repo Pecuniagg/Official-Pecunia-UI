@@ -39,10 +39,12 @@ import {
   AlertCircle,
   TrendingUp,
   MoreHorizontal,
-  Target
+  Target,
+  Loader2
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 import { useToast } from '../hooks/use-toast';
+import { useAI } from '../contexts/AIContext';
 
 const Planner = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -54,6 +56,11 @@ const Planner = () => {
   const [budgetRange, setBudgetRange] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedPlans, setSavedPlans] = useState([]);
+  const [aiGeneratedPlans, setAiGeneratedPlans] = useState([]);
+  const [generatingPlan, setGeneratingPlan] = useState(false);
+  
+  // AI integration
+  const { createTravelPlan, userProfile } = useAI();
   
   // New plan state
   const [newPlan, setNewPlan] = useState({
