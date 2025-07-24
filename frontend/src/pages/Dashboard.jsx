@@ -233,23 +233,23 @@ const Dashboard = () => {
         {/* Left Column - Interactive Charts */}
         <div className="col-span-6 space-y-8">
           {/* Expenses Chart */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift card-entrance">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <CreditCard className="text-[#5945a3]" size={20} />
+                <CreditCard className="text-[#5945a3] hover-scale-small" size={20} />
                 Monthly Expenses
               </CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => handleChartClick('Expenses', dashboard.expenses)}
-                className="text-[#5945a3] hover:bg-purple-50"
+                className="text-[#5945a3] hover:bg-purple-50 hover-scale-small btn-ripple"
               >
                 <Eye size={16} />
               </Button>
             </CardHeader>
             <CardContent>
-              <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer">
+              <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer chart-enter">
                 <PieChartComponent 
                   data={dashboard.expenses} 
                   colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
