@@ -125,7 +125,7 @@ export const mockData = {
     {
       id: 1,
       title: 'Weekend Getaway to Napa Valley',
-      image: '/api/placeholder/300/200',
+      image: 'https://images.unsplash.com/photo-1701622420355-aabbe1901e81?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxuYXBhJTIwdmFsbGV5JTIwdmluZXlhcmR8ZW58MHx8fHwxNzUzMzkxNjAxfDA&ixlib=rb-4.1.0&q=85',
       estimatedBudget: 850,
       vibe: 'Relaxing',
       description: 'Wine tasting and scenic views'
@@ -133,7 +133,7 @@ export const mockData = {
     {
       id: 2,
       title: 'Tech Conference in Austin',
-      image: '/api/placeholder/300/200',
+      image: 'https://images.unsplash.com/photo-1560439514-0fc9d2cd5e1b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwY29uZmVyZW5jZSUyMGF1c3RpbnxlbnwwfHx8fDE3NTMzOTE2MDh8MA&ixlib=rb-4.1.0&q=85',
       estimatedBudget: 1200,
       vibe: 'Professional',
       description: 'Networking and learning opportunities'
@@ -141,7 +141,7 @@ export const mockData = {
     {
       id: 3,
       title: 'Family Reunion in Chicago',
-      image: '/api/placeholder/300/200',
+      image: 'https://images.unsplash.com/photo-1559939357-776190030f3b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxmYW1pbHklMjByZXVuaW9uJTIwY2hpY2Fnb3xlbnwwfHx8fDE3NTMzOTE2MTV8MA&ixlib=rb-4.1.0&q=85',
       estimatedBudget: 600,
       vibe: 'Family',
       description: 'Quality time with loved ones'
