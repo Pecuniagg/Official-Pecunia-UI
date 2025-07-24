@@ -560,27 +560,27 @@ const Planner = () => {
             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute top-3 right-3 flex gap-2">
-            <Badge className="bg-white/90 text-gray-700 animate-fade-in-down animate-stagger-1">
+            <Badge className="bg-white/90 text-gray-700 animate-scale-gentle animate-delay-1">
               {plan.vibe}
             </Badge>
             <Button
               variant="ghost"
               size="sm"
-              className={`bg-white/80 hover:bg-white ${isSaved ? 'text-red-500' : 'text-gray-600'} opacity-0 group-hover:opacity-100 transition-all hover-scale-small animate-wiggle`}
+              className={`bg-white/80 hover:bg-white ${isSaved ? 'text-red-500' : 'text-gray-600'} opacity-0 group-hover:opacity-100 transition-all btn-refined focus-refined`}
               onClick={() => handlePlanAction('like', plan.id, plan.title)}
             >
-              <Heart size={16} fill={isSaved ? 'currentColor' : 'none'} className="hover-bounce" />
+              <Heart size={16} fill={isSaved ? 'currentColor' : 'none'} className="icon-refined" />
             </Button>
           </div>
           <div className="absolute bottom-3 left-3">
-            <Badge className="bg-green-600 text-white animate-fade-in-up animate-stagger-2">
+            <Badge className="bg-green-600 text-white animate-scale-gentle animate-delay-2">
               ${plan.estimatedBudget}
             </Badge>
           </div>
           {plan.aiGenerated && (
             <div className="absolute top-3 left-3">
-              <Badge className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white animate-glow">
-                <Sparkles size={12} className="mr-1" />
+              <Badge className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white hover-glow">
+                <Sparkles size={12} className="mr-1 icon-refined" />
                 AI
               </Badge>
             </div>
@@ -588,33 +588,33 @@ const Planner = () => {
         </div>
         
         <CardContent className="p-6">
-          <h3 className="font-bold text-lg mb-2 animate-fade-in-up animate-stagger-3">{plan.title}</h3>
-          <p className="text-gray-600 text-sm mb-4 animate-fade-in-up animate-stagger-4">{plan.description}</p>
+          <h3 className="font-bold text-lg mb-2 animate-slide-left animate-delay-3">{plan.title}</h3>
+          <p className="text-gray-600 text-sm mb-4 animate-slide-left animate-delay-4">{plan.description}</p>
           
-          <div className="flex items-center justify-between mb-4 animate-fade-in-up animate-stagger-5">
+          <div className="flex items-center justify-between mb-4 animate-slide-left animate-delay-5">
             <div className="flex items-center gap-2">
-              <MapPin size={14} className="text-gray-500 hover-scale-small transition-transform duration-200" />
+              <MapPin size={14} className="text-gray-500 icon-refined" />
               <span className="text-sm text-gray-600">Location varies</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock size={14} className="text-gray-500 hover-scale-small transition-transform duration-200" />
+              <Clock size={14} className="text-gray-500 icon-refined" />
               <span className="text-sm text-gray-600">2-3 days</span>
             </div>
           </div>
 
-          <div className="flex gap-2 animate-fade-in-up animate-stagger-6">
+          <div className="flex gap-2 animate-slide-left animate-delay-6">
             <Button 
-              className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-ripple hover-lift"
+              className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined"
               onClick={() => setSelectedPlan(plan)}
             >
-              <Eye size={14} className="mr-1" />
+              <Eye size={14} className="mr-1 icon-refined" />
               View Details
             </Button>
             <Button 
               variant="outline" 
               size="sm"
               onClick={() => handlePlanAction('save', plan.id, plan.title)}
-              className={`hover-scale-small btn-ripple ${isSaved ? 'bg-blue-50 border-blue-200 success-bounce' : ''}`}
+              className={`btn-refined focus-refined ${isSaved ? 'bg-blue-50 border-blue-200 success-refined' : ''}`}
             >
               <Bookmark size={14} fill={isSaved ? 'currentColor' : 'none'} />
             </Button>
@@ -622,7 +622,7 @@ const Planner = () => {
               variant="outline" 
               size="sm"
               onClick={() => handlePlanAction('share', plan.id, plan.title)}
-              className="hover-scale-small btn-ripple"
+              className="btn-refined focus-refined"
             >
               <Share2 size={14} />
             </Button>
