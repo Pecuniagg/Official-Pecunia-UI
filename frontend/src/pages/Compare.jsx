@@ -240,10 +240,10 @@ const Compare = () => {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           Compare
         </h1>
-        <p className="text-gray-600">Learn from friends and benchmark against others</p>
+        <p className="text-[#3b345b]">Learn from friends and benchmark against others</p>
       </div>
 
       <Tabs defaultValue="friends" className="w-full">
