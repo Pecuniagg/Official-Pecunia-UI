@@ -489,18 +489,18 @@ const Goals = () => {
   );
 
   const PersonalGoalCard = ({ goal }) => (
-    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group hover-lift card-entrance">
+    <Card className="shadow-lg card-refined card-entrance group">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold animate-fade-in-up">{goal.title}</CardTitle>
+          <CardTitle className="text-lg font-semibold animate-slide-left">{goal.title}</CardTitle>
           <div className="flex items-center gap-1">
-            <Badge className={`${getStatusColor(goal.current, goal.target)} text-white animate-scale-in animate-stagger-1`}>
+            <Badge className={`${getStatusColor(goal.current, goal.target)} text-white animate-scale-gentle animate-delay-1`}>
               {goal.category}
             </Badge>
             <Button 
               variant="ghost" 
               size="sm" 
-              className="opacity-0 group-hover:opacity-100 transition-opacity hover-scale-small btn-ripple"
+              className="opacity-0 group-hover:opacity-100 transition-opacity btn-refined focus-refined"
               onClick={() => setShowGoalDetails(goal)}
             >
               <Eye size={14} />
@@ -509,51 +509,51 @@ const Goals = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-sm text-gray-600 animate-fade-in-up animate-stagger-2">{goal.description}</p>
+        <p className="text-sm text-gray-600 animate-slide-left animate-delay-2">{goal.description}</p>
         
         <div className="space-y-2">
-          <div className="flex justify-between text-sm animate-fade-in-up animate-stagger-3">
+          <div className="flex justify-between text-sm animate-slide-left animate-delay-3">
             <span>Progress</span>
-            <span className="font-semibold counter-animate">
+            <span className="font-semibold animate-counter">
               ${goal.current.toLocaleString()} / ${goal.target.toLocaleString()}
             </span>
           </div>
           <div 
-            className="cursor-pointer"
+            className="cursor-pointer progress-refined"
             onClick={() => setShowGoalDetails(goal)}
           >
-            <Progress value={getProgressPercentage(goal.current, goal.target)} className="h-2 progress-animate" />
+            <Progress value={getProgressPercentage(goal.current, goal.target)} className="h-2" />
           </div>
-          <div className="text-xs text-gray-500 animate-fade-in-up animate-stagger-4">
+          <div className="text-xs text-gray-500 animate-slide-left animate-delay-4">
             {getProgressPercentage(goal.current, goal.target).toFixed(1)}% complete
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-sm animate-fade-in-up animate-stagger-5">
+        <div className="flex items-center justify-between text-sm animate-slide-left animate-delay-5">
           <div className="flex items-center gap-1 text-gray-600">
-            <CalendarIcon size={14} className="hover-scale-small transition-transform duration-200" />
+            <CalendarIcon size={14} className="icon-refined" />
             <span>{formatDate(goal.deadline)}</span>
           </div>
           <div className="flex items-center gap-1 text-green-600">
-            <TrendingUp size={14} className="hover-scale-small transition-transform duration-200" />
-            <span className="counter-animate">${(goal.target - goal.current).toLocaleString()} to go</span>
+            <TrendingUp size={14} className="icon-refined" />
+            <span className="animate-counter">${(goal.target - goal.current).toLocaleString()} to go</span>
           </div>
         </div>
 
-        <div className="flex gap-2 animate-fade-in-up animate-stagger-6">
+        <div className="flex gap-2 animate-slide-left animate-delay-6">
           <Button 
-            className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-ripple hover-lift"
+            className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined"
             size="sm"
             onClick={() => setShowContribution(goal.id)}
           >
-            <Plus size={14} className="mr-1 hover-rotate transition-transform duration-200" />
+            <Plus size={14} className="mr-1 icon-refined" />
             Contribute
           </Button>
           <Button 
             variant="outline" 
             size="sm"
             onClick={() => handleGoalAction('share', goal.id, goal.title)}
-            className="hover-scale-small btn-ripple"
+            className="btn-refined focus-refined"
           >
             <Share2 size={14} />
           </Button>
@@ -561,7 +561,7 @@ const Goals = () => {
             variant="outline" 
             size="sm"
             onClick={() => handleGoalAction('edit', goal.id, goal.title)}
-            className="hover-scale-small btn-ripple"
+            className="btn-refined focus-refined"
           >
             <Edit size={14} />
           </Button>
