@@ -449,21 +449,21 @@ const Dashboard = () => {
         {/* Right Column */}
         <div className="col-span-3 space-y-8">
           {/* Interactive Pecunia Score */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift card-entrance">
+          <Card className="shadow-lg card-refined card-entrance">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Pecunia Score</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Score History", description: "Viewing score improvement tips..." })}
-                className="text-[#5945a3] hover:bg-purple-50 hover-scale-small"
+                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
               >
                 <Eye size={16} />
               </Button>
             </CardHeader>
             <CardContent className="text-center">
               <div 
-                className="relative w-32 h-32 mx-auto mb-4 cursor-pointer hover-scale transition-transform duration-300 animate-morphing"
+                className="relative w-32 h-32 mx-auto mb-4 cursor-pointer score-circle"
                 onClick={() => toast({ title: "Score Breakdown", description: "Credit: 780, Savings: 795, Debt Ratio: 770" })}
               >
                 <svg className="w-32 h-32 transform -rotate-90">
@@ -484,7 +484,7 @@ const Dashboard = () => {
                     fill="none"
                     strokeDasharray={`${(pecuniaScore.current / 100) * 351.86} 351.86`}
                     strokeLinecap="round"
-                    className="progress-animate"
+                    className="progress-circle"
                   />
                   <defs>
                     <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -494,16 +494,16 @@ const Dashboard = () => {
                   </defs>
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-bold counter-animate">{pecuniaScore.current}</span>
+                  <span className="text-3xl font-bold animate-counter">{pecuniaScore.current}</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mb-3 animate-fade-in-up animate-stagger-3">
+              <p className="text-sm text-gray-600 mb-3 animate-slide-left animate-delay-3">
                 +{pecuniaScore.change} from last month
               </p>
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="w-full hover-bounce btn-ripple"
+                className="w-full btn-refined"
                 onClick={() => toast({ title: "Improvement Plan", description: "3 steps to reach 800+ score" })}
               >
                 Improve Score
@@ -512,10 +512,10 @@ const Dashboard = () => {
           </Card>
 
           {/* Interactive AI Insights */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-gray-50 to-white">
+          <Card className="shadow-lg card-refined bg-gradient-to-br from-gray-50 to-white">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <Target className="text-[#5945a3]" size={20} />
+                <Target className="text-[#5945a3] icon-refined" size={20} />
                 AI Insights
               </CardTitle>
               <Button 
@@ -523,7 +523,7 @@ const Dashboard = () => {
                 size="sm"
                 onClick={() => getInsights()}
                 disabled={aiLoading}
-                className="text-[#5945a3] hover:bg-purple-50"
+                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
               >
                 {aiLoading ? <Loader2 className="animate-spin" size={16} /> : <Sparkles size={16} />}
               </Button>
@@ -536,7 +536,7 @@ const Dashboard = () => {
                 </div>
               ) : aiInsights?.insights ? (
                 aiInsights.insights.slice(0, 3).map((insight, index) => (
-                  <div key={index} className={`p-3 rounded-lg border ${
+                  <div key={index} className={`p-3 rounded-lg border animate-scale-gentle animate-delay-${index + 1} ${
                     insight.type === 'success' ? 'bg-green-50 border-green-100' : 
                     insight.type === 'warning' ? 'bg-yellow-50 border-yellow-100' : 
                     'bg-blue-50 border-blue-100'
@@ -549,7 +549,7 @@ const Dashboard = () => {
                         {insight.action && (
                           <Button 
                             size="xs" 
-                            className="bg-[#5945a3] hover:bg-[#4a3d8f]"
+                            className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined"
                             onClick={() => handleInsightAction(insight.type)}
                           >
                             {insight.action}
@@ -562,37 +562,39 @@ const Dashboard = () => {
               ) : (
                 // Fallback to mock data
                 <>
-                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
+                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-100 animate-scale-gentle animate-delay-1">
                     <p className="text-sm text-[#1e1b24] mb-2">
                       💡 Consider investing your surplus $2,750 in your emergency fund
                     </p>
                     <Button 
                       size="xs" 
-                      className="bg-[#5945a3] hover:bg-[#4a3d8f]"
+                      className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined"
                       onClick={() => handleInsightAction('emergency_fund')}
                     >
                       Do It
                     </Button>
                   </div>
-                  <div className="p-3 bg-green-50 rounded-lg border border-green-100">
+                  <div className="p-3 bg-green-50 rounded-lg border border-green-100 animate-scale-gentle animate-delay-2">
                     <p className="text-sm text-[#1e1b24] mb-2">
                       🎯 You're 15% ahead of your savings goal this month
                     </p>
                     <Button 
                       size="xs" 
                       variant="outline"
+                      className="btn-refined"
                       onClick={() => toast({ title: "Goal Progress", description: "Opening savings goal details..." })}
                     >
                       View Goal
                     </Button>
                   </div>
-                  <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+                  <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100 animate-scale-gentle animate-delay-3">
                     <p className="text-sm text-[#1e1b24] mb-2">
                       ⚠️ Dining expenses increased by 25% this month
                     </p>
                     <Button 
                       size="xs" 
                       variant="outline"
+                      className="btn-refined"
                       onClick={() => handleInsightAction('dining_alert')}
                     >
                       Set Alert
@@ -604,14 +606,14 @@ const Dashboard = () => {
           </Card>
 
           {/* Interactive Account Summary */}
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="shadow-lg card-refined">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Accounts</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Add Account", description: "Connect new bank account..." })}
-                className="text-[#5945a3] hover:bg-purple-50"
+                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
               >
                 <Plus size={16} />
               </Button>
@@ -620,7 +622,7 @@ const Dashboard = () => {
               {dashboard.accounts.map((account, index) => (
                 <div 
                   key={index} 
-                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer group"
+                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded hover-subtle cursor-pointer group"
                   onClick={() => handleAccountAction(account.name, 'View')}
                 >
                   <div>
@@ -632,7 +634,7 @@ const Dashboard = () => {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity btn-refined"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleAccountAction(account.name, 'Manage');
