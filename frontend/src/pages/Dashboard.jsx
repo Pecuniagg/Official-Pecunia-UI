@@ -4,7 +4,7 @@ import { Progress } from "../components/ui/progress";
 import { TrendingUp, TrendingDown, DollarSign, PiggyBank, CreditCard, Target } from "lucide-react";
 import { mockData } from "../data/mockData";
 import PieChartComponent from "../components/charts/PieChart";
-import LineChartComponent from "../components/charts/LineChart";
+
 
 const Dashboard = () => {
   const { dashboard, pecuniaScore } = mockData;
