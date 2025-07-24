@@ -217,19 +217,19 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 page-enter">
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white">
-        <h1 className="text-3xl font-bold text-[#0a0a0f]" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+      <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white animate-fade-in-down">
+        <h1 className="text-3xl font-bold text-[#0a0a0f] animate-fade-in-up animate-stagger-1" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           My Financial Life Today
         </h1>
-        <p className="text-lg opacity-90">
+        <p className="text-lg opacity-90 animate-fade-in-up animate-stagger-2">
           AI Summary: You're on track with your savings goals. Consider increasing your emergency fund allocation.
         </p>
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-12 gap-8">
+      <div className="grid grid-cols-12 gap-8 staggered-grid">
         {/* Left Column - Interactive Charts */}
         <div className="col-span-6 space-y-8">
           {/* Expenses Chart */}
