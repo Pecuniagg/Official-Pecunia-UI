@@ -194,18 +194,18 @@ const Dashboard = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="text-sm text-blue-800">
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
+                <p className="text-sm text-[#1e1b24]">
                   💡 Consider investing your surplus $2,750 in your emergency fund
                 </p>
               </div>
-              <div className="p-3 bg-green-50 rounded-lg">
-                <p className="text-sm text-green-800">
+              <div className="p-3 bg-green-50 rounded-lg border border-green-100">
+                <p className="text-sm text-[#1e1b24]">
                   🎯 You're 15% ahead of your savings goal this month
                 </p>
               </div>
-              <div className="p-3 bg-yellow-50 rounded-lg">
-                <p className="text-sm text-yellow-800">
+              <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+                <p className="text-sm text-[#1e1b24]">
                   ⚠️ Dining expenses increased by 25% this month
                 </p>
               </div>
