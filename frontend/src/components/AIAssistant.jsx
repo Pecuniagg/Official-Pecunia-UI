@@ -75,7 +75,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
             <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 animate-scale-in">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Bot className="text-[#5945a3] animate-bounce-soft" size={16} />
+                  <Bot className="text-[#5945a3] icon-refined" size={16} />
                   <span className="font-medium">Welcome!</span>
                 </div>
                 <p className="text-sm text-gray-700 animate-fade-in-up animate-stagger-1">
