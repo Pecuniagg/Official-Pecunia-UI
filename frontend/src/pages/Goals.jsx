@@ -211,7 +211,7 @@ const Goals = () => {
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="w-full justify-start text-left font-normal">
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {newGoal.deadline ? format(newGoal.deadline, "PPP") : "Pick a date"}
+                    {newGoal.deadline ? newGoal.deadline.toLocaleDateString() : "Pick a date"}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
