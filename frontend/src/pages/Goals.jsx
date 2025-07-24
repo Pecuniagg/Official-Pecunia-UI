@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
@@ -30,10 +30,13 @@ import {
   Eye,
   ArrowRight,
   PiggyBank,
-  Calculator
+  Calculator,
+  Sparkles,
+  Loader2
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 import { useToast } from '../hooks/use-toast';
+import { useAI } from '../contexts/AIContext';
 
 const Goals = () => {
   const [viewMode, setViewMode] = useState('grid');
@@ -43,6 +46,10 @@ const Goals = () => {
   const [showGoalDetails, setShowGoalDetails] = useState(null);
   const [editingGoal, setEditingGoal] = useState(null);
   const [goalFilter, setGoalFilter] = useState('all');
+  const [goalStrategies, setGoalStrategies] = useState({});
+  
+  // AI integration
+  const { getGoalStrategy, aiInsights, getInsights, userProfile } = useAI();
   
   // New goal state
   const [newGoal, setNewGoal] = useState({
@@ -60,6 +67,27 @@ const Goals = () => {
 
   const { goals } = mockData;
   const { toast } = useToast();
+
+  // Load AI strategies for goals
+  useEffect(() => {
+    const loadGoalStrategies = async () => {
+      for (const goal of goals.personal) {
+        if (!goalStrategies[goal.id]) {
+          try {
+            const strategy = await getGoalStrategy(goal);
+            setGoalStrategies(prev => ({
+              ...prev,
+              [goal.id]: strategy
+            }));
+          } catch (error) {
+            console.error('Failed to load strategy for goal:', goal.id);
+          }
+        }
+      }
+    };
+
+    loadGoalStrategies();
+  }, []);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
