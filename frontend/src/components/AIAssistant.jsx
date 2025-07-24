@@ -1,54 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from './ui/sheet';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
-import { Bot, Send, Sparkles } from 'lucide-react';
+import { Bot, Send, Sparkles, Loader2 } from 'lucide-react';
+import { useAI } from '../contexts/AIContext';
 
 const AIAssistant = ({ isOpen, onClose }) => {
+  const { chatHistory, chatWithAI, userProfile, loading } = useAI();
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      type: 'assistant',
-      content: "Hi! I'm Pecunia AI. I can help you with budgeting, investment advice, goal planning, and financial insights. What would you like to know?",
-      timestamp: new Date()
-    }
-  ]);
+  const [isTyping, setIsTyping] = useState(false);
 
   const suggestedPrompts = [
     "How can I improve my Pecunia score?",
-    "Analyze my spending patterns",
-    "Create a savings plan for my vacation",
-    "What investment options suit my risk profile?"
+    "Analyze my spending patterns this month",
+    "What's the best way to reach my savings goals?",
+    "Should I increase my emergency fund or invest?",
+    "Help me optimize my budget allocation"
   ];
 
-  const handleSend = () => {
-    if (!message.trim()) return;
+  const handleSend = async () => {
+    if (!message.trim() || isTyping) return;
 
-    // Add user message
-    const userMessage = {
-      id: Date.now(),
-      type: 'user',
-      content: message,
-      timestamp: new Date()
-    };
-
-    // Simulate AI response (this will be replaced with actual GPT integration)
-    const aiResponse = {
-      id: Date.now() + 1,
-      type: 'assistant',
-      content: `I understand you're asking about "${message}". This is a mock response. Once we integrate with the GPT API, I'll provide personalized financial insights based on your data and current market conditions.`,
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage, aiResponse]);
-    setMessage('');
+    setIsTyping(true);
+    try {
+      await chatWithAI(message);
+      setMessage('');
+    } catch (error) {
+      console.error('Chat error:', error);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
-  const handlePromptClick = (prompt) => {
+  const handlePromptClick = async (prompt) => {
+    if (isTyping) return;
+    
     setMessage(prompt);
+    setIsTyping(true);
+    try {
+      await chatWithAI(prompt);
+      setMessage('');
+    } catch (error) {
+      console.error('Chat error:', error);
+    } finally {
+      setIsTyping(false);
+    }
   };
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    const chatContainer = document.getElementById('ai-chat-messages');
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }, [chatHistory]);
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -58,11 +64,29 @@ const AIAssistant = ({ isOpen, onClose }) => {
             <Bot className="text-[#5945a3]" size={24} />
             Pecunia AI Assistant
           </SheetTitle>
+          <p className="text-sm text-gray-600 text-left">
+            Your personal financial advisor powered by AI
+          </p>
         </SheetHeader>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {messages.map((msg) => (
+        <div id="ai-chat-messages" className="flex-1 overflow-y-auto p-6 space-y-4">
+          {chatHistory.length === 0 && (
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Bot className="text-[#5945a3]" size={16} />
+                  <span className="font-medium">Welcome!</span>
+                </div>
+                <p className="text-sm text-gray-700">
+                  Hi! I'm Pecunia AI. I can help you with budgeting, investment advice, goal planning, 
+                  and personalized financial insights based on your data. What would you like to know?
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
+          {chatHistory.map((msg) => (
             <div
               key={msg.id}
               className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -73,7 +97,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
                   : 'bg-gray-50 border-gray-200'
               }`}>
                 <CardContent className="p-3">
-                  <p className="text-sm">{msg.content}</p>
+                  <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                   <span className="text-xs opacity-70 mt-1 block">
                     {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </span>
@@ -81,10 +105,23 @@ const AIAssistant = ({ isOpen, onClose }) => {
               </Card>
             </div>
           ))}
+
+          {isTyping && (
+            <div className="flex justify-start">
+              <Card className="bg-gray-50 border-gray-200">
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="animate-spin" size={16} />
+                    <span className="text-sm text-gray-600">AI is thinking...</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
 
         {/* Suggested Prompts */}
-        {messages.length === 1 && (
+        {chatHistory.length === 0 && !isTyping && (
           <div className="px-6 pb-4">
             <p className="text-sm text-gray-600 mb-3">Try asking:</p>
             <div className="grid grid-cols-1 gap-2">
@@ -95,11 +132,23 @@ const AIAssistant = ({ isOpen, onClose }) => {
                   size="sm"
                   className="justify-start text-left h-auto p-3 hover:bg-[#5945a3] hover:text-white transition-all"
                   onClick={() => handlePromptClick(prompt)}
+                  disabled={isTyping}
                 >
                   <Sparkles size={14} className="mr-2 flex-shrink-0" />
                   <span className="text-xs">{prompt}</span>
                 </Button>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Context Info */}
+        {userProfile && (
+          <div className="px-6 pb-2">
+            <div className="text-xs text-gray-500 bg-gray-50 rounded p-2">
+              <strong>Context:</strong> Pecunia Score: {userProfile.pecunia_score} | 
+              Budget: ${userProfile.monthly_budget.toLocaleString()} | 
+              Savings: {userProfile.savings_rate}%
             </div>
           </div>
         )}
@@ -111,17 +160,26 @@ const AIAssistant = ({ isOpen, onClose }) => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Ask Pecunia anything..."
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
               className="flex-1"
+              disabled={isTyping}
             />
             <Button 
               onClick={handleSend}
               className="bg-[#5945a3] hover:bg-[#4a3d8f]"
               size="sm"
+              disabled={!message.trim() || isTyping}
             >
-              <Send size={16} />
+              {isTyping ? (
+                <Loader2 className="animate-spin" size={16} />
+              ) : (
+                <Send size={16} />
+              )}
             </Button>
           </div>
+          <p className="text-xs text-gray-500 mt-2">
+            Press Enter to send, Shift+Enter for new line
+          </p>
         </div>
       </SheetContent>
     </Sheet>
