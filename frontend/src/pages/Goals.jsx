@@ -624,17 +624,30 @@ const Goals = () => {
               <Target className="text-white" size={16} />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900">AI Guidance</h3>
-              <p className="text-sm text-gray-600">
-                Based on your current savings rate, you're likely to achieve your Emergency Fund goal 2 months early! 
-                Consider increasing your Dream Vacation contribution by $200/month to stay on track.
-              </p>
+              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                AI Guidance
+                {Object.keys(goalStrategies).length < goals.personal.length && (
+                  <Loader2 className="animate-spin" size={16} />
+                )}
+              </h3>
+              {aiInsights?.summary ? (
+                <p className="text-sm text-gray-600">{aiInsights.summary}</p>
+              ) : (
+                <p className="text-sm text-gray-600">
+                  Based on your current savings rate, you're likely to achieve your Emergency Fund goal 2 months early! 
+                  Consider increasing your Dream Vacation contribution by $200/month to stay on track.
+                </p>
+              )}
             </div>
             <Button 
               size="sm" 
               variant="outline"
-              onClick={() => toast({ title: "AI Optimizer", description: "Opening goal optimization suggestions..." })}
+              onClick={() => {
+                getInsights();
+                toast({ title: "AI Optimizer", description: "Refreshing goal optimization suggestions..." });
+              }}
             >
+              <Sparkles size={14} className="mr-1" />
               Optimize All Goals
             </Button>
           </div>
