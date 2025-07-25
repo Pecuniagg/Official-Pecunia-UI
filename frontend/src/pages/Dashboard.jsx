@@ -24,7 +24,8 @@ import {
   ArrowUpRight,
   BarChart3,
   Sparkles,
-  Loader2
+  Loader2,
+  Brain
 } from "lucide-react";
 import { mockData } from "../data/mockData";
 import PieChartComponent from "../components/charts/PieChart";
