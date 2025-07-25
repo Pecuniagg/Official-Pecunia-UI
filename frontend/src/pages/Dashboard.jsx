@@ -275,27 +275,27 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="space-y-8">
+    <div className="breathing-space-lg">
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="ai-insights" className="flex items-center gap-2">
+        <TabsList className="grid w-full grid-cols-4 bg-gray-50 dark:bg-gray-800 p-1 rounded-lg mb-8">
+          <TabsTrigger value="overview" className="interactive text-sm font-medium">Overview</TabsTrigger>
+          <TabsTrigger value="ai-insights" className="interactive flex items-center gap-2 text-sm font-medium">
             <Brain className="h-4 w-4" />
             AI Insights
           </TabsTrigger>
-          <TabsTrigger value="advanced">Advanced Analytics</TabsTrigger>
-          <TabsTrigger value="detailed">Detailed Analysis</TabsTrigger>
+          <TabsTrigger value="advanced" className="interactive text-sm font-medium">Advanced Analytics</TabsTrigger>
+          <TabsTrigger value="detailed" className="interactive text-sm font-medium">Detailed Analysis</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-8">
-          {/* Hero Banner */}
-          <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white card-premium hover-glow-subtle">
+          {/* Hero Banner - Enhanced spacing and breathing room */}
+          <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl card-spacing-lg text-white card-system shadow-lg transition-all duration-300 hover:shadow-xl">
             <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-[#0a0a0f] animate-entrance-elastic animate-delay-whisper-1" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+              <div className="flex-1 mr-8">
+                <h1 className="visual-hierarchy-1 text-white mb-4" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
                   My Financial Life Today
                 </h1>
-                <p className="text-lg opacity-90 animate-entrance-elastic animate-delay-whisper-2">
+                <p className="text-lg opacity-90 leading-relaxed max-w-2xl">
                   {loadingInsights ? 'AI is analyzing your finances...' : 
                    aiInsights?.analysis?.analysis?.substring(0, 100) + '...' || 
                    'AI Summary: You\'re on track with your savings goals. Consider increasing your emergency fund allocation.'}
@@ -303,7 +303,7 @@ const Dashboard = () => {
               </div>
               <Button 
                 onClick={handleSmartOptimize}
-                className="bg-white text-[#5945a3] hover:bg-gray-100 btn-premium"
+                className="bg-white text-[#5945a3] hover:bg-gray-100 interactive border-0 px-6 py-3 font-medium shadow-sm"
               >
                 <Brain className="h-4 w-4 mr-2" />
                 Smart Optimize
@@ -311,162 +311,162 @@ const Dashboard = () => {
             </div>
           </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-12 gap-8 grid-premium">
-        {/* Left Column - Interactive Charts */}
-        <div className="col-span-6 space-y-8">
-          {/* Expenses Chart */}
-          <Card className="shadow-lg card-premium hover-glow-subtle">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <CreditCard className="text-[#5945a3] icon-premium" size={20} />
-                Monthly Expenses
-              </CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => handleChartClick('Expenses', dashboard.expenses)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
-              >
-                <Eye size={16} />
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer">
-                <AdvancedPieChart 
-                  data={dashboard.expenses} 
-                  title=""
-                  colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
-                  showTrends={false}
-                  showInsights={false}
-                  onSegmentClick={(data) => handleChartClick('Expenses', dashboard.expenses)}
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Assets Chart */}
-          <Card className="shadow-lg card-premium hover-glow-subtle">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <PiggyBank className="text-[#5945a3] icon-premium" size={20} />
-                Assets Distribution
-              </CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => handleChartClick('Assets', dashboard.assets)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
-              >
-                <Eye size={16} />
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <div onClick={() => handleChartClick('Assets', dashboard.assets)} className="cursor-pointer chart-premium">
-                <AdvancedPieChart 
-                  data={dashboard.assets} 
-                  title=""
-                  colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b']}
-                  showTrends={false}
-                  showInsights={false}
-                  onSegmentClick={(data) => handleChartClick('Assets', dashboard.assets)}
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Liabilities Chart */}
-          <Card className="shadow-lg card-premium hover-glow-subtle">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <CreditCard className="text-[#b37e91] icon-premium" size={20} />
-                Liabilities
-              </CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => handleChartClick('Liabilities', dashboard.liabilities)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
-              >
-                <Eye size={16} />
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <div onClick={() => handleChartClick('Liabilities', dashboard.liabilities)} className="cursor-pointer chart-premium">
-                <AdvancedPieChart 
-                  data={dashboard.liabilities} 
-                  title=""
-                  colors={['#b37e91', '#3b345b', '#1e1b24']}
-                  showTrends={false}
-                  showInsights={false}
-                  onSegmentClick={(data) => handleChartClick('Liabilities', dashboard.liabilities)}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Center Column */}
-        <div className="col-span-3 space-y-8">
-          {/* Interactive Budget Summary */}
-          <Card className="shadow-lg card-premium hover-glow-subtle">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Budget Summary</CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setBudgetEdit(!budgetEdit)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
-              >
-                <Edit size={16} />
-              </Button>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {budgetEdit ? (
-                <div className="space-y-3 animate-entrance-spring">
-                  <Label htmlFor="budget">Monthly Budget</Label>
-                  <Input
-                    id="budget"
-                    type="number"
-                    value={monthlyBudget}
-                    onChange={(e) => setMonthlyBudget(Number(e.target.value))}
-                    className="input-whisper focus-premium"
-                  />
-                  <div className="flex gap-2">
-                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-premium">
-                      Save
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)} className="btn-premium">
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="flex justify-between hover-float">
-                    <span className="text-sm text-gray-600">Monthly Budget</span>
-                    <span className="font-semibold">${monthlyBudget.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between hover-float">
-                    <span className="text-sm text-gray-600">Spent</span>
-                    <span className="font-semibold text-[#b37e91]">$3,750</span>
-                  </div>
-                  <div className="progress-silk">
-                    <Progress value={75} className="w-full" />
-                  </div>
-                  <div className="text-sm text-gray-600">75% of budget used</div>
+          {/* Main Grid - Enhanced spacing */}
+          <div className="grid-12 grid-spacing-lg">
+            {/* Left Column - Interactive Charts */}
+            <div className="col-span-6 space-y-8">
+              {/* Expenses Chart */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="flex items-center gap-2 visual-hierarchy-3">
+                    <CreditCard className="text-[#5945a3]" size={20} />
+                    Monthly Expenses
+                  </CardTitle>
                   <Button 
-                    size="sm" 
-                    variant="outline" 
-                    className="w-full btn-premium"
-                    onClick={() => toast({ title: "Budget Alert", description: "Alert set for 90% budget usage" })}
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => handleChartClick('Expenses', dashboard.expenses)}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
                   >
-                    Set Alert
+                    <Eye size={16} />
                   </Button>
-                </>
-              )}
-            </CardContent>
-          </Card>
+                </CardHeader>
+                <CardContent className="card-system-content">
+                  <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer">
+                    <AdvancedPieChart 
+                      data={dashboard.expenses} 
+                      title=""
+                      colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
+                      showTrends={false}
+                      showInsights={false}
+                      onSegmentClick={(data) => handleChartClick('Expenses', dashboard.expenses)}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Assets Chart */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="flex items-center gap-2 visual-hierarchy-3">
+                    <PiggyBank className="text-[#5945a3]" size={20} />
+                    Assets Distribution
+                  </CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => handleChartClick('Assets', dashboard.assets)}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                  >
+                    <Eye size={16} />
+                  </Button>
+                </CardHeader>
+                <CardContent className="card-system-content">
+                  <div onClick={() => handleChartClick('Assets', dashboard.assets)} className="cursor-pointer">
+                    <AdvancedPieChart 
+                      data={dashboard.assets} 
+                      title=""
+                      colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b']}
+                      showTrends={false}
+                      showInsights={false}
+                      onSegmentClick={(data) => handleChartClick('Assets', dashboard.assets)}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Liabilities Chart */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="flex items-center gap-2 visual-hierarchy-3">
+                    <CreditCard className="text-[#b37e91]" size={20} />
+                    Liabilities
+                  </CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => handleChartClick('Liabilities', dashboard.liabilities)}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                  >
+                    <Eye size={16} />
+                  </Button>
+                </CardHeader>
+                <CardContent className="card-system-content">
+                  <div onClick={() => handleChartClick('Liabilities', dashboard.liabilities)} className="cursor-pointer">
+                    <AdvancedPieChart 
+                      data={dashboard.liabilities} 
+                      title=""
+                      colors={['#b37e91', '#3b345b', '#1e1b24']}
+                      showTrends={false}
+                      showInsights={false}
+                      onSegmentClick={(data) => handleChartClick('Liabilities', dashboard.liabilities)}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Center Column - Enhanced spacing */}
+            <div className="col-span-3 space-y-8">
+              {/* Interactive Budget Summary */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="visual-hierarchy-3">Budget Summary</CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setBudgetEdit(!budgetEdit)}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                  >
+                    <Edit size={16} />
+                  </Button>
+                </CardHeader>
+                <CardContent className="card-system-content stack-spacing">
+                  {budgetEdit ? (
+                    <div className="stack-spacing-sm">
+                      <Label htmlFor="budget" className="text-sm font-medium">Monthly Budget</Label>
+                      <Input
+                        id="budget"
+                        type="number"
+                        value={monthlyBudget}
+                        onChange={(e) => setMonthlyBudget(Number(e.target.value))}
+                        className="transition-all duration-200 focus:ring-[#5945a3] border-gray-200"
+                      />
+                      <div className="flex gap-2">
+                        <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f] interactive text-white border-0">
+                          Save
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)} className="interactive border-gray-200">
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="stack-spacing-sm">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted">Monthly Budget</span>
+                        <span className="font-semibold">${monthlyBudget.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted">Spent</span>
+                        <span className="font-semibold text-[#b37e91]">$3,750</span>
+                      </div>
+                      <div className="breathing-space-vertical">
+                        <Progress value={75} className="w-full transition-all duration-300" />
+                      </div>
+                      <div className="text-sm text-muted">75% of budget used</div>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="w-full interactive border-gray-200"
+                        onClick={() => toast({ title: "Budget Alert", description: "Alert set for 90% budget usage" })}
+                      >
+                        Set Alert
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
 
           {/* Interactive Cash Flow */}
           <Card className="shadow-lg card-premium hover-glow-subtle">
