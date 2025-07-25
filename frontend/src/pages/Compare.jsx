@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { useToast } from '../hooks/use-toast';
 import { 
   TrendingUp, 
   Users, 
@@ -12,7 +13,19 @@ import {
   DollarSign, 
   PieChart,
   BarChart3,
-  Sparkles
+  Sparkles,
+  Trophy,
+  Zap,
+  ChevronUp,
+  ChevronDown,
+  Star,
+  Heart,
+  Share2,
+  Eye,
+  UserPlus,
+  TrendingDown,
+  Award,
+  Crown
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 
