@@ -172,44 +172,87 @@
 }
 
 /* =============================================== */
-/* Refined Hover States - Micro-Interactions      */
+/* Premium Hover States & Micro-Interactions     */
 /* =============================================== */
 
 .hover-whisper {
-  transition: all 0.2s var(--ease-whisper);
-  will-change: transform;
+  transition: all 0.3s var(--ease-premium);
+  will-change: transform, box-shadow;
 }
 
 .hover-whisper:hover {
   transform: translate3d(0, -1px, 0);
+  box-shadow: var(--shadow-whisper);
 }
 
 .hover-breath {
-  transition: transform 0.3s var(--ease-breath);
-  will-change: transform;
-}
-
-.hover-breath:hover {
-  transform: scale3d(1.01, 1.01, 1);
-}
-
-.hover-silk {
-  transition: all 0.25s var(--ease-silk);
+  transition: all 0.35s var(--ease-back-gentle);
   will-change: transform, box-shadow;
 }
 
+.hover-breath:hover {
+  transform: scale3d(1.008, 1.008, 1) translate3d(0, -0.5px, 0);
+  box-shadow: var(--shadow-gentle);
+}
+
+.hover-silk {
+  transition: all 0.3s var(--ease-silk);
+  will-change: transform, box-shadow, filter;
+}
+
 .hover-silk:hover {
-  transform: translate3d(0, -0.5px, 0);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translate3d(0, -1px, 0);
+  box-shadow: var(--shadow-elevated);
+  filter: brightness(1.02);
+}
+
+.hover-float {
+  transition: all 0.4s var(--ease-float);
+  will-change: transform, box-shadow;
+}
+
+.hover-float:hover {
+  transform: translate3d(0, -2px, 0) scale3d(1.005, 1.005, 1);
+  box-shadow: var(--shadow-floating);
 }
 
 .hover-glow-subtle {
-  transition: box-shadow 0.4s var(--ease-gentle);
-  will-change: box-shadow;
+  transition: all 0.4s var(--ease-gentle);
+  will-change: box-shadow, filter;
 }
 
 .hover-glow-subtle:hover {
-  box-shadow: 0 0 16px rgba(89, 69, 163, 0.08);
+  box-shadow: var(--glow-primary);
+  filter: brightness(1.01);
+}
+
+.hover-glow-warm {
+  transition: all 0.4s var(--ease-gentle);
+  will-change: box-shadow, filter;
+}
+
+.hover-glow-warm:hover {
+  box-shadow: var(--glow-warm);
+  filter: brightness(1.02);
+}
+
+.hover-scale-subtle {
+  transition: transform 0.25s var(--ease-back-gentle);
+  will-change: transform;
+}
+
+.hover-scale-subtle:hover {
+  transform: scale3d(1.03, 1.03, 1);
+}
+
+.hover-lift-premium {
+  transition: all 0.3s var(--ease-premium);
+  will-change: transform, box-shadow;
+}
+
+.hover-lift-premium:hover {
+  transform: translate3d(0, -3px, 0) scale3d(1.01, 1.01, 1);
+  box-shadow: var(--shadow-floating);
 }
 
 /* =============================================== */
