@@ -62,7 +62,32 @@ const Dashboard = () => {
     if (!aiInsights) {
       getInsights();
     }
+    loadAIInsights();
   }, []);
+
+  const loadAIInsights = async () => {
+    try {
+      setLoadingInsights(true);
+      
+      // Update user context with current dashboard data
+      aiService.updateUserContext({
+        monthly_income: 6500,
+        monthly_expenses: 3750,
+        expenses: dashboard.expenses.reduce((acc, item) => ({ ...acc, [item.name]: item.value }), {}),
+        assets: dashboard.assets.reduce((acc, item) => ({ ...acc, [item.name]: item.value }), {}),
+        liabilities: dashboard.liabilities.reduce((acc, item) => ({ ...acc, [item.name]: item.value }), {})
+      });
+
+      // Get AI-powered dashboard insights
+      const insights = await aiService.getDashboardInsights(dashboard);
+      // Note: We're using the existing aiInsights from useAI context
+      
+    } catch (error) {
+      console.error('Error loading AI insights:', error);
+    } finally {
+      setLoadingInsights(false);
+    }
+  };
 
   // Interactive handlers
   const handleChartClick = (chartType, data) => {
