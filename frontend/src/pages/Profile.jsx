@@ -347,36 +347,52 @@ const Profile = () => {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="posts" className="space-y-6">
+        <TabsContent value="posts" className="space-y-6 animate-scale-gentle">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <h2 className="text-xl font-semibold mb-4">Recent Posts</h2>
-              <PostItem />
-              <PostItem />
-              <PostItem />
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold animate-slide-left">Recent Posts</h2>
+                <Button 
+                  className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
+                  onClick={() => toast({ title: "Create Post", description: "Opening post composer..." })}
+                >
+                  <MessageSquare size={14} className="mr-1" />
+                  New Post
+                </Button>
+              </div>
+              <PostItem index={0} />
+              <PostItem index={1} />
+              <PostItem index={2} />
             </div>
             
             <div>
-              <Card>
+              <Card className="card-refined hover-glow animate-slide-right animate-delay-2">
                 <CardHeader>
-                  <CardTitle>Activity Summary</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="text-[#5945a3] icon-refined" size={20} />
+                    Activity Summary
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Posts this month</span>
-                    <span className="font-semibold">12</span>
+                  <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                    <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">Posts this month</span>
+                    <span className="font-semibold animate-counter">12</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Avg. likes per post</span>
-                    <span className="font-semibold">18</span>
+                  <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                    <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">Avg. likes per post</span>
+                    <span className="font-semibold animate-counter">18</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Comments received</span>
-                    <span className="font-semibold">94</span>
+                  <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                    <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">Comments received</span>
+                    <span className="font-semibold animate-counter">94</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">New followers</span>
-                    <span className="font-semibold text-green-600">+23</span>
+                  <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                    <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">New followers</span>
+                    <span className="font-semibold text-green-600 animate-counter">+23</span>
+                  </div>
+                  <div className="mt-4 p-3 bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-lg">
+                    <p className="text-sm text-[#5945a3] font-medium">🎉 Great engagement this month!</p>
+                    <p className="text-xs text-gray-600 mt-1">Your posts are inspiring the community</p>
                   </div>
                 </CardContent>
               </Card>
