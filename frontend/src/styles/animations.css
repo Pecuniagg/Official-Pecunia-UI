@@ -522,35 +522,72 @@
 }
 
 /* =============================================== */
-/* Interactive Elements - Micro Details           */
+/* Enhanced Interactive Elements                  */
 /* =============================================== */
 
 .icon-whisper {
-  transition: all 0.2s var(--ease-whisper);
+  transition: all 0.25s var(--ease-back-gentle);
+  will-change: transform, filter;
 }
 
 .icon-whisper:hover {
-  transform: scale3d(1.05, 1.05, 1);
-  filter: brightness(1.1);
+  transform: scale3d(1.1, 1.1, 1);
+  filter: brightness(1.15) drop-shadow(0 0 4px rgba(89, 69, 163, 0.2));
+}
+
+.icon-premium {
+  transition: all 0.3s var(--ease-spring);
+  will-change: transform, filter;
+}
+
+.icon-premium:hover {
+  transform: scale3d(1.12, 1.12, 1) rotate(2deg);
+  filter: brightness(1.2) drop-shadow(0 0 6px rgba(89, 69, 163, 0.3));
 }
 
 .input-whisper {
-  transition: all 0.2s var(--ease-whisper);
-  will-change: transform, box-shadow;
+  transition: all 0.3s var(--ease-premium);
+  will-change: transform, box-shadow, border-color;
 }
 
 .input-whisper:focus {
-  transform: translate3d(0, -0.5px, 0);
-  box-shadow: 0 2px 8px rgba(89, 69, 163, 0.08);
+  transform: translate3d(0, -1px, 0);
+  box-shadow: var(--shadow-gentle), var(--glow-primary);
+  border-color: rgba(89, 69, 163, 0.3);
 }
 
 .badge-breath {
-  transition: all 0.2s var(--ease-breath);
+  transition: all 0.25s var(--ease-back-gentle);
+  will-change: transform, filter;
 }
 
 .badge-breath:hover {
-  transform: scale3d(1.02, 1.02, 1);
-  filter: brightness(1.05);
+  transform: scale3d(1.05, 1.05, 1);
+  filter: brightness(1.08) saturate(1.1);
+}
+
+.badge-premium {
+  transition: all 0.3s var(--ease-spring);
+  will-change: transform, filter, box-shadow;
+}
+
+.badge-premium:hover {
+  transform: scale3d(1.08, 1.08, 1);
+  filter: brightness(1.1) saturate(1.15);
+  box-shadow: var(--shadow-gentle);
+}
+
+/* Focus states */
+.focus-whisper:focus-visible {
+  outline: 1px solid rgba(89, 69, 163, 0.4);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(89, 69, 163, 0.08);
+}
+
+.focus-premium:focus-visible {
+  outline: 2px solid rgba(89, 69, 163, 0.5);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(89, 69, 163, 0.1);
 }
 
 /* =============================================== */
