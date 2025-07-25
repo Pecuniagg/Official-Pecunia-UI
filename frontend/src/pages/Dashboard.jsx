@@ -146,6 +146,32 @@ const Dashboard = () => {
     });
   };
 
+  const handleSmartOptimize = async () => {
+    try {
+      const optimizedBudget = await aiService.autoOptimizeBudget({
+        monthly_income: 6500,
+        current_budget: monthlyBudget,
+        expenses: dashboard.expenses
+      });
+      
+      toast({
+        title: "Budget Optimized",
+        description: "AI has optimized your budget for better savings potential",
+      });
+      
+      // Reload insights
+      loadAIInsights();
+      
+    } catch (error) {
+      console.error('Error optimizing budget:', error);
+      toast({
+        title: "Optimization Failed",
+        description: "Unable to optimize budget at this time",
+        variant: "destructive"
+      });
+    }
+  };
+
   const ChartDetailModal = ({ chart, onClose }) => (
     <Dialog open={!!chart} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl">
