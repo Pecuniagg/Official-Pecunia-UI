@@ -431,20 +431,33 @@
 /* Navigation Enhancements                         */
 /* =============================================== */
 
+/* Enhanced Navigation */
 .nav-whisper {
   position: relative;
-  transition: color 0.2s var(--ease-whisper);
+  transition: all 0.3s var(--ease-premium);
+  will-change: color, transform;
 }
 
 .nav-whisper::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -1px;
+  bottom: -2px;
   width: 0;
-  height: 1px;
-  background: linear-gradient(90deg, #5945a3, #b37e91);
-  transition: width 0.4s var(--ease-silk);
+  height: 2px;
+  background: linear-gradient(90deg, 
+    #5945a3, 
+    #b37e91, 
+    #5945a3
+  );
+  background-size: 200% 100%;
+  transition: width 0.5s var(--ease-spring);
+  animation: navShine 2s linear infinite;
+}
+
+@keyframes navShine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .nav-whisper.active::after,
@@ -452,17 +465,28 @@
   width: 100%;
 }
 
+.nav-whisper:hover {
+  transform: translate3d(0, -1px, 0);
+  color: #5945a3;
+}
+
 .tab-whisper {
-  transition: all 0.2s var(--ease-whisper);
+  transition: all 0.3s var(--ease-premium);
   position: relative;
+  will-change: color, background-color, transform;
 }
 
 .tab-whisper:hover {
   color: #5945a3;
+  transform: translate3d(0, -1px, 0);
 }
 
 .tab-whisper.active {
-  background: linear-gradient(135deg, rgba(89, 69, 163, 0.05), rgba(179, 126, 145, 0.03));
+  background: linear-gradient(135deg, 
+    rgba(89, 69, 163, 0.06), 
+    rgba(179, 126, 145, 0.04)
+  );
+  box-shadow: var(--shadow-whisper);
 }
 
 /* =============================================== */
