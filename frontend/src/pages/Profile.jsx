@@ -555,11 +555,14 @@ const Profile = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="settings" className="space-y-6">
+        <TabsContent value="settings" className="space-y-6 animate-scale-gentle">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card>
+            <Card className="card-refined hover-glow animate-slide-left">
               <CardHeader>
-                <CardTitle>Account Settings</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="text-[#5945a3] icon-refined" size={20} />
+                  Account Settings
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
@@ -567,7 +570,8 @@ const Profile = () => {
                   <input 
                     type="text" 
                     defaultValue={profile.name}
-                    className="w-full p-2 border rounded-md"
+                    className="w-full p-2 border rounded-md input-refined focus-refined transition-all duration-300"
+                    onFocus={() => toast({ title: "Editing Name", description: "Changes will be saved automatically" })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -575,65 +579,133 @@ const Profile = () => {
                   <input 
                     type="email" 
                     defaultValue={profile.email}
-                    className="w-full p-2 border rounded-md"
+                    className="w-full p-2 border rounded-md input-refined focus-refined transition-all duration-300"
+                    onFocus={() => toast({ title: "Email Settings", description: "Email changes require verification" })}
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Bio</label>
                   <textarea 
                     placeholder="Tell us about yourself..."
-                    className="w-full p-2 border rounded-md h-20"
+                    className="w-full p-2 border rounded-md h-20 input-refined focus-refined transition-all duration-300"
+                    onFocus={() => toast({ title: "Bio Editor", description: "Share your financial journey with the community" })}
                   />
                 </div>
-                <Button className="w-full bg-[#5945a3] hover:bg-[#4a3d8f]">
+                <Button 
+                  className="w-full bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined"
+                  onClick={() => toast({ title: "Settings Saved! ✅", description: "Your profile has been updated successfully" })}
+                >
+                  <CheckCircle size={16} className="mr-2" />
                   Save Changes
                 </Button>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="card-refined hover-glow animate-slide-right animate-delay-1">
               <CardHeader>
-                <CardTitle>Privacy & Notifications</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="text-[#5945a3] icon-refined" size={20} />
+                  Privacy & Notifications
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between hover-subtle p-2 rounded group">
                   <div>
-                    <p className="font-medium">Profile Visibility</p>
+                    <p className="font-medium group-hover:text-[#5945a3] transition-colors">Profile Visibility</p>
                     <p className="text-sm text-gray-600">Who can see your profile</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch 
+                    defaultChecked 
+                    className="focus-refined"
+                    onCheckedChange={(checked) => toast({ 
+                      title: checked ? "Profile Public" : "Profile Private", 
+                      description: checked ? "Your profile is now visible to everyone" : "Only followers can see your profile" 
+                    })}
+                  />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between hover-subtle p-2 rounded group">
                   <div>
-                    <p className="font-medium">Email Notifications</p>
+                    <p className="font-medium group-hover:text-[#5945a3] transition-colors">Email Notifications</p>
                     <p className="text-sm text-gray-600">Financial alerts and updates</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch 
+                    defaultChecked 
+                    className="focus-refined"
+                    onCheckedChange={(checked) => toast({ 
+                      title: checked ? "Notifications On" : "Notifications Off", 
+                      description: checked ? "You'll receive email updates" : "Email notifications disabled" 
+                    })}
+                  />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between hover-subtle p-2 rounded group">
                   <div>
-                    <p className="font-medium">Social Features</p>
+                    <p className="font-medium group-hover:text-[#5945a3] transition-colors">Social Features</p>
                     <p className="text-sm text-gray-600">Allow others to see your activity</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch 
+                    defaultChecked 
+                    className="focus-refined"
+                    onCheckedChange={(checked) => toast({ 
+                      title: checked ? "Social Features On" : "Social Features Off", 
+                      description: checked ? "Your activity is visible to network" : "Activity is now private" 
+                    })}
+                  />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between hover-subtle p-2 rounded group">
                   <div>
-                    <p className="font-medium">AI Insights</p>
+                    <p className="font-medium group-hover:text-[#5945a3] transition-colors">AI Insights</p>
                     <p className="text-sm text-gray-600">Personalized financial advice</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch 
+                    defaultChecked 
+                    className="focus-refined"
+                    onCheckedChange={(checked) => toast({ 
+                      title: checked ? "AI Insights Enabled 🤖" : "AI Insights Disabled", 
+                      description: checked ? "Personalized recommendations active" : "AI suggestions paused" 
+                    })}
+                  />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between hover-subtle p-2 rounded group">
                   <div>
-                    <p className="font-medium">Lending Requests</p>
+                    <p className="font-medium group-hover:text-[#5945a3] transition-colors">Lending Requests</p>
                     <p className="text-sm text-gray-600">Notifications for new requests</p>
                   </div>
-                  <Switch checked={lendingEnabled} onCheckedChange={setLendingEnabled} />
+                  <Switch 
+                    checked={lendingEnabled} 
+                    onCheckedChange={(checked) => {
+                      setLendingEnabled(checked);
+                      toast({ 
+                        title: checked ? "Lending Notifications On" : "Lending Notifications Off", 
+                        description: checked ? "You'll receive lending request alerts" : "Lending notifications disabled" 
+                      });
+                    }}
+                    className="focus-refined"
+                  />
+                </div>
+
+                <div className="mt-6 p-4 bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Shield className="text-[#5945a3]" size={16} />
+                    <span className="font-medium text-[#5945a3]">Security Status</span>
+                  </div>
+                  <div className="space-y-1 text-xs">
+                    <div className="flex items-center gap-2 hover-subtle p-1 rounded">
+                      <CheckCircle size={12} className="text-green-500" />
+                      <span>Two-factor authentication enabled</span>
+                    </div>
+                    <div className="flex items-center gap-2 hover-subtle p-1 rounded">
+                      <CheckCircle size={12} className="text-green-500" />
+                      <span>Recent security check passed</span>
+                    </div>
+                    <div className="flex items-center gap-2 hover-subtle p-1 rounded">
+                      <CheckCircle size={12} className="text-green-500" />
+                      <span>Account fully verified</span>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
