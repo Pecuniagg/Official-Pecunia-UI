@@ -1,0 +1,299 @@
+/* Theme Variables for Light and Dark Mode */
+
+:root {
+  /* Light Mode Variables */
+  --background: #ffffff;
+  --foreground: #0f0f0f;
+  --card: #ffffff;
+  --card-foreground: #0f0f0f;
+  --popover: #ffffff;
+  --popover-foreground: #0f0f0f;
+  --primary: #5945a3;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #27272a;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #27272a;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #5945a3;
+  --radius: 0.5rem;
+  
+  /* Custom Pecunia Variables - Light Mode */
+  --pecunia-gradient-start: #5945a3;
+  --pecunia-gradient-end: #b37e91;
+  --pecunia-surface: #ffffff;
+  --pecunia-surface-elevated: #f8fafc;
+  --pecunia-surface-hover: #f1f5f9;
+  --pecunia-text-primary: #0f0f0f;
+  --pecunia-text-secondary: #64748b;
+  --pecunia-text-muted: #94a3b8;
+  --pecunia-border: #e2e8f0;
+  --pecunia-border-light: #f1f5f9;
+  --pecunia-success: #10b981;
+  --pecunia-warning: #f59e0b;
+  --pecunia-error: #ef4444;
+  
+  /* Shadow Variables - Light Mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+  /* Dark Mode Variables */
+  --background: #0a0a0f;
+  --foreground: #f8fafc;
+  --card: #1e1b24;
+  --card-foreground: #f8fafc;
+  --popover: #1e1b24;
+  --popover-foreground: #f8fafc;
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #f8fafc;
+  --muted: #27272a;
+  --muted-foreground: #94a3b8;
+  --accent: #27272a;
+  --accent-foreground: #f8fafc;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #3b345b;
+  --input: #3b345b;
+  --ring: #7c3aed;
+  
+  /* Custom Pecunia Variables - Dark Mode */
+  --pecunia-gradient-start: #7c3aed;
+  --pecunia-gradient-end: #c084fc;
+  --pecunia-surface: #1e1b24;
+  --pecunia-surface-elevated: #2d2a37;
+  --pecunia-surface-hover: #3b345b;
+  --pecunia-text-primary: #f8fafc;
+  --pecunia-text-secondary: #cbd5e1;
+  --pecunia-text-muted: #94a3b8;
+  --pecunia-border: #3b345b;
+  --pecunia-border-light: #2d2a37;
+  --pecunia-success: #10b981;
+  --pecunia-warning: #f59e0b;
+  --pecunia-error: #ef4444;
+  
+  /* Shadow Variables - Dark Mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Base Styles */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--pecunia-surface);
+  border-color: var(--pecunia-border);
+  color: var(--pecunia-text-primary);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background-color: var(--pecunia-surface-elevated);
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--pecunia-gradient-start), var(--pecunia-gradient-end));
+  border: none;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--pecunia-gradient-end), var(--pecunia-gradient-start));
+}
+
+.btn-secondary {
+  background-color: var(--pecunia-surface-elevated);
+  color: var(--pecunia-text-primary);
+  border-color: var(--pecunia-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--pecunia-surface-hover);
+}
+
+/* Text Styles */
+.text-primary {
+  color: var(--pecunia-text-primary);
+}
+
+.text-secondary {
+  color: var(--pecunia-text-secondary);
+}
+
+.text-muted {
+  color: var(--pecunia-text-muted);
+}
+
+/* Input Styles */
+.input-field {
+  background-color: var(--pecunia-surface);
+  border-color: var(--pecunia-border);
+  color: var(--pecunia-text-primary);
+}
+
+.input-field:focus {
+  border-color: var(--pecunia-gradient-start);
+  box-shadow: 0 0 0 3px rgba(121, 58, 237, 0.1);
+}
+
+/* Dark Mode Specific Enhancements */
+.dark .gradient-bg {
+  background: linear-gradient(135deg, var(--pecunia-gradient-start), var(--pecunia-gradient-end));
+}
+
+.dark .shadow-premium {
+  box-shadow: var(--shadow-lg);
+}
+
+.dark .card-premium {
+  background-color: var(--pecunia-surface);
+  border-color: var(--pecunia-border);
+}
+
+.dark .card-premium:hover {
+  background-color: var(--pecunia-surface-elevated);
+  box-shadow: var(--shadow-md);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: relative;
+  background: linear-gradient(135deg, var(--pecunia-gradient-start), var(--pecunia-gradient-end));
+  border: none;
+  border-radius: 50px;
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+/* Dark Mode Animations */
+.dark-mode-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pecunia-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pecunia-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pecunia-text-muted);
+}
+
+/* Status and Badge Styles */
+.status-badge {
+  background-color: var(--pecunia-surface-elevated);
+  color: var(--pecunia-text-secondary);
+  border-color: var(--pecunia-border);
+}
+
+.status-badge.success {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--pecunia-success);
+}
+
+.status-badge.warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--pecunia-warning);
+}
+
+.status-badge.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--pecunia-error);
+}
+
+/* Chart and Graph Styles */
+.chart-container {
+  background-color: var(--pecunia-surface);
+  border-color: var(--pecunia-border);
+}
+
+.chart-tooltip {
+  background-color: var(--pecunia-surface-elevated);
+  border-color: var(--pecunia-border);
+  color: var(--pecunia-text-primary);
+}
+
+/* Modal and Overlay Styles */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dark .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: var(--pecunia-surface);
+  border-color: var(--pecunia-border);
+  color: var(--pecunia-text-primary);
+}
+
+/* Responsive Dark Mode */
+@media (max-width: 768px) {
+  .dark .card {
+    background-color: var(--pecunia-surface);
+    border-color: var(--pecunia-border-light);
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .dark-mode-transition {
+    transition: none;
+  }
+  
+  .theme-toggle {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .dark {
+    --pecunia-border: #64748b;
+    --pecunia-text-secondary: #e2e8f0;
+  }
+}
