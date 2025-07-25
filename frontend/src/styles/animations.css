@@ -629,25 +629,39 @@
 }
 
 /* =============================================== */
-/* Score Circle & Charts - Refined                */
+/* Premium Component Animations                   */
 /* =============================================== */
 
 .score-whisper {
-  transition: all 0.3s var(--ease-whisper);
+  transition: all 0.4s var(--ease-premium);
+  will-change: transform, filter, box-shadow;
 }
 
 .score-whisper:hover {
-  transform: scale3d(1.02, 1.02, 1);
-  filter: drop-shadow(0 4px 8px rgba(89, 69, 163, 0.1));
+  transform: scale3d(1.03, 1.03, 1);
+  filter: drop-shadow(0 6px 12px rgba(89, 69, 163, 0.15));
+  box-shadow: var(--glow-primary);
 }
 
 .chart-whisper {
-  transition: all 0.2s var(--ease-whisper);
+  transition: all 0.3s var(--ease-premium);
+  will-change: transform, filter;
 }
 
 .chart-whisper:hover {
-  transform: scale3d(1.005, 1.005, 1);
-  filter: brightness(1.02);
+  transform: scale3d(1.01, 1.01, 1);
+  filter: brightness(1.03) saturate(1.05);
+}
+
+.chart-premium {
+  transition: all 0.4s var(--ease-spring);
+  will-change: transform, filter, box-shadow;
+}
+
+.chart-premium:hover {
+  transform: scale3d(1.02, 1.02, 1);
+  filter: brightness(1.05) saturate(1.1);
+  box-shadow: var(--shadow-gentle);
 }
 
 /* =============================================== */
