@@ -442,36 +442,85 @@ const Compare = () => {
         </div>
 
         {/* AI Insights */}
-        <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+        <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 card-refined hover-glow animate-entrance animate-delay-3">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="text-[#5945a3]" size={20} />
-              What You Can Learn from {friend.name}
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Sparkles className="text-[#5945a3] icon-refined" size={20} />
+                <span>What You Can Learn from {friend.name}</span>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setShowInsights(!showInsights);
+                  toast({ 
+                    title: showInsights ? "Insights Hidden" : "AI Insights Revealed 🤖", 
+                    description: showInsights ? "Insights collapsed" : "Personalized learning opportunities displayed" 
+                  });
+                }}
+                className="btn-refined"
+              >
+                {showInsights ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </Button>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              <div className="p-3 bg-white rounded-lg">
-                <h4 className="font-medium text-sm mb-1">💡 Investment Strategy</h4>
+            <div className={`space-y-3 transition-all duration-500 ${showInsights ? 'max-h-96 opacity-100' : 'max-h-20 opacity-60'} overflow-hidden`}>
+              <div 
+                className="p-3 bg-white rounded-lg hover-subtle cursor-pointer group animate-slide-left"
+                onClick={() => toast({ title: "Investment Strategy Details", description: "Opening detailed investment analysis and recommendations" })}
+              >
+                <h4 className="font-medium text-sm mb-1 flex items-center gap-2 group-hover:text-[#5945a3] transition-colors">
+                  💡 Investment Strategy
+                  <TrendingUp className="text-green-500 animate-scale-gentle" size={12} />
+                </h4>
                 <p className="text-sm text-gray-600">
                   {friend.name} has a higher net worth through aggressive investment allocation. 
                   Consider increasing your stock portfolio by 10-15%.
                 </p>
               </div>
-              <div className="p-3 bg-white rounded-lg">
-                <h4 className="font-medium text-sm mb-1">🎯 Savings Habits</h4>
+              <div 
+                className="p-3 bg-white rounded-lg hover-subtle cursor-pointer group animate-slide-left animate-delay-1"
+                onClick={() => toast({ title: "Savings Optimization", description: "Learn about automated saving strategies" })}
+              >
+                <h4 className="font-medium text-sm mb-1 flex items-center gap-2 group-hover:text-[#5945a3] transition-colors">
+                  🎯 Savings Habits
+                  <Target className="text-blue-500 animate-scale-gentle" size={12} />
+                </h4>
                 <p className="text-sm text-gray-600">
                   Their {friend.savingsRate}% savings rate suggests automated transfers. 
                   Try increasing your automatic savings by $200/month.
                 </p>
               </div>
-              <div className="p-3 bg-white rounded-lg">
-                <h4 className="font-medium text-sm mb-1">📈 Goal Achievement</h4>
+              <div 
+                className="p-3 bg-white rounded-lg hover-subtle cursor-pointer group animate-slide-left animate-delay-2"
+                onClick={() => toast({ title: "Goal Achievement Tips", description: "Strategic goal setting based on successful patterns" })}
+              >
+                <h4 className="font-medium text-sm mb-1 flex items-center gap-2 group-hover:text-[#5945a3] transition-colors">
+                  📈 Goal Achievement
+                  <Award className="text-purple-500 animate-scale-gentle" size={12} />
+                </h4>
                 <p className="text-sm text-gray-600">
                   Based on their patterns, consider setting a stretch goal for your emergency fund 
                   to accelerate your financial progress.
                 </p>
               </div>
+              
+              {showInsights && (
+                <div className="mt-4 p-3 bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-lg animate-scale-gentle">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-[#5945a3] font-medium">💪 Ready to implement these insights?</p>
+                    <Button 
+                      size="sm" 
+                      className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
+                      onClick={() => toast({ title: "Action Plan Created! 📋", description: "Your personalized improvement plan is ready" })}
+                    >
+                      Create Action Plan
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
