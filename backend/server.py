@@ -12,7 +12,7 @@ from ai_service import PecuniaAI
 import uuid
 
 # Initialize FastAPI app
-app = FastAPI(title="Pecunia API", version="1.0.0")
+app = FastAPI(title="Pecunia API", version="1.0.0", root_path="/api")
 
 # Add CORS middleware
 app.add_middleware(
