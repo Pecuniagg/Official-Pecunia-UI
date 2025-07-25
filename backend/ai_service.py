@@ -3,12 +3,19 @@ import openai
 from typing import Optional, Dict, Any, List
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+from pathlib import Path
+
+# Load environment variables
+ROOT_DIR = Path(__file__).parent
+load_dotenv(ROOT_DIR / '.env')
 
 class PecuniaAI:
     def __init__(self):
-        self.client = openai.OpenAI(
-            api_key=os.environ.get('OPENAI_API_KEY')
-        )
+        api_key = os.environ.get('OPENAI_API_KEY')
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY environment variable is not set")
+        self.client = openai.OpenAI(api_key=api_key)
         self.model = "gpt-4"
         
     async def get_financial_insights(self, user_data: Dict[str, Any]) -> Dict[str, Any]:
