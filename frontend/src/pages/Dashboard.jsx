@@ -591,96 +591,49 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Interactive AI Insights */}
-          <Card className="shadow-lg card-refined bg-gradient-to-br from-gray-50 to-white">
+          {/* AI Insights Preview */}
+          <Card className="shadow-lg card-premium hover-glow-subtle">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <Target className="text-[#5945a3] icon-refined" size={20} />
+                <Brain className="text-[#5945a3] icon-premium" size={20} />
                 AI Insights
               </CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
-                onClick={() => getInsights()}
-                disabled={aiLoading}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
+                onClick={() => setSmartMode(!smartMode)}
+                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
               >
-                {aiLoading ? <Loader2 className="animate-spin" size={16} /> : <Sparkles size={16} />}
+                <ArrowUpRight size={16} />
               </Button>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {aiLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="animate-spin mr-2" size={20} />
-                  <span className="text-gray-600">AI is analyzing your finances...</span>
+            <CardContent className="space-y-4">
+              {loadingInsights ? (
+                <div className="animate-pulse space-y-2">
+                  <div className="h-4 bg-gray-200 rounded w-full"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                 </div>
-              ) : aiInsights?.insights ? (
-                aiInsights.insights.slice(0, 3).map((insight, index) => (
-                  <div key={index} className={`p-3 rounded-lg border animate-scale-gentle animate-delay-${index + 1} ${
-                    insight.type === 'success' ? 'bg-green-50 border-green-100' : 
-                    insight.type === 'warning' ? 'bg-yellow-50 border-yellow-100' : 
-                    'bg-blue-50 border-blue-100'
-                  }`}>
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <p className="text-sm text-[#1e1b24] mb-2">
-                          {insight.type === 'success' ? '✅' : insight.type === 'warning' ? '⚠️' : '💡'} {insight.description}
-                        </p>
-                        {insight.action && (
-                          <Button 
-                            size="xs" 
-                            className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined"
-                            onClick={() => handleInsightAction(insight.type)}
-                          >
-                            {insight.action}
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))
               ) : (
-                // Fallback to mock data
-                <>
-                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-100 animate-scale-gentle animate-delay-1">
-                    <p className="text-sm text-[#1e1b24] mb-2">
-                      💡 Consider investing your surplus $2,750 in your emergency fund
-                    </p>
-                    <Button 
-                      size="xs" 
-                      className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined"
-                      onClick={() => handleInsightAction('emergency_fund')}
-                    >
-                      Do It
-                    </Button>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="bg-green-100 text-green-800">
+                      Opportunity
+                    </Badge>
+                    <span className="text-sm">High-yield savings rates increased</span>
                   </div>
-                  <div className="p-3 bg-green-50 rounded-lg border border-green-100 animate-scale-gentle animate-delay-2">
-                    <p className="text-sm text-[#1e1b24] mb-2">
-                      🎯 You're 15% ahead of your savings goal this month
-                    </p>
-                    <Button 
-                      size="xs" 
-                      variant="outline"
-                      className="btn-refined"
-                      onClick={() => toast({ title: "Goal Progress", description: "Opening savings goal details..." })}
-                    >
-                      View Goal
-                    </Button>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      Insight
+                    </Badge>
+                    <span className="text-sm">Emergency fund 85% complete</span>
                   </div>
-                  <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100 animate-scale-gentle animate-delay-3">
-                    <p className="text-sm text-[#1e1b24] mb-2">
-                      ⚠️ Dining expenses increased by 25% this month
-                    </p>
-                    <Button 
-                      size="xs" 
-                      variant="outline"
-                      className="btn-refined"
-                      onClick={() => handleInsightAction('dining_alert')}
-                    >
-                      Set Alert
-                    </Button>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                      Warning
+                    </Badge>
+                    <span className="text-sm">Dining expenses above average</span>
                   </div>
-                </>
+                </div>
               )}
             </CardContent>
           </Card>
