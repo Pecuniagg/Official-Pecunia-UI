@@ -393,9 +393,13 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div onClick={() => handleChartClick('Liabilities', dashboard.liabilities)} className="cursor-pointer chart-premium">
-                <PieChartComponent 
+                <AdvancedPieChart 
                   data={dashboard.liabilities} 
+                  title=""
                   colors={['#b37e91', '#3b345b', '#1e1b24']}
+                  showTrends={false}
+                  showInsights={false}
+                  onSegmentClick={(data) => handleChartClick('Liabilities', dashboard.liabilities)}
                 />
               </div>
             </CardContent>
