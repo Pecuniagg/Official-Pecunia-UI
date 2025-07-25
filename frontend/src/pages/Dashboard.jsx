@@ -216,6 +216,7 @@ const Dashboard = () => {
     return true;
   });
 
+  return (
     <div className="space-y-8 animate-entrance">
       {/* Hero Banner */}
       <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white card-premium hover-glow-subtle">
