@@ -98,26 +98,26 @@ const Layout = ({ children }) => {
         <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/95 backdrop-blur-md border-b border-gray-100 z-10 dark:bg-gray-900/95 dark:border-gray-800 transition-colors duration-300">
           <div className="flex items-center justify-between h-full px-8">
             <div className="flex items-center gap-6">
-              <h2 className="text-xl font-semibold text-gray-900 animate-fade-in-right animate-stagger-1">
+              <h2 className="visual-hierarchy-2 text-gray-900 dark:text-white transition-colors duration-300">
                 {navigation.find(nav => nav.href === location.pathname)?.name || "Dashboard"}
               </h2>
             </div>
             
-            <div className="flex items-center gap-4 animate-fade-in-left animate-stagger-2">
+            <div className="flex items-center gap-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#3b345b] transition-colors duration-200" size={16} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition-colors duration-200" size={16} />
                 <Input 
                   placeholder="Search..." 
-                  className="pl-10 w-80 bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-[#5945a3] transition-all duration-200 input-focus hover-scale-small"
+                  className="pl-10 w-80 bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-[#5945a3] transition-all duration-200 dark:bg-gray-800 dark:focus:bg-gray-700 dark:text-white"
                 />
               </div>
               
-              <Button variant="ghost" size="sm" className="relative hover:bg-gray-50 btn-whisper focus-whisper">
-                <Bell size={20} className="text-[#3b345b] icon-whisper" />
+              <Button variant="ghost" size="sm" className="relative interactive text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                <Bell size={20} />
                 <span className="absolute -top-1 -right-1 h-2 w-2 bg-[#b37e91] rounded-full"></span>
               </Button>
               
-              <Avatar className="h-8 w-8 hover-scale-small transition-transform duration-200">
+              <Avatar className="h-8 w-8 interactive ring-2 ring-transparent hover:ring-[#5945a3] transition-all duration-200">
                 <AvatarImage src="/api/placeholder/32/32" />
                 <AvatarFallback className="bg-[#5945a3] text-white">JD</AvatarFallback>
               </Avatar>
@@ -125,28 +125,28 @@ const Layout = ({ children }) => {
           </div>
         </header>
 
-        {/* Page Content */}
-        <main className="pt-16 p-8 min-h-screen">
-          <div className="max-w-[1200px] mx-auto">
+        {/* Page Content - Improved spacing and breathing room */}
+        <main className="pt-16 min-h-screen">
+          <div className="container section-spacing-lg max-w-[1200px] mx-auto">
             {children}
           </div>
         </main>
       </div>
 
-      {/* Quick Action Button */}
+      {/* Quick Action Button - Non-overlapping, side panel trigger */}
       <Button
         onClick={() => setShowQuickActions(true)}
-        className="fixed bottom-8 right-8 h-14 px-6 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 shadow-xl hover:shadow-2xl btn-whisper"
+        className="fixed bottom-8 right-8 h-14 px-6 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 shadow-lg hover:shadow-xl interactive text-white border-0 z-50 transition-all duration-200 ease-in-out"
         size="lg"
       >
-        <Plus size={20} className="mr-2 hover-rotate transition-transform duration-300" />
+        <Plus size={20} className="mr-2 transition-transform duration-200" />
         Quick Action
       </Button>
 
-      {/* AI Assistant */}
+      {/* AI Assistant - Enhanced side panel */}
       <AIAssistant isOpen={showAI} onClose={() => setShowAI(false)} />
       
-      {/* Quick Action Panel */}
+      {/* Quick Action Panel - Enhanced side panel */}
       <QuickActionPanel isOpen={showQuickActions} onClose={() => setShowQuickActions(false)} />
       
       {/* Toast Notifications */}
