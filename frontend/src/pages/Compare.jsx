@@ -281,11 +281,18 @@ const Compare = () => {
   const ComparisonCharts = () => {
     if (!selectedFriend) {
       return (
-        <Card className="text-center py-12">
+        <Card className="text-center py-12 card-refined hover-glow animate-scale-gentle">
           <CardContent>
-            <Users className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+            <Users className="w-12 h-12 mx-auto text-gray-400 mb-4 animate-counter" />
             <h3 className="text-lg font-semibold text-gray-600 mb-2">Select a Friend to Compare</h3>
-            <p className="text-gray-500">Choose someone from your network to see detailed comparisons</p>
+            <p className="text-gray-500 mb-4">Choose someone from your network to see detailed comparisons</p>
+            <Button 
+              onClick={handleAddFriend}
+              className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
+            >
+              <UserPlus size={16} className="mr-2" />
+              Invite More Friends
+            </Button>
           </CardContent>
         </Card>
       );
@@ -293,86 +300,142 @@ const Compare = () => {
 
     const friend = compare.friends.find(f => f.name === selectedFriend);
     const myData = {
-      netWorth: 89000, // This would come from user's actual data
+      netWorth: 89000,
       savingsRate: 23,
       score: 782
     };
+
+    const netWorthResult = getComparisonResult(myData.netWorth, friend.netWorth);
+    const savingsResult = getComparisonResult(myData.savingsRate, friend.savingsRate);
+    const scoreResult = getComparisonResult(myData.score, friend.score);
 
     return (
       <div className="space-y-8">
         {/* Comparison Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="text-center">
+          <Card 
+            className="text-center card-refined hover-glow cursor-pointer group animate-entrance"
+            onClick={() => toast({ title: "Net Worth Analysis", description: "View detailed net worth breakdown and trends" })}
+          >
             <CardContent className="p-6">
-              <DollarSign className="w-8 h-8 mx-auto mb-3 text-green-600" />
-              <h3 className="font-semibold mb-2">Net Worth</h3>
+              <DollarSign className="w-8 h-8 mx-auto mb-3 text-green-600 icon-refined group-hover:scale-110" />
+              <h3 className="font-semibold mb-2 group-hover:text-[#5945a3] transition-colors">Net Worth</h3>
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center hover-subtle p-1 rounded">
                   <span className="text-sm text-gray-600">You</span>
-                  <span className="font-bold">${myData.netWorth.toLocaleString()}</span>
+                  <span className="font-bold animate-counter">${myData.netWorth.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center hover-subtle p-1 rounded">
                   <span className="text-sm text-gray-600">{friend.name}</span>
-                  <span className="font-bold">${friend.netWorth.toLocaleString()}</span>
+                  <span className="font-bold animate-counter">${friend.netWorth.toLocaleString()}</span>
                 </div>
               </div>
               <div className="mt-3 pt-3 border-t">
-                <p className={`text-sm font-medium ${
-                  myData.netWorth > friend.netWorth ? 'text-green-600' : 'text-red-500'
-                }`}>
-                  {Math.abs(((myData.netWorth - friend.netWorth) / friend.netWorth * 100)).toFixed(1)}% 
-                  {myData.netWorth > friend.netWorth ? ' ahead' : ' behind'}
-                </p>
+                <div className="flex items-center justify-center gap-2">
+                  {netWorthResult.isAhead ? (
+                    <ChevronUp className="text-green-600 animate-scale-gentle" size={16} />
+                  ) : (
+                    <ChevronDown className="text-red-500 animate-scale-gentle" size={16} />
+                  )}
+                  <p className={`text-sm font-medium ${netWorthResult.isAhead ? 'text-green-600' : 'text-red-500'}`}>
+                    {netWorthResult.percentage}% {netWorthResult.isAhead ? 'ahead' : 'behind'}
+                  </p>
+                </div>
+              </div>
+              {/* Progress visualization */}
+              <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-green-400 to-green-600 transition-all duration-1000"
+                  style={{ width: `${(myData.netWorth / Math.max(myData.netWorth, friend.netWorth)) * 100}%` }}
+                ></div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="text-center">
+          <Card 
+            className="text-center card-refined hover-glow cursor-pointer group animate-entrance animate-delay-1"
+            onClick={() => toast({ title: "Savings Rate Analysis", description: "Compare saving strategies and habits" })}
+          >
             <CardContent className="p-6">
-              <PieChart className="w-8 h-8 mx-auto mb-3 text-blue-600" />
-              <h3 className="font-semibold mb-2">Savings Rate</h3>
+              <PieChart className="w-8 h-8 mx-auto mb-3 text-blue-600 icon-refined group-hover:scale-110" />
+              <h3 className="font-semibold mb-2 group-hover:text-[#5945a3] transition-colors">Savings Rate</h3>
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center hover-subtle p-1 rounded">
                   <span className="text-sm text-gray-600">You</span>
-                  <span className="font-bold">{myData.savingsRate}%</span>
+                  <div className="flex items-center gap-1">
+                    <span className="font-bold animate-counter">{myData.savingsRate}%</span>
+                    {myData.savingsRate > 20 && <Sparkles className="text-yellow-500 animate-scale-gentle" size={12} />}
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center hover-subtle p-1 rounded">
                   <span className="text-sm text-gray-600">{friend.name}</span>
-                  <span className="font-bold">{friend.savingsRate}%</span>
+                  <div className="flex items-center gap-1">
+                    <span className="font-bold animate-counter">{friend.savingsRate}%</span>
+                    {friend.savingsRate > 20 && <Sparkles className="text-yellow-500 animate-scale-gentle" size={12} />}
+                  </div>
                 </div>
               </div>
               <div className="mt-3 pt-3 border-t">
-                <p className={`text-sm font-medium ${
-                  myData.savingsRate > friend.savingsRate ? 'text-green-600' : 'text-red-500'
-                }`}>
-                  {Math.abs(myData.savingsRate - friend.savingsRate)}% 
-                  {myData.savingsRate > friend.savingsRate ? ' higher' : ' lower'}
-                </p>
+                <div className="flex items-center justify-center gap-2">
+                  {savingsResult.isAhead ? (
+                    <ChevronUp className="text-green-600 animate-scale-gentle" size={16} />
+                  ) : (
+                    <ChevronDown className="text-red-500 animate-scale-gentle" size={16} />
+                  )}
+                  <p className={`text-sm font-medium ${savingsResult.isAhead ? 'text-green-600' : 'text-red-500'}`}>
+                    {Math.abs(myData.savingsRate - friend.savingsRate)}% {savingsResult.isAhead ? 'higher' : 'lower'}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-1000"
+                  style={{ width: `${(myData.savingsRate / Math.max(myData.savingsRate, friend.savingsRate)) * 100}%` }}
+                ></div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="text-center">
+          <Card 
+            className="text-center card-refined hover-glow cursor-pointer group animate-entrance animate-delay-2"
+            onClick={() => toast({ title: "Pecunia Score Breakdown", description: "Detailed score analysis and improvement tips" })}
+          >
             <CardContent className="p-6">
-              <Target className="w-8 h-8 mx-auto mb-3 text-purple-600" />
-              <h3 className="font-semibold mb-2">Pecunia Score</h3>
+              <Target className="w-8 h-8 mx-auto mb-3 text-purple-600 icon-refined group-hover:scale-110" />
+              <h3 className="font-semibold mb-2 group-hover:text-[#5945a3] transition-colors">Pecunia Score</h3>
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center hover-subtle p-1 rounded">
                   <span className="text-sm text-gray-600">You</span>
-                  <span className="font-bold">{myData.score}</span>
+                  <div className="flex items-center gap-1">
+                    <span className="font-bold animate-counter">{myData.score}</span>
+                    {myData.score > 750 && <Award className="text-gold animate-scale-gentle" size={12} />}
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center hover-subtle p-1 rounded">
                   <span className="text-sm text-gray-600">{friend.name}</span>
-                  <span className="font-bold">{friend.score}</span>
+                  <div className="flex items-center gap-1">
+                    <span className="font-bold animate-counter">{friend.score}</span>
+                    {friend.score > 750 && <Award className="text-gold animate-scale-gentle" size={12} />}
+                  </div>
                 </div>
               </div>
               <div className="mt-3 pt-3 border-t">
-                <p className={`text-sm font-medium ${
-                  myData.score > friend.score ? 'text-green-600' : 'text-red-500'
-                }`}>
-                  {Math.abs(myData.score - friend.score)} points 
-                  {myData.score > friend.score ? ' ahead' : ' behind'}
-                </p>
+                <div className="flex items-center justify-center gap-2">
+                  {scoreResult.isAhead ? (
+                    <ChevronUp className="text-green-600 animate-scale-gentle" size={16} />
+                  ) : (
+                    <ChevronDown className="text-red-500 animate-scale-gentle" size={16} />
+                  )}
+                  <p className={`text-sm font-medium ${scoreResult.isAhead ? 'text-green-600' : 'text-red-500'}`}>
+                    {Math.abs(myData.score - friend.score)} points {scoreResult.isAhead ? 'ahead' : 'behind'}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-1000"
+                  style={{ width: `${(myData.score / Math.max(myData.score, friend.score)) * 100}%` }}
+                ></div>
               </div>
             </CardContent>
           </Card>
