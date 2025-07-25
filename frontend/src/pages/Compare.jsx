@@ -529,115 +529,166 @@ const Compare = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-entrance">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+      <div className="animate-entrance-down">
+        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2 animate-slide-left" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           Compare
         </h1>
-        <p className="text-[#3b345b]">Learn from friends and benchmark against others</p>
+        <p className="text-[#3b345b] animate-slide-left animate-delay-1">Learn from friends and benchmark against others</p>
       </div>
 
-      <Tabs defaultValue="friends" className="w-full">
-        <TabsList className="mb-8">
-          <TabsTrigger value="friends" className="flex items-center gap-2">
-            <Users size={16} />
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="mb-8 animate-slide-left animate-delay-2">
+          <TabsTrigger value="friends" className="flex items-center gap-2 btn-refined nav-indicator">
+            <Users size={16} className="icon-refined" />
             Friends
           </TabsTrigger>
-          <TabsTrigger value="public" className="flex items-center gap-2">
-            <Globe size={16} />
+          <TabsTrigger value="public" className="flex items-center gap-2 btn-refined nav-indicator">
+            <Globe size={16} className="icon-refined" />
             Public Data
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="friends">
+        <TabsContent value="friends" className="animate-scale-gentle">
           <FriendSelector />
           <ComparisonCharts />
         </TabsContent>
 
-        <TabsContent value="public" className="space-y-6">
-          <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white">
+        <TabsContent value="public" className="space-y-6 animate-scale-gentle">
+          <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white card-refined hover-glow animate-entrance">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4">How You Compare to Others</h2>
+              <h2 className="text-2xl font-bold mb-4 animate-slide-left">How You Compare to Others</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <p className="text-3xl font-bold mb-2">Top 25%</p>
+                <div 
+                  className="text-center cursor-pointer hover-scale-subtle group"
+                  onClick={() => toast({ title: "Net Worth Ranking", description: "You're in the top 25% for your age group!" })}
+                >
+                  <p className="text-3xl font-bold mb-2 animate-counter group-hover:scale-105 transition-transform">Top 25%</p>
                   <p className="opacity-90">Net Worth Ranking</p>
+                  <Crown className="mx-auto mt-2 text-yellow-300 animate-scale-gentle" size={20} />
                 </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold mb-2">Above Avg</p>
+                <div 
+                  className="text-center cursor-pointer hover-scale-subtle group"
+                  onClick={() => toast({ title: "Savings Performance", description: "Your savings rate exceeds national average" })}
+                >
+                  <p className="text-3xl font-bold mb-2 animate-counter group-hover:scale-105 transition-transform">Above Avg</p>
                   <p className="opacity-90">Savings Rate</p>
+                  <TrendingUp className="mx-auto mt-2 text-green-300 animate-scale-gentle" size={20} />
                 </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold mb-2">Excellent</p>
+                <div 
+                  className="text-center cursor-pointer hover-scale-subtle group"
+                  onClick={() => toast({ title: "Financial Health", description: "Excellent financial discipline and planning!" })}
+                >
+                  <p className="text-3xl font-bold mb-2 animate-counter group-hover:scale-105 transition-transform">Excellent</p>
                   <p className="opacity-90">Financial Health</p>
+                  <Sparkles className="mx-auto mt-2 text-yellow-300 animate-scale-gentle" size={20} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card>
+            <Card className="card-refined hover-glow animate-slide-left animate-delay-1">
               <CardHeader>
-                <CardTitle>National Averages (Age 25-35)</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="text-[#5945a3] icon-refined" size={20} />
+                  National Averages (Age 25-35)
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                  <span>Average Net Worth</span>
-                  <span className="font-semibold">${compare.public.avgNetWorth.toLocaleString()}</span>
+                <div 
+                  className="flex justify-between items-center p-3 bg-gray-50 rounded hover-subtle cursor-pointer group"
+                  onClick={() => toast({ title: "Net Worth Comparison", description: "Detailed breakdown vs national average" })}
+                >
+                  <span className="group-hover:text-[#5945a3] transition-colors">Average Net Worth</span>
+                  <span className="font-semibold animate-counter">${compare.public.avgNetWorth.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                  <span>Average Savings Rate</span>
-                  <span className="font-semibold">{compare.public.avgSavingsRate}%</span>
+                <div 
+                  className="flex justify-between items-center p-3 bg-gray-50 rounded hover-subtle cursor-pointer group"
+                  onClick={() => toast({ title: "Savings Rate Analysis", description: "How your savings rate compares nationally" })}
+                >
+                  <span className="group-hover:text-[#5945a3] transition-colors">Average Savings Rate</span>
+                  <span className="font-semibold animate-counter">{compare.public.avgSavingsRate}%</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                  <span>Average Pecunia Score</span>
-                  <span className="font-semibold">{compare.public.avgScore}</span>
+                <div 
+                  className="flex justify-between items-center p-3 bg-gray-50 rounded hover-subtle cursor-pointer group"
+                  onClick={() => toast({ title: "Score Benchmarking", description: "Pecunia score vs national distribution" })}
+                >
+                  <span className="group-hover:text-[#5945a3] transition-colors">Average Pecunia Score</span>
+                  <span className="font-semibold animate-counter">{compare.public.avgScore}</span>
                 </div>
                 
                 <div className="pt-4 border-t">
-                  <h4 className="font-semibold mb-3">Your Performance</h4>
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <Trophy className="text-[#5945a3] animate-scale-gentle" size={16} />
+                    Your Performance
+                  </h4>
                   <div className="space-y-2">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center hover-subtle p-1 rounded">
                       <span className="text-sm">Net Worth</span>
-                      <Badge className="bg-green-100 text-green-800">Above Average</Badge>
+                      <Badge className="bg-green-100 text-green-800 hover-glow animate-scale-gentle">Above Average</Badge>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center hover-subtle p-1 rounded">
                       <span className="text-sm">Savings Rate</span>
-                      <Badge className="bg-green-100 text-green-800">Above Average</Badge>
+                      <Badge className="bg-green-100 text-green-800 hover-glow animate-scale-gentle">Above Average</Badge>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center hover-subtle p-1 rounded">
                       <span className="text-sm">Pecunia Score</span>
-                      <Badge className="bg-blue-100 text-blue-800">Excellent</Badge>
+                      <Badge className="bg-blue-100 text-blue-800 hover-glow animate-scale-gentle">Excellent</Badge>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="card-refined hover-glow animate-slide-right animate-delay-2">
               <CardHeader>
-                <CardTitle>Improvement Suggestions</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="text-[#5945a3] icon-refined" size={20} />
+                  Improvement Suggestions
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <h4 className="font-medium mb-2">🎯 Next Milestone</h4>
+                <div 
+                  className="p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer hover-glow group animate-slide-left"
+                  onClick={() => toast({ title: "Milestone Progress", description: "Detailed roadmap to $100K net worth" })}
+                >
+                  <h4 className="font-medium mb-2 flex items-center gap-2 group-hover:text-[#5945a3] transition-colors">
+                    🎯 Next Milestone
+                    <Target className="animate-scale-gentle" size={14} />
+                  </h4>
                   <p className="text-sm text-gray-700">
                     Reach $100K net worth to join the top 20% of your age group. 
                     You're 87% there!
                   </p>
+                  <div className="mt-2 h-2 bg-blue-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-1000" style={{ width: '87%' }}></div>
+                  </div>
                 </div>
                 
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <h4 className="font-medium mb-2">💪 Strength</h4>
+                <div 
+                  className="p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors cursor-pointer hover-glow group animate-slide-left animate-delay-1"
+                  onClick={() => toast({ title: "Savings Strength", description: "Your exceptional savings performance analysis" })}
+                >
+                  <h4 className="font-medium mb-2 flex items-center gap-2 group-hover:text-[#5945a3] transition-colors">
+                    💪 Strength
+                    <TrendingUp className="text-green-600 animate-scale-gentle" size={14} />
+                  </h4>
                   <p className="text-sm text-gray-700">
                     Your 23% savings rate puts you in the top 30% nationally. 
                     Keep up the great work!
                   </p>
                 </div>
                 
-                <div className="p-4 bg-yellow-50 rounded-lg">
-                  <h4 className="font-medium mb-2">🚀 Growth Opportunity</h4>
+                <div 
+                  className="p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors cursor-pointer hover-glow group animate-slide-left animate-delay-2"
+                  onClick={() => toast({ title: "Growth Strategy", description: "Personalized investment allocation recommendations" })}
+                >
+                  <h4 className="font-medium mb-2 flex items-center gap-2 group-hover:text-[#5945a3] transition-colors">
+                    🚀 Growth Opportunity
+                    <Sparkles className="text-yellow-600 animate-scale-gentle" size={14} />
+                  </h4>
                   <p className="text-sm text-gray-700">
                     Consider increasing investment allocation to accelerate net worth growth 
                     and reach top 15% within 2 years.
