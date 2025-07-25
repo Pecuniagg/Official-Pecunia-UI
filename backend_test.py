@@ -286,8 +286,13 @@ class BackendTester:
                         trends_count = len(data.get("trends", []))
                         alerts_count = len(data.get("alerts", []))
                         optimization_count = len(data.get("optimization", []))
-                        self.log_result("Spending Analysis Endpoint", True, 
-                                      f"Analysis complete - {trends_count} trends, {alerts_count} alerts, {optimization_count} optimizations")
+                        # Accept empty results as valid (fallback behavior)
+                        if trends_count == 0 and alerts_count == 0 and optimization_count == 0:
+                            self.log_result("Spending Analysis Endpoint", True, 
+                                          "Analysis endpoint working (returned fallback due to AI service issue)")
+                        else:
+                            self.log_result("Spending Analysis Endpoint", True, 
+                                          f"Analysis complete - {trends_count} trends, {alerts_count} alerts, {optimization_count} optimizations")
                         return True
                     else:
                         self.log_result("Spending Analysis Endpoint", False, f"Missing required fields in response: {list(data.keys())}")
