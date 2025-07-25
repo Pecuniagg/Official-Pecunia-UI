@@ -5,86 +5,80 @@ import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { 
-  Bot, 
+  Brain, 
   Send, 
   Sparkles, 
   Loader2, 
-  Brain, 
   TrendingUp, 
   Target, 
-  DollarSign, 
   PiggyBank,
   Plane,
   BarChart3,
-  Lightbulb,
-  Zap,
-  CheckCircle,
-  ArrowRight,
-  RefreshCw,
-  Bell,
-  Shield
+  X,
+  User,
+  MessageCircle
 } from 'lucide-react';
 import { useAI } from '../contexts/AIContext';
 import aiService from '../services/aiService';
 
 const AIAssistant = ({ isOpen, onClose }) => {
-  const { chatHistory, userProfile, loading } = useAI();
+  const { chatHistory, userProfile } = useAI();
   const [message, setMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [currentTask, setCurrentTask] = useState(null);
-  const [quickActions, setQuickActions] = useState([]);
   const [localChatHistory, setLocalChatHistory] = useState([]);
-  const [smartSuggestions, setSmartSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const messagesEndRef = useRef(null);
 
-  // Enhanced suggested prompts with categories
-  const suggestedPrompts = {
-    financial_analysis: [
-      "Analyze my complete financial situation and give me a comprehensive strategy",
-      "How do I compare to others in my age group financially?",
-      "What's my biggest financial opportunity right now?",
-      "Create an automated financial plan for me"
-    ],
-    budgeting: [
-      "Optimize my budget to save more money",
-      "Where am I overspending and how can I fix it?",
-      "Create a smart budget that maximizes my savings",
-      "Set up automatic savings for me"
-    ],
-    investing: [
-      "What should I invest in right now with current market conditions?",
-      "Create a personalized investment strategy for me",
-      "How should I diversify my portfolio?",
-      "What ETFs should I buy this month?"
-    ],
-    goals: [
-      "Help me create a plan to achieve my financial goals",
-      "How can I save for a house down payment faster?",
-      "What's the best retirement saving strategy for me?",
-      "Create an emergency fund plan"
-    ],
-    travel: [
-      "Plan a budget-friendly vacation for me",
-      "How can I save money on my next trip?",
-      "Create a complete travel itinerary with budget",
-      "Find the best travel deals for my budget"
-    ]
-  };
+  // Refined suggested prompts with better organization
+  const suggestedPrompts = [
+    {
+      category: "Financial Analysis",
+      icon: BarChart3,
+      prompts: [
+        "Analyze my complete financial situation and give me a comprehensive strategy",
+        "How do I compare to others in my age group financially?"
+      ]
+    },
+    {
+      category: "Budgeting",
+      icon: PiggyBank,
+      prompts: [
+        "Optimize my budget to save more money",
+        "Create a smart budget that maximizes my savings"
+      ]
+    },
+    {
+      category: "Investing",
+      icon: TrendingUp,
+      prompts: [
+        "What should I invest in right now with current market conditions?",
+        "Create a personalized investment strategy for me"
+      ]
+    },
+    {
+      category: "Goals",
+      icon: Target,
+      prompts: [
+        "Help me create a plan to achieve my financial goals",
+        "How can I save for a house down payment faster?"
+      ]
+    },
+    {
+      category: "Travel",
+      icon: Plane,
+      prompts: [
+        "Plan a budget-friendly vacation for me",
+        "Create a complete travel itinerary with budget"
+      ]
+    }
+  ];
 
   useEffect(() => {
-    loadSmartSuggestions();
-  }, []);
+    scrollToBottom();
+  }, [localChatHistory]);
 
-  const loadSmartSuggestions = async () => {
-    try {
-      const suggestions = await aiService.getProactiveSuggestions({
-        page: 'ai_assistant',
-        context: 'chat_interface'
-      });
-      setSmartSuggestions([suggestions.response]);
-    } catch (error) {
-      console.error('Error loading smart suggestions:', error);
-    }
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleSend = async () => {
@@ -100,41 +94,34 @@ const AIAssistant = ({ isOpen, onClose }) => {
     setLocalChatHistory(prev => [...prev, userMessage]);
     setMessage('');
     setIsTyping(true);
+    setShowSuggestions(false);
 
     try {
-      // Determine the type of request and handle accordingly
       const messageType = determineMessageType(message);
       let response;
 
       switch (messageType) {
         case 'comprehensive_analysis':
-          setCurrentTask('Analyzing your complete financial situation...');
           response = await aiService.getComprehensiveAnalysis();
           break;
         case 'budget_optimization':
-          setCurrentTask('Optimizing your budget...');
           response = await aiService.generateSmartBudget();
           break;
         case 'investment_strategy':
-          setCurrentTask('Creating your investment strategy...');
           response = await aiService.generateInvestmentStrategy();
           break;
         case 'competitive_insights':
-          setCurrentTask('Comparing you to your peers...');
           response = await aiService.getCompetitiveInsights();
           break;
         case 'travel_planning':
-          setCurrentTask('Planning your trip...');
           const travelData = extractTravelData(message);
           response = await aiService.generateTravelPlan(travelData);
           break;
         case 'goal_strategy':
-          setCurrentTask('Creating your goal strategy...');
           const goalData = extractGoalData(message);
           response = await aiService.generateGoalStrategy(goalData);
           break;
         default:
-          setCurrentTask('Thinking...');
           response = await aiService.chatWithAI(message, {
             page: 'ai_assistant',
             user_context: aiService.userContext
@@ -146,14 +133,10 @@ const AIAssistant = ({ isOpen, onClose }) => {
         type: 'ai',
         content: formatAIResponse(response, messageType),
         timestamp: new Date(),
-        messageType: messageType,
-        rawResponse: response
+        messageType: messageType
       };
 
       setLocalChatHistory(prev => [...prev, aiMessage]);
-      
-      // Generate quick actions based on the response
-      generateQuickActions(response, messageType);
 
     } catch (error) {
       console.error('Chat error:', error);
@@ -166,7 +149,6 @@ const AIAssistant = ({ isOpen, onClose }) => {
       setLocalChatHistory(prev => [...prev, errorMessage]);
     } finally {
       setIsTyping(false);
-      setCurrentTask(null);
     }
   };
 
@@ -196,7 +178,6 @@ const AIAssistant = ({ isOpen, onClose }) => {
   };
 
   const extractTravelData = (message) => {
-    // Extract travel data from message (basic implementation)
     const budgetMatch = message.match(/\$?(\d+(?:,\d+)?)/);
     const budget = budgetMatch ? parseInt(budgetMatch[1].replace(',', '')) : 2000;
     
@@ -210,7 +191,6 @@ const AIAssistant = ({ isOpen, onClose }) => {
   };
 
   const extractGoalData = (message) => {
-    // Extract goal data from message (basic implementation)
     const amountMatch = message.match(/\$?(\d+(?:,\d+)?)/);
     const amount = amountMatch ? parseInt(amountMatch[1].replace(',', '')) : 10000;
     
@@ -226,286 +206,256 @@ const AIAssistant = ({ isOpen, onClose }) => {
   const formatAIResponse = (response, messageType) => {
     switch (messageType) {
       case 'comprehensive_analysis':
-        return `📊 **Comprehensive Financial Analysis**\n\n${response.analysis}\n\n**Key Action Items:**\n${response.action_items?.map(item => `• ${item}`).join('\n') || 'Analysis complete'}`;
+        return `${response.analysis}\n\n**Key Action Items:**\n${response.action_items?.map(item => `• ${item}`).join('\n') || 'Analysis complete'}`;
       
       case 'budget_optimization':
-        return `💰 **Smart Budget Optimization**\n\n${response.budget}\n\n**Savings Rate:** ${response.savings_rate}%\n**Optimization Score:** ${response.optimization_score}/100`;
+        return `${response.budget}\n\n**Savings Rate:** ${response.savings_rate}%\n**Optimization Score:** ${response.optimization_score}/100`;
       
       case 'investment_strategy':
-        return `📈 **Investment Strategy**\n\n${response.strategy}\n\n**Expected Return:** ${(response.expected_return * 100).toFixed(1)}%\n**Risk Level:** ${response.risk_score}/100\n**Rebalance:** ${response.rebalance_frequency}`;
+        return `${response.strategy}\n\n**Expected Return:** ${(response.expected_return * 100).toFixed(1)}%\n**Risk Level:** ${response.risk_score}/100`;
       
       case 'competitive_insights':
-        return `🏆 **Competitive Analysis**\n\n${response.insights}\n\n**Your Ranking:** ${response.percentile_ranking}th percentile\n**Competitive Score:** ${response.competitive_score}/100`;
+        return `${response.insights}\n\n**Your Ranking:** ${response.percentile_ranking}th percentile\n**Competitive Score:** ${response.competitive_score}/100`;
       
       case 'travel_planning':
-        return `✈️ **Travel Plan**\n\n${response.plan}\n\n**Budget:** $${response.total_budget?.toLocaleString()}\n**Savings Tips:** ${response.savings_opportunities?.join(', ')}`;
+        return `${response.plan}\n\n**Budget:** $${response.total_budget?.toLocaleString()}`;
       
       case 'goal_strategy':
-        return `🎯 **Goal Strategy**\n\n${response.strategy}\n\n**Monthly Target:** $${response.monthly_target?.toLocaleString()}\n**Success Probability:** ${Math.round(response.probability_of_success * 100)}%`;
+        return `${response.strategy}\n\n**Monthly Target:** $${response.monthly_target?.toLocaleString()}`;
       
       default:
         return response.response || response.analysis || response;
     }
   };
 
-  const generateQuickActions = (response, messageType) => {
-    const actions = [];
-    
-    switch (messageType) {
-      case 'comprehensive_analysis':
-        actions.push(
-          { text: 'Optimize My Budget', action: 'budget_optimization', icon: PiggyBank },
-          { text: 'Create Investment Plan', action: 'investment_strategy', icon: TrendingUp },
-          { text: 'Set Up Goals', action: 'goal_planning', icon: Target }
-        );
-        break;
-      case 'budget_optimization':
-        actions.push(
-          { text: 'Automate Savings', action: 'automate_savings', icon: Zap },
-          { text: 'Track Expenses', action: 'track_expenses', icon: BarChart3 },
-          { text: 'Set Alerts', action: 'set_alerts', icon: Bell }
-        );
-        break;
-      case 'investment_strategy':
-        actions.push(
-          { text: 'View ETF Recommendations', action: 'etf_recommendations', icon: TrendingUp },
-          { text: 'Risk Assessment', action: 'risk_assessment', icon: Shield },
-          { text: 'Portfolio Review', action: 'portfolio_review', icon: BarChart3 }
-        );
-        break;
-    }
-    
-    setQuickActions(actions);
-  };
-
   const handlePromptClick = async (prompt) => {
     if (isTyping) return;
     setMessage(prompt);
-    await handleSend();
-  };
-
-  const handleQuickAction = async (action) => {
-    const actionMessages = {
-      'budget_optimization': 'Create an optimized budget plan for me',
-      'investment_strategy': 'What should I invest in right now?',
-      'goal_planning': 'Help me set up my financial goals',
-      'automate_savings': 'How can I automate my savings?',
-      'track_expenses': 'Show me how to track my expenses better',
-      'set_alerts': 'Set up spending alerts for me'
-    };
+    setShowSuggestions(false);
     
-    const message = actionMessages[action] || 'Help me with this task';
-    setMessage(message);
-    await handleSend();
+    // Small delay to show the message in input before sending
+    setTimeout(() => {
+      handleSend();
+    }, 100);
   };
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [localChatHistory]);
 
   const allMessages = [...chatHistory, ...localChatHistory];
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-[480px] p-0 flex flex-col animate-slide-in-bottom">
-        <SheetHeader className="p-6 border-b animate-entrance-down bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white">
-          <SheetTitle className="flex items-center gap-2">
-            <Brain className="text-white icon-premium" size={24} />
-            Pecunia AI Assistant
-          </SheetTitle>
-          <p className="text-sm text-white/90 text-left animate-fade-in-up animate-stagger-1">
-            Your intelligent financial advisor powered by GPT-4
-          </p>
+      <SheetContent side="right" className="w-[500px] p-0 flex flex-col">
+        {/* Header */}
+        <SheetHeader className="p-6 border-b bg-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center">
+                <Brain className="text-white" size={20} />
+              </div>
+              <div>
+                <SheetTitle className="text-lg font-semibold text-gray-900">
+                  Pecunia AI
+                </SheetTitle>
+                <p className="text-sm text-gray-500">
+                  Your intelligent financial advisor
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="hover:bg-gray-100 transition-colors"
+            >
+              <X size={18} />
+            </Button>
+          </div>
         </SheetHeader>
 
-        {/* Current Task Indicator */}
-        {currentTask && (
-          <div className="px-6 py-3 bg-blue-50 border-b animate-pulse">
-            <div className="flex items-center gap-2">
-              <Loader2 className="animate-spin text-blue-600" size={16} />
-              <span className="text-sm text-blue-800">{currentTask}</span>
-            </div>
-          </div>
-        )}
-
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        {/* Messages Area */}
+        <div className="flex-1 overflow-y-auto bg-gray-50">
+          {/* Welcome Message */}
           {allMessages.length === 0 && (
-            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 animate-scale-in">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Brain className="text-[#5945a3] icon-premium" size={16} />
-                  <span className="font-medium">Welcome to Pecunia AI!</span>
+            <div className="p-6">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
+                  <Brain className="text-white" size={24} />
                 </div>
-                <p className="text-sm text-gray-700 animate-fade-in-up animate-stagger-1">
-                  I'm your comprehensive financial advisor. I can analyze your finances, create budgets, 
-                  plan investments, organize travel, and much more. I'll handle the heavy lifting so you can focus on achieving your goals!
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Welcome to Pecunia AI
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  I'm your comprehensive financial advisor. I can analyze your finances, 
+                  create budgets, plan investments, and much more.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )}
 
-          {allMessages.map((msg, index) => (
-            <div
-              key={msg.id}
-              className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} ai-insight animate-fade-in-up`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <Card className={`max-w-[85%] card-premium ${
-                msg.type === 'user' 
-                  ? 'bg-[#5945a3] text-white animate-fade-in-right' 
-                  : 'bg-white border-gray-200 animate-fade-in-left hover-glow-subtle'
-              }`}>
-                <CardContent className="p-4">
-                  <div className="flex items-start gap-3">
-                    {msg.type === 'ai' && (
-                      <Brain className="text-[#5945a3] mt-1 flex-shrink-0" size={16} />
+          {/* Chat Messages */}
+          <div className="px-6 pb-6">
+            {allMessages.map((msg, index) => (
+              <div
+                key={msg.id}
+                className={`mb-6 animate-entrance animate-delay-whisper-${Math.min(index + 1, 6)}`}
+              >
+                <div className={`flex items-start gap-3 ${
+                  msg.type === 'user' ? 'flex-row-reverse' : ''
+                }`}>
+                  {/* Avatar */}
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    msg.type === 'user' 
+                      ? 'bg-[#5945a3]' 
+                      : 'bg-gradient-to-br from-[#5945a3] to-[#b37e91]'
+                  }`}>
+                    {msg.type === 'user' ? (
+                      <User className="text-white" size={16} />
+                    ) : (
+                      <Brain className="text-white" size={16} />
                     )}
-                    <div className="flex-1">
-                      <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                  </div>
+
+                  {/* Message Content */}
+                  <div className={`flex-1 ${msg.type === 'user' ? 'text-right' : ''}`}>
+                    <div className={`inline-block max-w-[85%] ${
+                      msg.type === 'user' 
+                        ? 'bg-[#5945a3] text-white' 
+                        : 'bg-white border border-gray-200'
+                    } rounded-2xl px-4 py-3 shadow-sm hover-lift-premium transition-all duration-200`}>
+                      <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                        {msg.content}
+                      </p>
                       {msg.messageType && (
                         <Badge 
                           variant="secondary" 
-                          className="mt-2 bg-[#5945a3]/10 text-[#5945a3] text-xs"
+                          className="mt-2 text-xs bg-white/20 text-white border-white/30"
                         >
                           {msg.messageType.replace('_', ' ')}
                         </Badge>
                       )}
                     </div>
+                    <p className="text-xs text-gray-500 mt-1 px-1">
+                      {msg.timestamp.toLocaleTimeString([], { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}
+                    </p>
                   </div>
-                  <span className="text-xs opacity-70 mt-2 block">
-                    {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </span>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-
-          {isTyping && (
-            <div className="flex justify-start">
-              <Card className="bg-gray-50 border-gray-200 animate-scale-in">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <Brain className="text-[#5945a3] animate-pulse" size={16} />
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="animate-spin text-[#5945a3]" size={16} />
-                      <span className="text-sm text-gray-600">AI is analyzing and thinking...</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Quick Actions */}
-        {quickActions.length > 0 && (
-          <div className="px-6 py-3 border-t bg-gray-50 animate-fade-in-up">
-            <p className="text-sm font-medium text-gray-700 mb-2">Quick Actions:</p>
-            <div className="flex flex-wrap gap-2">
-              {quickActions.map((action, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="sm"
-                  className="btn-premium text-xs flex items-center gap-1"
-                  onClick={() => handleQuickAction(action.action)}
-                >
-                  <action.icon size={12} />
-                  {action.text}
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Suggested Prompts */}
-        {allMessages.length === 0 && !isTyping && (
-          <div className="px-6 pb-4 max-h-60 overflow-y-auto animate-fade-in-up animate-stagger-2">
-            <p className="text-sm text-gray-600 mb-3 font-medium">What can I help you with?</p>
-            
-            {Object.entries(suggestedPrompts).map(([category, prompts]) => (
-              <div key={category} className="mb-4">
-                <p className="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1">
-                  {category === 'financial_analysis' && <BarChart3 size={12} />}
-                  {category === 'budgeting' && <PiggyBank size={12} />}
-                  {category === 'investing' && <TrendingUp size={12} />}
-                  {category === 'goals' && <Target size={12} />}
-                  {category === 'travel' && <Plane size={12} />}
-                  {category.replace('_', ' ').toUpperCase()}
-                </p>
-                <div className="grid grid-cols-1 gap-2">
-                  {prompts.slice(0, 2).map((prompt, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      size="sm"
-                      className="justify-start text-left h-auto p-3 hover:bg-[#5945a3] hover:text-white transition-all btn-premium text-xs"
-                      onClick={() => handlePromptClick(prompt)}
-                      disabled={isTyping}
-                    >
-                      <Sparkles size={12} className="mr-2 flex-shrink-0" />
-                      <span>{prompt}</span>
-                    </Button>
-                  ))}
                 </div>
               </div>
             ))}
+
+            {/* Typing Indicator */}
+            {isTyping && (
+              <div className="mb-6 animate-entrance">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center">
+                    <Brain className="text-white" size={16} />
+                  </div>
+                  <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      </div>
+                      <span className="text-xs text-gray-500">AI is thinking...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Suggested Prompts */}
+            {showSuggestions && allMessages.length === 0 && !isTyping && (
+              <div className="space-y-6 animate-entrance animate-delay-whisper-2">
+                <div className="text-center">
+                  <p className="text-sm font-medium text-gray-700 mb-4">
+                    What can I help you with today?
+                  </p>
+                </div>
+                
+                {suggestedPrompts.slice(0, 3).map((category, categoryIndex) => (
+                  <div key={category.category} className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <category.icon className="text-[#5945a3]" size={16} />
+                      <h4 className="text-sm font-medium text-gray-700">
+                        {category.category}
+                      </h4>
+                    </div>
+                    <div className="space-y-2">
+                      {category.prompts.map((prompt, index) => (
+                        <Button
+                          key={index}
+                          variant="ghost"
+                          className="w-full justify-start text-left h-auto p-3 text-sm text-gray-700 hover:bg-[#5945a3] hover:text-white transition-all duration-200 hover-lift-premium"
+                          onClick={() => handlePromptClick(prompt)}
+                          disabled={isTyping}
+                        >
+                          <Sparkles size={14} className="mr-2 flex-shrink-0" />
+                          <span className="truncate">{prompt}</span>
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
           </div>
-        )}
+        </div>
 
         {/* Context Info */}
         {userProfile && (
-          <div className="px-6 pb-2 animate-fade-in-up animate-stagger-4">
-            <div className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
-              <div className="flex items-center gap-2 mb-1">
-                <Brain size={12} className="text-[#5945a3]" />
-                <strong>AI Context:</strong>
+          <div className="px-6 py-3 bg-gray-50 border-t">
+            <div className="flex items-center gap-4 text-xs text-gray-600">
+              <div className="flex items-center gap-1">
+                <MessageCircle size={12} />
+                <span>Context Active</span>
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                <span>Score: {userProfile.pecunia_score}</span>
-                <span>Budget: ${userProfile.monthly_budget?.toLocaleString()}</span>
-                <span>Savings: {userProfile.savings_rate}%</span>
+              <div className="flex gap-3">
+                <span>Score: {userProfile.pecunia_score || 782}</span>
                 <span>Age: {aiService.userContext.age}</span>
+                <span>Budget: ${userProfile.monthly_budget?.toLocaleString() || '5,000'}</span>
               </div>
             </div>
           </div>
         )}
 
-        {/* Input */}
-        <div className="border-t p-4 bg-white animate-fade-in-up animate-stagger-5">
-          <div className="flex gap-2">
-            <Input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Ask me anything about your finances..."
-              onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-              className="flex-1 input-whisper focus-premium"
-              disabled={isTyping}
-            />
+        {/* Input Area */}
+        <div className="p-6 bg-white border-t">
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <Input
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Ask me anything about your finances..."
+                onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
+                className="border-gray-300 focus:border-[#5945a3] focus:ring-[#5945a3] transition-colors"
+                disabled={isTyping}
+              />
+            </div>
             <Button 
               onClick={handleSend}
-              className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-premium"
-              size="sm"
               disabled={!message.trim() || isTyping}
+              className="bg-[#5945a3] hover:bg-[#4a3d8f] transition-all duration-200 hover-lift-premium"
             >
               {isTyping ? (
-                <Loader2 className="animate-spin" size={16} />
+                <Loader2 className="animate-spin" size={18} />
               ) : (
-                <Send size={16} />
+                <Send size={18} />
               )}
             </Button>
           </div>
-          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
-            <Brain size={10} />
-            Powered by GPT-4 • Press Enter to send
-          </p>
+          <div className="flex items-center justify-between mt-3">
+            <p className="text-xs text-gray-500">
+              Press Enter to send
+            </p>
+            <div className="flex items-center gap-1 text-xs text-gray-400">
+              <Brain size={10} />
+              <span>Powered by GPT-4</span>
+            </div>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
