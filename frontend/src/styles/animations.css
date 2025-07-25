@@ -1,92 +1,28 @@
-/* Refined Pecunia Animations - Intentional & Seamless */
+/* Refined Pecunia Animations - Subtle & Seamless */
 
 /* =============================================== */
-/* Core Animation Principles                       */
+/* Core Animation Philosophy                       */
 /* =============================================== */
-/* 1. Natural Motion: Cubic-bezier easing curves  */
-/* 2. Intentional Placement: Only where it adds   */
-/* 3. No Pulsating: Avoid distracting animations  */
-/* 4. Performance First: Hardware acceleration     */
-/* 5. Accessibility: Respect reduced motion       */
+/* 1. Whisper, Don't Shout: Barely noticeable     */
+/* 2. Purpose-Driven: Every animation has meaning */
+/* 3. Breath-like Rhythm: Natural timing          */
+/* 4. Minimalist Beauty: Less is exponentially more */
+/* 5. Awe Through Restraint: Subtle perfection    */
 /* =============================================== */
 
-/* Natural Easing Curves */
+/* Refined Natural Easing Curves */
 :root {
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-whisper: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-breath: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-gentle: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-silk: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* =============================================== */
-/* Entrance Animations - Natural & Smooth         */
+/* Subtle Entrance Animations                      */
 /* =============================================== */
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 16px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -16px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translate3d(-20px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translate3d(20px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale3d(0.95, 0.95, 1);
-  }
-  to {
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-@keyframes progressDraw {
-  from {
-    stroke-dashoffset: 100%;
-  }
-  to {
-    stroke-dashoffset: 0%;
-  }
-}
-
-@keyframes counterUp {
+@keyframes fadeInSoft {
   from {
     opacity: 0;
     transform: translate3d(0, 8px, 0);
@@ -97,348 +33,381 @@
   }
 }
 
-/* =============================================== */
-/* Refined Animation Classes                       */
-/* =============================================== */
-
-.animate-entrance {
-  animation: fadeInUp 0.6s var(--ease-out-cubic) both;
+@keyframes slideInSilk {
+  from {
+    opacity: 0;
+    transform: translate3d(-12px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-.animate-entrance-down {
-  animation: fadeInDown 0.5s var(--ease-out-cubic) both;
+@keyframes scaleInBreath {
+  from {
+    opacity: 0;
+    transform: scale3d(0.98, 0.98, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
 }
 
-.animate-slide-left {
-  animation: slideInLeft 0.5s var(--ease-out-cubic) both;
+@keyframes numberFlow {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 4px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
-
-.animate-slide-right {
-  animation: slideInRight 0.5s var(--ease-out-cubic) both;
-}
-
-.animate-scale-gentle {
-  animation: scaleIn 0.4s var(--ease-out-cubic) both;
-}
-
-.animate-counter {
-  animation: counterUp 0.8s var(--ease-out-quart) both;
-}
-
-/* Natural Staggered Delays */
-.animate-delay-1 { animation-delay: 0.05s; }
-.animate-delay-2 { animation-delay: 0.1s; }
-.animate-delay-3 { animation-delay: 0.15s; }
-.animate-delay-4 { animation-delay: 0.2s; }
-.animate-delay-5 { animation-delay: 0.25s; }
-.animate-delay-6 { animation-delay: 0.3s; }
 
 /* =============================================== */
-/* Intentional Hover Effects                       */
+/* Whisper Animation Classes                       */
 /* =============================================== */
 
-.hover-lift {
-  transition: all 0.2s var(--ease-out-cubic);
-  will-change: transform, box-shadow;
+.animate-whisper {
+  animation: fadeInSoft 0.8s var(--ease-whisper) both;
 }
 
-.hover-lift:hover {
-  transform: translate3d(0, -2px, 0);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+.animate-silk {
+  animation: slideInSilk 0.6s var(--ease-silk) both;
 }
 
-.hover-scale-subtle {
-  transition: transform 0.2s var(--ease-out-cubic);
+.animate-breath {
+  animation: scaleInBreath 0.5s var(--ease-breath) both;
+}
+
+.animate-flow {
+  animation: numberFlow 0.7s var(--ease-gentle) both;
+}
+
+/* Natural Staggered Delays - Barely Noticeable */
+.animate-delay-whisper-1 { animation-delay: 0.03s; }
+.animate-delay-whisper-2 { animation-delay: 0.06s; }
+.animate-delay-whisper-3 { animation-delay: 0.09s; }
+.animate-delay-whisper-4 { animation-delay: 0.12s; }
+.animate-delay-whisper-5 { animation-delay: 0.15s; }
+.animate-delay-whisper-6 { animation-delay: 0.18s; }
+
+/* =============================================== */
+/* Refined Hover States - Micro-Interactions      */
+/* =============================================== */
+
+.hover-whisper {
+  transition: all 0.2s var(--ease-whisper);
   will-change: transform;
 }
 
-.hover-scale-subtle:hover {
-  transform: scale3d(1.02, 1.02, 1);
+.hover-whisper:hover {
+  transform: translate3d(0, -1px, 0);
 }
 
-.hover-glow {
-  transition: all 0.3s var(--ease-out-cubic);
+.hover-breath {
+  transition: transform 0.3s var(--ease-breath);
+  will-change: transform;
+}
+
+.hover-breath:hover {
+  transform: scale3d(1.01, 1.01, 1);
+}
+
+.hover-silk {
+  transition: all 0.25s var(--ease-silk);
+  will-change: transform, box-shadow;
+}
+
+.hover-silk:hover {
+  transform: translate3d(0, -0.5px, 0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.hover-glow-subtle {
+  transition: box-shadow 0.4s var(--ease-gentle);
   will-change: box-shadow;
 }
 
-.hover-glow:hover {
-  box-shadow: 0 0 20px rgba(89, 69, 163, 0.15);
+.hover-glow-subtle:hover {
+  box-shadow: 0 0 16px rgba(89, 69, 163, 0.08);
 }
 
-.hover-brighten {
-  transition: filter 0.2s var(--ease-out-cubic);
-  will-change: filter;
+/* =============================================== */
+/* Refined Button Interactions                     */
+/* =============================================== */
+
+.btn-whisper {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s var(--ease-whisper);
+  will-change: transform, background-color;
 }
 
-.hover-brighten:hover {
+.btn-whisper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.06), 
+    transparent
+  );
+  transition: left 0.6s var(--ease-silk);
+}
+
+.btn-whisper:hover::before {
+  left: 100%;
+}
+
+.btn-whisper:active {
+  transform: scale3d(0.99, 0.99, 1);
+}
+
+.btn-whisper:focus-visible {
+  outline: 1px solid rgba(89, 69, 163, 0.3);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(89, 69, 163, 0.06);
+}
+
+/* =============================================== */
+/* Card Interactions - Barely There               */
+/* =============================================== */
+
+.card-whisper {
+  transition: all 0.3s var(--ease-gentle);
+  will-change: transform, box-shadow;
+}
+
+.card-whisper:hover {
+  transform: translate3d(0, -1px, 0);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+.card-breath {
+  transition: all 0.25s var(--ease-breath);
+}
+
+.card-breath:hover {
+  transform: translate3d(0, -0.5px, 0);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+}
+
+/* =============================================== */
+/* Navigation Enhancements                         */
+/* =============================================== */
+
+.nav-whisper {
+  position: relative;
+  transition: color 0.2s var(--ease-whisper);
+}
+
+.nav-whisper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #5945a3, #b37e91);
+  transition: width 0.4s var(--ease-silk);
+}
+
+.nav-whisper.active::after,
+.nav-whisper:hover::after {
+  width: 100%;
+}
+
+.tab-whisper {
+  transition: all 0.2s var(--ease-whisper);
+  position: relative;
+}
+
+.tab-whisper:hover {
+  color: #5945a3;
+}
+
+.tab-whisper.active {
+  background: linear-gradient(135deg, rgba(89, 69, 163, 0.05), rgba(179, 126, 145, 0.03));
+}
+
+/* =============================================== */
+/* Progress & Loading - Silk Smooth               */
+/* =============================================== */
+
+.progress-silk {
+  position: relative;
+  overflow: hidden;
+  background: rgba(89, 69, 163, 0.08);
+  border-radius: 6px;
+}
+
+.progress-bar-silk {
+  height: 100%;
+  background: linear-gradient(90deg, #5945a3, #b37e91);
+  border-radius: 6px;
+  transition: width 1.2s var(--ease-silk);
+  position: relative;
+}
+
+.progress-bar-silk::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent
+  );
+  animation: progressFlow 3s var(--ease-silk) infinite;
+}
+
+@keyframes progressFlow {
+  0% { left: -50%; opacity: 0; }
+  50% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+.loading-silk {
+  background: linear-gradient(90deg, 
+    rgba(248, 249, 250, 0.8) 0%, 
+    rgba(233, 236, 239, 0.8) 50%, 
+    rgba(248, 249, 250, 0.8) 100%
+  );
+  background-size: 400px 100%;
+  animation: shimmerSilk 2s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmerSilk {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+/* =============================================== */
+/* Interactive Elements - Micro Details           */
+/* =============================================== */
+
+.icon-whisper {
+  transition: all 0.2s var(--ease-whisper);
+}
+
+.icon-whisper:hover {
+  transform: scale3d(1.05, 1.05, 1);
+  filter: brightness(1.1);
+}
+
+.input-whisper {
+  transition: all 0.2s var(--ease-whisper);
+  will-change: transform, box-shadow;
+}
+
+.input-whisper:focus {
+  transform: translate3d(0, -0.5px, 0);
+  box-shadow: 0 2px 8px rgba(89, 69, 163, 0.08);
+}
+
+.badge-breath {
+  transition: all 0.2s var(--ease-breath);
+}
+
+.badge-breath:hover {
+  transform: scale3d(1.02, 1.02, 1);
   filter: brightness(1.05);
 }
 
 /* =============================================== */
-/* Button Interactions - Refined & Responsive     */
+/* Score Circle & Charts - Refined                */
 /* =============================================== */
 
-.btn-refined {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.2s var(--ease-out-cubic);
-  will-change: transform, box-shadow;
+.score-whisper {
+  transition: all 0.3s var(--ease-whisper);
 }
 
-.btn-refined::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent
-  );
-  transition: left 0.4s var(--ease-out-cubic);
-}
-
-.btn-refined:hover::before {
-  left: 100%;
-}
-
-.btn-refined:active {
-  transform: scale3d(0.98, 0.98, 1);
-}
-
-.btn-refined:focus-visible {
-  outline: 2px solid #5945a3;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(89, 69, 163, 0.1);
-}
-
-/* =============================================== */
-/* Navigation & UI Element Enhancements           */
-/* =============================================== */
-
-.nav-indicator {
-  position: relative;
-  transition: all 0.3s var(--ease-out-cubic);
-}
-
-.nav-indicator::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #5945a3, #b37e91);
-  transition: width 0.3s var(--ease-out-cubic);
-  border-radius: 1px;
-}
-
-.nav-indicator.active::after,
-.nav-indicator:hover::after {
-  width: 100%;
-}
-
-.nav-item-refined {
-  transition: all 0.2s var(--ease-out-cubic);
-  will-change: transform;
-}
-
-.nav-item-refined:hover {
-  transform: translate3d(2px, 0, 0);
-}
-
-/* =============================================== */
-/* Card & Content Animations                       */
-/* =============================================== */
-
-.card-refined {
-  transition: all 0.3s var(--ease-out-cubic);
-  will-change: transform, box-shadow;
-}
-
-.card-refined:hover {
-  transform: translate3d(0, -3px, 0);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-}
-
-.card-entrance {
-  opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  animation: fadeInUp 0.6s var(--ease-out-cubic) both;
-}
-
-/* Staggered Grid Layout */
-.grid-staggered > * {
-  opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  animation: fadeInUp 0.6s var(--ease-out-cubic) both;
-}
-
-.grid-staggered > *:nth-child(1) { animation-delay: 0.05s; }
-.grid-staggered > *:nth-child(2) { animation-delay: 0.1s; }
-.grid-staggered > *:nth-child(3) { animation-delay: 0.15s; }
-.grid-staggered > *:nth-child(4) { animation-delay: 0.2s; }
-.grid-staggered > *:nth-child(5) { animation-delay: 0.25s; }
-.grid-staggered > *:nth-child(6) { animation-delay: 0.3s; }
-
-/* =============================================== */
-/* Progress & Loading States                       */
-/* =============================================== */
-
-.progress-refined {
-  position: relative;
-  overflow: hidden;
-  background: rgba(89, 69, 163, 0.1);
-  border-radius: 8px;
-}
-
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #5945a3, #b37e91);
-  border-radius: 8px;
-  transition: width 0.8s var(--ease-out-quart);
-  position: relative;
-}
-
-.progress-bar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.3), 
-    transparent
-  );
-  animation: progressShine 2s var(--ease-out-cubic) infinite;
-}
-
-@keyframes progressShine {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
-}
-
-.loading-shimmer {
-  background: linear-gradient(90deg, 
-    #f8f9fa 0%, 
-    #e9ecef 50%, 
-    #f8f9fa 100%
-  );
-  background-size: 200px 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 4px;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200px 0; }
-  100% { background-position: calc(200px + 100%) 0; }
-}
-
-/* =============================================== */
-/* Score Circle & Charts                           */
-/* =============================================== */
-
-.score-circle {
-  transition: all 0.3s var(--ease-out-cubic);
-  will-change: transform, filter;
-}
-
-.score-circle:hover {
-  transform: scale3d(1.05, 1.05, 1);
-  filter: drop-shadow(0 8px 16px rgba(89, 69, 163, 0.2));
-}
-
-.progress-circle {
-  transition: stroke-dasharray 1s var(--ease-out-quart);
-}
-
-.chart-segment {
-  transition: all 0.2s var(--ease-out-cubic);
-  cursor: pointer;
-}
-
-.chart-segment:hover {
+.score-whisper:hover {
   transform: scale3d(1.02, 1.02, 1);
-  filter: brightness(1.1);
+  filter: drop-shadow(0 4px 8px rgba(89, 69, 163, 0.1));
+}
+
+.chart-whisper {
+  transition: all 0.2s var(--ease-whisper);
+}
+
+.chart-whisper:hover {
+  transform: scale3d(1.005, 1.005, 1);
+  filter: brightness(1.02);
 }
 
 /* =============================================== */
-/* Input & Form Enhancements                       */
+/* Modal & Dialog - Breath-like                    */
 /* =============================================== */
 
-.input-refined {
-  transition: all 0.2s var(--ease-out-cubic);
-  will-change: transform, box-shadow;
+.modal-breath {
+  animation: fadeInSoft 0.3s var(--ease-breath) both;
 }
 
-.input-refined:focus {
-  transform: translate3d(0, -1px, 0);
-  box-shadow: 0 4px 12px rgba(89, 69, 163, 0.15);
-}
-
-/* =============================================== */
-/* Modal & Dialog Animations                       */
-/* =============================================== */
-
-.modal-backdrop {
-  animation: fadeIn 0.2s var(--ease-out-cubic) both;
-}
-
-.modal-content {
-  animation: scaleIn 0.3s var(--ease-spring) both;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.modal-content-breath {
+  animation: scaleInBreath 0.4s var(--ease-silk) both;
 }
 
 /* =============================================== */
-/* AI & Chat Enhancements                          */
+/* AI & Chat - Conversational Flow                */
 /* =============================================== */
 
-.ai-message {
+.ai-message-flow {
   opacity: 0;
-  transform: translate3d(0, 12px, 0);
+  transform: translate3d(0, 6px, 0);
 }
 
-.ai-message.animate-in {
-  animation: fadeInUp 0.4s var(--ease-out-cubic) both;
+.ai-message-flow.animate-in {
+  animation: fadeInSoft 0.5s var(--ease-gentle) both;
 }
 
-.ai-message.user {
-  animation: slideInRight 0.4s var(--ease-out-cubic) both;
+.typing-breath {
+  animation: breatheGentle 3s ease-in-out infinite;
 }
 
-.ai-message.assistant {
-  animation: slideInLeft 0.4s var(--ease-out-cubic) both;
-}
-
-.typing-indicator {
-  animation: breatheSubtle 2s ease-in-out infinite;
-}
-
-@keyframes breatheSubtle {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+@keyframes breatheGentle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
 }
 
 /* =============================================== */
-/* Notification & Success States                   */
+/* Success & Notification States                   */
 /* =============================================== */
 
-.notification-refined {
-  animation: slideInRight 0.4s var(--ease-out-cubic) both;
+.success-whisper {
+  animation: scaleInBreath 0.4s var(--ease-silk) both;
 }
 
-.success-checkmark {
-  animation: scaleIn 0.3s var(--ease-spring) both;
+.notification-silk {
+  animation: slideInSilk 0.5s var(--ease-silk) both;
 }
+
+/* =============================================== */
+/* Grid & Layout Animations                        */
+/* =============================================== */
+
+.grid-whisper > * {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+  animation: fadeInSoft 0.6s var(--ease-whisper) both;
+}
+
+.grid-whisper > *:nth-child(1) { animation-delay: 0.02s; }
+.grid-whisper > *:nth-child(2) { animation-delay: 0.04s; }
+.grid-whisper > *:nth-child(3) { animation-delay: 0.06s; }
+.grid-whisper > *:nth-child(4) { animation-delay: 0.08s; }
+.grid-whisper > *:nth-child(5) { animation-delay: 0.10s; }
+.grid-whisper > *:nth-child(6) { animation-delay: 0.12s; }
 
 /* =============================================== */
 /* Accessibility & Performance Optimizations      */
@@ -454,51 +423,48 @@
     transition-duration: 0.01ms !important;
   }
   
-  .hover-lift:hover,
-  .hover-scale-subtle:hover,
-  .card-refined:hover {
+  .hover-whisper:hover,
+  .hover-breath:hover,
+  .hover-silk:hover,
+  .card-whisper:hover,
+  .card-breath:hover {
     transform: none;
   }
 }
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
-  .hover-lift:hover,
-  .hover-scale-subtle:hover,
-  .hover-glow:hover,
-  .hover-brighten:hover,
-  .card-refined:hover {
+  .hover-whisper:hover,
+  .hover-breath:hover,
+  .hover-silk:hover,
+  .hover-glow-subtle:hover,
+  .card-whisper:hover,
+  .card-breath:hover {
     transform: none;
     box-shadow: none;
     filter: none;
   }
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .progress-bar,
-  .nav-indicator::after {
-    background: currentColor !important;
-  }
-}
-
 /* Focus indicators for keyboard navigation */
-.focus-refined:focus-visible {
-  outline: 2px solid #5945a3;
+.focus-whisper:focus-visible {
+  outline: 1px solid rgba(89, 69, 163, 0.4);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(89, 69, 163, 0.1);
+  box-shadow: 0 0 0 3px rgba(89, 69, 163, 0.08);
 }
 
 /* GPU acceleration for smooth animations */
-.animate-entrance,
-.animate-entrance-down,
-.animate-slide-left,
-.animate-slide-right,
-.animate-scale-gentle,
-.hover-lift,
-.hover-scale-subtle,
-.card-refined,
-.btn-refined {
+.animate-whisper,
+.animate-silk,
+.animate-breath,
+.animate-flow,
+.hover-whisper,
+.hover-breath,
+.hover-silk,
+.card-whisper,
+.card-breath,
+.btn-whisper {
   backface-visibility: hidden;
   perspective: 1000px;
+  transform-style: preserve-3d;
 }
