@@ -276,12 +276,13 @@ const Dashboard = () => {
   return (
     <div className="space-y-8">
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="ai-insights" className="flex items-center gap-2">
             <Brain className="h-4 w-4" />
             AI Insights
           </TabsTrigger>
+          <TabsTrigger value="advanced">Advanced Analytics</TabsTrigger>
           <TabsTrigger value="detailed">Detailed Analysis</TabsTrigger>
         </TabsList>
 
