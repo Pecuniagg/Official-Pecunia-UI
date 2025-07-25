@@ -20,7 +20,9 @@ import {
   Zap,
   CheckCircle,
   ArrowRight,
-  RefreshCw
+  RefreshCw,
+  Bell,
+  Shield
 } from 'lucide-react';
 import { useAI } from '../contexts/AIContext';
 import aiService from '../services/aiService';
