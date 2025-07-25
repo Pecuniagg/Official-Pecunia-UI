@@ -689,49 +689,98 @@
 }
 
 /* =============================================== */
-/* Modal & Dialog - Breath-like                    */
+/* Premium Modal & Dialog Animations             */
 /* =============================================== */
 
 .modal-breath {
-  animation: fadeInSoft 0.3s var(--ease-breath) both;
+  animation: fadeInPremium 0.4s var(--ease-spring) both;
 }
 
 .modal-content-breath {
-  animation: scaleInBreath 0.4s var(--ease-silk) both;
+  animation: scaleInSpring 0.5s var(--ease-spring) both;
+}
+
+.modal-premium {
+  animation: fadeInPremium 0.5s var(--ease-premium) both;
+}
+
+.modal-content-premium {
+  animation: floatIn 0.6s var(--ease-spring) both;
 }
 
 /* =============================================== */
-/* AI & Chat - Conversational Flow                */
+/* Enhanced AI & Chat Animations                  */
 /* =============================================== */
 
 .ai-message-flow {
   opacity: 0;
-  transform: translate3d(0, 6px, 0);
+  transform: translate3d(0, 4px, 0) scale3d(0.98, 0.98, 1);
 }
 
 .ai-message-flow.animate-in {
-  animation: fadeInSoft 0.5s var(--ease-gentle) both;
+  animation: fadeInPremium 0.6s var(--ease-spring) both;
 }
 
 .typing-breath {
-  animation: breatheGentle 3s ease-in-out infinite;
+  animation: breatheGentle 3.5s ease-in-out infinite;
 }
 
 @keyframes breatheGentle {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+  0%, 100% { 
+    opacity: 0.5; 
+    transform: scale3d(1, 1, 1); 
+  }
+  50% { 
+    opacity: 0.9; 
+    transform: scale3d(1.02, 1.02, 1); 
+  }
+}
+
+.ai-thinking {
+  animation: aiThinking 2s var(--ease-gentle) infinite;
+}
+
+@keyframes aiThinking {
+  0%, 100% { 
+    opacity: 0.4; 
+    transform: scale3d(1, 1, 1); 
+  }
+  33% { 
+    opacity: 0.8; 
+    transform: scale3d(1.01, 1.01, 1); 
+  }
+  66% { 
+    opacity: 0.6; 
+    transform: scale3d(1.005, 1.005, 1); 
+  }
 }
 
 /* =============================================== */
-/* Success & Notification States                   */
+/* Enhanced Notification States                   */
 /* =============================================== */
 
 .success-whisper {
-  animation: scaleInBreath 0.4s var(--ease-silk) both;
+  animation: scaleInSpring 0.5s var(--ease-spring) both;
+}
+
+.success-premium {
+  animation: floatIn 0.6s var(--ease-spring) both;
 }
 
 .notification-silk {
-  animation: slideInSilk 0.5s var(--ease-silk) both;
+  animation: slideInElastic 0.6s var(--ease-spring) both;
+}
+
+.notification-premium {
+  animation: fadeInPremium 0.7s var(--ease-premium) both;
+}
+
+.alert-premium {
+  animation: fadeInPremium 0.4s var(--ease-spring) both;
+}
+
+.toast-premium {
+  animation: slideInElastic 0.5s var(--ease-spring) both;
 }
 
 /* =============================================== */
