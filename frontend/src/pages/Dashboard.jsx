@@ -217,33 +217,33 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="space-y-8 animate-entrance">
+    <div className="space-y-8 animate-whisper">
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white animate-entrance-down">
-        <h1 className="text-3xl font-bold text-[#0a0a0f] animate-slide-left animate-delay-1" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+      <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white card-breath">
+        <h1 className="text-3xl font-bold text-[#0a0a0f] animate-silk animate-delay-whisper-1" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           My Financial Life Today
         </h1>
-        <p className="text-lg opacity-90 animate-slide-left animate-delay-2">
+        <p className="text-lg opacity-90 animate-silk animate-delay-whisper-2">
           AI Summary: You're on track with your savings goals. Consider increasing your emergency fund allocation.
         </p>
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-12 gap-8 grid-staggered">
+      <div className="grid grid-cols-12 gap-8 grid-whisper">
         {/* Left Column - Interactive Charts */}
         <div className="col-span-6 space-y-8">
           {/* Expenses Chart */}
-          <Card className="shadow-lg card-refined card-entrance">
+          <Card className="shadow-lg card-whisper">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <CreditCard className="text-[#5945a3] icon-refined" size={20} />
+                <CreditCard className="text-[#5945a3] icon-whisper" size={20} />
                 Monthly Expenses
               </CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => handleChartClick('Expenses', dashboard.expenses)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
+                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
               >
                 <Eye size={16} />
               </Button>
@@ -259,23 +259,23 @@ const Dashboard = () => {
           </Card>
 
           {/* Assets Chart */}
-          <Card className="shadow-lg card-refined">
+          <Card className="shadow-lg card-whisper">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <PiggyBank className="text-[#5945a3] icon-refined" size={20} />
+                <PiggyBank className="text-[#5945a3] icon-whisper" size={20} />
                 Assets Distribution
               </CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => handleChartClick('Assets', dashboard.assets)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
+                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
               >
                 <Eye size={16} />
               </Button>
             </CardHeader>
             <CardContent>
-              <div onClick={() => handleChartClick('Assets', dashboard.assets)} className="cursor-pointer">
+              <div onClick={() => handleChartClick('Assets', dashboard.assets)} className="cursor-pointer chart-whisper">
                 <PieChartComponent 
                   data={dashboard.assets} 
                   colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b']}
@@ -285,23 +285,23 @@ const Dashboard = () => {
           </Card>
 
           {/* Liabilities Chart */}
-          <Card className="shadow-lg card-refined">
+          <Card className="shadow-lg card-whisper">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <CreditCard className="text-[#b37e91] icon-refined" size={20} />
+                <CreditCard className="text-[#b37e91] icon-whisper" size={20} />
                 Liabilities
               </CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => handleChartClick('Liabilities', dashboard.liabilities)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
+                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
               >
                 <Eye size={16} />
               </Button>
             </CardHeader>
             <CardContent>
-              <div onClick={() => handleChartClick('Liabilities', dashboard.liabilities)} className="cursor-pointer">
+              <div onClick={() => handleChartClick('Liabilities', dashboard.liabilities)} className="cursor-pointer chart-whisper">
                 <PieChartComponent 
                   data={dashboard.liabilities} 
                   colors={['#b37e91', '#3b345b', '#1e1b24']}
