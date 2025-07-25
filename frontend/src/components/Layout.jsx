@@ -134,7 +134,7 @@ const Layout = ({ children }) => {
       {/* Quick Action Button */}
       <Button
         onClick={() => setShowQuickActions(true)}
-        className="fixed bottom-8 right-8 h-14 px-6 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 shadow-xl hover:shadow-2xl btn-refined"
+        className="fixed bottom-8 right-8 h-14 px-6 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 shadow-xl hover:shadow-2xl btn-whisper"
         size="lg"
       >
         <Plus size={20} className="mr-2 hover-rotate transition-transform duration-300" />
