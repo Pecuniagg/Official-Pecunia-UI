@@ -314,45 +314,45 @@ const Dashboard = () => {
         {/* Center Column */}
         <div className="col-span-3 space-y-8">
           {/* Interactive Budget Summary */}
-          <Card className="shadow-lg card-whisper">
+          <Card className="shadow-lg card-premium hover-glow-subtle">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Budget Summary</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => setBudgetEdit(!budgetEdit)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
+                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
               >
                 <Edit size={16} />
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
               {budgetEdit ? (
-                <div className="space-y-3 animate-breath">
+                <div className="space-y-3 animate-entrance-spring">
                   <Label htmlFor="budget">Monthly Budget</Label>
                   <Input
                     id="budget"
                     type="number"
                     value={monthlyBudget}
                     onChange={(e) => setMonthlyBudget(Number(e.target.value))}
-                    className="input-whisper focus-whisper"
+                    className="input-whisper focus-premium"
                   />
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-whisper">
+                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-premium">
                       Save
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)} className="btn-whisper">
+                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)} className="btn-premium">
                       Cancel
                     </Button>
                   </div>
                 </div>
               ) : (
                 <>
-                  <div className="flex justify-between hover-whisper">
+                  <div className="flex justify-between hover-float">
                     <span className="text-sm text-gray-600">Monthly Budget</span>
                     <span className="font-semibold">${monthlyBudget.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between hover-whisper">
+                  <div className="flex justify-between hover-float">
                     <span className="text-sm text-gray-600">Spent</span>
                     <span className="font-semibold text-[#b37e91]">$3,750</span>
                   </div>
@@ -363,7 +363,7 @@ const Dashboard = () => {
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="w-full btn-whisper"
+                    className="w-full btn-premium"
                     onClick={() => toast({ title: "Budget Alert", description: "Alert set for 90% budget usage" })}
                   >
                     Set Alert
@@ -374,27 +374,27 @@ const Dashboard = () => {
           </Card>
 
           {/* Interactive Cash Flow */}
-          <Card className="shadow-lg card-whisper">
+          <Card className="shadow-lg card-premium hover-glow-subtle">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Cash Flow</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Cash Flow Details", description: "Opening detailed cash flow analysis..." })}
-                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
+                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
               >
                 <ArrowUpRight size={16} />
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between hover-whisper">
+              <div className="flex items-center justify-between hover-float">
                 <span className="text-sm text-gray-600">Income</span>
                 <div className="flex items-center gap-1 text-green-600">
                   <TrendingUp size={16} />
                   <span className="font-semibold animate-flow">$6,500</span>
                 </div>
               </div>
-              <div className="flex items-center justify-between hover-whisper">
+              <div className="flex items-center justify-between hover-float">
                 <span className="text-sm text-gray-600">Expenses</span>
                 <div className="flex items-center gap-1 text-red-500">
                   <TrendingDown size={16} />
@@ -402,7 +402,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="pt-2 border-t">
-                <div className="flex items-center justify-between hover-whisper">
+                <div className="flex items-center justify-between hover-float">
                   <span className="font-medium">Net Flow</span>
                   <span className="font-bold text-green-600 animate-flow">+$2,750</span>
                 </div>
@@ -410,7 +410,7 @@ const Dashboard = () => {
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="w-full btn-whisper"
+                className="w-full btn-premium"
                 onClick={() => toast({ title: "Investment Suggestion", description: "Consider investing your surplus in index funds" })}
               >
                 Optimize Surplus
