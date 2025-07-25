@@ -314,56 +314,56 @@ const Dashboard = () => {
         {/* Center Column */}
         <div className="col-span-3 space-y-8">
           {/* Interactive Budget Summary */}
-          <Card className="shadow-lg card-refined">
+          <Card className="shadow-lg card-whisper">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Budget Summary</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => setBudgetEdit(!budgetEdit)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
+                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
               >
                 <Edit size={16} />
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
               {budgetEdit ? (
-                <div className="space-y-3 animate-scale-gentle">
+                <div className="space-y-3 animate-breath">
                   <Label htmlFor="budget">Monthly Budget</Label>
                   <Input
                     id="budget"
                     type="number"
                     value={monthlyBudget}
                     onChange={(e) => setMonthlyBudget(Number(e.target.value))}
-                    className="input-refined focus-refined"
+                    className="input-whisper focus-whisper"
                   />
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-refined">
+                    <Button size="sm" onClick={handleBudgetSave} className="bg-[#5945a3] hover:bg-[#4a3d8f] btn-whisper">
                       Save
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)} className="btn-refined">
+                    <Button size="sm" variant="outline" onClick={() => setBudgetEdit(false)} className="btn-whisper">
                       Cancel
                     </Button>
                   </div>
                 </div>
               ) : (
                 <>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between hover-whisper">
                     <span className="text-sm text-gray-600">Monthly Budget</span>
                     <span className="font-semibold">${monthlyBudget.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between hover-whisper">
                     <span className="text-sm text-gray-600">Spent</span>
                     <span className="font-semibold text-[#b37e91]">$3,750</span>
                   </div>
-                  <div className="progress-refined">
+                  <div className="progress-silk">
                     <Progress value={75} className="w-full" />
                   </div>
                   <div className="text-sm text-gray-600">75% of budget used</div>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="w-full btn-refined"
+                    className="w-full btn-whisper"
                     onClick={() => toast({ title: "Budget Alert", description: "Alert set for 90% budget usage" })}
                   >
                     Set Alert
@@ -374,43 +374,43 @@ const Dashboard = () => {
           </Card>
 
           {/* Interactive Cash Flow */}
-          <Card className="shadow-lg card-refined">
+          <Card className="shadow-lg card-whisper">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Cash Flow</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Cash Flow Details", description: "Opening detailed cash flow analysis..." })}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
+                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
               >
                 <ArrowUpRight size={16} />
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between hover-whisper">
                 <span className="text-sm text-gray-600">Income</span>
                 <div className="flex items-center gap-1 text-green-600">
                   <TrendingUp size={16} />
-                  <span className="font-semibold">$6,500</span>
+                  <span className="font-semibold animate-flow">$6,500</span>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between hover-whisper">
                 <span className="text-sm text-gray-600">Expenses</span>
                 <div className="flex items-center gap-1 text-red-500">
                   <TrendingDown size={16} />
-                  <span className="font-semibold">$3,750</span>
+                  <span className="font-semibold animate-flow">$3,750</span>
                 </div>
               </div>
               <div className="pt-2 border-t">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between hover-whisper">
                   <span className="font-medium">Net Flow</span>
-                  <span className="font-bold text-green-600">+$2,750</span>
+                  <span className="font-bold text-green-600 animate-flow">+$2,750</span>
                 </div>
               </div>
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="w-full btn-refined"
+                className="w-full btn-whisper"
                 onClick={() => toast({ title: "Investment Suggestion", description: "Consider investing your surplus in index funds" })}
               >
                 Optimize Surplus
@@ -419,14 +419,14 @@ const Dashboard = () => {
           </Card>
 
           {/* Financial Streams */}
-          <Card className="shadow-lg card-refined">
+          <Card className="shadow-lg card-whisper">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Income Streams</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => toast({ title: "Add Income", description: "Adding new income source..." })}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
+                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
               >
                 <Plus size={16} />
               </Button>
@@ -435,11 +435,11 @@ const Dashboard = () => {
               {dashboard.incomeStreams.map((stream, index) => (
                 <div 
                   key={index} 
-                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer hover-subtle"
+                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer hover-whisper"
                   onClick={() => toast({ title: `${stream.source} Details`, description: "Opening income stream details..." })}
                 >
                   <span className="text-sm text-gray-600">{stream.source}</span>
-                  <span className="font-medium">${stream.amount.toLocaleString()}</span>
+                  <span className="font-medium animate-flow">${stream.amount.toLocaleString()}</span>
                 </div>
               ))}
             </CardContent>
