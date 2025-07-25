@@ -241,13 +241,159 @@ const AIAssistant = ({ isOpen, onClose }) => {
   const allMessages = [...chatHistory, ...localChatHistory];
 
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-[500px] p-0 flex flex-col">
-        {/* Header */}
-        <SheetHeader className="p-6 border-b bg-white">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center">
+    <>
+      {/* Overlay */}
+      <div 
+        className={`side-panel-overlay ${isOpen ? 'open' : ''}`}
+        onClick={onClose}
+      />
+      
+      {/* Side Panel */}
+      <div className={`side-panel ${isOpen ? 'open' : ''}`}>
+        <div className="flex flex-col h-full">
+          {/* Header - Enhanced spacing */}
+          <div className="card-spacing-lg border-b border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-800">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center shadow-sm">
+                  <Brain className="text-white" size={20} />
+                </div>
+                <div>
+                  <h3 className="visual-hierarchy-3 text-gray-900 dark:text-white">AI Assistant</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Your financial advisor</p>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="interactive text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <X size={20} />
+              </Button>
+            </div>
+          </div>
+
+          {/* Chat Container - Improved spacing */}
+          <div className="flex-1 overflow-hidden flex flex-col">
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {allMessages.length === 0 && showSuggestions ? (
+                <div className="space-y-6">
+                  <div className="text-center breathing-space">
+                    <Sparkles className="mx-auto text-[#5945a3] mb-4" size={32} />
+                    <h4 className="visual-hierarchy-3 text-gray-900 dark:text-white mb-2">
+                      How can I help you today?
+                    </h4>
+                    <p className="text-muted">
+                      Ask me anything about your finances, or choose from these suggestions:
+                    </p>
+                  </div>
+                  
+                  {suggestedPrompts.map((category, idx) => {
+                    const Icon = category.icon;
+                    return (
+                      <div key={idx} className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Icon size={16} className="text-[#5945a3]" />
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {category.category}
+                          </span>
+                        </div>
+                        <div className="grid gap-2">
+                          {category.prompts.map((prompt, promptIdx) => (
+                            <Button
+                              key={promptIdx}
+                              variant="outline"
+                              className="text-left h-auto p-3 text-sm interactive border-gray-200 hover:border-[#5945a3] hover:bg-purple-50 dark:border-gray-700 dark:hover:border-[#5945a3] dark:hover:bg-purple-900/20"
+                              onClick={() => handlePromptClick(prompt)}
+                            >
+                              {prompt}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {allMessages.map((msg, idx) => (
+                    <div key={idx} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`max-w-[80%] ${msg.type === 'user' ? 'order-2' : 'order-1'}`}>
+                        <div className={`p-4 rounded-lg transition-all duration-200 ${
+                          msg.type === 'user' 
+                            ? 'bg-[#5945a3] text-white ml-4' 
+                            : 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white mr-4'
+                        }`}>
+                          <div className="flex items-start gap-3">
+                            {msg.type === 'ai' && (
+                              <Brain className="text-[#5945a3] mt-1 flex-shrink-0" size={16} />
+                            )}
+                            <div className="flex-1">
+                              <div className="whitespace-pre-wrap text-sm leading-relaxed">
+                                {msg.content}
+                              </div>
+                              {msg.timestamp && (
+                                <div className="text-xs opacity-70 mt-2">
+                                  {msg.timestamp}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {isTyping && (
+                    <div className="flex justify-start">
+                      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg max-w-[80%] mr-4">
+                        <div className="flex items-center gap-3">
+                          <Brain className="text-[#5945a3]" size={16} />
+                          <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+              )}
+            </div>
+
+            {/* Input Area */}
+            <div className="p-6 border-t border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-800">
+              <div className="flex gap-3">
+                <Input
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                  placeholder="Ask me anything about your finances..."
+                  className="flex-1 focus:ring-[#5945a3] transition-all duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                  disabled={isTyping}
+                />
+                <Button
+                  onClick={handleSend}
+                  disabled={!message.trim() || isTyping}
+                  className="bg-[#5945a3] hover:bg-[#4a3d8f] text-white interactive border-0 px-4"
+                >
+                  {isTyping ? (
+                    <Loader2 className="animate-spin" size={20} />
+                  ) : (
+                    <Send size={20} />
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
                 <Brain className="text-white" size={20} />
               </div>
               <div>
