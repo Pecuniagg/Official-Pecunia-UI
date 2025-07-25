@@ -765,6 +765,10 @@ const Dashboard = () => {
           <AISmartDashboard />
         </TabsContent>
 
+        <TabsContent value="advanced" className="space-y-8">
+          <AdvancedAnalyticsDashboard data={dashboard} />
+        </TabsContent>
+
         <TabsContent value="detailed" className="space-y-8">
           {/* Recent Activity */}
           <Card className="shadow-lg card-refined animate-entrance animate-delay-4">
