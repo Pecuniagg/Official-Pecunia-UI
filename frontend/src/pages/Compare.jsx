@@ -129,45 +129,151 @@ const Compare = () => {
   );
 
   const FriendSelector = () => (
-    <Card className="mb-8">
+    <Card className="mb-8 card-refined hover-glow animate-entrance-down">
       <CardHeader>
-        <CardTitle>Select Friends to Compare</CardTitle>
+        <CardTitle className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="text-[#5945a3] icon-refined" size={20} />
+            <span>Select Friends to Compare</span>
+          </div>
+          <Button 
+            onClick={handleAddFriend}
+            className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
+            size="sm"
+          >
+            <UserPlus size={14} className="mr-1" />
+            Invite Friends
+          </Button>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {compare.friends.map((friend, index) => (
-            <div
-              key={index}
-              className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                selectedFriend === friend.name 
-                  ? 'border-[#5945a3] bg-purple-50' 
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-              onClick={() => setSelectedFriend(selectedFriend === friend.name ? null : friend.name)}
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <Avatar className="h-10 w-10">
-                  <AvatarImage src="/api/placeholder/40/40" />
-                  <AvatarFallback>{friend.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-medium">{friend.name}</p>
-                  <p className="text-sm text-gray-600">Score: {friend.score}</p>
+          {compare.friends.map((friend, index) => {
+            const isSelected = selectedFriend === friend.name;
+            const isHovered = hoveredFriend === friend.name;
+            const isLiked = likedFriends.has(friend.name);
+            
+            return (
+              <div
+                key={index}
+                className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-300 card-refined group animate-scale-gentle overflow-hidden ${
+                  isSelected 
+                    ? 'border-[#5945a3] bg-gradient-to-br from-purple-50 to-blue-50 shadow-lg' 
+                    : 'border-gray-200 hover:border-[#5945a3]/50 hover:shadow-md'
+                }`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => {
+                  setSelectedFriend(selectedFriend === friend.name ? null : friend.name);
+                  toast({ 
+                    title: selectedFriend === friend.name ? "Deselected" : "Selected for comparison", 
+                    description: `${friend.name} ${selectedFriend === friend.name ? 'deselected' : 'selected for detailed comparison'}` 
+                  });
+                }}
+                onMouseEnter={() => setHoveredFriend(friend.name)}
+                onMouseLeave={() => setHoveredFriend(null)}
+              >
+                {/* Background gradient effect */}
+                {(isSelected || isHovered) && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#5945a3]/5 to-[#b37e91]/5 animate-scale-gentle"></div>
+                )}
+                
+                {/* Selection indicator */}
+                {isSelected && (
+                  <div className="absolute top-2 right-2">
+                    <Trophy className="text-[#5945a3] animate-scale-gentle" size={16} />
+                  </div>
+                )}
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="relative">
+                      <Avatar className="h-10 w-10 hover-scale-subtle">
+                        <AvatarImage src="/api/placeholder/40/40" />
+                        <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
+                          {friend.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      {/* Online status indicator */}
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-scale-gentle"></div>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium hover:text-[#5945a3] transition-colors">{friend.name}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-gray-600">Score: {friend.score}</p>
+                        <div className="flex">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              size={10} 
+                              className={`${i < Math.floor(friend.score / 200) ? 'text-yellow-400 fill-current' : 'text-gray-300'} animate-scale-gentle`}
+                              style={{ animationDelay: `${i * 0.05}s` }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className={`p-1 transition-all duration-300 ${isLiked ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleLikeFriend(friend.name);
+                        }}
+                      >
+                        <Heart size={12} fill={isLiked ? 'currentColor' : 'none'} className={isLiked ? 'animate-scale-gentle' : ''} />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="p-1 text-gray-400 hover:text-[#5945a3] transition-colors opacity-0 group-hover:opacity-100"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toast({ title: "Profile shared", description: `${friend.name}'s comparison shared` });
+                        }}
+                      >
+                        <Share2 size={12} />
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="text-sm space-y-2">
+                    <div className="flex justify-between items-center hover-subtle p-1 rounded">
+                      <span className="text-gray-600">Net Worth</span>
+                      <span className="font-medium animate-counter">${friend.netWorth.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between items-center hover-subtle p-1 rounded">
+                      <span className="text-gray-600">Savings Rate</span>
+                      <div className="flex items-center gap-1">
+                        <span className="font-medium">{friend.savingsRate}%</span>
+                        {friend.savingsRate > 20 && (
+                          <Zap className="text-green-500 animate-scale-gentle" size={12} />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Performance indicator bar */}
+                  <div className="mt-3 h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-[#5945a3] to-[#b37e91] transition-all duration-1000"
+                      style={{ width: `${(friend.score / 1000) * 100}%` }}
+                    ></div>
+                  </div>
                 </div>
               </div>
-              <div className="text-sm space-y-1">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Net Worth</span>
-                  <span className="font-medium">${friend.netWorth.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Savings Rate</span>
-                  <span className="font-medium">{friend.savingsRate}%</span>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
+        
+        {selectedFriend && (
+          <div className="mt-4 p-3 bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-lg animate-scale-gentle">
+            <p className="text-sm text-[#5945a3] font-medium">
+              🎯 Comparing with {selectedFriend} - Scroll down to see detailed analysis
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
