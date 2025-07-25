@@ -613,16 +613,15 @@ const Dashboard = () => {
                     <Brain className="text-[#5945a3]" size={20} />
                     AI Insights
                   </CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setSmartMode(!smartMode)}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                  >
+                    <ArrowUpRight size={16} />
+                  </Button>
                 </CardHeader>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setSmartMode(!smartMode)}
-                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
-              >
-                <ArrowUpRight size={16} />
-              </Button>
-            </CardHeader>
                 <CardContent className="card-system-content stack-spacing">
                   {loadingInsights ? (
                     <div className="animate-pulse space-y-2">
