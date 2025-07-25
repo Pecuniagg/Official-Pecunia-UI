@@ -273,16 +273,40 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="space-y-8 animate-entrance">
-      {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white card-premium hover-glow-subtle">
-        <h1 className="text-3xl font-bold text-[#0a0a0f] animate-entrance-elastic animate-delay-whisper-1" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
-          My Financial Life Today
-        </h1>
-        <p className="text-lg opacity-90 animate-entrance-elastic animate-delay-whisper-2">
-          AI Summary: You're on track with your savings goals. Consider increasing your emergency fund allocation.
-        </p>
-      </div>
+    <div className="space-y-8">
+      <Tabs defaultValue="overview" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="ai-insights" className="flex items-center gap-2">
+            <Brain className="h-4 w-4" />
+            AI Insights
+          </TabsTrigger>
+          <TabsTrigger value="detailed">Detailed Analysis</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview" className="space-y-8">
+          {/* Hero Banner */}
+          <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl p-8 text-white card-premium hover-glow-subtle">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-[#0a0a0f] animate-entrance-elastic animate-delay-whisper-1" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+                  My Financial Life Today
+                </h1>
+                <p className="text-lg opacity-90 animate-entrance-elastic animate-delay-whisper-2">
+                  {loadingInsights ? 'AI is analyzing your finances...' : 
+                   aiInsights?.analysis?.analysis?.substring(0, 100) + '...' || 
+                   'AI Summary: You\'re on track with your savings goals. Consider increasing your emergency fund allocation.'}
+                </p>
+              </div>
+              <Button 
+                onClick={handleSmartOptimize}
+                className="bg-white text-[#5945a3] hover:bg-gray-100 btn-premium"
+              >
+                <Brain className="h-4 w-4 mr-2" />
+                Smart Optimize
+              </Button>
+            </div>
+          </div>
 
       {/* Main Grid */}
       <div className="grid grid-cols-12 gap-8 grid-premium">
