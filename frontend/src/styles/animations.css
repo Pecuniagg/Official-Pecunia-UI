@@ -1,21 +1,43 @@
-/* Refined Pecunia Animations - Subtle & Seamless */
+/* Premium Pecunia Animations - Elegant & Sophisticated */
 
 /* =============================================== */
-/* Core Animation Philosophy                       */
+/* Enhanced Animation Philosophy                   */
 /* =============================================== */
 /* 1. Whisper, Don't Shout: Barely noticeable     */
 /* 2. Purpose-Driven: Every animation has meaning */
-/* 3. Breath-like Rhythm: Natural timing          */
-/* 4. Minimalist Beauty: Less is exponentially more */
-/* 5. Awe Through Restraint: Subtle perfection    */
+/* 3. Physics-Based: Natural, elastic motion      */
+/* 4. Layered Depth: Subtle 3D and shadow effects*/
+/* 5. Premium Feel: Polished micro-interactions   */
+/* 6. Performance First: GPU-accelerated smooth   */
 /* =============================================== */
 
-/* Refined Natural Easing Curves */
+/* Advanced Physics-Based Easing Curves */
 :root {
+  /* Existing refined curves */
   --ease-whisper: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-breath: cubic-bezier(0.4, 0.0, 0.2, 1);
   --ease-gentle: cubic-bezier(0.165, 0.84, 0.44, 1);
   --ease-silk: cubic-bezier(0.23, 1, 0.32, 1);
+  
+  /* New premium physics-based curves */
+  --ease-elastic-subtle: cubic-bezier(0.68, -0.3, 0.265, 1.25);
+  --ease-back-gentle: cubic-bezier(0.68, -0.15, 0.265, 1.15);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-smooth: cubic-bezier(0.4, 0.0, 0.6, 1);
+  --ease-premium: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-float: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Depth and shadow variables */
+  --shadow-whisper: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-gentle: 0 2px 4px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 4px 6px rgba(0, 0, 0, 0.04), 0 10px 15px rgba(0, 0, 0, 0.08);
+  --shadow-floating: 0 8px 25px rgba(0, 0, 0, 0.06), 0 16px 32px rgba(0, 0, 0, 0.08);
+  
+  /* Glow effects */
+  --glow-primary: 0 0 20px rgba(89, 69, 163, 0.08);
+  --glow-secondary: 0 0 15px rgba(179, 126, 145, 0.06);
+  --glow-success: 0 0 12px rgba(34, 197, 94, 0.08);
+  --glow-warm: 0 0 16px rgba(251, 191, 36, 0.08);
 }
 
 /* =============================================== */
