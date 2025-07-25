@@ -699,16 +699,96 @@ const Profile = () => {
                   <div className="space-y-1 text-xs">
                     <div className="flex items-center gap-2 hover-subtle p-1 rounded">
                       <CheckCircle size={12} className="text-green-500" />
-                      <span>Two-factor authentication enabled</span>
+                      <span>2FA Enabled</span>
                     </div>
                     <div className="flex items-center gap-2 hover-subtle p-1 rounded">
                       <CheckCircle size={12} className="text-green-500" />
-                      <span>Recent security check passed</span>
+                      <span>Email Verified</span>
                     </div>
                     <div className="flex items-center gap-2 hover-subtle p-1 rounded">
                       <CheckCircle size={12} className="text-green-500" />
-                      <span>Account fully verified</span>
+                      <span>Account Secure</span>
                     </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* New Theme Settings Card */}
+            <Card className="card-refined hover-glow animate-slide-left animate-delay-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Palette className="text-[#5945a3] icon-refined" size={20} />
+                  Appearance & Theme
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between hover-subtle p-3 rounded-lg group">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-lg flex items-center justify-center">
+                      <Palette className="text-white" size={16} />
+                    </div>
+                    <div>
+                      <p className="font-medium group-hover:text-[#5945a3] transition-colors">App Theme</p>
+                      <p className="text-sm text-gray-600">Choose between light and dark mode</p>
+                    </div>
+                  </div>
+                  <ThemeToggle />
+                </div>
+
+                <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sun className="text-yellow-500" size={16} />
+                    <span className="font-medium text-sm">Theme Preview</span>
+                  </div>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    The theme will apply to all pages including dashboard, charts, and navigation. 
+                    Dark mode reduces eye strain during extended use.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between hover-subtle p-2 rounded group">
+                    <div>
+                      <p className="font-medium group-hover:text-[#5945a3] transition-colors">Smooth Animations</p>
+                      <p className="text-sm text-gray-600">Enable premium micro-animations</p>
+                    </div>
+                    <Switch 
+                      defaultChecked 
+                      className="focus-refined"
+                      onCheckedChange={(checked) => toast({ 
+                        title: checked ? "Animations Enabled" : "Animations Disabled", 
+                        description: checked ? "Smooth transitions and hover effects active" : "Reduced motion for better performance" 
+                      })}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between hover-subtle p-2 rounded group">
+                    <div>
+                      <p className="font-medium group-hover:text-[#5945a3] transition-colors">High Contrast</p>
+                      <p className="text-sm text-gray-600">Improve readability</p>
+                    </div>
+                    <Switch 
+                      className="focus-refined"
+                      onCheckedChange={(checked) => toast({ 
+                        title: checked ? "High Contrast On" : "High Contrast Off", 
+                        description: checked ? "Enhanced text contrast for better visibility" : "Standard contrast restored" 
+                      })}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between hover-subtle p-2 rounded group">
+                    <div>
+                      <p className="font-medium group-hover:text-[#5945a3] transition-colors">Compact Mode</p>
+                      <p className="text-sm text-gray-600">Reduce spacing for more content</p>
+                    </div>
+                    <Switch 
+                      className="focus-refined"
+                      onCheckedChange={(checked) => toast({ 
+                        title: checked ? "Compact Mode On" : "Compact Mode Off", 
+                        description: checked ? "Tighter spacing for power users" : "Comfortable spacing restored" 
+                      })}
+                    />
                   </div>
                 </div>
               </CardContent>
