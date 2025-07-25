@@ -91,30 +91,62 @@ const Profile = () => {
     </Card>
   );
 
-  const PostItem = ({ post }) => (
-    <Card className="mb-4">
-      <CardContent className="p-4">
-        <div className="flex items-center gap-3 mb-3">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="/api/placeholder/32/32" />
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="font-medium text-sm">{profile.name}</p>
-            <p className="text-xs text-gray-500">2 hours ago</p>
+  const PostItem = ({ post, index = 0 }) => {
+    const postId = `post-${index}`;
+    const isLiked = likedPosts.has(postId);
+    
+    return (
+      <Card className="mb-4 card-refined hover-lift group animate-slide-left" style={{ animationDelay: `${index * 0.1}s` }}>
+        <CardContent className="p-4">
+          <div className="flex items-center gap-3 mb-3">
+            <Avatar className="h-8 w-8 hover-scale-subtle cursor-pointer">
+              <AvatarImage src="/api/placeholder/32/32" />
+              <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">JD</AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <p className="font-medium text-sm hover:text-[#5945a3] transition-colors cursor-pointer">{profile.name}</p>
+              <p className="text-xs text-gray-500">2 hours ago</p>
+            </div>
+            <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity btn-refined">
+              <Edit size={14} />
+            </Button>
           </div>
-        </div>
-        <p className="text-sm text-gray-800">
-          Just reached 75% of my emergency fund goal! The key was automating transfers every payday. 
-          Consistency beats perfection every time. 💪 #FinancialGoals
-        </p>
-        <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
-          <span>24 likes</span>
-          <span>8 comments</span>
-        </div>
-      </CardContent>
-    </Card>
-  );
+          <p className="text-sm text-gray-800 mb-4 leading-relaxed">
+            Just reached 75% of my emergency fund goal! The key was automating transfers every payday. 
+            Consistency beats perfection every time. 💪 #FinancialGoals
+          </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <button 
+                className={`flex items-center gap-2 text-sm transition-all duration-300 hover-scale-subtle ${isLiked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'}`}
+                onClick={() => handleLike(postId)}
+              >
+                <Heart 
+                  size={16} 
+                  fill={isLiked ? 'currentColor' : 'none'} 
+                  className={`transition-all duration-300 ${isLiked ? 'animate-scale-gentle' : ''}`} 
+                />
+                <span className="animate-counter">{isLiked ? 25 : 24} likes</span>
+              </button>
+              <button className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#5945a3] transition-colors hover-scale-subtle">
+                <MessageCircle size={16} />
+                <span>8 comments</span>
+              </button>
+              <button className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#5945a3] transition-colors hover-scale-subtle">
+                <Share2 size={16} />
+                <span>Share</span>
+              </button>
+            </div>
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button variant="ghost" size="sm" className="btn-refined">
+                <Eye size={14} />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
 
   const LendingRequestCard = ({ request }) => (
     <Card className="mb-4">
