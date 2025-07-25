@@ -44,48 +44,76 @@
 /* Subtle Entrance Animations                      */
 /* =============================================== */
 
-@keyframes fadeInSoft {
+/* =============================================== */
+/* Enhanced Entrance Animations                   */
+/* =============================================== */
+
+@keyframes fadeInPremium {
   from {
     opacity: 0;
-    transform: translate3d(0, 8px, 0);
+    transform: translate3d(0, 6px, 0) scale3d(0.99, 0.99, 1);
+    filter: blur(0.5px);
   }
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    filter: blur(0px);
   }
 }
 
-@keyframes slideInSilk {
+@keyframes slideInElastic {
   from {
     opacity: 0;
-    transform: translate3d(-12px, 0, 0);
+    transform: translate3d(-10px, 0, 0) scale3d(0.98, 0.98, 1);
   }
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   }
 }
 
-@keyframes scaleInBreath {
+@keyframes scaleInSpring {
   from {
     opacity: 0;
-    transform: scale3d(0.98, 0.98, 1);
+    transform: scale3d(0.96, 0.96, 1) rotateX(2deg);
   }
   to {
     opacity: 1;
-    transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1) rotateX(0deg);
   }
 }
 
-@keyframes numberFlow {
+@keyframes floatIn {
   from {
     opacity: 0;
-    transform: translate3d(0, 4px, 0);
+    transform: translate3d(0, 8px, 0) rotateX(3deg) scale3d(0.98, 0.98, 1);
   }
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) rotateX(0deg) scale3d(1, 1, 1);
   }
+}
+
+@keyframes numberCountUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 3px, 0) scale3d(0.95, 0.95, 1);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+}
+
+/* Ambient background animations */
+@keyframes gentleFloat {
+  0%, 100% { transform: translate3d(0, 0px, 0); }
+  50% { transform: translate3d(0, -2px, 0); }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; transform: scale3d(1, 1, 1); }
+  50% { opacity: 0.96; transform: scale3d(1.002, 1.002, 1); }
 }
 
 /* =============================================== */
