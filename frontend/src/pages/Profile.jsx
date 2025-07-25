@@ -31,15 +31,63 @@ import { mockData } from '../data/mockData';
 
 const Profile = () => {
   const [lendingEnabled, setLendingEnabled] = useState(mockData.profile.lending.available);
+  const [likedPosts, setLikedPosts] = useState(new Set());
+  const [hoveredStat, setHoveredStat] = useState(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [selectedTab, setSelectedTab] = useState('posts');
   const { profile } = mockData;
+  const { toast } = useToast();
 
-  const StatCard = ({ icon: Icon, label, value, color = "text-gray-900" }) => (
-    <Card className="text-center hover:shadow-md transition-shadow">
-      <CardContent className="p-6">
-        <Icon className={`w-8 h-8 mx-auto mb-3 ${color}`} />
-        <p className="text-2xl font-bold">{value}</p>
-        <p className="text-sm text-gray-600">{label}</p>
+  const handleLike = (postId) => {
+    setLikedPosts(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(postId)) {
+        newSet.delete(postId);
+        toast({ title: "Like removed", description: "Post unliked" });
+      } else {
+        newSet.add(postId);
+        toast({ title: "Post liked! ❤️", description: "Your engagement helps the community" });
+      }
+      return newSet;
+    });
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(profile.email);
+    setCopiedEmail(true);
+    toast({ title: "Email copied! 📋", description: "Email address copied to clipboard" });
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const handleLendingAction = (action, requestId) => {
+    toast({
+      title: `Request ${action}d`,
+      description: `Lending request has been ${action}d successfully`,
+    });
+  };
+
+  const StatCard = ({ icon: Icon, label, value, color = "text-gray-900", index }) => (
+    <Card 
+      className="text-center card-refined hover-glow cursor-pointer group relative overflow-hidden animate-entrance"
+      style={{ animationDelay: `${index * 0.1}s` }}
+      onMouseEnter={() => setHoveredStat(index)}
+      onMouseLeave={() => setHoveredStat(null)}
+      onClick={() => toast({ title: `${label} Details`, description: `View detailed ${label.toLowerCase()} analytics` })}
+    >
+      <CardContent className="p-6 relative z-10">
+        <div className="relative">
+          <Icon className={`w-8 h-8 mx-auto mb-3 icon-refined transition-all duration-300 ${color} ${hoveredStat === index ? 'scale-110' : ''}`} />
+          <div className={`absolute inset-0 bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-full opacity-0 transition-opacity duration-300 ${hoveredStat === index ? 'opacity-100' : ''}`}></div>
+        </div>
+        <p className={`text-2xl font-bold animate-counter transition-all duration-300 ${hoveredStat === index ? 'scale-105' : ''}`}>
+          {value}
+        </p>
+        <p className="text-sm text-gray-600 transition-colors duration-300">{label}</p>
+        {hoveredStat === index && (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#5945a3]/5 to-[#b37e91]/5 animate-scale-gentle"></div>
+        )}
       </CardContent>
+      <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r ${color.includes('blue') ? 'from-blue-400 to-blue-600' : color.includes('green') ? 'from-green-400 to-green-600' : color.includes('purple') ? 'from-purple-400 to-purple-600' : 'from-orange-400 to-orange-600'} transform scale-x-0 transition-transform duration-300 ${hoveredStat === index ? 'scale-x-100' : ''}`}></div>
     </Card>
   );
 
