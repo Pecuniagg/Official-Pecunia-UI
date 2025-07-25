@@ -84,10 +84,9 @@ const AIAssistant = ({ isOpen, onClose }) => {
     if (!message.trim() || isTyping) return;
 
     const userMessage = {
-      id: Date.now(),
       type: 'user',
       content: message,
-      timestamp: new Date()
+      timestamp: new Date().toLocaleTimeString()
     };
 
     setLocalChatHistory(prev => [...prev, userMessage]);
@@ -101,50 +100,45 @@ const AIAssistant = ({ isOpen, onClose }) => {
 
       switch (messageType) {
         case 'comprehensive_analysis':
-          response = await aiService.getComprehensiveAnalysis();
+          response = await aiService.getComprehensiveAnalysis(userProfile);
           break;
         case 'budget_optimization':
-          response = await aiService.generateSmartBudget();
+          response = await aiService.getSmartBudget(userProfile);
           break;
         case 'investment_strategy':
-          response = await aiService.generateInvestmentStrategy();
+          response = await aiService.getInvestmentStrategy(userProfile);
           break;
         case 'competitive_insights':
-          response = await aiService.getCompetitiveInsights();
+          response = await aiService.getCompetitiveInsights(userProfile);
           break;
         case 'travel_planning':
           const travelData = extractTravelData(message);
-          response = await aiService.generateTravelPlan(travelData);
+          response = await aiService.getTravelPlan(travelData);
           break;
         case 'goal_strategy':
           const goalData = extractGoalData(message);
-          response = await aiService.generateGoalStrategy(goalData);
+          response = await aiService.getGoalStrategy(goalData);
           break;
         default:
-          response = await aiService.chatWithAI(message, {
-            page: 'ai_assistant',
-            user_context: aiService.userContext
-          });
+          response = await aiService.chat(message);
       }
 
       const aiMessage = {
-        id: Date.now() + 1,
         type: 'ai',
         content: formatAIResponse(response, messageType),
-        timestamp: new Date(),
-        messageType: messageType
+        timestamp: new Date().toLocaleTimeString()
       };
 
       setLocalChatHistory(prev => [...prev, aiMessage]);
-
     } catch (error) {
-      console.error('Chat error:', error);
+      console.error('Error sending message:', error);
+      
       const errorMessage = {
-        id: Date.now() + 1,
         type: 'ai',
-        content: "I apologize, but I'm having trouble processing that request. Please try again or rephrase your question.",
-        timestamp: new Date()
+        content: 'I apologize, but I encountered an error processing your request. Please try again.',
+        timestamp: new Date().toLocaleTimeString()
       };
+
       setLocalChatHistory(prev => [...prev, errorMessage]);
     } finally {
       setIsTyping(false);
@@ -393,217 +387,6 @@ const AIAssistant = ({ isOpen, onClose }) => {
         </div>
       </div>
     </>
-  );
-                <Brain className="text-white" size={20} />
-              </div>
-              <div>
-                <SheetTitle className="text-lg font-semibold text-gray-900">
-                  Pecunia AI
-                </SheetTitle>
-                <p className="text-sm text-gray-500">
-                  Your intelligent financial advisor
-                </p>
-              </div>
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="hover:bg-gray-100 transition-colors"
-            >
-              <X size={18} />
-            </Button>
-          </div>
-        </SheetHeader>
-
-        {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto bg-gray-50">
-          {/* Welcome Message */}
-          {allMessages.length === 0 && (
-            <div className="p-6">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
-                  <Brain className="text-white" size={24} />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Welcome to Pecunia AI
-                </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  I'm your comprehensive financial advisor. I can analyze your finances, 
-                  create budgets, plan investments, and much more.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Chat Messages */}
-          <div className="px-6 pb-6">
-            {allMessages.map((msg, index) => (
-              <div
-                key={msg.id}
-                className={`mb-6 animate-entrance animate-delay-whisper-${Math.min(index + 1, 6)}`}
-              >
-                <div className={`flex items-start gap-3 ${
-                  msg.type === 'user' ? 'flex-row-reverse' : ''
-                }`}>
-                  {/* Avatar */}
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    msg.type === 'user' 
-                      ? 'bg-[#5945a3]' 
-                      : 'bg-gradient-to-br from-[#5945a3] to-[#b37e91]'
-                  }`}>
-                    {msg.type === 'user' ? (
-                      <User className="text-white" size={16} />
-                    ) : (
-                      <Brain className="text-white" size={16} />
-                    )}
-                  </div>
-
-                  {/* Message Content */}
-                  <div className={`flex-1 ${msg.type === 'user' ? 'text-right' : ''}`}>
-                    <div className={`inline-block max-w-[85%] ${
-                      msg.type === 'user' 
-                        ? 'bg-[#5945a3] text-white' 
-                        : 'bg-white border border-gray-200'
-                    } rounded-2xl px-4 py-3 shadow-sm hover-lift-premium transition-all duration-200`}>
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                        {msg.content}
-                      </p>
-                      {msg.messageType && (
-                        <Badge 
-                          variant="secondary" 
-                          className="mt-2 text-xs bg-white/20 text-white border-white/30"
-                        >
-                          {msg.messageType.replace('_', ' ')}
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1 px-1">
-                      {msg.timestamp.toLocaleTimeString([], { 
-                        hour: '2-digit', 
-                        minute: '2-digit' 
-                      })}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* Typing Indicator */}
-            {isTyping && (
-              <div className="mb-6 animate-entrance">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center">
-                    <Brain className="text-white" size={16} />
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                      <span className="text-xs text-gray-500">AI is thinking...</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Suggested Prompts */}
-            {showSuggestions && allMessages.length === 0 && !isTyping && (
-              <div className="space-y-6 animate-entrance animate-delay-whisper-2">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-700 mb-4">
-                    What can I help you with today?
-                  </p>
-                </div>
-                
-                {suggestedPrompts.slice(0, 3).map((category, categoryIndex) => (
-                  <div key={category.category} className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <category.icon className="text-[#5945a3]" size={16} />
-                      <h4 className="text-sm font-medium text-gray-700">
-                        {category.category}
-                      </h4>
-                    </div>
-                    <div className="space-y-2">
-                      {category.prompts.map((prompt, index) => (
-                        <Button
-                          key={index}
-                          variant="ghost"
-                          className="w-full justify-start text-left h-auto p-3 text-sm text-gray-700 hover:bg-[#5945a3] hover:text-white transition-all duration-200 hover-lift-premium"
-                          onClick={() => handlePromptClick(prompt)}
-                          disabled={isTyping}
-                        >
-                          <Sparkles size={14} className="mr-2 flex-shrink-0" />
-                          <span className="truncate">{prompt}</span>
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div ref={messagesEndRef} />
-          </div>
-        </div>
-
-        {/* Context Info */}
-        {userProfile && (
-          <div className="px-6 py-3 bg-gray-50 border-t">
-            <div className="flex items-center gap-4 text-xs text-gray-600">
-              <div className="flex items-center gap-1">
-                <MessageCircle size={12} />
-                <span>Context Active</span>
-              </div>
-              <div className="flex gap-3">
-                <span>Score: {userProfile.pecunia_score || 782}</span>
-                <span>Age: {aiService.userContext.age}</span>
-                <span>Budget: ${userProfile.monthly_budget?.toLocaleString() || '5,000'}</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Input Area */}
-        <div className="p-6 bg-white border-t">
-          <div className="flex gap-3">
-            <div className="flex-1">
-              <Input
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Ask me anything about your finances..."
-                onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-                className="border-gray-300 focus:border-[#5945a3] focus:ring-[#5945a3] transition-colors"
-                disabled={isTyping}
-              />
-            </div>
-            <Button 
-              onClick={handleSend}
-              disabled={!message.trim() || isTyping}
-              className="bg-[#5945a3] hover:bg-[#4a3d8f] transition-all duration-200 hover-lift-premium"
-            >
-              {isTyping ? (
-                <Loader2 className="animate-spin" size={18} />
-              ) : (
-                <Send size={18} />
-              )}
-            </Button>
-          </div>
-          <div className="flex items-center justify-between mt-3">
-            <p className="text-xs text-gray-500">
-              Press Enter to send
-            </p>
-            <div className="flex items-center gap-1 text-xs text-gray-400">
-              <Brain size={10} />
-              <span>Powered by GPT-4</span>
-            </div>
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
   );
 };
 
