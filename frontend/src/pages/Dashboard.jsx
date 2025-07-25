@@ -468,151 +468,152 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
 
-          {/* Interactive Cash Flow */}
-          <Card className="shadow-lg card-premium hover-glow-subtle">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Cash Flow</CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => toast({ title: "Cash Flow Details", description: "Opening detailed cash flow analysis..." })}
-                className="text-[#5945a3] hover:bg-purple-50 btn-premium focus-premium"
-              >
-                <ArrowUpRight size={16} />
-              </Button>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between hover-float">
-                <span className="text-sm text-gray-600">Income</span>
-                <div className="flex items-center gap-1 text-green-600">
-                  <TrendingUp size={16} />
-                  <span className="font-semibold animate-flow">$6,500</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between hover-float">
-                <span className="text-sm text-gray-600">Expenses</span>
-                <div className="flex items-center gap-1 text-red-500">
-                  <TrendingDown size={16} />
-                  <span className="font-semibold animate-flow">$3,750</span>
-                </div>
-              </div>
-              <div className="pt-2 border-t">
-                <div className="flex items-center justify-between hover-float">
-                  <span className="font-medium">Net Flow</span>
-                  <span className="font-bold text-green-600 animate-flow">+$2,750</span>
-                </div>
-              </div>
-              <Button 
-                size="sm" 
-                variant="outline" 
-                className="w-full btn-premium"
-                onClick={() => toast({ title: "Investment Suggestion", description: "Consider investing your surplus in index funds" })}
-              >
-                Optimize Surplus
-              </Button>
-            </CardContent>
-          </Card>
+              {/* Interactive Cash Flow */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="visual-hierarchy-3">Cash Flow</CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => toast({ title: "Cash Flow Details", description: "Opening detailed cash flow analysis..." })}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                  >
+                    <ArrowUpRight size={16} />
+                  </Button>
+                </CardHeader>
+                <CardContent className="card-system-content stack-spacing">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted">Income</span>
+                    <div className="flex items-center gap-1 text-green-600">
+                      <TrendingUp size={16} />
+                      <span className="font-semibold">$6,500</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted">Expenses</span>
+                    <div className="flex items-center gap-1 text-red-500">
+                      <TrendingDown size={16} />
+                      <span className="font-semibold">$3,750</span>
+                    </div>
+                  </div>
+                  <div className="pt-2 border-t border-subtle">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">Net Flow</span>
+                      <span className="font-bold text-green-600">+$2,750</span>
+                    </div>
+                  </div>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="w-full interactive border-gray-200"
+                    onClick={() => toast({ title: "Investment Suggestion", description: "Consider investing your surplus in index funds" })}
+                  >
+                    Optimize Surplus
+                  </Button>
+                </CardContent>
+              </Card>
 
-          {/* Financial Streams */}
-          <Card className="shadow-lg card-whisper">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Income Streams</CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => toast({ title: "Add Income", description: "Adding new income source..." })}
-                className="text-[#5945a3] hover:bg-purple-50 btn-whisper focus-whisper"
-              >
-                <Plus size={16} />
-              </Button>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {dashboard.incomeStreams.map((stream, index) => (
-                <div 
-                  key={index} 
-                  className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer hover-whisper"
-                  onClick={() => toast({ title: `${stream.source} Details`, description: "Opening income stream details..." })}
-                >
-                  <span className="text-sm text-gray-600">{stream.source}</span>
-                  <span className="font-medium animate-flow">${stream.amount.toLocaleString()}</span>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
+              {/* Financial Streams */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="visual-hierarchy-3">Income Streams</CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => toast({ title: "Add Income", description: "Adding new income source..." })}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                  >
+                    <Plus size={16} />
+                  </Button>
+                </CardHeader>
+                <CardContent className="card-system-content stack-spacing-sm">
+                  {dashboard.incomeStreams.map((stream, index) => (
+                    <div 
+                      key={index} 
+                      className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition-colors cursor-pointer interactive"
+                      onClick={() => toast({ title: `${stream.source} Details`, description: "Opening income stream details..." })}
+                    >
+                      <span className="text-sm text-muted">{stream.source}</span>
+                      <span className="font-medium">${stream.amount.toLocaleString()}</span>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
 
-        {/* Right Column */}
-        <div className="col-span-3 space-y-8">
-          {/* Interactive Pecunia Score */}
-          <Card className="shadow-lg card-refined card-entrance">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Pecunia Score</CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => toast({ title: "Score History", description: "Viewing score improvement tips..." })}
-                className="text-[#5945a3] hover:bg-purple-50 btn-refined focus-refined"
-              >
-                <Eye size={16} />
-              </Button>
-            </CardHeader>
-            <CardContent className="text-center">
-              <div 
-                className="relative w-32 h-32 mx-auto mb-4 cursor-pointer score-circle"
-                onClick={() => toast({ title: "Score Breakdown", description: "Credit: 780, Savings: 795, Debt Ratio: 770" })}
-              >
-                <svg className="w-32 h-32 transform -rotate-90">
-                  <circle
-                    cx="64"
-                    cy="64"
-                    r="56"
-                    stroke="#e5e7eb"
-                    strokeWidth="8"
-                    fill="none"
-                  />
-                  <circle
-                    cx="64"
-                    cy="64"
-                    r="56"
-                    stroke="url(#gradient)"
-                    strokeWidth="8"
-                    fill="none"
-                    strokeDasharray={`${(pecuniaScore.current / 100) * 351.86} 351.86`}
-                    strokeLinecap="round"
-                    className="progress-circle"
-                  />
-                  <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#5945a3" />
-                      <stop offset="100%" stopColor="#b37e91" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-bold animate-counter">{pecuniaScore.current}</span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 mb-3 animate-slide-left animate-delay-3">
-                +{pecuniaScore.change} from last month
-              </p>
-              <Button 
-                size="sm" 
-                variant="outline" 
-                className="w-full btn-refined"
-                onClick={() => toast({ title: "Improvement Plan", description: "3 steps to reach 800+ score" })}
-              >
-                Improve Score
-              </Button>
-            </CardContent>
-          </Card>
+            {/* Right Column - Enhanced spacing */}
+            <div className="col-span-3 space-y-8">
+              {/* Interactive Pecunia Score */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="visual-hierarchy-3">Pecunia Score</CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => toast({ title: "Score History", description: "Viewing score improvement tips..." })}
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                  >
+                    <Eye size={16} />
+                  </Button>
+                </CardHeader>
+                <CardContent className="card-system-content text-center">
+                  <div 
+                    className="relative w-32 h-32 mx-auto mb-4 cursor-pointer interactive"
+                    onClick={() => toast({ title: "Score Breakdown", description: "Credit: 780, Savings: 795, Debt Ratio: 770" })}
+                  >
+                    <svg className="w-32 h-32 transform -rotate-90">
+                      <circle
+                        cx="64"
+                        cy="64"
+                        r="56"
+                        stroke="#e5e7eb"
+                        strokeWidth="8"
+                        fill="none"
+                      />
+                      <circle
+                        cx="64"
+                        cy="64"
+                        r="56"
+                        stroke="url(#gradient)"
+                        strokeWidth="8"
+                        fill="none"
+                        strokeDasharray={`${(pecuniaScore.current / 100) * 351.86} 351.86`}
+                        strokeLinecap="round"
+                        className="transition-all duration-300"
+                      />
+                      <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#5945a3" />
+                          <stop offset="100%" stopColor="#b37e91" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-3xl font-bold">{pecuniaScore.current}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted mb-3">
+                    +{pecuniaScore.change} from last month
+                  </p>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="w-full interactive border-gray-200"
+                    onClick={() => toast({ title: "Improvement Plan", description: "3 steps to reach 800+ score" })}
+                  >
+                    Improve Score
+                  </Button>
+                </CardContent>
+              </Card>
 
-          {/* AI Insights Preview */}
-          <Card className="shadow-lg card-premium hover-glow-subtle">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <Brain className="text-[#5945a3] icon-premium" size={20} />
-                AI Insights
-              </CardTitle>
+              {/* AI Insights Preview */}
+              <Card className="card-system interactive">
+                <CardHeader className="card-system-header">
+                  <CardTitle className="flex items-center gap-2 visual-hierarchy-3">
+                    <Brain className="text-[#5945a3]" size={20} />
+                    AI Insights
+                  </CardTitle>
+                </CardHeader>
               <Button 
                 variant="ghost" 
                 size="sm"
