@@ -339,26 +339,92 @@
 }
 
 /* =============================================== */
-/* Card Interactions - Barely There               */
+/* Premium Card Interactions                      */
 /* =============================================== */
 
 .card-whisper {
-  transition: all 0.3s var(--ease-gentle);
+  position: relative;
+  transition: all 0.3s var(--ease-premium);
   will-change: transform, box-shadow;
 }
 
+.card-whisper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.03), 
+    rgba(255, 255, 255, 0.01)
+  );
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-premium);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
 .card-whisper:hover {
-  transform: translate3d(0, -1px, 0);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+  transform: translate3d(0, -2px, 0);
+  box-shadow: var(--shadow-elevated);
+}
+
+.card-whisper:hover::before {
+  opacity: 1;
 }
 
 .card-breath {
-  transition: all 0.25s var(--ease-breath);
+  transition: all 0.35s var(--ease-back-gentle);
+  will-change: transform, box-shadow;
 }
 
 .card-breath:hover {
-  transform: translate3d(0, -0.5px, 0);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+  transform: translate3d(0, -1px, 0) scale3d(1.005, 1.005, 1);
+  box-shadow: var(--shadow-gentle);
+}
+
+.card-premium {
+  position: relative;
+  transition: all 0.4s var(--ease-premium);
+  will-change: transform, box-shadow, filter;
+}
+
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(89, 69, 163, 0.02), 
+    rgba(179, 126, 145, 0.01)
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-premium);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.card-premium:hover {
+  transform: translate3d(0, -3px, 0) scale3d(1.008, 1.008, 1);
+  box-shadow: var(--shadow-floating);
+  filter: brightness(1.01);
+}
+
+.card-premium:hover::before {
+  opacity: 1;
+}
+
+.card-float {
+  transition: all 0.4s var(--ease-float);
+  will-change: transform, box-shadow;
+}
+
+.card-float:hover {
+  transform: translate3d(0, -4px, 0) scale3d(1.01, 1.01, 1);
+  box-shadow: var(--shadow-floating);
 }
 
 /* =============================================== */
