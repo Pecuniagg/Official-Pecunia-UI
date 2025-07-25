@@ -67,35 +67,33 @@ const Compare = () => {
 
   const ComparisonCard = ({ title, icon: Icon, data, color, index = 0 }) => (
     <Card 
-      className="shadow-lg card-refined hover-glow group animate-entrance cursor-pointer"
-      style={{ animationDelay: `${index * 0.1}s` }}
+      className="shadow-lg card-whisper group"
       onClick={() => toast({ title: `${title} Details`, description: "Opening detailed comparison analytics..." })}
     >
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Icon className={`${color} icon-refined group-hover:scale-110 transition-transform duration-300`} size={20} />
-            <span className="group-hover:text-[#5945a3] transition-colors">{title}</span>
+            <Icon className={`${color} icon-whisper`} size={20} />
+            <span className="group-hover:text-[#5945a3] transition-colors duration-300">{title}</span>
           </div>
-          <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity btn-refined">
+          <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity btn-whisper">
             <Eye size={14} />
           </Button>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {data.map((item, itemIndex) => (
             <div 
               key={itemIndex} 
-              className="flex items-center justify-between hover-subtle p-2 rounded group cursor-pointer animate-slide-left"
-              style={{ animationDelay: `${(index * 0.1) + (itemIndex * 0.05)}s` }}
+              className="flex items-center justify-between hover-whisper p-2 rounded group cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 toast({ title: `${item.name}'s Performance`, description: `View detailed metrics for ${item.name}` });
               }}
             >
               <div className="flex items-center gap-3">
-                <Avatar className="h-8 w-8 hover-scale-subtle">
+                <Avatar className="h-8 w-8 hover-breath">
                   <AvatarImage src="/api/placeholder/32/32" />
                   <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
                     {item.name.split(' ').map(n => n[0]).join('')}
@@ -103,17 +101,17 @@ const Compare = () => {
                 </Avatar>
                 <span className="font-medium text-sm group-hover:text-[#5945a3] transition-colors">{item.name}</span>
                 {itemIndex === 0 && (
-                  <Crown className="text-yellow-500 animate-scale-gentle" size={14} />
+                  <Crown className="text-yellow-500" size={14} />
                 )}
               </div>
               <div className="text-right">
-                <p className="font-semibold animate-counter">{item.value}</p>
+                <p className="font-semibold animate-flow">{item.value}</p>
                 {item.trend && (
                   <div className="flex items-center gap-1">
                     {item.trend > 0 ? (
-                      <TrendingUp className="text-green-600 animate-scale-gentle" size={12} />
+                      <TrendingUp className="text-green-600" size={12} />
                     ) : (
-                      <TrendingDown className="text-red-500 animate-scale-gentle" size={12} />
+                      <TrendingDown className="text-red-500" size={12} />
                     )}
                     <p className={`text-xs ${item.trend > 0 ? 'text-green-600' : 'text-red-500'}`}>
                       {item.trend > 0 ? '+' : ''}{item.trend}%
