@@ -148,26 +148,40 @@ const Profile = () => {
     );
   };
 
-  const LendingRequestCard = ({ request }) => (
-    <Card className="mb-4">
+  const LendingRequestCard = ({ request, index = 0 }) => (
+    <Card className="mb-4 card-refined hover-glow group animate-slide-left" style={{ animationDelay: `${index * 0.1}s` }}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10">
+            <Avatar className="h-10 w-10 hover-scale-subtle cursor-pointer">
               <AvatarImage src="/api/placeholder/40/40" />
-              <AvatarFallback>{request.requester.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+              <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
+                {request.requester.split(' ').map(n => n[0]).join('')}
+              </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-medium">{request.requester}</p>
-              <p className="text-sm text-gray-600">Credit Score: {request.creditScore}</p>
+              <p className="font-medium hover:text-[#5945a3] transition-colors cursor-pointer">{request.requester}</p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-gray-600">Credit Score: {request.creditScore}</p>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      size={12} 
+                      className={`${i < 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'} animate-scale-gentle`}
+                      style={{ animationDelay: `${i * 0.1}s` }}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-          <Badge className="bg-blue-100 text-blue-800">
+          <Badge className="bg-gradient-to-r from-blue-500 to-blue-600 text-white hover-glow animate-scale-gentle animate-delay-1">
             ${request.amount.toLocaleString()}
           </Badge>
         </div>
         
-        <div className="mb-4">
+        <div className="mb-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
           <p className="text-sm text-gray-700 mb-2">
             <strong>Purpose:</strong> {request.purpose}
           </p>
@@ -177,14 +191,31 @@ const Profile = () => {
         </div>
         
         <div className="flex gap-2">
-          <Button size="sm" className="bg-green-600 hover:bg-green-700">
+          <Button 
+            size="sm" 
+            className="bg-green-600 hover:bg-green-700 btn-refined flex-1"
+            onClick={() => handleLendingAction('approve', request.id)}
+          >
+            <CheckCircle size={14} className="mr-1 icon-refined" />
             Approve
           </Button>
-          <Button size="sm" variant="outline">
+          <Button 
+            size="sm" 
+            variant="outline" 
+            className="btn-refined hover:border-red-300 hover:text-red-600"
+            onClick={() => handleLendingAction('decline', request.id)}
+          >
+            <AlertCircle size={14} className="mr-1" />
             Decline
           </Button>
-          <Button size="sm" variant="ghost">
-            View Details
+          <Button 
+            size="sm" 
+            variant="ghost" 
+            className="btn-refined"
+            onClick={() => toast({ title: "Request Details", description: "Opening detailed view..." })}
+          >
+            <Eye size={14} className="mr-1" />
+            Details
           </Button>
         </div>
       </CardContent>
