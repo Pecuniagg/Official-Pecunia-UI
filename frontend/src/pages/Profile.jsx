@@ -246,23 +246,53 @@ const Profile = () => {
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-entrance">
       {/* Profile Header */}
-      <Card className="bg-gradient-to-r from-[#5945a3] via-[#b37e91] to-[#3b345b] text-white">
+      <Card className="bg-gradient-to-r from-[#5945a3] via-[#b37e91] to-[#3b345b] text-white card-refined hover-glow animate-entrance-down">
         <CardContent className="p-8">
           <div className="flex items-center gap-6">
-            <Avatar className="h-20 w-20 border-4 border-white/20">
-              <AvatarImage src="/api/placeholder/80/80" />
-              <AvatarFallback className="text-2xl bg-[#1e1b24] text-white">JD</AvatarFallback>
-            </Avatar>
+            <div className="relative group">
+              <Avatar className="h-20 w-20 border-4 border-white/20 hover-scale-subtle cursor-pointer">
+                <AvatarImage src="/api/placeholder/80/80" />
+                <AvatarFallback className="text-2xl bg-[#1e1b24] text-white">JD</AvatarFallback>
+              </Avatar>
+              <div className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <Edit size={16} className="text-white" />
+              </div>
+            </div>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">{profile.name}</h1>
-              <p className="text-lg opacity-90 mb-1">{profile.email}</p>
-              <p className="opacity-75">Member since {profile.joinDate}</p>
+              <h1 className="text-3xl font-bold mb-2 animate-slide-left animate-delay-1">{profile.name}</h1>
+              <div className="flex items-center gap-2 mb-1">
+                <p className="text-lg opacity-90 animate-slide-left animate-delay-2">{profile.email}</p>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={`text-white/80 hover:text-white btn-refined ${copiedEmail ? 'text-green-300' : ''}`}
+                  onClick={handleCopyEmail}
+                >
+                  <Copy size={14} className={`transition-all duration-300 ${copiedEmail ? 'animate-scale-gentle' : ''}`} />
+                </Button>
+              </div>
+              <p className="opacity-75 animate-slide-left animate-delay-3">Member since {profile.joinDate}</p>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold">{profile.pecuniaScore}</div>
+              <div 
+                className="text-3xl font-bold animate-counter cursor-pointer hover-scale-subtle"
+                onClick={() => toast({ title: "Pecunia Score", description: "Your financial health score based on spending habits and goals" })}
+              >
+                {profile.pecuniaScore}
+              </div>
               <p className="opacity-90">Pecunia Score</p>
+              <div className="mt-2 flex justify-end">
+                {[...Array(5)].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    size={16} 
+                    className={`${i < 4 ? 'text-yellow-300 fill-current' : 'text-white/30'} animate-scale-gentle hover-scale-subtle cursor-pointer`}
+                    style={{ animationDelay: `${i * 0.1}s` }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </CardContent>
@@ -275,40 +305,44 @@ const Profile = () => {
           label="Posts"
           value={profile.posts}
           color="text-blue-500"
+          index={0}
         />
         <StatCard
           icon={Users}
           label="Followers"
           value={profile.followers}
           color="text-green-500"
+          index={1}
         />
         <StatCard
           icon={User}
           label="Following"
           value={profile.following}
           color="text-purple-500"
+          index={2}
         />
         <StatCard
           icon={TrendingUp}
           label="Score Rank"
           value="Top 15%"
           color="text-orange-500"
+          index={3}
         />
       </div>
 
       {/* Main Content Tabs */}
-      <Tabs defaultValue="posts" className="w-full">
-        <TabsList className="mb-8">
-          <TabsTrigger value="posts" className="flex items-center gap-2">
-            <MessageSquare size={16} />
+      <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+        <TabsList className="mb-8 animate-slide-left animate-delay-4">
+          <TabsTrigger value="posts" className="flex items-center gap-2 btn-refined nav-indicator">
+            <MessageSquare size={16} className="icon-refined" />
             Posts
           </TabsTrigger>
-          <TabsTrigger value="lending" className="flex items-center gap-2">
-            <DollarSign size={16} />
+          <TabsTrigger value="lending" className="flex items-center gap-2 btn-refined nav-indicator">
+            <DollarSign size={16} className="icon-refined" />
             Lending
           </TabsTrigger>
-          <TabsTrigger value="settings" className="flex items-center gap-2">
-            <Settings size={16} />
+          <TabsTrigger value="settings" className="flex items-center gap-2 btn-refined nav-indicator">
+            <Settings size={16} className="icon-refined" />
             Settings
           </TabsTrigger>
         </TabsList>
