@@ -44,33 +44,33 @@ const Layout = ({ children }) => {
   const isActive = (href) => location.pathname === href;
 
   return (
-    <div className={`flex h-screen bg-white ${isDarkMode ? 'dark' : ''} dark-mode-transition`}>
-      {/* Fixed Sidebar */}
-      <div className="fixed inset-y-0 left-0 w-[280px] bg-white border-r border-gray-100">
+    <div className={`flex h-screen bg-white ${isDarkMode ? 'dark' : ''} transition-colors duration-300`}>
+      {/* Fixed Sidebar - Enhanced spacing and breathing room */}
+      <div className="fixed inset-y-0 left-0 w-[280px] bg-white border-r border-gray-100 dark:bg-gray-900 dark:border-gray-800">
         <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="p-8 animate-fade-in-down">
-            <h1 className="text-2xl font-bold tracking-tight hover-glow transition-all duration-300" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+          {/* Logo - Generous spacing */}
+          <div className="section-spacing breathing-space-vertical">
+            <h1 className="visual-hierarchy-1 text-[#5945a3] dark:text-white tracking-tight transition-colors duration-300" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
               Pecunia
             </h1>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 px-6 animate-fade-in-left animate-stagger-2">
-            <ul className="space-y-2">
+          {/* Navigation - Improved spacing and hierarchy */}
+          <nav className="flex-1 px-6 pb-8">
+            <ul className="stack-spacing-sm">
               {navigation.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <li key={item.name} className={`animate-fade-in-left animate-stagger-${index + 1}`}>
+                  <li key={item.name} className="transition-all duration-150 ease-in-out">
                     <Link
                       to={item.href}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 nav-item hover-lift ${
+                      className={`interactive flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out ${
                         isActive(item.href)
-                          ? "bg-[#5945a3] text-white shadow-lg transform scale-105 animate-glow"
-                          : "text-[#3b345b] hover:bg-gray-50 hover:text-[#0a0a0f] hover-scale-small"
+                          ? "bg-[#5945a3] text-white shadow-sm"
+                          : "text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
                       }`}
                     >
-                      <Icon size={20} className="hover-scale-small transition-transform duration-200" />
+                      <Icon size={20} className="transition-transform duration-200 ease-in-out" />
                       {item.name}
                     </Link>
                   </li>
@@ -79,23 +79,23 @@ const Layout = ({ children }) => {
             </ul>
           </nav>
 
-          {/* AI Assistant Button */}
-          <div className="p-6 border-t border-gray-100 animate-fade-in-up animate-stagger-6">
+          {/* AI Assistant Button - Consistent spacing */}
+          <div className="px-6 pb-8 border-t border-gray-100 dark:border-gray-800 pt-6">
             <Button
               onClick={() => setShowAI(true)}
-              className="w-full flex items-center gap-3 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-whisper"
+              className="w-full flex items-center gap-3 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 interactive text-white border-0 shadow-sm transition-all duration-200 ease-in-out"
             >
-              <Bot size={20} className="icon-whisper" />
+              <Bot size={20} />
               Ask Pecunia
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 ml-[280px]">
-        {/* Top Bar */}
-        <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/80 backdrop-blur-md border-b border-gray-100 z-10 animate-fade-in-down">
+      {/* Main Content - Improved spacing and layout */}
+      <div className="flex-1 ml-[280px] min-h-screen">
+        {/* Top Bar - Cleaner design with consistent spacing */}
+        <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/95 backdrop-blur-md border-b border-gray-100 z-10 dark:bg-gray-900/95 dark:border-gray-800 transition-colors duration-300">
           <div className="flex items-center justify-between h-full px-8">
             <div className="flex items-center gap-6">
               <h2 className="text-xl font-semibold text-gray-900 animate-fade-in-right animate-stagger-1">
