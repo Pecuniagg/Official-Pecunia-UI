@@ -117,32 +117,59 @@
 }
 
 /* =============================================== */
-/* Whisper Animation Classes                       */
+/* Premium Animation Classes                      */
 /* =============================================== */
 
 .animate-whisper {
-  animation: fadeInSoft 0.8s var(--ease-whisper) both;
+  animation: fadeInPremium 0.7s var(--ease-whisper) both;
 }
 
 .animate-silk {
-  animation: slideInSilk 0.6s var(--ease-silk) both;
+  animation: slideInElastic 0.6s var(--ease-silk) both;
 }
 
 .animate-breath {
-  animation: scaleInBreath 0.5s var(--ease-breath) both;
+  animation: scaleInSpring 0.5s var(--ease-spring) both;
 }
 
 .animate-flow {
-  animation: numberFlow 0.7s var(--ease-gentle) both;
+  animation: numberCountUp 0.6s var(--ease-premium) both;
 }
 
-/* Natural Staggered Delays - Barely Noticeable */
-.animate-delay-whisper-1 { animation-delay: 0.03s; }
-.animate-delay-whisper-2 { animation-delay: 0.06s; }
-.animate-delay-whisper-3 { animation-delay: 0.09s; }
-.animate-delay-whisper-4 { animation-delay: 0.12s; }
-.animate-delay-whisper-5 { animation-delay: 0.15s; }
-.animate-delay-whisper-6 { animation-delay: 0.18s; }
+.animate-float {
+  animation: floatIn 0.8s var(--ease-float) both;
+}
+
+.animate-entrance {
+  animation: fadeInPremium 0.8s var(--ease-gentle) both;
+}
+
+.animate-entrance-elastic {
+  animation: slideInElastic 0.7s var(--ease-elastic-subtle) both;
+}
+
+.animate-entrance-spring {
+  animation: scaleInSpring 0.6s var(--ease-spring) both;
+}
+
+/* Enhanced staggered delays with physics */
+.animate-delay-whisper-1 { animation-delay: 0.02s; }
+.animate-delay-whisper-2 { animation-delay: 0.04s; }
+.animate-delay-whisper-3 { animation-delay: 0.06s; }
+.animate-delay-whisper-4 { animation-delay: 0.08s; }
+.animate-delay-whisper-5 { animation-delay: 0.10s; }
+.animate-delay-whisper-6 { animation-delay: 0.12s; }
+.animate-delay-whisper-7 { animation-delay: 0.14s; }
+.animate-delay-whisper-8 { animation-delay: 0.16s; }
+
+/* Ambient effects */
+.animate-ambient-float {
+  animation: gentleFloat 6s var(--ease-float) infinite;
+}
+
+.animate-ambient-pulse {
+  animation: subtlePulse 4s var(--ease-gentle) infinite;
+}
 
 /* =============================================== */
 /* Refined Hover States - Micro-Interactions      */
