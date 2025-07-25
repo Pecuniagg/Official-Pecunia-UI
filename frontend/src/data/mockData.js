@@ -1,22 +1,22 @@
 export const mockData = {
   dashboard: {
     expenses: [
-      { name: 'Housing', value: 1500, percentage: 40 },
-      { name: 'Food', value: 600, percentage: 16 },
-      { name: 'Transportation', value: 450, percentage: 12 },
-      { name: 'Entertainment', value: 300, percentage: 8 },
-      { name: 'Other', value: 900, percentage: 24 }
+      { name: 'Housing', value: 1500, percentage: 40, trend: 'up', trendValue: '2.3%', insight: 'Housing costs are within healthy range but trending up' },
+      { name: 'Food', value: 600, percentage: 16, trend: 'down', trendValue: '1.2%', insight: 'Great job reducing food expenses this month' },
+      { name: 'Transportation', value: 450, percentage: 12, trend: 'up', trendValue: '5.1%', insight: 'Transportation costs increased - consider carpooling' },
+      { name: 'Entertainment', value: 300, percentage: 8, trend: 'up', trendValue: '3.4%', insight: 'Entertainment spending is reasonable but trending up' },
+      { name: 'Other', value: 900, percentage: 24, trend: 'down', trendValue: '0.8%', insight: 'Other expenses are well-controlled' }
     ],
     assets: [
-      { name: 'Savings', value: 25000, percentage: 45 },
-      { name: 'Investments', value: 20000, percentage: 36 },
-      { name: 'Real Estate', value: 8000, percentage: 14 },
-      { name: 'Other', value: 3000, percentage: 5 }
+      { name: 'Savings', value: 25000, percentage: 45, trend: 'up', trendValue: '4.2%', insight: 'Excellent savings growth rate' },
+      { name: 'Investments', value: 20000, percentage: 36, trend: 'up', trendValue: '6.1%', insight: 'Strong investment performance' },
+      { name: 'Real Estate', value: 8000, percentage: 14, trend: 'up', trendValue: '1.5%', insight: 'Real estate value appreciation' },
+      { name: 'Other', value: 3000, percentage: 5, trend: 'down', trendValue: '0.3%', insight: 'Other assets remain stable' }
     ],
     liabilities: [
-      { name: 'Credit Cards', value: 5000, percentage: 50 },
-      { name: 'Student Loan', value: 3000, percentage: 30 },
-      { name: 'Auto Loan', value: 2000, percentage: 20 }
+      { name: 'Credit Cards', value: 5000, percentage: 50, trend: 'down', trendValue: '2.1%', insight: 'Good progress on credit card debt' },
+      { name: 'Student Loan', value: 3000, percentage: 30, trend: 'down', trendValue: '1.8%', insight: 'Steady student loan payments' },
+      { name: 'Auto Loan', value: 2000, percentage: 20, trend: 'down', trendValue: '3.2%', insight: 'Auto loan on track for early payoff' }
     ],
     incomeStreams: [
       { source: 'Salary', amount: 5500 },
