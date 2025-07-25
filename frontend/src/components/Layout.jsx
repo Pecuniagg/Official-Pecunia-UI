@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
   const isActive = (href) => location.pathname === href;
 
   return (
-    <div className="flex h-screen bg-white">
+    <div className={`flex h-screen bg-white ${isDarkMode ? 'dark' : ''} dark-mode-transition`}>
       {/* Fixed Sidebar */}
       <div className="fixed inset-y-0 left-0 w-[280px] bg-white border-r border-gray-100">
         <div className="flex flex-col h-full">
