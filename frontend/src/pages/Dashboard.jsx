@@ -33,6 +33,7 @@ import { useToast } from "../hooks/use-toast";
 import { useAI } from "../contexts/AIContext";
 import AISmartDashboard from "../components/AISmartDashboard";
 import aiService from "../services/aiService";
+import AdvancedAnalyticsDashboard from "../components/AdvancedAnalyticsDashboard";
 
 const Dashboard = () => {
   const { dashboard, pecuniaScore } = mockData;
