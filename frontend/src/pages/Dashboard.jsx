@@ -804,6 +804,89 @@ const Dashboard = () => {
           )}
         </CardContent>
       </Card>
+        </TabsContent>
+
+        <TabsContent value="ai-insights" className="space-y-8">
+          <AISmartDashboard />
+        </TabsContent>
+
+        <TabsContent value="detailed" className="space-y-8">
+          {/* Recent Activity */}
+          <Card className="shadow-lg card-refined animate-entrance animate-delay-4">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>Recent Activity</CardTitle>
+              <div className="flex items-center gap-2">
+                <Tabs value={activityFilter} onValueChange={setActivityFilter} className="w-auto">
+                  <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="all" className="btn-refined">All</TabsTrigger>
+                    <TabsTrigger value="income" className="btn-refined">Income</TabsTrigger>
+                    <TabsTrigger value="expenses" className="btn-refined">Expenses</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => toast({ title: "Add Transaction", description: "Recording new transaction..." })}
+                  className="btn-refined focus-refined"
+                >
+                  <Plus size={16} className="mr-1" />
+                  Add
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {(showAllActivity ? filteredActivity : filteredActivity.slice(0, 5)).map((activity, index) => (
+                  <div 
+                    key={index} 
+                    className={`flex items-center justify-between p-4 bg-gray-50 rounded-lg hover-subtle cursor-pointer group animate-slide-left animate-delay-${index + 1}`}
+                    onClick={() => toast({ 
+                      title: "Transaction Details", 
+                      description: `${activity.description} - ${activity.date} - Category: ${activity.amount > 0 ? 'Income' : 'Expense'}` 
+                    })}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-2 h-2 rounded-full ${activity.amount > 0 ? 'bg-green-500' : 'bg-[#5945a3]'}`}></div>
+                      <div>
+                        <p className="font-medium">{activity.description}</p>
+                        <p className="text-sm text-gray-500">{activity.date}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className={`font-semibold ${activity.amount > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                        {activity.amount > 0 ? '+' : ''}${Math.abs(activity.amount).toLocaleString()}
+                      </span>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="opacity-0 group-hover:opacity-100 transition-opacity btn-refined"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toast({ title: "Edit Transaction", description: "Opening transaction editor..." });
+                        }}
+                      >
+                        <Edit size={14} />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {filteredActivity.length > 5 && (
+                <div className="text-center mt-4 animate-scale-gentle animate-delay-6">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setShowAllActivity(!showAllActivity)}
+                    className="btn-refined"
+                  >
+                    {showAllActivity ? 'Show Less' : `Show All ${filteredActivity.length} Transactions`}
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
       {/* Chart Detail Modal */}
       <ChartDetailModal 
