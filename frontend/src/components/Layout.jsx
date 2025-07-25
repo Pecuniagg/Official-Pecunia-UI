@@ -24,6 +24,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Toaster } from "./ui/toaster";
 import AIAssistant from "./AIAssistant";
 import QuickActionPanel from "./QuickActionPanel";
+import { useTheme } from '../contexts/ThemeContext';
 
 const Layout = ({ children }) => {
   const location = useLocation();
