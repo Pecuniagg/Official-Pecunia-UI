@@ -127,16 +127,16 @@ const Compare = () => {
   );
 
   const FriendSelector = () => (
-    <Card className="mb-8 card-refined hover-glow animate-entrance-down">
+    <Card className="mb-8 card-whisper">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="text-[#5945a3] icon-refined" size={20} />
+            <Users className="text-[#5945a3] icon-whisper" size={20} />
             <span>Select Friends to Compare</span>
           </div>
           <Button 
             onClick={handleAddFriend}
-            className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
+            className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-whisper"
             size="sm"
           >
             <UserPlus size={14} className="mr-1" />
@@ -154,12 +154,11 @@ const Compare = () => {
             return (
               <div
                 key={index}
-                className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-300 card-refined group animate-scale-gentle overflow-hidden ${
+                className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-300 card-breath group overflow-hidden ${
                   isSelected 
-                    ? 'border-[#5945a3] bg-gradient-to-br from-purple-50 to-blue-50 shadow-lg' 
-                    : 'border-gray-200 hover:border-[#5945a3]/50 hover:shadow-md'
+                    ? 'border-[#5945a3] bg-gradient-to-br from-purple-50 to-blue-50 shadow-md' 
+                    : 'border-gray-200 hover:border-[#5945a3]/30 hover:shadow-sm'
                 }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => {
                   setSelectedFriend(selectedFriend === friend.name ? null : friend.name);
                   toast({ 
@@ -172,27 +171,27 @@ const Compare = () => {
               >
                 {/* Background gradient effect */}
                 {(isSelected || isHovered) && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#5945a3]/5 to-[#b37e91]/5 animate-scale-gentle"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#5945a3]/3 to-[#b37e91]/3"></div>
                 )}
                 
                 {/* Selection indicator */}
                 {isSelected && (
                   <div className="absolute top-2 right-2">
-                    <Trophy className="text-[#5945a3] animate-scale-gentle" size={16} />
+                    <Trophy className="text-[#5945a3]" size={16} />
                   </div>
                 )}
                 
                 <div className="relative z-10">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="relative">
-                      <Avatar className="h-10 w-10 hover-scale-subtle">
+                      <Avatar className="h-10 w-10 hover-breath">
                         <AvatarImage src="/api/placeholder/40/40" />
                         <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
                           {friend.name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
                       {/* Online status indicator */}
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-scale-gentle"></div>
+                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                     </div>
                     <div className="flex-1">
                       <p className="font-medium hover:text-[#5945a3] transition-colors">{friend.name}</p>
@@ -203,8 +202,7 @@ const Compare = () => {
                             <Star 
                               key={i} 
                               size={10} 
-                              className={`${i < Math.floor(friend.score / 200) ? 'text-yellow-400 fill-current' : 'text-gray-300'} animate-scale-gentle`}
-                              style={{ animationDelay: `${i * 0.05}s` }}
+                              className={`${i < Math.floor(friend.score / 200) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
                             />
                           ))}
                         </div>
@@ -220,7 +218,7 @@ const Compare = () => {
                           handleLikeFriend(friend.name);
                         }}
                       >
-                        <Heart size={12} fill={isLiked ? 'currentColor' : 'none'} className={isLiked ? 'animate-scale-gentle' : ''} />
+                        <Heart size={12} fill={isLiked ? 'currentColor' : 'none'} />
                       </Button>
                       <Button
                         variant="ghost"
@@ -237,25 +235,25 @@ const Compare = () => {
                   </div>
                   
                   <div className="text-sm space-y-2">
-                    <div className="flex justify-between items-center hover-subtle p-1 rounded">
+                    <div className="flex justify-between items-center hover-whisper p-1 rounded">
                       <span className="text-gray-600">Net Worth</span>
-                      <span className="font-medium animate-counter">${friend.netWorth.toLocaleString()}</span>
+                      <span className="font-medium animate-flow">${friend.netWorth.toLocaleString()}</span>
                     </div>
-                    <div className="flex justify-between items-center hover-subtle p-1 rounded">
+                    <div className="flex justify-between items-center hover-whisper p-1 rounded">
                       <span className="text-gray-600">Savings Rate</span>
                       <div className="flex items-center gap-1">
                         <span className="font-medium">{friend.savingsRate}%</span>
                         {friend.savingsRate > 20 && (
-                          <Zap className="text-green-500 animate-scale-gentle" size={12} />
+                          <Zap className="text-green-500" size={12} />
                         )}
                       </div>
                     </div>
                   </div>
                   
                   {/* Performance indicator bar */}
-                  <div className="mt-3 h-1 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="mt-3 progress-silk h-1">
                     <div 
-                      className="h-full bg-gradient-to-r from-[#5945a3] to-[#b37e91] transition-all duration-1000"
+                      className="progress-bar-silk h-full transition-all duration-1000"
                       style={{ width: `${(friend.score / 1000) * 100}%` }}
                     ></div>
                   </div>
@@ -266,7 +264,7 @@ const Compare = () => {
         </div>
         
         {selectedFriend && (
-          <div className="mt-4 p-3 bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-lg animate-scale-gentle">
+          <div className="mt-4 p-3 bg-gradient-to-r from-[#5945a3]/8 to-[#b37e91]/8 rounded-lg animate-breath">
             <p className="text-sm text-[#5945a3] font-medium">
               🎯 Comparing with {selectedFriend} - Scroll down to see detailed analysis
             </p>
