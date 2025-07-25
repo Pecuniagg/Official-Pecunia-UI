@@ -54,7 +54,6 @@ const Dashboard = () => {
   const [activityFilter, setActivityFilter] = useState('all');
   const [showAllActivity, setShowAllActivity] = useState(false);
   const [spendingAnalysis, setSpendingAnalysis] = useState(null);
-  const [aiInsights, setAiInsights] = useState(null);
   const [loadingInsights, setLoadingInsights] = useState(false);
   const [smartMode, setSmartMode] = useState(false);
 
