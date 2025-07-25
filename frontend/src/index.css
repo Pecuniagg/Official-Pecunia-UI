@@ -3,6 +3,122 @@
 @tailwind utilities;
 
 @import './styles/animations.css';
+@import './styles/theme.css';
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pecunia-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pecunia-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pecunia-text-muted);
+}
+
+/* Dark mode transition for all elements */
+.dark-mode-transition * {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Override default Tailwind colors to use theme variables */
+.bg-white {
+  background-color: var(--pecunia-surface) !important;
+}
+
+.bg-gray-50 {
+  background-color: var(--pecunia-surface-elevated) !important;
+}
+
+.bg-gray-100 {
+  background-color: var(--pecunia-surface-hover) !important;
+}
+
+.text-gray-900 {
+  color: var(--pecunia-text-primary) !important;
+}
+
+.text-gray-700 {
+  color: var(--pecunia-text-secondary) !important;
+}
+
+.text-gray-600 {
+  color: var(--pecunia-text-secondary) !important;
+}
+
+.text-gray-500 {
+  color: var(--pecunia-text-muted) !important;
+}
+
+.border-gray-200 {
+  border-color: var(--pecunia-border) !important;
+}
+
+.border-gray-300 {
+  border-color: var(--pecunia-border) !important;
+}
+
+/* Card styles */
+.card {
+  background-color: var(--pecunia-surface);
+  border-color: var(--pecunia-border);
+  color: var(--pecunia-text-primary);
+}
+
+/* Button styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--pecunia-gradient-start), var(--pecunia-gradient-end));
+  border: none;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--pecunia-gradient-end), var(--pecunia-gradient-start));
+}
+
+/* Input styles */
+.input-field {
+  background-color: var(--pecunia-surface);
+  border-color: var(--pecunia-border);
+  color: var(--pecunia-text-primary);
+}
+
+.input-field:focus {
+  border-color: var(--pecunia-gradient-start);
+  box-shadow: 0 0 0 3px rgba(121, 58, 237, 0.1);
+}
+
+@import './styles/animations.css';
 
 body {
     margin: 0;
