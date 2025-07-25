@@ -31,7 +31,39 @@ import { mockData } from '../data/mockData';
 
 const Compare = () => {
   const [selectedFriend, setSelectedFriend] = useState(null);
+  const [hoveredFriend, setHoveredFriend] = useState(null);
+  const [likedFriends, setLikedFriends] = useState(new Set());
+  const [activeTab, setActiveTab] = useState('friends');
+  const [showInsights, setShowInsights] = useState(false);
   const { compare } = mockData;
+  const { toast } = useToast();
+
+  const handleLikeFriend = (friendName) => {
+    setLikedFriends(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(friendName)) {
+        newSet.delete(friendName);
+        toast({ title: "Removed from favorites", description: `${friendName} unfavorited` });
+      } else {
+        newSet.add(friendName);
+        toast({ title: "Added to favorites! ⭐", description: `${friendName} added to your compare favorites` });
+      }
+      return newSet;
+    });
+  };
+
+  const handleAddFriend = () => {
+    toast({ 
+      title: "Invite Friends", 
+      description: "Send invitations to compare financial progress together" 
+    });
+  };
+
+  const getComparisonResult = (myValue, friendValue, isHigherBetter = true) => {
+    const isAhead = isHigherBetter ? myValue > friendValue : myValue < friendValue;
+    const percentage = Math.abs(((myValue - friendValue) / friendValue * 100)).toFixed(1);
+    return { isAhead, percentage };
+  };
 
   const ComparisonCard = ({ title, icon: Icon, data, color }) => (
     <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
