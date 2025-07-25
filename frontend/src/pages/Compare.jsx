@@ -525,60 +525,60 @@ const Compare = () => {
   };
 
   return (
-    <div className="space-y-8 animate-entrance">
+    <div className="space-y-8 animate-whisper">
       {/* Header */}
-      <div className="animate-entrance-down">
-        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2 animate-slide-left" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+      <div>
+        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2 animate-silk" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
           Compare
         </h1>
-        <p className="text-[#3b345b] animate-slide-left animate-delay-1">Learn from friends and benchmark against others</p>
+        <p className="text-[#3b345b] animate-silk animate-delay-whisper-1">Learn from friends and benchmark against others</p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="mb-8 animate-slide-left animate-delay-2">
-          <TabsTrigger value="friends" className="flex items-center gap-2 btn-refined nav-indicator">
-            <Users size={16} className="icon-refined" />
+        <TabsList className="mb-8 animate-silk animate-delay-whisper-2">
+          <TabsTrigger value="friends" className="flex items-center gap-2 btn-whisper nav-whisper">
+            <Users size={16} className="icon-whisper" />
             Friends
           </TabsTrigger>
-          <TabsTrigger value="public" className="flex items-center gap-2 btn-refined nav-indicator">
-            <Globe size={16} className="icon-refined" />
+          <TabsTrigger value="public" className="flex items-center gap-2 btn-whisper nav-whisper">
+            <Globe size={16} className="icon-whisper" />
             Public Data
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="friends" className="animate-scale-gentle">
+        <TabsContent value="friends" className="animate-breath">
           <FriendSelector />
           <ComparisonCharts />
         </TabsContent>
 
-        <TabsContent value="public" className="space-y-6 animate-scale-gentle">
-          <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white card-refined hover-glow animate-entrance">
+        <TabsContent value="public" className="space-y-6 animate-breath">
+          <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white card-whisper hover-glow-subtle">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4 animate-slide-left">How You Compare to Others</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <h2 className="text-2xl font-bold mb-4 animate-silk">How You Compare to Others</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 grid-whisper">
                 <div 
-                  className="text-center cursor-pointer hover-scale-subtle group"
+                  className="text-center cursor-pointer hover-breath group"
                   onClick={() => toast({ title: "Net Worth Ranking", description: "You're in the top 25% for your age group!" })}
                 >
-                  <p className="text-3xl font-bold mb-2 animate-counter group-hover:scale-105 transition-transform">Top 25%</p>
+                  <p className="text-3xl font-bold mb-2 animate-flow group-hover:scale-102 transition-transform">Top 25%</p>
                   <p className="opacity-90">Net Worth Ranking</p>
-                  <Crown className="mx-auto mt-2 text-yellow-300 animate-scale-gentle" size={20} />
+                  <Crown className="mx-auto mt-2 text-yellow-300" size={20} />
                 </div>
                 <div 
-                  className="text-center cursor-pointer hover-scale-subtle group"
+                  className="text-center cursor-pointer hover-breath group"
                   onClick={() => toast({ title: "Savings Performance", description: "Your savings rate exceeds national average" })}
                 >
-                  <p className="text-3xl font-bold mb-2 animate-counter group-hover:scale-105 transition-transform">Above Avg</p>
+                  <p className="text-3xl font-bold mb-2 animate-flow group-hover:scale-102 transition-transform">Above Avg</p>
                   <p className="opacity-90">Savings Rate</p>
-                  <TrendingUp className="mx-auto mt-2 text-green-300 animate-scale-gentle" size={20} />
+                  <TrendingUp className="mx-auto mt-2 text-green-300" size={20} />
                 </div>
                 <div 
-                  className="text-center cursor-pointer hover-scale-subtle group"
+                  className="text-center cursor-pointer hover-breath group"
                   onClick={() => toast({ title: "Financial Health", description: "Excellent financial discipline and planning!" })}
                 >
-                  <p className="text-3xl font-bold mb-2 animate-counter group-hover:scale-105 transition-transform">Excellent</p>
+                  <p className="text-3xl font-bold mb-2 animate-flow group-hover:scale-102 transition-transform">Excellent</p>
                   <p className="opacity-90">Financial Health</p>
-                  <Sparkles className="mx-auto mt-2 text-yellow-300 animate-scale-gentle" size={20} />
+                  <Sparkles className="mx-auto mt-2 text-yellow-300" size={20} />
                 </div>
               </div>
             </CardContent>
