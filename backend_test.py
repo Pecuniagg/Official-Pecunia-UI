@@ -162,16 +162,22 @@ class BackendTester:
             
             async with self.session.post(f"{self.base_url}/ai/financial-insights", json=test_data) as response:
                 if response.status == 200:
-                    data = await response.json()
-                    required_fields = ["summary", "insights", "recommendations", "predictions"]
-                    if all(field in data for field in required_fields):
-                        insights_count = len(data.get("insights", []))
-                        recommendations_count = len(data.get("recommendations", []))
-                        self.log_result("Financial Insights Endpoint", True, 
-                                      f"Generated {insights_count} insights and {recommendations_count} recommendations")
-                        return True
-                    else:
-                        self.log_result("Financial Insights Endpoint", False, f"Missing required fields in response: {list(data.keys())}")
+                    try:
+                        data = await response.json()
+                        required_fields = ["summary", "insights", "recommendations", "predictions"]
+                        if all(field in data for field in required_fields):
+                            insights_count = len(data.get("insights", []))
+                            recommendations_count = len(data.get("recommendations", []))
+                            self.log_result("Financial Insights Endpoint", True, 
+                                          f"Generated {insights_count} insights and {recommendations_count} recommendations")
+                            return True
+                        else:
+                            missing_fields = [field for field in required_fields if field not in data]
+                            self.log_result("Financial Insights Endpoint", False, f"Missing required fields: {missing_fields}")
+                            return False
+                    except json.JSONDecodeError as e:
+                        response_text = await response.text()
+                        self.log_result("Financial Insights Endpoint", False, f"JSON decode error: {str(e)} - Response: {response_text[:200]}...")
                         return False
                 else:
                     error_text = await response.text()
