@@ -850,7 +850,7 @@
 .list-whisper > *:nth-child(10) { animation-delay: 0.20s; }
 
 /* =============================================== */
-/* Accessibility & Performance Optimizations      */
+/* Accessibility & Performance Enhancements      */
 /* =============================================== */
 
 /* Respect user preferences */
@@ -861,14 +861,26 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
   
   .hover-whisper:hover,
   .hover-breath:hover,
   .hover-silk:hover,
+  .hover-float:hover,
+  .hover-lift-premium:hover,
   .card-whisper:hover,
-  .card-breath:hover {
-    transform: none;
+  .card-breath:hover,
+  .card-premium:hover,
+  .card-float:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+  
+  .animate-ambient-float,
+  .animate-ambient-pulse {
+    animation: none !important;
   }
 }
 
@@ -877,20 +889,48 @@
   .hover-whisper:hover,
   .hover-breath:hover,
   .hover-silk:hover,
+  .hover-float:hover,
+  .hover-lift-premium:hover,
   .hover-glow-subtle:hover,
+  .hover-glow-warm:hover,
   .card-whisper:hover,
-  .card-breath:hover {
+  .card-breath:hover,
+  .card-premium:hover,
+  .card-float:hover {
     transform: none;
     box-shadow: none;
     filter: none;
   }
+  
+  .icon-whisper:hover,
+  .icon-premium:hover {
+    transform: none;
+    filter: none;
+  }
 }
 
-/* Focus indicators for keyboard navigation */
-.focus-whisper:focus-visible {
-  outline: 1px solid rgba(89, 69, 163, 0.4);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 3px rgba(89, 69, 163, 0.08);
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hover-glow-subtle:hover,
+  .hover-glow-warm:hover {
+    box-shadow: none;
+    outline: 2px solid currentColor;
+  }
+  
+  .card-whisper::before,
+  .card-premium::before {
+    display: none;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shadow-whisper: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-gentle: 0 2px 4px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+    --shadow-elevated: 0 4px 6px rgba(0, 0, 0, 0.3), 0 10px 15px rgba(0, 0, 0, 0.2);
+    --shadow-floating: 0 8px 25px rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.25);
+  }
 }
 
 /* GPU acceleration for smooth animations */
@@ -898,13 +938,91 @@
 .animate-silk,
 .animate-breath,
 .animate-flow,
+.animate-float,
+.animate-entrance,
+.animate-entrance-elastic,
+.animate-entrance-spring,
 .hover-whisper,
 .hover-breath,
 .hover-silk,
+.hover-float,
+.hover-lift-premium,
 .card-whisper,
 .card-breath,
-.btn-whisper {
+.card-premium,
+.card-float,
+.btn-whisper,
+.btn-premium {
   backface-visibility: hidden;
   perspective: 1000px;
   transform-style: preserve-3d;
+}
+
+/* Performance optimizations */
+.will-change-auto {
+  will-change: auto;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-contents {
+  will-change: contents;
+}
+
+/* =============================================== */
+/* Additional Premium Utility Classes            */
+/* =============================================== */
+
+.transition-premium {
+  transition: all 0.3s var(--ease-premium);
+}
+
+.transition-spring {
+  transition: all 0.3s var(--ease-spring);
+}
+
+.transition-float {
+  transition: all 0.4s var(--ease-float);
+}
+
+.transition-back {
+  transition: all 0.3s var(--ease-back-gentle);
+}
+
+.transition-elastic {
+  transition: all 0.3s var(--ease-elastic-subtle);
+}
+
+.shadow-premium {
+  box-shadow: var(--shadow-gentle);
+}
+
+.shadow-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+
+.shadow-floating {
+  box-shadow: var(--shadow-floating);
+}
+
+.glow-primary {
+  box-shadow: var(--glow-primary);
+}
+
+.glow-secondary {
+  box-shadow: var(--glow-secondary);
+}
+
+.glow-success {
+  box-shadow: var(--glow-success);
+}
+
+.glow-warm {
+  box-shadow: var(--glow-warm);
 }
