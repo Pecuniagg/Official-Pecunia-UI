@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { Switch } from '../components/ui/switch';
 import { Badge } from '../components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { useToast } from '../hooks/use-toast';
 import { 
   User, 
   MessageSquare, 
@@ -16,7 +17,15 @@ import {
   Settings,
   Shield,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Heart,
+  MessageCircle,
+  Share2,
+  Edit,
+  Copy,
+  Eye,
+  ThumbsUp,
+  Star
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 
