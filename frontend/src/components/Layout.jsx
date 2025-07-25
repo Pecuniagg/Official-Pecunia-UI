@@ -28,6 +28,7 @@ import { useTheme } from '../contexts/ThemeContext';
 
 const Layout = ({ children }) => {
   const location = useLocation();
+  const { isDarkMode } = useTheme();
   const [showAI, setShowAI] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
 
