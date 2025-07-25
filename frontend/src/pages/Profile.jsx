@@ -400,25 +400,37 @@ const Profile = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="lending" className="space-y-6">
+        <TabsContent value="lending" className="space-y-6 animate-scale-gentle">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
               {/* Lending Toggle */}
-              <Card>
+              <Card className="card-refined hover-glow animate-slide-left">
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between">
-                    <span>Lending Status</span>
+                    <span className="flex items-center gap-2">
+                      <DollarSign className="text-[#5945a3] icon-refined" size={20} />
+                      Lending Status
+                    </span>
                     <Switch
                       checked={lendingEnabled}
-                      onCheckedChange={setLendingEnabled}
+                      onCheckedChange={(checked) => {
+                        setLendingEnabled(checked);
+                        toast({
+                          title: checked ? "Lending Enabled! 💰" : "Lending Disabled",
+                          description: checked 
+                            ? "You're now available to lend to your network" 
+                            : "Lending requests will be paused"
+                        });
+                      }}
+                      className="focus-refined"
                     />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`p-4 rounded-lg ${lendingEnabled ? 'bg-green-50 border border-green-200' : 'bg-gray-50 border border-gray-200'}`}>
+                  <div className={`p-4 rounded-lg transition-all duration-300 ${lendingEnabled ? 'bg-green-50 border border-green-200 hover:bg-green-100' : 'bg-gray-50 border border-gray-200 hover:bg-gray-100'}`}>
                     <div className="flex items-center gap-2 mb-2">
                       {lendingEnabled ? (
-                        <CheckCircle className="text-green-600" size={20} />
+                        <CheckCircle className="text-green-600 animate-scale-gentle" size={20} />
                       ) : (
                         <AlertCircle className="text-gray-500" size={20} />
                       )}
@@ -437,69 +449,104 @@ const Profile = () => {
               </Card>
 
               {/* Lending Requests */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Pending Requests</h3>
-                {profile.lending.requests.map((request) => (
-                  <LendingRequestCard key={request.id} request={request} />
+              <div className="animate-slide-left animate-delay-1">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold">Pending Requests</h3>
+                  <Badge className="bg-gradient-to-r from-blue-500 to-blue-600 text-white animate-scale-gentle">
+                    {profile.lending.requests.length} pending
+                  </Badge>
+                </div>
+                {profile.lending.requests.map((request, index) => (
+                  <LendingRequestCard key={request.id} request={request} index={index} />
                 ))}
               </div>
 
               {/* Lending History */}
-              <div>
+              <div className="animate-slide-left animate-delay-2">
                 <h3 className="text-lg font-semibold mb-4">Lending History</h3>
-                {profile.lending.history.map((loan) => (
-                  <LendingHistoryItem key={loan.id} loan={loan} />
+                {profile.lending.history.map((loan, index) => (
+                  <LendingHistoryItem key={loan.id} loan={loan} index={index} />
                 ))}
               </div>
             </div>
             
             <div>
-              <Card>
+              <Card className="card-refined hover-glow animate-slide-right animate-delay-1">
                 <CardHeader>
-                  <CardTitle>Lending Stats</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="text-[#5945a3] icon-refined" size={20} />
+                    Lending Stats
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <p className="text-2xl font-bold text-green-600">$45</p>
+                  <div 
+                    className="text-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors cursor-pointer hover-glow"
+                    onClick={() => toast({ title: "Interest Breakdown", description: "View detailed earnings history" })}
+                  >
+                    <p className="text-2xl font-bold text-green-600 animate-counter">$45</p>
                     <p className="text-sm text-gray-600">Total Interest Earned</p>
                   </div>
                   
                   <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Total Lent</span>
-                      <span className="font-semibold">$1,500</span>
+                    <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                      <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">Total Lent</span>
+                      <span className="font-semibold animate-counter">$1,500</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Active Loans</span>
-                      <span className="font-semibold">0</span>
+                    <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                      <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">Active Loans</span>
+                      <span className="font-semibold animate-counter">0</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Success Rate</span>
+                    <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                      <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">Success Rate</span>
                       <span className="font-semibold text-green-600">100%</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Avg. Return Time</span>
-                      <span className="font-semibold">45 days</span>
+                    <div className="flex justify-between items-center hover-subtle p-2 rounded cursor-pointer group">
+                      <span className="text-gray-600 group-hover:text-[#5945a3] transition-colors">Avg. Return Time</span>
+                      <span className="font-semibold animate-counter">45 days</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="mt-6">
+              <Card className="mt-6 card-refined hover-glow animate-slide-right animate-delay-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Shield className="text-blue-500" size={20} />
+                    <Shield className="text-blue-500 icon-refined" size={20} />
                     Trust Score
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">9.8</div>
-                    <p className="text-sm text-gray-600">Excellent Lender Rating</p>
-                    <div className="mt-4 space-y-2 text-xs text-gray-500">
-                      <p>✓ Verified Identity</p>
-                      <p>✓ Bank Account Linked</p>
-                      <p>✓ Perfect Repayment History</p>
+                    <div 
+                      className="text-3xl font-bold text-blue-600 mb-2 animate-counter cursor-pointer hover-scale-subtle"
+                      onClick={() => toast({ title: "Trust Score Details", description: "Based on lending history, reviews, and verification status" })}
+                    >
+                      9.8
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">Excellent Lender Rating</p>
+                    <div className="flex justify-center mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          size={16} 
+                          className="text-yellow-400 fill-current animate-scale-gentle hover-scale-subtle"
+                          style={{ animationDelay: `${i * 0.1}s` }}
+                        />
+                      ))}
+                    </div>
+                    <div className="space-y-2 text-xs text-gray-500">
+                      <div className="flex items-center gap-2 hover-subtle p-1 rounded">
+                        <CheckCircle size={12} className="text-green-500" />
+                        <span>Verified Identity</span>
+                      </div>
+                      <div className="flex items-center gap-2 hover-subtle p-1 rounded">
+                        <CheckCircle size={12} className="text-green-500" />
+                        <span>Bank Account Linked</span>
+                      </div>
+                      <div className="flex items-center gap-2 hover-subtle p-1 rounded">
+                        <CheckCircle size={12} className="text-green-500" />
+                        <span>Perfect Repayment History</span>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
