@@ -222,18 +222,25 @@ const Profile = () => {
     </Card>
   );
 
-  const LendingHistoryItem = ({ loan }) => (
-    <div className="flex items-center justify-between p-4 border rounded-lg mb-3">
-      <div>
-        <p className="font-medium">{loan.borrower}</p>
-        <p className="text-sm text-gray-600">${loan.amount.toLocaleString()} • {loan.status}</p>
-        <p className="text-xs text-gray-500">Returned: {new Date(loan.returnDate).toLocaleDateString()}</p>
+  const LendingHistoryItem = ({ loan, index = 0 }) => (
+    <div 
+      className="flex items-center justify-between p-4 border rounded-lg mb-3 hover-subtle group cursor-pointer animate-slide-left"
+      style={{ animationDelay: `${index * 0.05}s` }}
+      onClick={() => toast({ title: "Loan Details", description: `View detailed history for ${loan.borrower}` })}
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#5945a3] to-[#b37e91] animate-scale-gentle"></div>
+        <div>
+          <p className="font-medium group-hover:text-[#5945a3] transition-colors">{loan.borrower}</p>
+          <p className="text-sm text-gray-600">${loan.amount.toLocaleString()} • {loan.status}</p>
+          <p className="text-xs text-gray-500">Returned: {new Date(loan.returnDate).toLocaleDateString()}</p>
+        </div>
       </div>
       <div className="text-right">
-        <Badge className={loan.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
+        <Badge className={`transition-all duration-300 hover-glow ${loan.status === 'Completed' ? 'bg-green-100 text-green-800 hover:bg-green-200' : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'}`}>
           {loan.status}
         </Badge>
-        <p className="text-sm text-green-600 mt-1">+${loan.interestEarned} earned</p>
+        <p className="text-sm text-green-600 mt-1 animate-counter">+${loan.interestEarned} earned</p>
       </div>
     </div>
   );
