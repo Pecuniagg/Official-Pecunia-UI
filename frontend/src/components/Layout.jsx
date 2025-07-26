@@ -14,8 +14,7 @@ import {
   CreditCard,
   Receipt,
   Goal,
-  Clock,
-  Palette
+  Clock
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -41,7 +40,6 @@ const Layout = ({ children }) => {
     { name: "Planner", href: "/planner", icon: Calendar },
     { name: "Profile", href: "/profile", icon: User },
     { name: "Compare", href: "/compare", icon: BarChart3 },
-    { name: "Color Demo", href: "/color-demo", icon: Palette },
   ];
 
   const isActive = (href) => location.pathname === href;
