@@ -258,19 +258,20 @@ const Feed = () => {
               </CardContent>
             </Card>
 
-          {/* Feed Posts */}
-          <div className="space-y-6">
-            {feed.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+            {/* Feed Posts */}
+            <div className="space-y-6">
+              {feed.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Sidebar */}
-        <div className="lg:col-span-1 space-y-6">
-          <PopularTickers />
-          <Associates />
-          <FinancialTips />
+          {/* Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
+            <PopularTickers />
+            <Associates />
+            <FinancialTips />
+          </div>
         </div>
       </div>
     </div>
