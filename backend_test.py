@@ -14,7 +14,7 @@ from typing import Dict, Any, List
 import traceback
 
 # Test configuration
-BACKEND_URL = "https://8e9329af-2736-4fde-9f54-7500f6c638bb.preview.emergentagent.com/api"
+BACKEND_URL = "https://a9a77136-45cf-4de9-a0a2-052e046e9a8a.preview.emergentagent.com/api"
 TEST_RESULTS = []
 
 class BackendTester:
