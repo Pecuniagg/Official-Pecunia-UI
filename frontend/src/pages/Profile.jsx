@@ -444,7 +444,7 @@ const Profile = () => {
                     <p className="text-professional-body text-sm">Add an extra layer of security</p>
                   </div>
                 </div>
-                <Button variant="outline" className="btn-professional">
+                <Button variant="outline" className="btn-professional profile-settings-button">
                   Enable
                 </Button>
               </div>
