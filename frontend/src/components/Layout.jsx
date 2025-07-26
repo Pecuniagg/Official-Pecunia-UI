@@ -49,27 +49,30 @@ const Layout = ({ children }) => {
         borderColor: 'var(--color-border)' 
       }}>
         <div className="flex flex-col h-full">
-          {/* Logo - Generous spacing */}
-          <div className="section-spacing breathing-space-vertical">
-            <h1 className="text-professional-hero text-[#5945a3] dark:text-white tracking-tight transition-colors duration-300" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+          {/* Logo */}
+          <div className="p-6">
+            <h1 className="text-2xl font-bold tracking-tight" style={{ 
+              color: 'var(--color-primary-accent)',
+              fontFamily: 'Neurial Grotesk, sans-serif' 
+            }}>
               Pecunia
             </h1>
           </div>
 
-          {/* Navigation - Improved spacing and hierarchy */}
+          {/* Navigation */}
           <nav className="flex-1 px-6 pb-8">
-            <ul className="stack-spacing-sm">
+            <ul className="space-y-2">
               {navigation.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <li key={item.name} className="transition-all duration-150 ease-in-out">
+                  <li key={item.name}>
                     <Link
                       to={item.href}
-                      className={`nav-professional flex items-center gap-3 px-4 py-3 text-sm font-medium ${
+                      className={`nav-item flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
                         isActive(item.href) ? 'active' : ''
                       }`}
                     >
-                      <Icon size={20} className="transition-transform duration-200 ease-in-out" />
+                      <Icon size={20} />
                       {item.name}
                     </Link>
                   </li>
@@ -78,11 +81,12 @@ const Layout = ({ children }) => {
             </ul>
           </nav>
 
-          {/* AI Assistant Button - Consistent spacing */}
-          <div className="px-6 pb-8 border-t border-gray-100 dark:border-gray-800 pt-6">
+          {/* AI Assistant Button */}
+          <div className="px-6 pb-8 border-t pt-6" style={{ borderColor: 'var(--color-border)' }}>
             <Button
               onClick={() => setShowAI(true)}
-              className="w-full flex items-center gap-3 btn-professional bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 text-white border-0 shadow-sm"
+              className="w-full flex items-center gap-3 btn-primary"
+              style={{ background: 'var(--gradient-primary)' }}
             >
               <Bot size={20} />
               Ask Pecunia
@@ -91,13 +95,16 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {/* Main Content - Improved spacing and layout */}
+      {/* Main Content */}
       <div className="flex-1 ml-[280px] min-h-screen">
-        {/* Top Bar - Cleaner design with consistent spacing */}
-        <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 z-10 transition-colors duration-300">
+        {/* Top Bar */}
+        <header className="fixed top-0 right-0 left-[280px] h-16 backdrop-blur-md border-b z-10" style={{ 
+          background: 'rgba(10, 10, 15, 0.95)', 
+          borderColor: 'var(--color-border)' 
+        }}>
           <div className="flex items-center justify-between h-full px-8">
             <div className="flex items-center gap-6">
-              <h2 className="text-professional-title text-gray-900 dark:text-white transition-colors duration-300">
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--color-text-white)' }}>
                 {navigation.find(nav => nav.href === location.pathname)?.name || "Dashboard"}
               </h2>
             </div>
