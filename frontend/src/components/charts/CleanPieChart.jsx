@@ -59,22 +59,22 @@ const CleanPieChart = ({
         </CardHeader>
       )}
       <CardContent className="p-0">
-        <div className="relative">
+        <div className="relative bg-white dark:bg-gray-900">
           {/* Clean pie chart with proper spacing */}
-          <ResponsiveContainer width="100%" height={280}>
-            <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+          <ResponsiveContainer width="100%" height={260}>
+            <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
               <Pie
                 data={chartData}
                 cx="50%"
                 cy="50%"
-                outerRadius={90}
-                innerRadius={50}
+                outerRadius={80}
+                innerRadius={45}
                 paddingAngle={1}
                 dataKey="value"
                 onMouseEnter={onPieEnter}
                 onMouseLeave={onPieLeave}
                 onClick={(data) => onSegmentClick && onSegmentClick(data)}
-                className="cursor-pointer"
+                className="cursor-pointer outline-none"
               >
                 {chartData.map((entry, index) => (
                   <Cell 
@@ -82,7 +82,7 @@ const CleanPieChart = ({
                     fill={entry.color}
                     stroke={activeIndex === index ? '#ffffff' : 'none'}
                     strokeWidth={activeIndex === index ? 2 : 0}
-                    className="transition-all duration-200 ease-out"
+                    className="transition-all duration-200 ease-out focus:outline-none"
                     style={{
                       filter: activeIndex === index ? 'brightness(1.05)' : 'brightness(1)',
                       transformOrigin: 'center'
@@ -90,20 +90,24 @@ const CleanPieChart = ({
                   />
                 ))}
               </Pie>
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip 
+                content={<CustomTooltip />}
+                wrapperStyle={{ outline: 'none' }}
+                cursor={false}
+              />
             </PieChart>
           </ResponsiveContainer>
           
           {/* Center value display */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="text-center">
-              <div className="text-xl font-bold text-gray-900 dark:text-white">
+              <div className="text-lg font-bold text-gray-900 dark:text-white transition-all duration-200">
                 {activeIndex !== null 
                   ? `${chartData[activeIndex].percentage}%` 
                   : `${chartData.length}`
                 }
               </div>
-              <div className="text-xs text-muted mt-1">
+              <div className="text-xs text-muted mt-1 transition-all duration-200">
                 {activeIndex !== null 
                   ? chartData[activeIndex].name 
                   : 'Categories'
