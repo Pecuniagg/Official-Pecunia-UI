@@ -67,7 +67,7 @@ const Compare = () => {
 
   const ComparisonCard = ({ title, icon: Icon, data, color, index = 0 }) => (
     <Card 
-      className="shadow-lg card-whisper group"
+      className="shadow-lg card-whisper group compare-box"
       onClick={() => toast({ title: `${title} Details`, description: "Opening detailed comparison analytics..." })}
     >
       <CardHeader className="pb-3">
