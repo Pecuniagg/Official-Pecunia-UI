@@ -25,10 +25,7 @@ import {
   BarChart3,
   Sparkles,
   Loader2,
-  Brain,
-  Palette,
-  ToggleLeft,
-  ToggleRight
+  Brain
 } from "lucide-react";
 import { mockData } from "../data/mockData";
 import PieChartComponent from "../components/charts/PieChart";
@@ -39,7 +36,6 @@ import { useAI } from "../contexts/AIContext";
 import AISmartDashboard from "../components/AISmartDashboard";
 import aiService from "../services/aiService";
 import AdvancedAnalyticsDashboard from "../components/AdvancedAnalyticsDashboard";
-import EnhancedDashboard from "../components/EnhancedDashboard";
 
 const Dashboard = () => {
   const { dashboard, pecuniaScore } = mockData;
@@ -53,27 +49,6 @@ const Dashboard = () => {
     userProfile,
     updateUserProfile 
   } = useAI();
-  
-  const [showEnhancedUI, setShowEnhancedUI] = useState(false);
-
-  // If enhanced UI is enabled, show the new version
-  if (showEnhancedUI) {
-    return (
-      <div className="relative">
-        {/* Toggle Button */}
-        <div className="fixed top-4 right-4 z-50">
-          <button
-            onClick={() => setShowEnhancedUI(false)}
-            className="btn-modern-secondary flex items-center gap-2 px-4 py-2"
-          >
-            <ToggleRight className="h-4 w-4" />
-            Enhanced UI
-          </button>
-        </div>
-        <EnhancedDashboard />
-      </div>
-    );
-  }
   
   // State for interactive features
   const [selectedChart, setSelectedChart] = useState(null);
