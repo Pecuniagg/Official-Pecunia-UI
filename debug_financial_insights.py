@@ -31,7 +31,7 @@ async def test_financial_insights():
     async with aiohttp.ClientSession() as session:
         try:
             async with session.post(
-                "https://a9a77136-45cf-4de9-a0a2-052e046e9a8a.preview.emergentagent.com/api/ai/financial-insights", 
+                "https://29ebef05-dbf9-4586-a1aa-edf2fc5c5871.preview.emergentagent.com/api/ai/financial-insights", 
                 json=test_data
             ) as response:
                 print(f"Status: {response.status}")
