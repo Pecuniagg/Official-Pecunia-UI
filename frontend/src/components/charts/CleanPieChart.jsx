@@ -114,12 +114,12 @@ const CleanPieChart = ({
         </div>
 
         {/* Clean legend with proper spacing */}
-        <div className="px-6 pb-6 pt-4">
-          <div className="grid grid-cols-1 gap-2">
+        <div className="px-6 pb-6 pt-2">
+          <div className="grid grid-cols-1 gap-1">
             {chartData.map((entry, index) => (
               <div 
                 key={index}
-                className={`flex items-center justify-between p-2 rounded-lg transition-all duration-200 cursor-pointer group ${
+                className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 cursor-pointer group ${
                   activeIndex === index ? 'bg-gray-50 dark:bg-gray-800' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -131,16 +131,16 @@ const CleanPieChart = ({
                     className="w-3 h-3 rounded-full flex-shrink-0 transition-all duration-200"
                     style={{ 
                       backgroundColor: entry.color,
-                      transform: activeIndex === index ? 'scale(1.2)' : 'scale(1)'
+                      transform: activeIndex === index ? 'scale(1.15)' : 'scale(1)'
                     }}
                   />
                   <div className="min-w-0 flex-1">
-                    <div className="font-medium text-sm truncate">{entry.name}</div>
-                    <div className="text-xs text-muted">{entry.percentage}% of total</div>
+                    <div className="font-medium text-sm truncate text-gray-900 dark:text-white">{entry.name}</div>
+                    <div className="text-xs text-muted">{entry.percentage}%</div>
                   </div>
                 </div>
-                <div className="text-right flex-shrink-0">
-                  <div className="font-semibold text-sm">${entry.value.toLocaleString()}</div>
+                <div className="text-right flex-shrink-0 ml-3">
+                  <div className="font-semibold text-sm text-gray-900 dark:text-white">${entry.value.toLocaleString()}</div>
                 </div>
               </div>
             ))}
