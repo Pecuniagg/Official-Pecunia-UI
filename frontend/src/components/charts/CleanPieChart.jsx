@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 const CleanPieChart = ({ 
   data, 
