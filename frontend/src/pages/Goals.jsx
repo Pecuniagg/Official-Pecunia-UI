@@ -101,749 +101,404 @@ const Goals = () => {
     return Math.min((current / target) * 100, 100);
   };
 
-  const getStatusColor = (current, target) => {
-    const percentage = getProgressPercentage(current, target);
-    if (percentage >= 100) return 'bg-green-500';
-    if (percentage >= 75) return 'bg-blue-500';
-    if (percentage >= 50) return 'bg-yellow-500';
-    return 'bg-gray-500';
+  const getStatusColor = (percentage) => {
+    if (percentage >= 80) return 'bg-green-500';
+    if (percentage >= 50) return 'bg-blue-500';
+    if (percentage >= 25) return 'bg-yellow-500';
+    return 'bg-red-500';
   };
 
-  const getDaysRemaining = (deadline) => {
-    const today = new Date();
-    const targetDate = new Date(deadline);
-    const diffTime = targetDate - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+  const getStatusBadge = (percentage) => {
+    if (percentage >= 100) return { text: 'Completed', variant: 'default', color: 'text-green-600' };
+    if (percentage >= 80) return { text: 'On Track', variant: 'default', color: 'text-blue-600' };
+    if (percentage >= 50) return { text: 'In Progress', variant: 'secondary', color: 'text-yellow-600' };
+    return { text: 'Needs Attention', variant: 'destructive', color: 'text-red-600' };
   };
 
-  const handleCreateGoal = () => {
-    if (!newGoal.title || !newGoal.target || !newGoal.deadline) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields",
-        variant: "destructive"
-      });
-      return;
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case 'high': return 'bg-red-100 text-red-800 border-red-200';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'low': return 'bg-green-100 text-green-800 border-green-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
-
-    toast({
-      title: "Goal Created! 🎯",
-      description: `${newGoal.title} has been added to your goals`,
-    });
-
-    setNewGoal({
-      title: '',
-      target: '',
-      deadline: null,
-      category: '',
-      description: '',
-      priority: 'medium'
-    });
-    setShowNewGoal(false);
   };
 
-  const handleContribution = (goalId) => {
-    if (!contributionAmount || parseFloat(contributionAmount) <= 0) {
+  const handleCreateGoal = async () => {
+    try {
+      console.log('Creating goal:', newGoal);
       toast({
-        title: "Invalid Amount",
-        description: "Please enter a valid contribution amount",
-        variant: "destructive"
+        title: "Goal Created",
+        description: "Your new goal has been added successfully.",
       });
-      return;
+      setShowNewGoal(false);
+      setNewGoal({
+        title: '',
+        target: '',
+        deadline: null,
+        category: '',
+        description: '',
+        priority: 'medium'
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create goal. Please try again.",
+        variant: "destructive",
+      });
     }
+  };
 
+  const handleContribution = (goalId, amount, type) => {
+    console.log('Adding contribution:', { goalId, amount, type });
     toast({
-      title: "Contribution Added! 💰",
-      description: `$${contributionAmount} ${contributionType === 'recurring' ? 'monthly contribution set up' : 'added to your goal'}`,
+      title: "Contribution Added",
+      description: `$${amount} has been added to your goal.`,
     });
-
-    setContributionAmount('');
     setShowContribution(null);
+    setContributionAmount('');
   };
 
-  const handleGoalAction = (action, goalId, goalTitle) => {
-    switch(action) {
-      case 'edit':
-        setEditingGoal(goalId);
-        toast({
-          title: "Edit Mode Activated",
-          description: `Editing ${goalTitle}`,
-        });
-        break;
-      case 'share':
-        toast({
-          title: "Goal Shared! 📤",
-          description: `${goalTitle} shared with your network`,
-        });
-        break;
-      case 'priority':
-        toast({
-          title: "Priority Updated",
-          description: `${goalTitle} marked as high priority`,
-        });
-        break;
-      case 'automate':
-        toast({
-          title: "Automation Set Up! 🤖",
-          description: `Auto-contributions enabled for ${goalTitle}`,
-        });
-        break;
-      default:
-        toast({
-          title: "Action Complete",
-          description: "Your request has been processed",
-        });
-    }
+  const handleGoalAction = (action, goalId) => {
+    console.log('Goal action:', action, goalId);
+    toast({
+      title: "Goal Action",
+      description: `Goal ${action} successfully.`,
+    });
   };
 
-  const NewGoalModal = () => (
-    <Dialog open={showNewGoal} onOpenChange={setShowNewGoal}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Target className="text-[#5945a3]" size={20} />
-            Create New Goal
-          </DialogTitle>
-        </DialogHeader>
-        
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="title">Goal Title *</Label>
-              <Input
-                id="title"
-                placeholder="e.g., Emergency Fund"
-                value={newGoal.title}
-                onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="target">Target Amount *</Label>
-              <Input
-                id="target"
-                type="number"
-                placeholder="10000"
-                value={newGoal.target}
-                onChange={(e) => setNewGoal({...newGoal, target: e.target.value})}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Target Date *</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start text-left font-normal">
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {newGoal.deadline ? newGoal.deadline.toLocaleDateString() : "Pick a date"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={newGoal.deadline}
-                    onSelect={(date) => setNewGoal({...newGoal, deadline: date})}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
-              <Select value={newGoal.category} onValueChange={(value) => setNewGoal({...newGoal, category: value})}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="emergency">Emergency Fund</SelectItem>
-                  <SelectItem value="vacation">Vacation</SelectItem>
-                  <SelectItem value="home">Home Purchase</SelectItem>
-                  <SelectItem value="car">Vehicle</SelectItem>
-                  <SelectItem value="investment">Investment</SelectItem>
-                  <SelectItem value="education">Education</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              placeholder="Why is this goal important to you?"
-              value={newGoal.description}
-              onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label>Priority Level</Label>
-            <div className="flex gap-2">
-              {['low', 'medium', 'high'].map((priority) => (
-                <Button
-                  key={priority}
-                  variant={newGoal.priority === priority ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setNewGoal({...newGoal, priority})}
-                  className={newGoal.priority === priority ? 'bg-[#5945a3] hover:bg-[#4a3d8f]' : ''}
-                >
-                  {priority.charAt(0).toUpperCase() + priority.slice(1)}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setShowNewGoal(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleCreateGoal} className="bg-[#5945a3] hover:bg-[#4a3d8f]">
-              Create Goal
-            </Button>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-
-  const ContributionModal = () => (
-    <Dialog open={!!showContribution} onOpenChange={() => setShowContribution(null)}>
-      <DialogContent className="max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <PiggyBank className="text-[#5945a3]" size={20} />
-            Add Contribution
-          </DialogTitle>
-        </DialogHeader>
-        
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="amount">Amount</Label>
-            <Input
-              id="amount"
-              type="number"
-              placeholder="500"
-              value={contributionAmount}
-              onChange={(e) => setContributionAmount(e.target.value)}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label>Contribution Type</Label>
-            <div className="flex gap-2">
-              <Button
-                variant={contributionType === 'one-time' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setContributionType('one-time')}
-                className={contributionType === 'one-time' ? 'bg-[#5945a3] hover:bg-[#4a3d8f]' : ''}
-              >
-                One-time
-              </Button>
-              <Button
-                variant={contributionType === 'recurring' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setContributionType('recurring')}
-                className={contributionType === 'recurring' ? 'bg-[#5945a3] hover:bg-[#4a3d8f]' : ''}
-              >
-                Monthly
-              </Button>
-            </div>
-          </div>
-
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setShowContribution(null)}>
-              Cancel
-            </Button>
-            <Button onClick={() => handleContribution(showContribution)} className="bg-[#5945a3] hover:bg-[#4a3d8f]">
-              Add Contribution
-            </Button>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-
-  const GoalDetailsModal = () => (
-    <Dialog open={!!showGoalDetails} onOpenChange={() => setShowGoalDetails(null)}>
-      <DialogContent className="max-w-4xl">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Trophy className="text-[#5945a3]" size={20} />
-            {showGoalDetails?.title}
-          </DialogTitle>
-        </DialogHeader>
-        
-        {showGoalDetails && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <DollarSign className="w-8 h-8 mx-auto mb-2 text-green-600" />
-                  <p className="text-2xl font-bold">${showGoalDetails.current.toLocaleString()}</p>
-                  <p className="text-sm text-gray-600">Current Amount</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <Target className="w-8 h-8 mx-auto mb-2 text-blue-600" />
-                  <p className="text-2xl font-bold">${showGoalDetails.target.toLocaleString()}</p>
-                  <p className="text-sm text-gray-600">Target Amount</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <Clock className="w-8 h-8 mx-auto mb-2 text-orange-600" />
-                  <p className="text-2xl font-bold">{getDaysRemaining(showGoalDetails.deadline)}</p>
-                  <p className="text-sm text-gray-600">Days Remaining</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold mb-4">Progress Analytics</h3>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-sm">Overall Progress</span>
-                      <span className="text-sm font-semibold">
-                        {getProgressPercentage(showGoalDetails.current, showGoalDetails.target).toFixed(1)}%
-                      </span>
-                    </div>
-                    <Progress value={getProgressPercentage(showGoalDetails.current, showGoalDetails.target)} />
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-gray-600">Monthly Required</p>
-                      <p className="font-semibold">${Math.round((showGoalDetails.target - showGoalDetails.current) / Math.max(getDaysRemaining(showGoalDetails.deadline) / 30, 1)).toLocaleString()}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600">Remaining</p>
-                      <p className="font-semibold">${(showGoalDetails.target - showGoalDetails.current).toLocaleString()}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="font-semibold mb-4">Smart Actions</h3>
-                <div className="space-y-2">
-                  <Button 
-                    className="w-full justify-start" 
-                    variant="outline"
-                    onClick={() => setShowContribution(showGoalDetails.id)}
-                  >
-                    <Plus size={16} className="mr-2" />
-                    Add Contribution
-                  </Button>
-                  <Button 
-                    className="w-full justify-start" 
-                    variant="outline"
-                    onClick={() => handleGoalAction('automate', showGoalDetails.id, showGoalDetails.title)}
-                  >
-                    <Zap size={16} className="mr-2" />
-                    Set Up Auto-Contribute
-                  </Button>
-                  <Button 
-                    className="w-full justify-start" 
-                    variant="outline"
-                    onClick={() => handleGoalAction('share', showGoalDetails.id, showGoalDetails.title)}
-                  >
-                    <Share2 size={16} className="mr-2" />
-                    Share with Friends
-                  </Button>
-                  <Button 
-                    className="w-full justify-start" 
-                    variant="outline"
-                    onClick={() => toast({ title: "Goal Calculator", description: "Opening advanced goal calculator..." })}
-                  >
-                    <Calculator size={16} className="mr-2" />
-                    Goal Calculator
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <h4 className="font-medium text-[#1e1b24] mb-2">🎯 AI Strategy</h4>
-              <p className="text-sm text-[#1e1b24]">
-                Based on your current progress and timeline, you're {getProgressPercentage(showGoalDetails.current, showGoalDetails.target) >= 50 ? 'on track' : 'behind schedule'}. 
-                {getProgressPercentage(showGoalDetails.current, showGoalDetails.target) < 50 
-                  ? ' Consider increasing your monthly contribution to stay on target.'
-                  : ' Keep up the great work! You might even finish early.'
-                }
-              </p>
-            </div>
-          </div>
-        )}
-      </DialogContent>
-    </Dialog>
-  );
-
-  const PersonalGoalCard = ({ goal }) => (
-    <Card className="shadow-lg card-whisper group">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold animate-silk">{goal.title}</CardTitle>
-          <div className="flex items-center gap-1">
-            <Badge className={`${getStatusColor(goal.current, goal.target)} text-white badge-breath`}>
-              {goal.category}
-            </Badge>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="opacity-0 group-hover:opacity-100 transition-opacity btn-whisper focus-whisper"
-              onClick={() => setShowGoalDetails(goal)}
-            >
-              <Eye size={14} />
-            </Button>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-sm text-gray-600 animate-silk animate-delay-whisper-1">{goal.description}</p>
-        
-        <div className="space-y-2">
-          <div className="flex justify-between text-sm animate-silk animate-delay-whisper-2">
-            <span>Progress</span>
-            <span className="font-semibold animate-flow">
-              ${goal.current.toLocaleString()} / ${goal.target.toLocaleString()}
-            </span>
-          </div>
-          <div 
-            className="cursor-pointer progress-silk"
-            onClick={() => setShowGoalDetails(goal)}
-          >
-            <Progress value={getProgressPercentage(goal.current, goal.target)} className="h-2" />
-          </div>
-          <div className="text-xs text-gray-500 animate-silk animate-delay-whisper-3">
-            {getProgressPercentage(goal.current, goal.target).toFixed(1)}% complete
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-sm animate-silk animate-delay-whisper-4">
-          <div className="flex items-center gap-1 text-gray-600">
-            <CalendarIcon size={14} className="icon-whisper" />
-            <span>{formatDate(goal.deadline)}</span>
-          </div>
-          <div className="flex items-center gap-1 text-green-600">
-            <TrendingUp size={14} className="icon-whisper" />
-            <span className="animate-flow">${(goal.target - goal.current).toLocaleString()} to go</span>
-          </div>
-        </div>
-
-        <div className="flex gap-2 animate-silk animate-delay-whisper-5">
-          <Button 
-            className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-whisper"
-            size="sm"
-            onClick={() => setShowContribution(goal.id)}
-          >
-            <Plus size={14} className="mr-1 icon-whisper" />
-            Contribute
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => handleGoalAction('share', goal.id, goal.title)}
-            className="btn-whisper focus-whisper"
-          >
-            <Share2 size={14} />
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => handleGoalAction('edit', goal.id, goal.title)}
-            className="btn-whisper focus-whisper"
-          >
-            <Edit size={14} />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  const filteredPersonalGoals = goals.personal.filter(goal => {
+  const filteredGoals = goals[activeTab].filter(goal => {
     if (goalFilter === 'all') return true;
-    if (goalFilter === 'on-track') return getProgressPercentage(goal.current, goal.target) >= 50;
-    if (goalFilter === 'behind') return getProgressPercentage(goal.current, goal.target) < 50;
-    if (goalFilter === 'completed') return getProgressPercentage(goal.current, goal.target) >= 100;
-    return true;
+    const percentage = getProgressPercentage(goal.current, goal.target);
+    switch (goalFilter) {
+      case 'completed': return percentage >= 100;
+      case 'active': return percentage < 100 && percentage > 0;
+      case 'not-started': return percentage === 0;
+      default: return true;
+    }
   });
 
-  return (
-    <div className="space-y-8 animate-entrance">
-      {/* Header */}
-      <div className="flex justify-between items-center animate-entrance-down">
-        <div>
-          <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2 animate-slide-left" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
-            Goals
-          </h1>
-          <p className="text-[#3b345b] mt-2 animate-slide-left animate-delay-1">Track your financial objectives and milestones</p>
-        </div>
-        
-        <div className="flex items-center gap-4 animate-slide-right animate-delay-2">
-          <div className="flex bg-gray-100 rounded-lg p-1">
+  const GoalCard = ({ goal, isGroup = false }) => {
+    const percentage = getProgressPercentage(goal.current, goal.target);
+    const status = getStatusBadge(percentage);
+    const strategy = goalStrategies[goal.id];
+
+    return (
+      <Card className="card-professional hover-professional group transition-all duration-200">
+        <CardHeader className="pb-4">
+          <div className="flex justify-between items-start">
+            <div className="flex items-center gap-3">
+              {isGroup ? (
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <Users className="text-white" size={20} />
+                </div>
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center">
+                  <Target className="text-white" size={20} />
+                </div>
+              )}
+              <div>
+                <CardTitle className="text-professional-title text-lg">{goal.title}</CardTitle>
+                <p className="text-professional-body text-sm">{goal.category}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge className={`${getPriorityColor(goal.priority)} text-xs`}>
+                {goal.priority}
+              </Badge>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="opacity-0 group-hover:opacity-100 transition-opacity btn-professional"
+                onClick={() => setShowGoalDetails(goal)}
+              >
+                <Eye size={16} />
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-professional-body text-sm">Progress</span>
+              <span className="text-professional-subtitle font-semibold">{percentage.toFixed(1)}%</span>
+            </div>
+            <div className="progress-professional" data-value={percentage.toFixed(0)}>
+              <Progress value={percentage} className="h-2" />
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-professional-body text-sm">Current</p>
+              <p className="text-professional-subtitle font-semibold">${goal.current.toLocaleString()}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-professional-body text-sm">Target</p>
+              <p className="text-professional-subtitle font-semibold">${goal.target.toLocaleString()}</p>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-1">
+              <CalendarIcon size={14} className="text-gray-400" />
+              <span className="text-professional-body text-sm">{formatDate(goal.deadline)}</span>
+            </div>
+            <Badge variant={status.variant} className={`${status.color} text-xs`}>
+              {status.text}
+            </Badge>
+          </div>
+
+          {strategy && (
+            <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="text-blue-600" size={16} />
+                <span className="text-professional-subtitle text-sm font-medium text-blue-800 dark:text-blue-300">
+                  AI Strategy
+                </span>
+              </div>
+              <p className="text-professional-body text-sm text-blue-700 dark:text-blue-300">
+                {strategy.strategy?.substring(0, 120)}...
+              </p>
+            </div>
+          )}
+
+          <div className="flex gap-2">
             <Button
-              variant={viewMode === 'grid' ? 'default' : 'ghost'}
               size="sm"
-              onClick={() => setViewMode('grid')}
-              className={viewMode === 'grid' ? 'bg-white shadow-sm btn-refined' : 'btn-refined focus-refined'}
+              className="flex-1 btn-professional"
+              onClick={() => setShowContribution(goal.id)}
             >
-              Grid
+              <DollarSign size={16} className="mr-2" />
+              Contribute
             </Button>
             <Button
-              variant={viewMode === 'table' ? 'default' : 'ghost'}
               size="sm"
-              onClick={() => setViewMode('table')}
-              className={viewMode === 'table' ? 'bg-white shadow-sm btn-refined' : 'btn-refined focus-refined'}
+              variant="outline"
+              className="btn-professional"
+              onClick={() => setEditingGoal(goal)}
             >
-              Table
+              <Edit size={16} />
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              className="btn-professional"
+            >
+              <Share2 size={16} />
             </Button>
           </div>
-          <Button 
-            className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 btn-refined"
+        </CardContent>
+      </Card>
+    );
+  };
+
+  return (
+    <div className="breathing-space-lg scroll-professional">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-professional-hero">Financial Goals</h1>
+          <p className="text-professional-body mt-2">Track and achieve your financial objectives with AI-powered strategies</p>
+        </div>
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            className="btn-professional"
+            onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+          >
+            {viewMode === 'grid' ? 'List View' : 'Grid View'}
+          </Button>
+          <Button
+            className="btn-professional"
             onClick={() => setShowNewGoal(true)}
           >
-            <Plus size={16} className="mr-2 icon-refined" />
+            <Plus size={16} className="mr-2" />
             New Goal
           </Button>
         </div>
       </div>
 
-      {/* AI Guidance */}
-      <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
-        <CardContent className="p-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[#5945a3] rounded-full flex items-center justify-center">
-              <Target className="text-white" size={16} />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                AI Guidance
-                {Object.keys(goalStrategies).length < goals.personal.length && (
-                  <Loader2 className="animate-spin" size={16} />
-                )}
-              </h3>
-              {aiInsights?.summary ? (
-                <p className="text-sm text-gray-600">{aiInsights.summary}</p>
-              ) : (
-                <p className="text-sm text-gray-600">
-                  Based on your current savings rate, you're likely to achieve your Emergency Fund goal 2 months early! 
-                  Consider increasing your Dream Vacation contribution by $200/month to stay on track.
-                </p>
-              )}
-            </div>
-            <Button 
-              size="sm" 
-              variant="outline"
-              onClick={() => {
-                getInsights();
-                toast({ title: "AI Optimizer", description: "Refreshing goal optimization suggestions..." });
-              }}
-            >
-              <Sparkles size={14} className="mr-1" />
-              Optimize All Goals
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Goals Tabs */}
+      {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div className="flex items-center justify-between mb-8">
-          <TabsList>
-            <TabsTrigger value="personal" className="flex items-center gap-2">
-              <Target size={16} />
-              Personal Goals
-            </TabsTrigger>
-            <TabsTrigger value="group" className="flex items-center gap-2">
-              <Users size={16} />
-              Group Goals
-            </TabsTrigger>
-          </TabsList>
+        <TabsList className="tabs-professional mb-8">
+          <TabsTrigger value="personal" className="tab-professional">
+            <Target className="h-4 w-4 mr-2" />
+            Personal Goals
+          </TabsTrigger>
+          <TabsTrigger value="group" className="tab-professional">
+            <Users className="h-4 w-4 mr-2" />
+            Group Goals
+          </TabsTrigger>
+        </TabsList>
 
-          {activeTab === 'personal' && (
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">Filter:</span>
-              <Select value={goalFilter} onValueChange={setGoalFilter}>
-                <SelectTrigger className="w-32">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Goals</SelectItem>
-                  <SelectItem value="on-track">On Track</SelectItem>
-                  <SelectItem value="behind">Behind</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          )}
+        {/* Filter Controls */}
+        <div className="flex gap-4 mb-6">
+          <Select value={goalFilter} onValueChange={setGoalFilter}>
+            <SelectTrigger className="w-48 input-professional">
+              <SelectValue placeholder="Filter goals" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Goals</SelectItem>
+              <SelectItem value="active">Active</SelectItem>
+              <SelectItem value="completed">Completed</SelectItem>
+              <SelectItem value="not-started">Not Started</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        <TabsContent value="personal">
-          {viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPersonalGoals.map((goal) => (
-                <PersonalGoalCard key={goal.id} goal={goal} />
-              ))}
-            </div>
-          ) : (
-            <Card>
-              <CardHeader>
-                <CardTitle>Personal Goals Overview</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left p-4">Goal</th>
-                        <th className="text-left p-4">Progress</th>
-                        <th className="text-left p-4">Target</th>
-                        <th className="text-left p-4">Deadline</th>
-                        <th className="text-left p-4">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredPersonalGoals.map((goal) => (
-                        <tr key={goal.id} className="border-b hover:bg-gray-50 cursor-pointer" onClick={() => setShowGoalDetails(goal)}>
-                          <td className="p-4">
-                            <div>
-                              <p className="font-medium">{goal.title}</p>
-                              <p className="text-sm text-gray-600">{goal.description}</p>
-                            </div>
-                          </td>
-                          <td className="p-4">
-                            <div className="w-32">
-                              <Progress value={getProgressPercentage(goal.current, goal.target)} />
-                              <p className="text-xs text-gray-500 mt-1">
-                                {getProgressPercentage(goal.current, goal.target).toFixed(1)}%
-                              </p>
-                            </div>
-                          </td>
-                          <td className="p-4">
-                            <p className="font-medium">${goal.target.toLocaleString()}</p>
-                            <p className="text-sm text-gray-600">${goal.current.toLocaleString()} saved</p>
-                          </td>
-                          <td className="p-4">
-                            <p className="text-sm">{formatDate(goal.deadline)}</p>
-                            <p className="text-xs text-gray-500">{getDaysRemaining(goal.deadline)} days left</p>
-                          </td>
-                          <td className="p-4">
-                            <div className="flex gap-1">
-                              <Button 
-                                size="sm" 
-                                className="bg-[#5945a3] hover:bg-[#4a3d8f]"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setShowContribution(goal.id);
-                                }}
-                              >
-                                Contribute
-                              </Button>
-                              <Button 
-                                size="sm" 
-                                variant="outline"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleGoalAction('edit', goal.id, goal.title);
-                                }}
-                              >
-                                <Edit size={14} />
-                              </Button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+        <TabsContent value="personal" className="space-y-6">
+          <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
+            {filteredGoals.map((goal) => (
+              <GoalCard key={goal.id} goal={goal} />
+            ))}
+          </div>
         </TabsContent>
 
-        <TabsContent value="group">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <TabsContent value="group" className="space-y-6">
+          <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
             {goals.group.map((goal) => (
-              <Card key={goal.id} className="shadow-lg hover:shadow-xl transition-all duration-300">
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="text-[#5945a3]" size={20} />
-                    {goal.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Group Progress</span>
-                      <span className="font-semibold">
-                        ${goal.current.toLocaleString()} / ${goal.target.toLocaleString()}
-                      </span>
-                    </div>
-                    <Progress value={getProgressPercentage(goal.current, goal.target)} className="h-2" />
-                    <div className="text-xs text-gray-500">
-                      {getProgressPercentage(goal.current, goal.target).toFixed(1)}% complete
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium text-gray-700">Member Contributions</p>
-                    {Object.entries(goal.contributions).map(([member, amount]) => (
-                      <div key={member} className="flex justify-between items-center text-sm">
-                        <span className="text-gray-600">{member}</span>
-                        <span className="font-medium">${amount.toLocaleString()}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex justify-between items-center text-sm pt-2 border-t">
-                    <div className="flex items-center gap-1 text-gray-600">
-                      <CalendarIcon size={14} />
-                      <span>{formatDate(goal.deadline)}</span>
-                    </div>
-                    <span className="text-green-600 font-medium">
-                      ${(goal.target - goal.current).toLocaleString()} remaining
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => toast({ title: "Group Details", description: "Opening group goal management..." })}
-                    >
-                      <Eye size={14} className="mr-1" />
-                      Details
-                    </Button>
-                    <Button 
-                      className="bg-[#5945a3] hover:bg-[#4a3d8f]" 
-                      size="sm"
-                      onClick={() => setShowContribution(goal.id)}
-                    >
-                      <Plus size={14} className="mr-1" />
-                      Contribute
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <GoalCard key={goal.id} goal={goal} isGroup={true} />
             ))}
           </div>
         </TabsContent>
       </Tabs>
 
-      {/* Modals */}
-      <NewGoalModal />
-      <ContributionModal />
-      <GoalDetailsModal />
+      {/* New Goal Dialog */}
+      <Dialog open={showNewGoal} onOpenChange={setShowNewGoal}>
+        <DialogContent className="sm:max-w-[425px] card-professional">
+          <DialogHeader>
+            <DialogTitle className="text-professional-title">Create New Goal</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="title" className="text-professional-subtitle">Goal Title</Label>
+              <Input
+                id="title"
+                placeholder="Enter goal title"
+                value={newGoal.title}
+                onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
+                className="input-professional"
+              />
+            </div>
+            <div>
+              <Label htmlFor="target" className="text-professional-subtitle">Target Amount</Label>
+              <Input
+                id="target"
+                type="number"
+                placeholder="Enter target amount"
+                value={newGoal.target}
+                onChange={(e) => setNewGoal({...newGoal, target: e.target.value})}
+                className="input-professional"
+              />
+            </div>
+            <div>
+              <Label htmlFor="category" className="text-professional-subtitle">Category</Label>
+              <Select value={newGoal.category} onValueChange={(value) => setNewGoal({...newGoal, category: value})}>
+                <SelectTrigger className="input-professional">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Emergency Fund">Emergency Fund</SelectItem>
+                  <SelectItem value="Travel">Travel</SelectItem>
+                  <SelectItem value="Investment">Investment</SelectItem>
+                  <SelectItem value="Home">Home</SelectItem>
+                  <SelectItem value="Education">Education</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="priority" className="text-professional-subtitle">Priority</Label>
+              <Select value={newGoal.priority} onValueChange={(value) => setNewGoal({...newGoal, priority: value})}>
+                <SelectTrigger className="input-professional">
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="description" className="text-professional-subtitle">Description</Label>
+              <Textarea
+                id="description"
+                placeholder="Enter goal description"
+                value={newGoal.description}
+                onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
+                className="input-professional"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button
+                className="flex-1 btn-professional"
+                onClick={handleCreateGoal}
+              >
+                Create Goal
+              </Button>
+              <Button
+                variant="outline"
+                className="btn-professional"
+                onClick={() => setShowNewGoal(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Contribution Dialog */}
+      <Dialog open={showContribution !== null} onOpenChange={() => setShowContribution(null)}>
+        <DialogContent className="sm:max-w-[425px] card-professional">
+          <DialogHeader>
+            <DialogTitle className="text-professional-title">Add Contribution</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="amount" className="text-professional-subtitle">Amount</Label>
+              <Input
+                id="amount"
+                type="number"
+                placeholder="Enter contribution amount"
+                value={contributionAmount}
+                onChange={(e) => setContributionAmount(e.target.value)}
+                className="input-professional"
+              />
+            </div>
+            <div>
+              <Label htmlFor="type" className="text-professional-subtitle">Type</Label>
+              <Select value={contributionType} onValueChange={setContributionType}>
+                <SelectTrigger className="input-professional">
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="one-time">One-time</SelectItem>
+                  <SelectItem value="monthly">Monthly</SelectItem>
+                  <SelectItem value="weekly">Weekly</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                className="flex-1 btn-professional"
+                onClick={() => handleContribution(showContribution, contributionAmount, contributionType)}
+              >
+                Add Contribution
+              </Button>
+              <Button
+                variant="outline"
+                className="btn-professional"
+                onClick={() => setShowContribution(null)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
