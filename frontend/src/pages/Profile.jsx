@@ -207,8 +207,13 @@ const Profile = () => {
   );
 
   return (
-    <div className="breathing-space-lg scroll-professional">
-      {/* Header */}
+    <div style={{ 
+      background: 'var(--color-bg-primary)', 
+      color: 'var(--color-text-white)',
+      minHeight: '100vh'
+    }}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Header */}
       <div className="mb-8">
         <h1 className="text-professional-hero">My Profile</h1>
         <p className="text-professional-body mt-2">Manage your financial profile and community presence</p>
