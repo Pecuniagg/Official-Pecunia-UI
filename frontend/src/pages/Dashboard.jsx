@@ -503,7 +503,7 @@ const Dashboard = () => {
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="w-full interactive border-gray-200"
+                    className="w-full interactive cash-flow-button"
                     onClick={() => toast({ title: "Investment Suggestion", description: "Consider investing your surplus in index funds" })}
                   >
                     Optimize Surplus
