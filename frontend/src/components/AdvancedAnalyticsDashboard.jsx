@@ -147,23 +147,23 @@ const AdvancedAnalyticsDashboard = ({ data }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="breathing-space-lg">
       {/* Header with Actions */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Advanced Analytics</h1>
-          <p className="text-gray-600 mt-1">Comprehensive financial insights and visualization</p>
+          <h1 className="visual-hierarchy-1 text-gray-900 dark:text-white">Advanced Analytics</h1>
+          <p className="text-muted mt-2">Comprehensive financial insights and visualization</p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={handleRefresh} disabled={refreshing}>
+        <div className="flex gap-3">
+          <Button variant="outline" size="sm" onClick={handleRefresh} disabled={refreshing} className="interactive border-gray-200">
             <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
             {refreshing ? 'Refreshing...' : 'Refresh'}
           </Button>
-          <Button variant="outline" size="sm" onClick={handleExport}>
+          <Button variant="outline" size="sm" onClick={handleExport} className="interactive border-gray-200">
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>
-          <Button variant="outline" size="sm" onClick={handleShare}>
+          <Button variant="outline" size="sm" onClick={handleShare} className="interactive border-gray-200">
             <Share2 className="h-4 w-4 mr-2" />
             Share
           </Button>
@@ -171,7 +171,7 @@ const AdvancedAnalyticsDashboard = ({ data }) => {
       </div>
 
       {/* Quick Insights */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {overallInsights.map((insight, index) => (
           <QuickInsightCard key={index} insight={insight} />
         ))}
@@ -179,67 +179,56 @@ const AdvancedAnalyticsDashboard = ({ data }) => {
 
       {/* Main Analytics Tabs */}
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="overview" className="flex items-center gap-2">
+        <TabsList className="grid w-full grid-cols-5 bg-gray-50 dark:bg-gray-800 p-1 rounded-lg mb-8">
+          <TabsTrigger value="overview" className="interactive flex items-center gap-2 text-sm font-medium">
             <BarChart3 className="h-4 w-4" />
             Overview
           </TabsTrigger>
-          <TabsTrigger value="expenses" className="flex items-center gap-2">
+          <TabsTrigger value="expenses" className="interactive flex items-center gap-2 text-sm font-medium">
             <PieChart className="h-4 w-4" />
             Expenses
           </TabsTrigger>
-          <TabsTrigger value="trends" className="flex items-center gap-2">
+          <TabsTrigger value="trends" className="interactive flex items-center gap-2 text-sm font-medium">
             <TrendingUp className="h-4 w-4" />
             Trends
           </TabsTrigger>
-          <TabsTrigger value="comparison" className="flex items-center gap-2">
+          <TabsTrigger value="comparison" className="interactive flex items-center gap-2 text-sm font-medium">
             <Award className="h-4 w-4" />
             Comparison
           </TabsTrigger>
-          <TabsTrigger value="cashflow" className="flex items-center gap-2">
+          <TabsTrigger value="cashflow" className="interactive flex items-center gap-2 text-sm font-medium">
             <Activity className="h-4 w-4" />
             Cash Flow
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AdvancedPieChart 
+        <TabsContent value="overview" className="space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <CleanPieChart 
               data={mockData.expenses}
               title="Monthly Expenses Breakdown"
-              subtitle="Detailed analysis of your spending patterns"
-              showTrends={true}
-              showInsights={true}
+              colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
               onSegmentClick={(data) => console.log('Expense segment clicked:', data)}
             />
-            <AdvancedPieChart 
+            <CleanPieChart 
               data={mockData.assets}
               title="Asset Distribution"
-              subtitle="Your wealth allocation across different categories"
-              showTrends={true}
-              showInsights={true}
+              colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b']}
               centerValue="$56K"
               onSegmentClick={(data) => console.log('Asset segment clicked:', data)}
             />
           </div>
         </TabsContent>
 
-        <TabsContent value="expenses" className="space-y-6">
-          <AdvancedPieChart 
-            data={mockData.expenses}
-            title="Detailed Expense Analysis"
-            subtitle="Deep dive into your spending patterns with AI insights"
-            showTrends={true}
-            showInsights={true}
-            benchmarks={{
-              'Housing': 1400,
-              'Food': 650,
-              'Transportation': 400,
-              'Entertainment': 350,
-              'Other': 800
-            }}
-            onSegmentClick={(data) => console.log('Detailed expense clicked:', data)}
-          />
+        <TabsContent value="expenses" className="space-y-8">
+          <div className="max-w-4xl mx-auto">
+            <CleanPieChart 
+              data={mockData.expenses}
+              title="Detailed Expense Analysis"
+              colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
+              onSegmentClick={(data) => console.log('Detailed expense clicked:', data)}
+            />
+          </div>
         </TabsContent>
 
         <TabsContent value="trends" className="space-y-6">
