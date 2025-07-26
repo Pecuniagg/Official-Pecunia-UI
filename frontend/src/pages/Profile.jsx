@@ -372,7 +372,6 @@ const Profile = () => {
                     <p className="text-professional-body text-sm">Choose your preferred theme</p>
                   </div>
                 </div>
-                <ThemeToggle />
               </div>
             </CardContent>
           </Card>
