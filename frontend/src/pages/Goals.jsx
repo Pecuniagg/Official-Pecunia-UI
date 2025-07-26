@@ -500,6 +500,7 @@ const Goals = () => {
           </div>
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 };
