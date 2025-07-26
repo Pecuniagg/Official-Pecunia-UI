@@ -629,19 +629,19 @@ const Dashboard = () => {
                   ) : (
                     <div className="stack-spacing-sm">
                       <div className="flex items-center gap-2">
-                        <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        <Badge variant="secondary" className="badge badge-success">
                           Opportunity
                         </Badge>
                         <span className="text-sm">High-yield savings rates increased</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                        <Badge variant="secondary" className="badge badge-info">
                           Insight
                         </Badge>
                         <span className="text-sm">Emergency fund 85% complete</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                        <Badge variant="secondary" className="badge badge-warning">
                           Warning
                         </Badge>
                         <span className="text-sm">Dining expenses above average</span>
