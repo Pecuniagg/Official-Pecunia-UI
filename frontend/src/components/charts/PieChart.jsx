@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PieChartComponent = ({ data, colors = ['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f'] }) => {
+const PieChartComponent = ({ data, colors = ['#5945A3', '#B37E91', '#39D98A', '#FF4D67', '#FFB800', '#00D4FF'] }) => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
   
   let cumulativePercentage = 0;
