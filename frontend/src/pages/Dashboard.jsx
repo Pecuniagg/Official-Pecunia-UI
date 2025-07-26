@@ -332,14 +332,11 @@ const Dashboard = () => {
                     <Eye size={16} />
                   </Button>
                 </CardHeader>
-                <CardContent className="card-system-content">
+                <CardContent className="p-0">
                   <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer">
-                    <AdvancedPieChart 
+                    <CleanPieChart 
                       data={dashboard.expenses} 
-                      title=""
                       colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
-                      showTrends={false}
-                      showInsights={false}
                       onSegmentClick={(data) => handleChartClick('Expenses', dashboard.expenses)}
                     />
                   </div>
@@ -362,14 +359,12 @@ const Dashboard = () => {
                     <Eye size={16} />
                   </Button>
                 </CardHeader>
-                <CardContent className="card-system-content">
+                <CardContent className="p-0">
                   <div onClick={() => handleChartClick('Assets', dashboard.assets)} className="cursor-pointer">
-                    <AdvancedPieChart 
+                    <CleanPieChart 
                       data={dashboard.assets} 
-                      title=""
                       colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b']}
-                      showTrends={false}
-                      showInsights={false}
+                      centerValue="$56K"
                       onSegmentClick={(data) => handleChartClick('Assets', dashboard.assets)}
                     />
                   </div>
@@ -392,14 +387,12 @@ const Dashboard = () => {
                     <Eye size={16} />
                   </Button>
                 </CardHeader>
-                <CardContent className="card-system-content">
+                <CardContent className="p-0">
                   <div onClick={() => handleChartClick('Liabilities', dashboard.liabilities)} className="cursor-pointer">
-                    <AdvancedPieChart 
+                    <CleanPieChart 
                       data={dashboard.liabilities} 
-                      title=""
                       colors={['#b37e91', '#3b345b', '#1e1b24']}
-                      showTrends={false}
-                      showInsights={false}
+                      centerValue="$10K"
                       onSegmentClick={(data) => handleChartClick('Liabilities', dashboard.liabilities)}
                     />
                   </div>
