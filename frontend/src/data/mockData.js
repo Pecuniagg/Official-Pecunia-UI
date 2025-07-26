@@ -90,10 +90,10 @@ export const mockData = {
   feed: [
     {
       id: 1,
-      user: 'Alex Thompson',
+      author: 'John Doe',
       avatar: '/api/placeholder/40/40',
       time: '2 hours ago',
-      content: 'Just hit my savings goal for Q1! 🎯 The key was automating my transfers.',
+      content: 'Just hit my $10K savings goal! The compound interest is really starting to show. #FinancialGoals',
       likes: 24,
       comments: 8,
       ticker: '$AAPL',
@@ -101,7 +101,7 @@ export const mockData = {
     },
     {
       id: 2,
-      user: 'Maria Garcia',
+      author: 'Maria Garcia',
       avatar: '/api/placeholder/40/40',
       time: '4 hours ago',
       content: 'Anyone else seeing great returns on $TSLA this month? Up 15% in my portfolio!',
@@ -112,13 +112,33 @@ export const mockData = {
     },
     {
       id: 3,
-      user: 'Investment Group',
+      author: 'Investment Group',
       avatar: '/api/placeholder/40/40',
       time: '6 hours ago',
       content: 'Monthly meetup this Friday! We\'ll discuss Q2 investment strategies and portfolio rebalancing.',
       likes: 45,
       comments: 23,
       isGroup: true
+    },
+    {
+      id: 4,
+      author: 'Sarah Johnson',
+      avatar: '/api/placeholder/40/40',
+      time: '8 hours ago',
+      content: 'Emergency fund complete! Having 6 months of expenses saved gives me such peace of mind.',
+      likes: 32,
+      comments: 15
+    },
+    {
+      id: 5,
+      author: 'Mike Thompson',
+      avatar: '/api/placeholder/40/40',
+      time: '1 day ago',
+      content: 'Just diversified my portfolio with some international ETFs. Spreading risk is key!',
+      likes: 27,
+      comments: 9,
+      ticker: '$VTI',
+      stockPrice: '+1.8%'
     }
   ],
   plans: [
