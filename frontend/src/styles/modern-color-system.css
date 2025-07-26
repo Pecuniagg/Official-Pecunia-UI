@@ -1,169 +1,84 @@
 /* ================================== */
-/* MODERN COLOR SYSTEM - PECUNIA 2025 */
-/* Rich Gradient-Enhanced Color System */
+/* PECUNIA SINGLE THEME COLOR SYSTEM */
+/* Based on Official Guidelines */
 /* ================================== */
 
 :root {
-  /* ==================== LIGHT MODE COLORS ==================== */
+  /* Primary Base Colors from Guidelines */
+  --color-bg-primary: #0A0A0F;
+  --color-surface-dark: #1E1B24;
+  --color-primary-accent: #5945A3;
+  --color-secondary-accent: #B37E91;
+  --color-success-green: #39D98A;
+  --color-error-red: #FF4D67;
+  --color-text-white: #F4F4F5;
+  --color-text-muted: #9C9C9C;
   
-  /* Primary Background System */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f5f5f7;
-  --color-bg-tertiary: #e0e0e5;
-  --color-bg-elevated: #ffffff;
-  --color-bg-overlay: rgba(255, 255, 255, 0.95);
+  /* Semantic Mappings */
+  --color-background: #0A0A0F;
+  --color-foreground: #F4F4F5;
+  --color-card: #1E1B24;
+  --color-card-foreground: #F4F4F5;
+  --color-popover: #1E1B24;
+  --color-popover-foreground: #F4F4F5;
+  --color-primary: #5945A3;
+  --color-primary-foreground: #F4F4F5;
+  --color-secondary: #1E1B24;
+  --color-secondary-foreground: #F4F4F5;
+  --color-muted: #1E1B24;
+  --color-muted-foreground: #9C9C9C;
+  --color-accent: #B37E91;
+  --color-accent-foreground: #F4F4F5;
+  --color-destructive: #FF4D67;
+  --color-destructive-foreground: #F4F4F5;
+  --color-border: rgba(244, 244, 245, 0.1);
+  --color-input: #1E1B24;
+  --color-ring: #5945A3;
   
-  /* Surface & Card Colors */
-  --color-surface-primary: #ffffff;
-  --color-surface-secondary: #f5f5f7;
-  --color-surface-tertiary: #e0e0e5;
-  --color-surface-elevated: #ffffff;
-  --color-surface-hover: #f0f0f2;
-  --color-surface-active: #e8e8eb;
+  /* Extended Colors */
+  --color-surface-elevated: #252229;
+  --color-surface-hover: #2A2631;
+  --color-surface-active: #2F2A37;
+  --color-border-subtle: rgba(244, 244, 245, 0.05);
+  --color-border-strong: rgba(244, 244, 245, 0.2);
+  --color-text-secondary: #BCBCBC;
+  --color-text-tertiary: #9C9C9C;
+  --color-text-inverse: #0A0A0F;
   
-  /* Border & Divider Colors */
-  --color-border-primary: #e0e0e5;
-  --color-border-secondary: #d0d0d5;
-  --color-border-subtle: #f0f0f2;
-  --color-border-strong: #c0c0c5;
+  /* Status Colors */
+  --color-positive: #39D98A;
+  --color-negative: #FF4D67;
+  --color-warning: #FFA500;
+  --color-info: #5945A3;
+  --color-success: #39D98A;
+  --color-error: #FF4D67;
   
-  /* Text Colors */
-  --color-text-primary: #1a1a1f;
-  --color-text-secondary: #55565a;
-  --color-text-tertiary: #8b8b8f;
-  --color-text-inverse: #ffffff;
-  --color-text-muted: #a0a0a4;
-  --color-text-disabled: #d0d0d5;
-  
-  /* Brand Colors - Sophisticated violet and dusty rose */
-  --color-brand-primary: #5945a3;
-  --color-brand-secondary: #b37e91;
-  --color-brand-tertiary: #7066c4;
-  --color-brand-muted: #3b345b;
-  
-  /* Accent Colors */
-  --color-accent-violet: #5945a3;
-  --color-accent-rose: #b37e91;
-  --color-accent-lavender: #7066c4;
-  --color-accent-purple: #3b345b;
-  
-  /* Status Colors - Light mode specific */
-  --color-success: #2ecc71;
-  --color-error: #e74c3c;
-  --color-warning: #f39c12;
-  --color-info: #3498db;
-  --color-positive: #2ecc71;
-  --color-negative: #e74c3c;
-  
-  /* Rich Gradient Definitions - Light mode */
-  --gradient-primary: linear-gradient(135deg, #5945a3 0%, #b37e91 100%);
-  --gradient-secondary: linear-gradient(135deg, #7066c4 0%, #5945a3 100%);
-  --gradient-subtle: linear-gradient(135deg, #d5d1ee 0%, #a49be1 100%);
-  --gradient-chart: linear-gradient(135deg, #d5d1ee 0%, #a49be1 100%);
-  --gradient-chart-alt: linear-gradient(135deg, #f0edf9 0%, #d5d1ee 100%);
-  --gradient-background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 100%);
-  --gradient-card: linear-gradient(135deg, #ffffff 0%, #f5f5f7 100%);
-  --gradient-card-hover: linear-gradient(135deg, #f8f8fa 0%, #f0f0f2 100%);
-  --gradient-success: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-  --gradient-error: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-  --gradient-data-depth: linear-gradient(135deg, #d5d1ee 0%, #a49be1 50%, #9b8ce8 100%);
-  --gradient-tactile: linear-gradient(135deg, #f5f5f7 0%, #e8e8eb 100%);
-  
-  /* Shadow System */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  /* Gradients from Guidelines */
+  --gradient-primary: linear-gradient(135deg, #5945A3 0%, #B37E91 100%);
+  --gradient-card-overlay: linear-gradient(180deg, rgba(10,10,15,0) 0%, rgba(10,10,15,0.95) 100%);
+  --gradient-progress: linear-gradient(90deg, #39D98A 0%, #B37E91 100%);
+  --gradient-secondary: linear-gradient(135deg, #B37E91 0%, #5945A3 100%);
+  --gradient-background: linear-gradient(135deg, #0A0A0F 0%, #1E1B24 100%);
+  --gradient-card: linear-gradient(135deg, #1E1B24 0%, #252229 100%);
+  --gradient-card-hover: linear-gradient(135deg, #2A2631 0%, #2F2A37 100%);
+  --gradient-success: linear-gradient(135deg, #39D98A 0%, #2DC57D 100%);
+  --gradient-error: linear-gradient(135deg, #FF4D67 0%, #E04C4C 100%);
+  --gradient-data-depth: linear-gradient(135deg, #5945A3 0%, #3B345B 50%, #2A2438 100%);
+  --gradient-tactile: linear-gradient(135deg, #1E1B24 0%, #252229 100%);
   
   /* Interactive States */
-  --color-hover-overlay: rgba(89, 69, 163, 0.08);
-  --color-active-overlay: rgba(89, 69, 163, 0.12);
-  --color-focus-ring: rgba(89, 69, 163, 0.2);
-  --color-selected-overlay: rgba(89, 69, 163, 0.1);
-}
-
-/* ==================== DARK MODE COLORS - ENHANCED FOR BETTER VISIBILITY ==================== */
-.dark {
-  /* Primary Background System - Enhanced contrast */
-  --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #1a1a1f;
-  --color-bg-tertiary: #2a2a2f;
-  --color-bg-elevated: #1f1f24;
-  --color-bg-overlay: rgba(10, 10, 15, 0.98);
+  --color-hover-overlay: rgba(89, 69, 163, 0.1);
+  --color-active-overlay: rgba(89, 69, 163, 0.2);
+  --color-focus-ring: rgba(89, 69, 163, 0.3);
+  --color-selected-overlay: rgba(89, 69, 163, 0.15);
   
-  /* Surface & Card Colors - Better contrast layers */
-  --color-surface-primary: #0a0a0f;
-  --color-surface-secondary: #1a1a1f;
-  --color-surface-tertiary: #2a2a2f;
-  --color-surface-elevated: #1f1f24;
-  --color-surface-hover: #2f2f34;
-  --color-surface-active: #3a3a3f;
-  
-  /* Border & Divider Colors - Enhanced visibility */
-  --color-border-primary: #3a3a3f;
-  --color-border-secondary: #4a4a4f;
-  --color-border-subtle: #2f2f34;
-  --color-border-strong: #5a5a5f;
-  
-  /* Text Colors - Maximum contrast for readability */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #e0e0e0;
-  --color-text-tertiary: #b0b0b0;
-  --color-text-inverse: #0a0a0f;
-  --color-text-muted: #909090;
-  --color-text-disabled: #606060;
-  
-  /* Brand Colors - Enhanced visibility */
-  --color-brand-primary: #6b5bb5;
-  --color-brand-secondary: #c58ca1;
-  --color-brand-tertiary: #8078d4;
-  --color-brand-muted: #4a4065;
-  
-  /* Accent Colors - Better visibility */
-  --color-accent-violet: #6b5bb5;
-  --color-accent-rose: #c58ca1;
-  --color-accent-lavender: #8078d4;
-  --color-accent-purple: #4a4065;
-  
-  /* Status Colors - Enhanced contrast */
-  --color-success: #52e085;
-  --color-error: #ff5555;
-  --color-warning: #ffb84d;
-  --color-info: #4da6ff;
-  --color-positive: #52e085;
-  --color-negative: #ff5555;
-  
-  /* Enhanced Gradients - Better visibility and depth */
-  --gradient-primary: linear-gradient(135deg, #6b5bb5 0%, #c58ca1 100%);
-  --gradient-secondary: linear-gradient(135deg, #8078d4 0%, #6b5bb5 100%);
-  --gradient-subtle: linear-gradient(135deg, #6b5bb5 0%, #4a4065 100%);
-  --gradient-chart: linear-gradient(135deg, #6b5bb5 0%, #4a4065 100%);
-  --gradient-chart-alt: linear-gradient(135deg, #8078d4 0%, #6b5bb5 100%);
-  --gradient-background: linear-gradient(135deg, #0a0a0f 0%, #1a1a1f 100%);
-  --gradient-card: linear-gradient(135deg, #1a1a1f 0%, #2a2a2f 100%);
-  --gradient-card-hover: linear-gradient(135deg, #2f2f34 0%, #3a3a3f 100%);
-  --gradient-success: linear-gradient(135deg, #52e085 0%, #2ecc71 100%);
-  --gradient-error: linear-gradient(135deg, #ff5555 0%, #e74c3c 100%);
-  --gradient-data-depth: linear-gradient(135deg, #6b5bb5 0%, #4a4065 50%, #3a3445 100%);
-  --gradient-tactile: linear-gradient(135deg, #1a1a1f 0%, #2a2a2f 100%);
-  --gradient-glow: linear-gradient(135deg, #8078d4 0%, #6b5bb5 100%);
-  --gradient-muted-purple: linear-gradient(135deg, #4a4065 0%, #3a3445 100%);
-  
-  /* Enhanced Shadow System - Better depth in dark mode */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
-  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.6);
-  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.4);
-  
-  /* Interactive States - Enhanced for dark mode */
-  --color-hover-overlay: rgba(107, 91, 181, 0.2);
-  --color-active-overlay: rgba(107, 91, 181, 0.3);
-  --color-focus-ring: rgba(107, 91, 181, 0.4);
-  --color-selected-overlay: rgba(107, 91, 181, 0.25);
+  /* Shadow System */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ==================== REFINED SUBTLE ANIMATION SYSTEM ==================== */
