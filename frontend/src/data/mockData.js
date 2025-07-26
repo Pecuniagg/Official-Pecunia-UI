@@ -152,21 +152,62 @@ export const mockData = {
     email: 'john.doe@example.com',
     joinDate: 'January 2024',
     pecuniaScore: 782,
-    posts: 24,
+    posts: [
+      {
+        id: 1,
+        author: 'John Doe',
+        content: 'Just achieved my savings goal of $10,000! The 50/30/20 budgeting rule really works.',
+        time: '2 hours ago',
+        likes: 24,
+        comments: 5,
+        avatar: '/api/placeholder/40/40'
+      },
+      {
+        id: 2,
+        author: 'John Doe',
+        content: 'Invested in index funds this month. Diversification is key to long-term growth.',
+        time: '1 day ago',
+        likes: 18,
+        comments: 3,
+        avatar: '/api/placeholder/40/40'
+      },
+      {
+        id: 3,
+        author: 'John Doe',
+        content: 'Emergency fund complete! Having 6 months of expenses saved gives me peace of mind.',
+        time: '3 days ago',
+        likes: 32,
+        comments: 8,
+        avatar: '/api/placeholder/40/40'
+      }
+    ],
     followers: 156,
     following: 89,
     lending: {
       available: true,
       maxAmount: 5000,
       interestRate: 3.5,
+      totalLent: 12500,
+      activeLoan: 2,
+      rating: 4.8,
       requests: [
         {
           id: 1,
-          requester: 'Sarah Smith',
+          name: 'Sarah Smith',
           amount: 2000,
-          purpose: 'Emergency car repair',
-          requestDate: '2025-01-10',
-          creditScore: 720
+          reason: 'Emergency car repair',
+          duration: '6 months',
+          interest: 3.5,
+          avatar: '/api/placeholder/40/40'
+        },
+        {
+          id: 2,
+          name: 'Mike Johnson',
+          amount: 1500,
+          reason: 'Medical expenses',
+          duration: '4 months',
+          interest: 4.0,
+          avatar: '/api/placeholder/40/40'
         }
       ],
       history: [
