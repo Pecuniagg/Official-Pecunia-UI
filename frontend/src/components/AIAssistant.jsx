@@ -299,7 +299,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
                             <Button
                               key={promptIdx}
                               variant="outline"
-                              className="text-left h-auto p-3 text-sm interactive border-gray-200 hover:border-[#5945a3] hover:bg-purple-50 dark:border-gray-700 dark:hover:border-[#5945a3] dark:hover:bg-purple-900/20"
+                              className="text-left h-auto p-3 text-sm ai-suggestion-button"
                               onClick={() => handlePromptClick(prompt)}
                             >
                               {prompt}
