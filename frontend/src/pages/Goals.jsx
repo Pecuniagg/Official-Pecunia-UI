@@ -329,9 +329,9 @@ const Goals = () => {
               Personal Goals
             </TabsTrigger>
             <TabsTrigger value="group" className="nav-modern-item">
-            <Users className="h-4 w-4 mr-2" />
-            Group Goals
-          </TabsTrigger>
+              <Users className="h-4 w-4 mr-2" />
+              Group Goals
+            </TabsTrigger>
         </TabsList>
 
         {/* Filter Controls */}
