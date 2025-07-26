@@ -47,7 +47,14 @@ const Feed = () => {
           { symbol: '$MSFT', price: '+0.8%', color: 'text-green-600' },
           { symbol: '$AMZN', price: '-0.5%', color: 'text-red-500' }
         ].map((ticker, index) => (
-          <div key={index} className="flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer interactive group">
+          <div key={index} className="flex justify-between items-center p-3 rounded-lg cursor-pointer interactive group" 
+               style={{ 
+                 transition: 'background-color 0.2s ease',
+                 ':hover': { backgroundColor: 'var(--color-surface-hover)' }
+               }}
+               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
             <span className="text-professional-subtitle font-medium">{ticker.symbol}</span>
             <span className={`text-professional-subtitle font-semibold ${ticker.color} group-hover:scale-105 transition-transform`}>
               {ticker.price}
