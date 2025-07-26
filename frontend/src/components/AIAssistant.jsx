@@ -246,7 +246,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
       <div className={`side-panel ${isOpen ? 'open' : ''} ai-assistant-container`}>
         <div className="flex flex-col h-full">
           {/* Header - Enhanced spacing */}
-          <div className="card-spacing-lg border-b border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-800">
+          <div className="ai-assistant-header">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center shadow-sm">
