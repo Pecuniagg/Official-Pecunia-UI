@@ -536,7 +536,7 @@ const Dashboard = () => {
             </div>
 
             {/* Right Column - Enhanced spacing */}
-            <div className="col-span-3 space-y-8">
+            <div className="lg:col-span-3 space-y-8">
               {/* Interactive Pecunia Score */}
               <Card className="card-system interactive">
                 <CardHeader className="card-system-header">
