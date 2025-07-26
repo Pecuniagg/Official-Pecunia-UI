@@ -8,7 +8,7 @@ const AdvancedPieChart = ({
   data, 
   title, 
   subtitle,
-  colors = ['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f'],
+  colors = ['#5945A3', '#B37E91', '#39D98A', '#FF4D67', '#FFB800', '#00D4FF'],
   showTrends = true,
   showInsights = true,
   centerValue,
