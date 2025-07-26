@@ -815,8 +815,13 @@ const Planner = () => {
   );
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
+    <div style={{ 
+      background: 'var(--color-bg-primary)', 
+      color: 'var(--color-text-white)',
+      minHeight: '100vh'
+    }}>
+      <div className="max-w-7xl mx-auto p-6 space-y-8">
+        {/* Header */}
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
