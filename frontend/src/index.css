@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './styles/modern-color-system.css';
 @import './styles/design-system.css';
 @import './styles/professional-refinements.css';
 @import './styles/animations.css';
