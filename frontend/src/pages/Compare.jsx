@@ -154,10 +154,10 @@ const Compare = () => {
             return (
               <div
                 key={index}
-                className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-300 card-breath group overflow-hidden ${
+                className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-300 card-breath group overflow-hidden compare-friends-box ${
                   isSelected 
-                    ? 'border-[#5945a3] bg-gradient-to-br from-purple-50 to-blue-50 shadow-md' 
-                    : 'border-gray-200 hover:border-[#5945a3]/30 hover:shadow-sm'
+                    ? 'border-[#5945a3] bg-gradient-to-br from-purple-50 to-blue-50 shadow-md compare-friend-button active' 
+                    : 'border-gray-200 hover:border-[#5945a3]/30 hover:shadow-sm compare-friend-button'
                 }`}
                 onClick={() => {
                   setSelectedFriend(selectedFriend === friend.name ? null : friend.name);
