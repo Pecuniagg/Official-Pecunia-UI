@@ -500,6 +500,37 @@ const Goals = () => {
           </div>
         </DialogContent>
       </Dialog>
+      
+      {/* Goal Details Dialog */}
+      <Dialog open={showGoalDetails !== null} onOpenChange={() => setShowGoalDetails(null)}>
+        <DialogContent className="sm:max-w-[600px] card-professional">
+          <DialogHeader>
+            <DialogTitle className="text-professional-title">Goal Details</DialogTitle>
+          </DialogHeader>
+          {showGoalDetails && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-professional-subtitle">Current Amount</Label>
+                  <p className="text-professional-body">${showGoalDetails.current?.toLocaleString()}</p>
+                </div>
+                <div>
+                  <Label className="text-professional-subtitle">Target Amount</Label>
+                  <p className="text-professional-body">${showGoalDetails.target?.toLocaleString()}</p>
+                </div>
+              </div>
+              <div>
+                <Label className="text-professional-subtitle">Description</Label>
+                <p className="text-professional-body">{showGoalDetails.description}</p>
+              </div>
+              <div>
+                <Label className="text-professional-subtitle">Progress</Label>
+                <Progress value={getProgressPercentage(showGoalDetails.current, showGoalDetails.target)} className="mt-2" />
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
