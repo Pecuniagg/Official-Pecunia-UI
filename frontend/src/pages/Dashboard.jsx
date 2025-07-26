@@ -467,14 +467,14 @@ const Dashboard = () => {
               </Card>
 
               {/* Interactive Cash Flow */}
-              <Card className="card-system interactive">
+              <Card className="card-system interactive dashboard-cashflow-box">
                 <CardHeader className="card-system-header">
                   <CardTitle className="visual-hierarchy-3">Cash Flow</CardTitle>
                   <Button 
                     variant="ghost" 
                     size="sm"
                     onClick={() => toast({ title: "Cash Flow Details", description: "Opening detailed cash flow analysis..." })}
-                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                    className="interactive cash-flow-button border-0"
                   >
                     <ArrowUpRight size={16} />
                   </Button>
