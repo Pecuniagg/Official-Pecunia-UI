@@ -41,8 +41,8 @@ const PieChartComponent = ({ data, colors = ['#5945A3', '#B37E91', '#39D98A', '#
               d={segment.path}
               fill={segment.color}
               className="hover:opacity-80 transition-opacity duration-200 cursor-pointer"
-              stroke="white"
-              strokeWidth="0.5"
+              stroke="var(--color-surface-dark)"
+              strokeWidth="2"
             />
           ))}
           <circle cx="50" cy="50" r="15" fill="white" />
