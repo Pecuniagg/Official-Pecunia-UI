@@ -84,86 +84,86 @@
   --color-selected-overlay: rgba(89, 69, 163, 0.1);
 }
 
-/* ==================== DARK MODE COLORS ==================== */
+/* ==================== DARK MODE COLORS - ENHANCED FOR BETTER VISIBILITY ==================== */
 .dark {
-  /* Primary Background System - Deep black foundation */
+  /* Primary Background System - Enhanced contrast */
   --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #1e1b24;
-  --color-bg-tertiary: #2c2c38;
-  --color-bg-elevated: #1e1b24;
-  --color-bg-overlay: rgba(10, 10, 15, 0.95);
+  --color-bg-secondary: #1a1a1f;
+  --color-bg-tertiary: #2a2a2f;
+  --color-bg-elevated: #1f1f24;
+  --color-bg-overlay: rgba(10, 10, 15, 0.98);
   
-  /* Surface & Card Colors - Softer charcoal layers */
+  /* Surface & Card Colors - Better contrast layers */
   --color-surface-primary: #0a0a0f;
-  --color-surface-secondary: #1e1b24;
-  --color-surface-tertiary: #2c2c38;
-  --color-surface-elevated: #1e1b24;
-  --color-surface-hover: #2a2733;
-  --color-surface-active: #34313d;
+  --color-surface-secondary: #1a1a1f;
+  --color-surface-tertiary: #2a2a2f;
+  --color-surface-elevated: #1f1f24;
+  --color-surface-hover: #2f2f34;
+  --color-surface-active: #3a3a3f;
   
-  /* Border & Divider Colors - Subtle gray system */
-  --color-border-primary: #2c2c38;
-  --color-border-secondary: #3c3c48;
-  --color-border-subtle: #252531;
-  --color-border-strong: #4c4c58;
+  /* Border & Divider Colors - Enhanced visibility */
+  --color-border-primary: #3a3a3f;
+  --color-border-secondary: #4a4a4f;
+  --color-border-subtle: #2f2f34;
+  --color-border-strong: #5a5a5f;
   
-  /* Text Colors - White and soft gray for optimal readability */
+  /* Text Colors - Maximum contrast for readability */
   --color-text-primary: #ffffff;
-  --color-text-secondary: #d6d6d6;
-  --color-text-tertiary: #a0a0a4;
-  --color-text-inverse: #1a1a1f;
-  --color-text-muted: #8b8b8f;
-  --color-text-disabled: #55565a;
+  --color-text-secondary: #e0e0e0;
+  --color-text-tertiary: #b0b0b0;
+  --color-text-inverse: #0a0a0f;
+  --color-text-muted: #909090;
+  --color-text-disabled: #606060;
   
-  /* Brand Colors - Sophisticated violet and dusty rose (consistent) */
-  --color-brand-primary: #5945a3;
-  --color-brand-secondary: #b37e91;
-  --color-brand-tertiary: #7066c4;
-  --color-brand-muted: #3b345b;
+  /* Brand Colors - Enhanced visibility */
+  --color-brand-primary: #6b5bb5;
+  --color-brand-secondary: #c58ca1;
+  --color-brand-tertiary: #8078d4;
+  --color-brand-muted: #4a4065;
   
-  /* Accent Colors */
-  --color-accent-violet: #5945a3;
-  --color-accent-rose: #b37e91;
-  --color-accent-lavender: #7066c4;
-  --color-accent-purple: #3b345b;
+  /* Accent Colors - Better visibility */
+  --color-accent-violet: #6b5bb5;
+  --color-accent-rose: #c58ca1;
+  --color-accent-lavender: #8078d4;
+  --color-accent-purple: #4a4065;
   
-  /* Status Colors - Dark mode specific */
-  --color-success: #48d681;
-  --color-error: #e04c4c;
-  --color-warning: #f39c12;
-  --color-info: #3498db;
-  --color-positive: #48d681;
-  --color-negative: #e04c4c;
+  /* Status Colors - Enhanced contrast */
+  --color-success: #52e085;
+  --color-error: #ff5555;
+  --color-warning: #ffb84d;
+  --color-info: #4da6ff;
+  --color-positive: #52e085;
+  --color-negative: #ff5555;
   
-  /* Rich Gradient Definitions - Dark mode with depth and motion */
-  --gradient-primary: linear-gradient(135deg, #5945a3 0%, #b37e91 100%);
-  --gradient-secondary: linear-gradient(135deg, #7066c4 0%, #5945a3 100%);
-  --gradient-subtle: linear-gradient(135deg, #5945a3 0%, #3b345b 100%);
-  --gradient-chart: linear-gradient(135deg, #5945a3 0%, #3b345b 100%);
-  --gradient-chart-alt: linear-gradient(135deg, #7066c4 0%, #5945a3 100%);
-  --gradient-background: linear-gradient(135deg, #0a0a0f 0%, #1e1b24 100%);
-  --gradient-card: linear-gradient(135deg, #1e1b24 0%, #2c2c38 100%);
-  --gradient-card-hover: linear-gradient(135deg, #2a2733 0%, #34313d 100%);
-  --gradient-success: linear-gradient(135deg, #48d681 0%, #2ecc71 100%);
-  --gradient-error: linear-gradient(135deg, #e04c4c 0%, #c0392b 100%);
-  --gradient-data-depth: linear-gradient(135deg, #5945a3 0%, #3b345b 50%, #2a2438 100%);
-  --gradient-tactile: linear-gradient(135deg, #1e1b24 0%, #2c2c38 100%);
-  --gradient-glow: linear-gradient(135deg, #7066c4 0%, #5945a3 100%);
-  --gradient-muted-purple: linear-gradient(135deg, #3b345b 0%, #2a2438 100%);
+  /* Enhanced Gradients - Better visibility and depth */
+  --gradient-primary: linear-gradient(135deg, #6b5bb5 0%, #c58ca1 100%);
+  --gradient-secondary: linear-gradient(135deg, #8078d4 0%, #6b5bb5 100%);
+  --gradient-subtle: linear-gradient(135deg, #6b5bb5 0%, #4a4065 100%);
+  --gradient-chart: linear-gradient(135deg, #6b5bb5 0%, #4a4065 100%);
+  --gradient-chart-alt: linear-gradient(135deg, #8078d4 0%, #6b5bb5 100%);
+  --gradient-background: linear-gradient(135deg, #0a0a0f 0%, #1a1a1f 100%);
+  --gradient-card: linear-gradient(135deg, #1a1a1f 0%, #2a2a2f 100%);
+  --gradient-card-hover: linear-gradient(135deg, #2f2f34 0%, #3a3a3f 100%);
+  --gradient-success: linear-gradient(135deg, #52e085 0%, #2ecc71 100%);
+  --gradient-error: linear-gradient(135deg, #ff5555 0%, #e74c3c 100%);
+  --gradient-data-depth: linear-gradient(135deg, #6b5bb5 0%, #4a4065 50%, #3a3445 100%);
+  --gradient-tactile: linear-gradient(135deg, #1a1a1f 0%, #2a2a2f 100%);
+  --gradient-glow: linear-gradient(135deg, #8078d4 0%, #6b5bb5 100%);
+  --gradient-muted-purple: linear-gradient(135deg, #4a4065 0%, #3a3445 100%);
   
-  /* Shadow System - Enhanced for dark mode */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  /* Enhanced Shadow System - Better depth in dark mode */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.6);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.4);
   
-  /* Interactive States */
-  --color-hover-overlay: rgba(112, 102, 196, 0.15);
-  --color-active-overlay: rgba(112, 102, 196, 0.2);
-  --color-focus-ring: rgba(112, 102, 196, 0.3);
-  --color-selected-overlay: rgba(89, 69, 163, 0.2);
+  /* Interactive States - Enhanced for dark mode */
+  --color-hover-overlay: rgba(107, 91, 181, 0.2);
+  --color-active-overlay: rgba(107, 91, 181, 0.3);
+  --color-focus-ring: rgba(107, 91, 181, 0.4);
+  --color-selected-overlay: rgba(107, 91, 181, 0.25);
 }
 
 /* ==================== ENHANCED GRADIENT COMPONENT SYSTEM ==================== */
