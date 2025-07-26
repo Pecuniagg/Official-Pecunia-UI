@@ -312,10 +312,10 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Main Grid - Enhanced spacing */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Main Grid - Enhanced spacing and mobile responsiveness */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
             {/* Left Column - Interactive Charts */}
-            <div className="lg:col-span-6 space-y-8">
+            <div className="lg:col-span-6 space-y-6 lg:space-y-8">
               {/* Expenses Chart */}
               <Card className="card-system interactive">
                 <CardHeader className="card-system-header">
