@@ -317,8 +317,8 @@ const AIAssistant = ({ isOpen, onClose }) => {
                       <div className={`max-w-[80%] ${msg.type === 'user' ? 'order-2' : 'order-1'}`}>
                         <div className={`p-4 rounded-lg transition-all duration-200 ${
                           msg.type === 'user' 
-                            ? 'bg-[#5945a3] text-white ml-4' 
-                            : 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white mr-4'
+                            ? 'user-message' 
+                            : 'ai-message'
                         }`}>
                           <div className="flex items-start gap-3">
                             {msg.type === 'ai' && (
