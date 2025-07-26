@@ -49,6 +49,79 @@ code {
   background-color: var(--pecunia-border) !important;
 }
 
+/* Force dark theme for all common white backgrounds */
+.bg-white,
+[class*="bg-white"] {
+  background-color: var(--pecunia-surface) !important;
+}
+
+.bg-gray-50,
+[class*="bg-gray-50"] {
+  background-color: var(--pecunia-surface-elevated) !important;
+}
+
+.bg-gray-100,
+[class*="bg-gray-100"] {
+  background-color: var(--pecunia-surface-hover) !important;
+}
+
+/* Tab system overrides */
+[data-state="active"] {
+  background-color: var(--pecunia-surface-active) !important;
+  color: var(--pecunia-text-primary) !important;
+}
+
+[data-state="inactive"] {
+  background-color: transparent !important;
+  color: var(--pecunia-text-secondary) !important;
+}
+
+/* Modal and dropdown overrides */
+.modal-content,
+.dropdown-content,
+.popover-content {
+  background-color: var(--pecunia-surface) !important;
+  border-color: var(--pecunia-border) !important;
+}
+
+/* Card overrides */
+.card,
+[class*="card"] {
+  background-color: var(--pecunia-surface) !important;
+  border-color: var(--pecunia-border) !important;
+}
+
+/* Input field overrides */
+input,
+textarea,
+select {
+  background-color: var(--pecunia-surface-elevated) !important;
+  border-color: var(--pecunia-border) !important;
+  color: var(--pecunia-text-primary) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: var(--pecunia-surface-active) !important;
+  border-color: var(--pecunia-border-focus) !important;
+}
+
+/* Button overrides */
+.btn-secondary,
+button[variant="secondary"],
+button[variant="outline"] {
+  background-color: transparent !important;
+  border-color: var(--pecunia-border-focus) !important;
+  color: var(--pecunia-text-primary) !important;
+}
+
+.btn-secondary:hover,
+button[variant="secondary"]:hover,
+button[variant="outline"]:hover {
+  background-color: var(--pecunia-surface-hover) !important;
+}
+
 .text-gray-900 {
   color: var(--pecunia-text-primary) !important;
 }
