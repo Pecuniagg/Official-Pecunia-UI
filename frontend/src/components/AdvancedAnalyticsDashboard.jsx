@@ -118,23 +118,23 @@ const AdvancedAnalyticsDashboard = ({ data }) => {
   const QuickInsightCard = ({ insight }) => {
     const IconComponent = insight.icon;
     const colorClasses = {
-      success: 'bg-green-50 border-green-200 text-green-800',
-      warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-      info: 'bg-blue-50 border-blue-200 text-blue-800'
+      success: 'bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300',
+      warning: 'bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-300',
+      info: 'bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-300'
     };
 
     return (
-      <Card className={`${colorClasses[insight.type]} border-2 transition-all duration-200 hover:shadow-md`}>
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
+      <Card className={`${colorClasses[insight.type]} border-2 card-system interactive`}>
+        <CardContent className="p-6">
+          <div className="flex items-start gap-4">
             <IconComponent size={20} className="mt-1 flex-shrink-0" />
-            <div className="flex-1">
-              <h4 className="font-semibold text-sm mb-1">{insight.title}</h4>
-              <p className="text-xs mb-3 opacity-90">{insight.message}</p>
+            <div className="flex-1 min-w-0">
+              <h4 className="font-semibold text-sm mb-2 line-clamp-1">{insight.title}</h4>
+              <p className="text-sm mb-4 opacity-90 line-clamp-2">{insight.message}</p>
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="text-xs"
+                className="text-xs interactive border-current opacity-80 hover:opacity-100"
                 onClick={insight.actionFn}
               >
                 {insight.action}
