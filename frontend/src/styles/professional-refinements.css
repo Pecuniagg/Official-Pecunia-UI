@@ -1,0 +1,470 @@
+/* ================================== */
+/* PROFESSIONAL UI REFINEMENTS - 2025 */
+/* ================================== */
+
+/* 1. REFINED MICRO-ANIMATIONS */
+:root {
+  /* Professional timing functions */
+  --ease-professional: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-subtle: cubic-bezier(0.32, 0.94, 0.6, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Refined durations */
+  --duration-micro: 150ms;
+  --duration-smooth: 200ms;
+  --duration-gentle: 250ms;
+  
+  /* Professional shadow system */
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-refined: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-floating: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. PROFESSIONAL BUTTON SYSTEM */
+.btn-professional {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: all var(--duration-smooth) var(--ease-professional);
+  border-radius: 8px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+.btn-professional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left var(--duration-gentle) var(--ease-professional);
+}
+
+.btn-professional:hover::before {
+  left: 100%;
+}
+
+.btn-professional:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-refined);
+}
+
+.btn-professional:active {
+  transform: translateY(0);
+  transition-duration: var(--duration-micro);
+}
+
+/* 3. REFINED CARD SYSTEM */
+.card-professional {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: var(--shadow-subtle);
+  transition: all var(--duration-smooth) var(--ease-professional);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-professional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(89, 69, 163, 0.2), transparent);
+  opacity: 0;
+  transition: opacity var(--duration-smooth) var(--ease-professional);
+}
+
+.card-professional:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+  border-color: rgba(89, 69, 163, 0.1);
+}
+
+.card-professional:hover::before {
+  opacity: 1;
+}
+
+/* Dark mode support */
+.dark .card-professional {
+  background: rgba(31, 41, 55, 0.95);
+  border-color: rgba(55, 65, 81, 0.5);
+}
+
+.dark .card-professional:hover {
+  border-color: rgba(89, 69, 163, 0.3);
+}
+
+/* 4. ENHANCED NAVIGATION */
+.nav-professional {
+  position: relative;
+  transition: all var(--duration-smooth) var(--ease-professional);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.nav-professional::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #5945a3, #b37e91);
+  transition: all var(--duration-smooth) var(--ease-professional);
+  transform: translateX(-50%);
+}
+
+.nav-professional:hover::after,
+.nav-professional.active::after {
+  width: 100%;
+}
+
+.nav-professional.active {
+  background: linear-gradient(135deg, #5945a3, #b37e91);
+  color: white;
+  box-shadow: var(--shadow-refined);
+}
+
+/* 5. PROFESSIONAL INPUT SYSTEM */
+.input-professional {
+  position: relative;
+  transition: all var(--duration-smooth) var(--ease-professional);
+  border-radius: 8px;
+  border: 1px solid rgba(209, 213, 219, 0.5);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.input-professional:focus {
+  outline: none;
+  border-color: #5945a3;
+  box-shadow: 0 0 0 3px rgba(89, 69, 163, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.input-professional:focus + .input-label {
+  color: #5945a3;
+  transform: translateY(-6px) scale(0.85);
+}
+
+.input-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 0.875rem;
+  transition: all var(--duration-smooth) var(--ease-professional);
+  pointer-events: none;
+  background: white;
+  padding: 0 4px;
+}
+
+/* 6. REFINED TABS SYSTEM */
+.tabs-professional {
+  position: relative;
+  background: rgba(249, 250, 251, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 4px;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+.tab-professional {
+  position: relative;
+  transition: all var(--duration-smooth) var(--ease-professional);
+  border-radius: 8px;
+  font-weight: 500;
+  color: #6b7280;
+  background: transparent;
+  overflow: hidden;
+}
+
+.tab-professional::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #5945a3, #b37e91);
+  opacity: 0;
+  transition: opacity var(--duration-smooth) var(--ease-professional);
+  border-radius: 8px;
+}
+
+.tab-professional[data-state="active"]::before {
+  opacity: 1;
+}
+
+.tab-professional[data-state="active"] {
+  color: white;
+  box-shadow: var(--shadow-refined);
+}
+
+.tab-professional:hover:not([data-state="active"]) {
+  background: rgba(255, 255, 255, 0.5);
+  color: #374151;
+}
+
+/* 7. PROFESSIONAL TOOLTIPS */
+.tooltip-professional {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  box-shadow: var(--shadow-floating);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: tooltipFade var(--duration-smooth) var(--ease-professional);
+}
+
+@keyframes tooltipFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 8. REFINED PROGRESS INDICATORS */
+.progress-professional {
+  position: relative;
+  background: rgba(229, 231, 235, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.progress-professional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #5945a3, #b37e91);
+  border-radius: 8px;
+  transition: width var(--duration-gentle) var(--ease-professional);
+  box-shadow: 0 0 10px rgba(89, 69, 163, 0.3);
+}
+
+.progress-professional[data-value="75"]::before {
+  width: 75%;
+}
+
+/* 9. ENHANCED HOVER STATES */
+.hover-professional {
+  position: relative;
+  transition: all var(--duration-smooth) var(--ease-professional);
+  transform: translateZ(0);
+}
+
+.hover-professional::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(89, 69, 163, 0.05), rgba(179, 126, 145, 0.05));
+  opacity: 0;
+  transition: opacity var(--duration-smooth) var(--ease-professional);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hover-professional:hover::after {
+  opacity: 1;
+}
+
+.hover-professional:hover {
+  transform: translateY(-1px);
+}
+
+/* 10. PROFESSIONAL LOADING STATES */
+.loading-professional {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-professional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* 11. SMOOTH SCROLLING */
+.scroll-professional {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(89, 69, 163, 0.3) transparent;
+}
+
+.scroll-professional::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-professional::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-professional::-webkit-scrollbar-thumb {
+  background: rgba(89, 69, 163, 0.3);
+  border-radius: 3px;
+}
+
+.scroll-professional::-webkit-scrollbar-thumb:hover {
+  background: rgba(89, 69, 163, 0.5);
+}
+
+/* 12. ACCESSIBILITY ENHANCEMENTS */
+.focus-professional:focus {
+  outline: 2px solid #5945a3;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.focus-professional:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 13. REFINED SPACING SYSTEM */
+.spacing-professional {
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+}
+
+/* 14. PROFESSIONAL TEXT HIERARCHY */
+.text-professional-hero {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #1f2937, #374151);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-professional-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: #1f2937;
+}
+
+.text-professional-subtitle {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #4b5563;
+}
+
+.text-professional-body {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+/* 15. DARK MODE REFINEMENTS */
+.dark .text-professional-hero {
+  background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-professional-title {
+  color: #f9fafb;
+}
+
+.dark .text-professional-subtitle {
+  color: #d1d5db;
+}
+
+.dark .text-professional-body {
+  color: #9ca3af;
+}
+
+/* 16. RESPONSIVE REFINEMENTS */
+@media (max-width: 768px) {
+  .btn-professional {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .card-professional {
+    border-radius: 8px;
+    margin: 0.5rem;
+  }
+  
+  .text-professional-hero {
+    font-size: 1.875rem;
+  }
+  
+  .text-professional-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* 17. ANIMATION PREFERENCES */
+@media (prefers-reduced-motion: reduce) {
+  .btn-professional,
+  .card-professional,
+  .nav-professional,
+  .input-professional,
+  .tab-professional,
+  .hover-professional {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .btn-professional::before,
+  .card-professional::before,
+  .nav-professional::after {
+    display: none !important;
+  }
+}
+
+/* 18. HIGH CONTRAST MODE */
+@media (prefers-contrast: high) {
+  .card-professional {
+    border-width: 2px;
+    border-color: #374151;
+  }
+  
+  .btn-professional {
+    border-width: 2px;
+  }
+  
+  .input-professional {
+    border-width: 2px;
+  }
+}
