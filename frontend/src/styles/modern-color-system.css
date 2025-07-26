@@ -624,25 +624,233 @@
   background: var(--gradient-secondary);
 }
 
-/* Responsive Design */
+/* Enhanced Typography System */
+.text-modern-hero {
+  color: var(--color-text-primary);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(89, 69, 163, 0.3);
+}
+
+.text-modern-title {
+  color: var(--color-text-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.text-modern-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.text-modern-body {
+  color: var(--color-text-tertiary);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-modern-muted {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.text-gradient-primary {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+.text-gradient-secondary {
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/* Surface System Enhanced */
+.surface-primary {
+  background: var(--gradient-background);
+  border: 1px solid var(--color-border-primary);
+  backdrop-filter: blur(8px);
+}
+
+.surface-secondary {
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border-secondary);
+  backdrop-filter: blur(6px);
+}
+
+.surface-tertiary {
+  background: var(--gradient-tactile);
+  border: 1px solid var(--color-border-subtle);
+  backdrop-filter: blur(4px);
+}
+
+/* Elevated Components */
+.card-elevated {
+  background: var(--gradient-data-depth);
+  box-shadow: var(--shadow-2xl);
+  border-radius: 24px;
+  border: 1px solid var(--color-border-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-elevated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.card-elevated:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-2xl), 0 0 40px rgba(89, 69, 163, 0.2);
+}
+
+/* Glass Morphism Effects */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dark .glass-effect {
+  background: rgba(30, 27, 36, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Advanced Interactive States */
+.interactive-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.interactive-hover:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-xl);
+}
+
+.interactive-hover:active {
+  transform: translateY(-2px) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+/* Glow Effects */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(89, 69, 163, 0.3);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px rgba(179, 126, 145, 0.3);
+}
+
+.glow-success {
+  box-shadow: 0 0 20px rgba(72, 214, 129, 0.3);
+}
+
+.glow-error {
+  box-shadow: 0 0 20px rgba(224, 76, 76, 0.3);
+}
+
+/* Utility Classes */
+.gradient-border {
+  position: relative;
+  background: var(--gradient-card);
+  border-radius: 16px;
+  padding: 2px;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  border-radius: 16px;
+  z-index: -1;
+}
+
+.gradient-border > * {
+  background: var(--color-surface-primary);
+  border-radius: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Design Enhancements */
 @media (max-width: 768px) {
   .card-modern {
-    border-radius: 12px;
+    border-radius: 16px;
     margin: 8px;
   }
   
+  .card-data-rich {
+    border-radius: 16px;
+  }
+  
   .text-modern-hero {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
   
   .text-modern-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+  }
+  
+  .btn-modern-primary,
+  .btn-modern-secondary {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+  
+  .metric-card {
+    padding: 20px;
+  }
+  
+  .metric-value {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-modern-hero {
+    font-size: 1.875rem;
+  }
+  
+  .card-modern,
+  .card-data-rich {
+    border-radius: 12px;
+    margin: 6px;
   }
   
   .btn-modern-primary,
   .btn-modern-secondary {
     padding: 10px 20px;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
   }
 }
 
