@@ -184,7 +184,7 @@ const Goals = () => {
     const strategy = goalStrategies[goal.id];
 
     return (
-      <Card className="card-professional hover-professional group transition-all duration-200">
+      <Card className="card-modern interactive-hover group transition-all duration-200">
         <CardHeader className="pb-4">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-3">
@@ -193,7 +193,7 @@ const Goals = () => {
                   <Users className="text-white" size={20} />
                 </div>
               ) : (
-                <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-[#6b5bb5] to-[#c58ca1] rounded-full flex items-center justify-center">
                   <Target className="text-white" size={20} />
                 </div>
               )}
