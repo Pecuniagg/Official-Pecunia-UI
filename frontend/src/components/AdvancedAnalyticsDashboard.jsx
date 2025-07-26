@@ -124,7 +124,7 @@ const AdvancedAnalyticsDashboard = ({ data }) => {
     };
 
     return (
-      <Card className={`${colorClasses[insight.type]} border-2 card-system interactive`}>
+      <Card className={`${colorClasses[insight.type]} border-2 card-system interactive dashboard-comparison-box`}>
         <CardContent className="p-6">
           <div className="flex items-start gap-4">
             <IconComponent size={20} className="mt-1 flex-shrink-0" />
