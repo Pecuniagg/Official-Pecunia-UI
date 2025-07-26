@@ -45,8 +45,8 @@ const PieChartComponent = ({ data, colors = ['#5945A3', '#B37E91', '#39D98A', '#
               strokeWidth="2"
             />
           ))}
-          <circle cx="50" cy="50" r="15" fill="white" />
-          <text x="50" y="55" textAnchor="middle" className="text-xs font-semibold fill-gray-800">
+          <circle cx="50" cy="50" r="15" fill="var(--color-surface-dark)" />
+          <text x="50" y="55" textAnchor="middle" className="text-xs font-semibold" fill="var(--color-text-white)">
             ${(total / 1000).toFixed(0)}K
           </text>
         </svg>
