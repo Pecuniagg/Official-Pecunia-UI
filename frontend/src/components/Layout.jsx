@@ -42,7 +42,6 @@ const Layout = ({ children }) => {
     { name: "Profile", href: "/profile", icon: User },
     { name: "Compare", href: "/compare", icon: BarChart3 },
     { name: "Color Demo", href: "/color-demo", icon: Palette },
-    { name: "Compare", href: "/compare", icon: BarChart3 },
   ];
 
   const isActive = (href) => location.pathname === href;
