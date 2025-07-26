@@ -111,41 +111,47 @@ const Layout = ({ children }) => {
             
             <div className="flex items-center gap-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition-colors duration-200" size={16} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2" size={16} style={{ color: 'var(--color-text-muted)' }} />
                 <Input 
                   placeholder="Search..." 
-                  className="pl-10 w-80 input-professional bg-gray-50 dark:bg-gray-800 border-0 focus:bg-white dark:focus:bg-gray-700 dark:text-white"
+                  className="pl-10 w-80 input"
+                  style={{ 
+                    background: 'var(--color-input)',
+                    borderColor: 'var(--color-border)',
+                    color: 'var(--color-text-white)'
+                  }}
                 />
               </div>
               
-              <Button variant="ghost" size="sm" className="relative btn-professional text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+              <Button variant="ghost" size="sm" className="relative" style={{ color: 'var(--color-text-secondary)' }}>
                 <Bell size={20} />
-                <span className="absolute -top-1 -right-1 h-2 w-2 bg-[#b37e91] rounded-full"></span>
+                <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full" style={{ background: 'var(--color-secondary-accent)' }}></span>
               </Button>
               
-              <Avatar className="h-8 w-8 ring-2 ring-transparent hover:ring-[#5945a3] transition-all duration-200 cursor-pointer">
+              <Avatar className="h-8 w-8 ring-2 ring-transparent hover:ring-opacity-50 transition-all duration-200 cursor-pointer" style={{ '--tw-ring-color': 'var(--color-primary-accent)' }}>
                 <AvatarImage src="/api/placeholder/32/32" />
-                <AvatarFallback className="bg-[#5945a3] text-white">JD</AvatarFallback>
+                <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)' }}>JD</AvatarFallback>
               </Avatar>
             </div>
           </div>
         </header>
 
-        {/* Page Content - Improved spacing and breathing room */}
+        {/* Page Content */}
         <main className="pt-16 min-h-screen">
-          <div className="container section-spacing-lg max-w-[1200px] mx-auto scroll-professional">
+          <div className="container max-w-[1200px] mx-auto p-6">
             {children}
           </div>
         </main>
       </div>
 
-      {/* Quick Action Button - Non-overlapping, side panel trigger */}
+      {/* Quick Action Button */}
       <Button
         onClick={() => setShowQuickActions(true)}
-        className="fixed bottom-8 right-8 h-14 px-6 btn-professional bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 shadow-lg hover:shadow-xl text-white border-0 z-50"
+        className="fixed bottom-8 right-8 h-14 px-6 shadow-lg hover:shadow-xl z-50 btn-primary"
+        style={{ background: 'var(--gradient-primary)' }}
         size="lg"
       >
-        <Plus size={20} className="mr-2 transition-transform duration-200" />
+        <Plus size={20} className="mr-2" />
         Quick Action
       </Button>
 
