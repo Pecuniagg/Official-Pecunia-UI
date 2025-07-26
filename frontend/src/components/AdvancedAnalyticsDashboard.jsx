@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 
 import AdvancedPieChart from './charts/AdvancedPieChart';
+import CleanPieChart from './charts/CleanPieChart';
 import TrendLineChart from './charts/TrendLineChart';
 import ComparisonBarChart from './charts/ComparisonBarChart';
 import CashFlowChart from './charts/CashFlowChart';
