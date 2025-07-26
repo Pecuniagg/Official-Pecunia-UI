@@ -1,0 +1,265 @@
+/* ================================== */
+/* THEME CONSISTENCY FIXES */
+/* Addressing specific UI elements that don't follow dark theme */
+/* ================================== */
+
+/* Dashboard Fixes */
+.dashboard-trend-box,
+.dashboard-comparison-box,
+.dashboard-cashflow-box,
+.dashboard-ai-insights-box {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+}
+
+.dashboard-trend-box:hover,
+.dashboard-comparison-box:hover,
+.dashboard-cashflow-box:hover,
+.dashboard-ai-insights-box:hover {
+  background: var(--color-surface-hover) !important;
+  border-color: var(--color-border-strong) !important;
+}
+
+/* Fix specific dashboard elements */
+.cash-flow-button {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+}
+
+.cash-flow-button:hover {
+  background: var(--color-surface-hover) !important;
+  color: var(--color-primary-accent) !important;
+}
+
+/* AI Insights badges */
+.dashboard-ai-insights-box .badge {
+  background: var(--color-surface-elevated) !important;
+  color: var(--color-text-white) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+}
+
+/* Planner View Details Fix */
+.planner-view-details-box {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+}
+
+.planner-view-details-box:hover {
+  background: var(--color-surface-hover) !important;
+}
+
+/* Compare Page Fixes */
+.compare-box,
+.compare-friends-box,
+.compare-public-data-box {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+}
+
+.compare-box:hover,
+.compare-friends-box:hover,
+.compare-public-data-box:hover {
+  background: var(--color-surface-hover) !important;
+}
+
+.compare-friend-button {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+  transition: all 0.2s ease;
+}
+
+.compare-friend-button:hover {
+  background: var(--color-surface-hover) !important;
+  border-color: var(--color-primary-accent) !important;
+}
+
+.compare-friend-button.active {
+  background: var(--color-primary-accent) !important;
+  border-color: var(--color-primary-accent) !important;
+  color: var(--color-text-white) !important;
+}
+
+/* Profile Page Button Fixes */
+.profile-post-button,
+.profile-lending-button,
+.profile-settings-button {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+  transition: all 0.2s ease;
+}
+
+.profile-post-button:hover,
+.profile-lending-button:hover,
+.profile-settings-button:hover {
+  background: var(--color-surface-hover) !important;
+  border-color: var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
+}
+
+/* AI Assistant (Ask Pecunia) Fixes */
+.ai-assistant-container {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.ai-assistant-header {
+  background: var(--color-surface-elevated) !important;
+  border-bottom: 1px solid var(--color-border-subtle) !important;
+  padding: 1rem;
+}
+
+.ai-assistant-content {
+  background: var(--color-surface-dark) !important;
+  padding: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.ai-assistant-input-container {
+  background: var(--color-surface-elevated) !important;
+  border-top: 1px solid var(--color-border-subtle) !important;
+  padding: 1rem;
+}
+
+.ai-assistant-input {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+}
+
+.ai-assistant-input:focus {
+  border-color: var(--color-primary-accent) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(89, 69, 163, 0.2) !important;
+}
+
+.ai-message {
+  background: var(--color-surface-elevated) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.user-message {
+  background: var(--color-primary-accent) !important;
+  color: var(--color-text-white) !important;
+  margin-left: 2rem;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.ai-suggestion-button {
+  background: var(--color-surface-elevated) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  margin: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.ai-suggestion-button:hover {
+  background: var(--color-surface-hover) !important;
+  border-color: var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
+}
+
+/* Pie Chart Color Fixes */
+.recharts-pie-sector {
+  stroke: var(--color-surface-dark) !important;
+  stroke-width: 2px !important;
+}
+
+/* Custom pie chart colors that work well with dark background */
+.pie-chart-color-1 { fill: #5945A3 !important; }
+.pie-chart-color-2 { fill: #B37E91 !important; }
+.pie-chart-color-3 { fill: #39D98A !important; }
+.pie-chart-color-4 { fill: #FF4D67 !important; }
+.pie-chart-color-5 { fill: #FFB800 !important; }
+.pie-chart-color-6 { fill: #00D4FF !important; }
+
+/* Fix white backgrounds that shouldn't be white */
+.bg-white {
+  background: var(--color-surface-dark) !important;
+}
+
+.bg-gray-50,
+.bg-gray-100 {
+  background: var(--color-surface-elevated) !important;
+}
+
+.text-gray-900 {
+  color: var(--color-text-white) !important;
+}
+
+.text-gray-600,
+.text-gray-500 {
+  color: var(--color-text-muted) !important;
+}
+
+/* Button and input overrides */
+.border-gray-200,
+.border-gray-300 {
+  border-color: var(--color-border-subtle) !important;
+}
+
+/* Modal and dialog fixes */
+.modal-overlay {
+  background: rgba(10, 10, 15, 0.8) !important;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+}
+
+/* Dropdown menu fixes */
+.dropdown-menu-content {
+  background: var(--color-surface-dark) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  color: var(--color-text-white) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dropdown-menu-item:hover {
+  background: var(--color-surface-hover) !important;
+  color: var(--color-primary-accent) !important;
+}
+
+/* Badge improvements */
+.badge-success {
+  background: rgba(57, 217, 138, 0.15) !important;
+  color: var(--color-success-green) !important;
+  border: 1px solid rgba(57, 217, 138, 0.3) !important;
+}
+
+.badge-warning {
+  background: rgba(255, 184, 0, 0.15) !important;
+  color: #FFB800 !important;
+  border: 1px solid rgba(255, 184, 0, 0.3) !important;
+}
+
+.badge-info {
+  background: rgba(0, 212, 255, 0.15) !important;
+  color: #00D4FF !important;
+  border: 1px solid rgba(0, 212, 255, 0.3) !important;
+}
+
+.badge-error {
+  background: rgba(255, 77, 103, 0.15) !important;
+  color: var(--color-error-red) !important;
+  border: 1px solid rgba(255, 77, 103, 0.3) !important;
+}
