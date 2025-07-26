@@ -259,7 +259,7 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <Button className="btn-professional">
+            <Button className="btn-professional profile-settings-button">
               <Edit size={16} className="mr-2" />
               Edit Profile
             </Button>
