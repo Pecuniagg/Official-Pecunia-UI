@@ -30,6 +30,7 @@ import {
 import { mockData } from "../data/mockData";
 import PieChartComponent from "../components/charts/PieChart";
 import AdvancedPieChart from "../components/charts/AdvancedPieChart";
+import CleanPieChart from "../components/charts/CleanPieChart";
 import { useToast } from "../hooks/use-toast";
 import { useAI } from "../contexts/AIContext";
 import AISmartDashboard from "../components/AISmartDashboard";
