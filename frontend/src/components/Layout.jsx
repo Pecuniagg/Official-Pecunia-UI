@@ -14,7 +14,8 @@ import {
   CreditCard,
   Receipt,
   Goal,
-  Clock
+  Clock,
+  Palette
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -25,6 +26,7 @@ import { Toaster } from "./ui/toaster";
 import AIAssistant from "./AIAssistant";
 import QuickActionPanel from "./QuickActionPanel";
 import { useTheme } from '../contexts/ThemeContext';
+import '../styles/modern-color-system.css';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -38,6 +40,8 @@ const Layout = ({ children }) => {
     { name: "Feed", href: "/feed", icon: MessageSquare },
     { name: "Planner", href: "/planner", icon: Calendar },
     { name: "Profile", href: "/profile", icon: User },
+    { name: "Compare", href: "/compare", icon: BarChart3 },
+    { name: "Color Demo", href: "/color-demo", icon: Palette },
     { name: "Compare", href: "/compare", icon: BarChart3 },
   ];
 
