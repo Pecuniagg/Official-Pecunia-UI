@@ -605,7 +605,7 @@ const Dashboard = () => {
               </Card>
 
               {/* AI Insights Preview */}
-              <Card className="card-system interactive">
+              <Card className="card-system interactive dashboard-ai-insights-box">
                 <CardHeader className="card-system-header">
                   <CardTitle className="flex items-center gap-2 visual-hierarchy-3">
                     <Brain className="text-[#5945a3]" size={20} />
@@ -615,7 +615,7 @@ const Dashboard = () => {
                     variant="ghost" 
                     size="sm"
                     onClick={() => setSmartMode(!smartMode)}
-                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                    className="interactive cash-flow-button border-0"
                   >
                     <ArrowUpRight size={16} />
                   </Button>
