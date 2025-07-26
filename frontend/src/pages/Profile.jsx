@@ -53,7 +53,6 @@ const Profile = () => {
   });
   const { profile } = mockData;
   const { toast } = useToast();
-  const { isDarkMode } = useTheme();
 
   const handleLike = (postId) => {
     setLikedPosts(prev => {
