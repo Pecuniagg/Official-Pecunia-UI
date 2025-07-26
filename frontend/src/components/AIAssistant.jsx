@@ -271,7 +271,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
           {/* Chat Container - Improved spacing */}
           <div className="flex-1 overflow-hidden flex flex-col">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            <div className="flex-1 overflow-y-auto ai-assistant-content">
               {allMessages.length === 0 && showSuggestions ? (
                 <div className="space-y-6">
                   <div className="text-center breathing-space">
