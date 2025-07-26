@@ -196,7 +196,7 @@ const Profile = () => {
               <MessageCircle size={16} />
               <span>{post.comments}</span>
             </Button>
-            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500">
+            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500 profile-post-button">
               <Share2 size={16} />
               Share
             </Button>
