@@ -276,7 +276,7 @@ const AdvancedAnalyticsDashboard = ({ data }) => {
 
       {/* Detailed Insight Panel - Non-overlapping */}
       {selectedInsight && (
-        <Card className="border-2 border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800 mt-8 card-system">
+        <Card className="border-2 border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800 mt-8 card-system dashboard-comparison-box">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center gap-2">
