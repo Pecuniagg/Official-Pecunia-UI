@@ -199,55 +199,64 @@ const Feed = () => {
   );
 
   return (
-    <div className="breathing-space-lg scroll-professional">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-professional-hero">Community Feed</h1>
-        <p className="text-professional-body mt-2">Connect with fellow investors and share financial insights</p>
-      </div>
+    <div style={{ 
+      background: 'var(--color-bg-primary)', 
+      color: 'var(--color-text-white)',
+      minHeight: '100vh'
+    }}>
+      <div className="max-w-6xl mx-auto p-6">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-professional-hero">Community Feed</h1>
+          <p className="text-professional-body mt-2">Connect with fellow investors and share financial insights</p>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        {/* Main Feed */}
-        <div className="lg:col-span-3 space-y-6">
-          {/* New Post */}
-          <Card className="card-professional">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <Avatar className="h-10 w-10 ring-2 ring-[#5945a3]">
-                  <AvatarImage src="/api/placeholder/40/40" />
-                  <AvatarFallback className="bg-[#5945a3] text-white">JD</AvatarFallback>
-                </Avatar>
-                <div className="flex-1 space-y-3">
-                  <Textarea
-                    placeholder="Share your financial thoughts or achievements..."
-                    value={newPost}
-                    onChange={(e) => setNewPost(e.target.value)}
-                    className="input-professional min-h-[100px] resize-none"
-                  />
-                  <div className="flex justify-between items-center">
-                    <div className="flex gap-2">
-                      <Badge variant="outline" className="text-xs cursor-pointer hover:bg-gray-50">
-                        #investing
-                      </Badge>
-                      <Badge variant="outline" className="text-xs cursor-pointer hover:bg-gray-50">
-                        #savings
-                      </Badge>
-                      <Badge variant="outline" className="text-xs cursor-pointer hover:bg-gray-50">
-                        #budgeting
-                      </Badge>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Feed */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Create Post */}
+            <Card className="card-professional">
+              <CardContent className="p-6">
+                <div className="flex gap-4">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src="/api/placeholder/40/40" />
+                    <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)' }}>
+                      JD
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <Textarea 
+                      placeholder="What's on your mind about finance?"
+                      value={newPost}
+                      onChange={(e) => setNewPost(e.target.value)}
+                      className="min-h-[100px] resize-none border-0 focus:ring-0 p-0 text-base"
+                      style={{ 
+                        background: 'transparent',
+                        color: 'var(--color-text-white)'
+                      }}
+                    />
+                    <div className="flex justify-between items-center mt-4">
+                      <div className="flex gap-2">
+                        <Button variant="ghost" size="sm" style={{ color: 'var(--color-text-muted)' }}>
+                          💰 Add Topic
+                        </Button>
+                        <Button variant="ghost" size="sm" style={{ color: 'var(--color-text-muted)' }}>
+                          📊 Add Chart
+                        </Button>
+                      </div>
+                      <Button 
+                        onClick={handlePost} 
+                        disabled={!newPost.trim()}
+                        className="btn-professional"
+                        style={{ background: 'var(--color-primary-accent)' }}
+                      >
+                        Post
+                      </Button>
                     </div>
-                    <Button
-                      onClick={handlePost}
-                      disabled={!newPost.trim()}
-                      className="btn-professional"
-                    >
-                      Post
-                    </Button>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
           {/* Feed Posts */}
           <div className="space-y-6">
