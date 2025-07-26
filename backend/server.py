@@ -367,6 +367,8 @@ async def get_dashboard_analytics(user_id: str):
     try:
         # Get user profile
         profile = await db.user_profiles.find_one({"id": user_id})
+        if profile:
+            profile["_id"] = str(profile["_id"])
         
         # Get goals
         goals = []
@@ -376,6 +378,8 @@ async def get_dashboard_analytics(user_id: str):
         
         # Get budget
         budget = await db.budgets.find_one({"user_id": user_id})
+        if budget:
+            budget["_id"] = str(budget["_id"])
         
         # Generate AI insights based on user data
         if profile:
