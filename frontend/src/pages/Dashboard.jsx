@@ -276,7 +276,11 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="breathing-space-lg">
+    <div className="max-w-7xl mx-auto p-6" style={{ 
+      background: 'var(--color-bg-primary)', 
+      color: 'var(--color-text-white)',
+      minHeight: '100vh'
+    }}>
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="grid w-full grid-cols-4 bg-gray-50 dark:bg-gray-800 p-1 rounded-lg mb-8">
           <TabsTrigger value="overview" className="interactive text-sm font-medium">Overview</TabsTrigger>
