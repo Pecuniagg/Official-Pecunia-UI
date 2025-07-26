@@ -4,26 +4,26 @@
 /* ================================== */
 
 :root {
-  /* Primary Base Colors from Guidelines */
-  --background: #0A0A0F;
-  --foreground: #F4F4F5;
-  --card: #1E1B24;
-  --card-foreground: #F4F4F5;
-  --popover: #1E1B24;
-  --popover-foreground: #F4F4F5;
-  --primary: #5945A3;
-  --primary-foreground: #F4F4F5;
-  --secondary: #1E1B24;
-  --secondary-foreground: #F4F4F5;
-  --muted: #1E1B24;
-  --muted-foreground: #9C9C9C;
-  --accent: #B37E91;
-  --accent-foreground: #F4F4F5;
-  --destructive: #FF4D67;
-  --destructive-foreground: #F4F4F5;
-  --border: rgba(244, 244, 245, 0.1);
-  --input: #1E1B24;
-  --ring: #5945A3;
+  /* Tailwind CSS Variables - Dark Mode HSL Values */
+  --background: 240 14% 4%;  /* #0A0A0F */
+  --foreground: 0 0% 96%;    /* #F4F4F5 */
+  --card: 240 14% 11%;       /* #1E1B24 */
+  --card-foreground: 0 0% 96%;  /* #F4F4F5 */
+  --popover: 240 14% 11%;    /* #1E1B24 */
+  --popover-foreground: 0 0% 96%;  /* #F4F4F5 */
+  --primary: 250 43% 48%;    /* #5945A3 */
+  --primary-foreground: 0 0% 96%;  /* #F4F4F5 */
+  --secondary: 240 14% 11%;  /* #1E1B24 */
+  --secondary-foreground: 0 0% 96%;  /* #F4F4F5 */
+  --muted: 240 14% 11%;      /* #1E1B24 */
+  --muted-foreground: 0 0% 61%;  /* #9C9C9C */
+  --accent: 336 25% 60%;     /* #B37E91 */
+  --accent-foreground: 0 0% 96%;  /* #F4F4F5 */
+  --destructive: 348 100% 65%;  /* #FF4D67 */
+  --destructive-foreground: 0 0% 96%;  /* #F4F4F5 */
+  --border: 240 14% 20%;     /* Lighter border for visibility */
+  --input: 240 14% 11%;      /* #1E1B24 */
+  --ring: 250 43% 48%;       /* #5945A3 */
   --radius: 0.5rem;
   
   /* Extended Theme Colors */
