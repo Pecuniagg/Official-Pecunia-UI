@@ -80,12 +80,18 @@ const Feed = () => {
           { name: 'Carol Davis', status: 'online', achievement: 'Reached investment goal' },
           { name: 'David Wilson', status: 'away', achievement: 'Improved credit score' }
         ].map((associate, index) => (
-          <div key={index} className="flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer interactive group">
+          <div key={index} className="flex items-center justify-between p-3 rounded-lg cursor-pointer interactive group"
+               style={{ 
+                 transition: 'background-color 0.2s ease',
+               }}
+               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
             <div className="flex items-center gap-3">
               <div className="relative">
                 <Avatar className="h-10 w-10 ring-2 ring-transparent group-hover:ring-[#5945a3] transition-all">
                   <AvatarImage src={`/api/placeholder/40/40`} />
-                  <AvatarFallback className="bg-[#5945a3] text-white">
+                  <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)' }}>
                     {associate.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
