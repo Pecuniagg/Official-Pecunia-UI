@@ -71,45 +71,45 @@
 }
 
 .dark {
-  /* Dark Mode Variables - Refined for Perfect Visibility */
+  /* Dark Mode Variables - Enhanced for Better Visibility */
   --background: #0a0a0f;
-  --foreground: #f1f5f9;
-  --card: #1a1825;
-  --card-foreground: #f1f5f9;
-  --popover: #1a1825;
-  --popover-foreground: #f1f5f9;
-  --primary: #8b5cf6;
+  --foreground: #ffffff;
+  --card: #1a1a1f;
+  --card-foreground: #ffffff;
+  --popover: #1f1f24;
+  --popover-foreground: #ffffff;
+  --primary: #6b5bb5;
   --primary-foreground: #ffffff;
-  --secondary: #2d2a37;
-  --secondary-foreground: #e2e8f0;
-  --muted: #2d2a37;
-  --muted-foreground: #94a3b8;
-  --accent: #3b345b;
-  --accent-foreground: #f1f5f9;
-  --destructive: #ef4444;
+  --secondary: #2a2a2f;
+  --secondary-foreground: #e0e0e0;
+  --muted: #2a2a2f;
+  --muted-foreground: #b0b0b0;
+  --accent: #2a2a2f;
+  --accent-foreground: #e0e0e0;
+  --destructive: #ff5555;
   --destructive-foreground: #ffffff;
-  --border: #3b345b;
-  --input: #2d2a37;
-  --ring: #8b5cf6;
+  --border: #3a3a3f;
+  --input: #2a2a2f;
+  --ring: #6b5bb5;
   
   /* Custom Pecunia Variables - Dark Mode Enhanced */
-  --pecunia-gradient-start: #8b5cf6;
-  --pecunia-gradient-end: #c084fc;
-  --pecunia-surface: #1a1825;
-  --pecunia-surface-elevated: #2d2a37;
-  --pecunia-surface-hover: #3b345b;
-  --pecunia-surface-active: #4c4663;
-  --pecunia-text-primary: #f1f5f9;
-  --pecunia-text-secondary: #cbd5e1;
-  --pecunia-text-muted: #94a3b8;
-  --pecunia-text-inverse: #0f0f0f;
-  --pecunia-border: #3b345b;
-  --pecunia-border-light: #2d2a37;
-  --pecunia-border-focus: #8b5cf6;
-  --pecunia-success: #22c55e;
-  --pecunia-warning: #fbbf24;
-  --pecunia-error: #f87171;
-  --pecunia-info: #60a5fa;
+  --pecunia-gradient-start: #6b5bb5;
+  --pecunia-gradient-end: #c58ca1;
+  --pecunia-surface: #1a1a1f;
+  --pecunia-surface-elevated: #1f1f24;
+  --pecunia-surface-hover: #2f2f34;
+  --pecunia-surface-active: #3a3a3f;
+  --pecunia-text-primary: #ffffff;
+  --pecunia-text-secondary: #e0e0e0;
+  --pecunia-text-muted: #b0b0b0;
+  --pecunia-text-inverse: #0a0a0f;
+  --pecunia-border: #3a3a3f;
+  --pecunia-border-light: #2f2f34;
+  --pecunia-border-focus: #6b5bb5;
+  --pecunia-success: #52e085;
+  --pecunia-warning: #ffb84d;
+  --pecunia-error: #ff5555;
+  --pecunia-info: #4da6ff;
   
   /* Navigation - Dark Mode */
   --nav-background: #1a1825;
