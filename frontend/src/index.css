@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import './styles/design-system.css';
+@import './styles/professional-refinements.css';
 @import './styles/animations.css';
 @import './styles/theme.css';
 
