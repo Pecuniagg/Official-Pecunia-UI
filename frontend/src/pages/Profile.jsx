@@ -186,7 +186,7 @@ const Profile = () => {
             <Button
               variant="ghost"
               size="sm"
-              className={`btn-professional gap-2 ${likedPosts.has(post.id) ? 'text-red-500' : 'text-gray-500'}`}
+              className={`btn-professional gap-2 profile-post-button ${likedPosts.has(post.id) ? 'text-red-500' : 'text-gray-500'}`}
               onClick={() => handleLike(post.id)}
             >
               <Heart size={16} className={likedPosts.has(post.id) ? 'fill-current' : ''} />
