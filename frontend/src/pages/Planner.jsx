@@ -604,7 +604,7 @@ const Planner = () => {
 
           <div className="flex gap-2 animate-silk animate-delay-whisper-3">
             <Button 
-              className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-whisper"
+              className="flex-1 bg-[#5945a3] hover:bg-[#4a3d8f] btn-whisper planner-view-details-box"
               onClick={() => setSelectedPlan(plan)}
             >
               <Eye size={14} className="mr-1 icon-whisper" />
