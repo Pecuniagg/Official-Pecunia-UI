@@ -12,7 +12,6 @@ import Feed from "./pages/Feed";
 import Planner from "./pages/Planner";
 import Profile from "./pages/Profile";
 import Compare from "./pages/Compare";
-import ColorSystemDemo from "./components/ColorSystemDemo";
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
                 <Route path="/planner" element={<Planner />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/compare" element={<Compare />} />
-                <Route path="/color-demo" element={<ColorSystemDemo />} />
               </Routes>
             </Layout>
           </BrowserRouter>
