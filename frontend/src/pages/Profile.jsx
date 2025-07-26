@@ -176,7 +176,7 @@ const Profile = () => {
               <p className="text-professional-body text-sm">{post.time}</p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="btn-professional">
+          <Button variant="ghost" size="sm" className="btn-professional profile-post-button">
             <Edit size={16} />
           </Button>
         </div>
