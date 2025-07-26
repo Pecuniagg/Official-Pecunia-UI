@@ -360,14 +360,14 @@ const AIAssistant = ({ isOpen, onClose }) => {
             </div>
 
             {/* Input Area */}
-            <div className="p-6 border-t border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-800">
+            <div className="ai-assistant-input-container">
               <div className="flex gap-3">
                 <Input
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="Ask me anything about your finances..."
-                  className="flex-1 focus:ring-[#5945a3] transition-all duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                  className="flex-1 ai-assistant-input"
                   disabled={isTyping}
                 />
                 <Button
