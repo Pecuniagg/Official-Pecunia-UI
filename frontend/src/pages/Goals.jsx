@@ -294,7 +294,11 @@ const Goals = () => {
   };
 
   return (
-    <div className="app-modern">
+    <div style={{ 
+      background: 'var(--color-bg-primary)', 
+      color: 'var(--color-text-white)',
+      minHeight: '100vh'
+    }}>
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
