@@ -525,14 +525,19 @@ const Compare = () => {
   };
 
   return (
-    <div className="space-y-8 animate-whisper">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2 animate-silk" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
-          Compare
-        </h1>
-        <p className="text-[#3b345b] animate-silk animate-delay-whisper-1">Learn from friends and benchmark against others</p>
-      </div>
+    <div style={{ 
+      background: 'var(--color-bg-primary)', 
+      color: 'var(--color-text-white)',
+      minHeight: '100vh'
+    }}>
+      <div className="max-w-7xl mx-auto p-6 space-y-8">
+        {/* Header */}
+        <div>
+          <h1 className="text-professional-hero mb-2">
+            Compare
+          </h1>
+          <p className="text-professional-subtitle">Learn from friends and benchmark against others</p>
+        </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="mb-8 animate-silk animate-delay-whisper-2">
