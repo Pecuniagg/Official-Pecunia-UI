@@ -294,40 +294,41 @@ const Goals = () => {
   };
 
   return (
-    <div className="breathing-space-lg scroll-professional">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-professional-hero">Financial Goals</h1>
-          <p className="text-professional-body mt-2">Track and achieve your financial objectives with AI-powered strategies</p>
+    <div className="app-modern">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-modern-hero">Financial Goals</h1>
+            <p className="text-modern-subtitle mt-2">Track and achieve your financial objectives with AI-powered strategies</p>
+          </div>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              className="btn-modern-secondary"
+              onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+            >
+              {viewMode === 'grid' ? 'List View' : 'Grid View'}
+            </Button>
+            <Button
+              className="btn-modern-primary"
+              onClick={() => setShowNewGoal(true)}
+            >
+              <Plus size={16} className="mr-2" />
+              New Goal
+            </Button>
+          </div>
         </div>
-        <div className="flex gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            className="btn-professional"
-            onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
-          >
-            {viewMode === 'grid' ? 'List View' : 'Grid View'}
-          </Button>
-          <Button
-            className="btn-professional"
-            onClick={() => setShowNewGoal(true)}
-          >
-            <Plus size={16} className="mr-2" />
-            New Goal
-          </Button>
-        </div>
-      </div>
 
-      {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="tabs-professional mb-8">
-          <TabsTrigger value="personal" className="tab-professional">
-            <Target className="h-4 w-4 mr-2" />
-            Personal Goals
-          </TabsTrigger>
-          <TabsTrigger value="group" className="tab-professional">
+        {/* Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="bg-gray-50 dark:bg-gray-800/50 p-1 rounded-lg mb-8">
+            <TabsTrigger value="personal" className="nav-modern-item">
+              <Target className="h-4 w-4 mr-2" />
+              Personal Goals
+            </TabsTrigger>
+            <TabsTrigger value="group" className="nav-modern-item">
             <Users className="h-4 w-4 mr-2" />
             Group Goals
           </TabsTrigger>
