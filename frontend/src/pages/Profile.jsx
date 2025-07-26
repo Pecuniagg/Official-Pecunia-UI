@@ -464,6 +464,7 @@ const Profile = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };
