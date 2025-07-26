@@ -192,7 +192,7 @@ const Profile = () => {
               <Heart size={16} className={likedPosts.has(post.id) ? 'fill-current' : ''} />
               <span>{post.likes + (likedPosts.has(post.id) ? 1 : 0)}</span>
             </Button>
-            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500">
+            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500 profile-post-button">
               <MessageCircle size={16} />
               <span>{post.comments}</span>
             </Button>
