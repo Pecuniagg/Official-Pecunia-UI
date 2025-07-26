@@ -24,12 +24,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Toaster } from "./ui/toaster";
 import AIAssistant from "./AIAssistant";
 import QuickActionPanel from "./QuickActionPanel";
-import { useTheme } from '../contexts/ThemeContext';
-import '../styles/modern-color-system.css';
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const { isDarkMode } = useTheme();
   const [showAI, setShowAI] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
 
@@ -45,9 +42,12 @@ const Layout = ({ children }) => {
   const isActive = (href) => location.pathname === href;
 
   return (
-    <div className={`flex h-screen bg-white ${isDarkMode ? 'dark' : ''} transition-colors duration-300`}>
-      {/* Fixed Sidebar - Enhanced spacing and breathing room */}
-      <div className="fixed inset-y-0 left-0 w-[280px] bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 card-professional">
+    <div className="flex h-screen" style={{ background: 'var(--color-bg-primary)' }}>
+      {/* Fixed Sidebar */}
+      <div className="fixed inset-y-0 left-0 w-[280px] border-r" style={{ 
+        background: 'var(--color-surface-dark)', 
+        borderColor: 'var(--color-border)' 
+      }}>
         <div className="flex flex-col h-full">
           {/* Logo - Generous spacing */}
           <div className="section-spacing breathing-space-vertical">
