@@ -159,7 +159,7 @@ const Feed = () => {
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10 ring-2 ring-transparent hover:ring-[#5945a3] transition-all">
               <AvatarImage src={post.avatar} />
-              <AvatarFallback className="bg-[#5945a3] text-white">
+              <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)' }}>
                 {post.author.split(' ').map(n => n[0]).join('')}
               </AvatarFallback>
             </Avatar>
@@ -177,7 +177,7 @@ const Feed = () => {
         <p className="text-professional-body">{post.content}</p>
         
         {post.ticker && (
-          <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <div className="flex items-center gap-2 p-3 rounded-lg" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
             <DollarSign className="text-[#5945a3]" size={16} />
             <span className="text-professional-subtitle font-medium">{post.ticker}</span>
             <Badge variant="outline" className={`${post.stockPrice.startsWith('+') ? 'text-green-600' : 'text-red-500'}`}>
@@ -186,7 +186,7 @@ const Feed = () => {
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
+        <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
           <div className="flex items-center gap-6">
             <Button
               variant="ghost"
