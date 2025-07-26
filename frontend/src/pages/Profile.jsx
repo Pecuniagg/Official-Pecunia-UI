@@ -149,7 +149,7 @@ const Profile = () => {
           <Button 
             size="sm" 
             variant="outline" 
-            className="flex-1 btn-professional"
+            className="flex-1 btn-professional profile-lending-button"
             onClick={() => toast({ title: "Request Declined", description: "Lending request has been declined" })}
           >
             <AlertCircle size={16} className="mr-2" />
