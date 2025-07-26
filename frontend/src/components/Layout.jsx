@@ -46,11 +46,11 @@ const Layout = ({ children }) => {
   return (
     <div className={`flex h-screen bg-white ${isDarkMode ? 'dark' : ''} transition-colors duration-300`}>
       {/* Fixed Sidebar - Enhanced spacing and breathing room */}
-      <div className="fixed inset-y-0 left-0 w-[280px] bg-white border-r border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+      <div className="fixed inset-y-0 left-0 w-[280px] bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 card-professional">
         <div className="flex flex-col h-full">
           {/* Logo - Generous spacing */}
           <div className="section-spacing breathing-space-vertical">
-            <h1 className="visual-hierarchy-1 text-[#5945a3] dark:text-white tracking-tight transition-colors duration-300" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+            <h1 className="text-professional-hero text-[#5945a3] dark:text-white tracking-tight transition-colors duration-300" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
               Pecunia
             </h1>
           </div>
@@ -64,10 +64,8 @@ const Layout = ({ children }) => {
                   <li key={item.name} className="transition-all duration-150 ease-in-out">
                     <Link
                       to={item.href}
-                      className={`interactive flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out ${
-                        isActive(item.href)
-                          ? "bg-[#5945a3] text-white shadow-sm"
-                          : "text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                      className={`nav-professional flex items-center gap-3 px-4 py-3 text-sm font-medium ${
+                        isActive(item.href) ? 'active' : ''
                       }`}
                     >
                       <Icon size={20} className="transition-transform duration-200 ease-in-out" />
@@ -83,7 +81,7 @@ const Layout = ({ children }) => {
           <div className="px-6 pb-8 border-t border-gray-100 dark:border-gray-800 pt-6">
             <Button
               onClick={() => setShowAI(true)}
-              className="w-full flex items-center gap-3 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 interactive text-white border-0 shadow-sm transition-all duration-200 ease-in-out"
+              className="w-full flex items-center gap-3 btn-professional bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 text-white border-0 shadow-sm"
             >
               <Bot size={20} />
               Ask Pecunia
@@ -95,10 +93,10 @@ const Layout = ({ children }) => {
       {/* Main Content - Improved spacing and layout */}
       <div className="flex-1 ml-[280px] min-h-screen">
         {/* Top Bar - Cleaner design with consistent spacing */}
-        <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/95 backdrop-blur-md border-b border-gray-100 z-10 dark:bg-gray-900/95 dark:border-gray-800 transition-colors duration-300">
+        <header className="fixed top-0 right-0 left-[280px] h-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 z-10 transition-colors duration-300">
           <div className="flex items-center justify-between h-full px-8">
             <div className="flex items-center gap-6">
-              <h2 className="visual-hierarchy-2 text-gray-900 dark:text-white transition-colors duration-300">
+              <h2 className="text-professional-title text-gray-900 dark:text-white transition-colors duration-300">
                 {navigation.find(nav => nav.href === location.pathname)?.name || "Dashboard"}
               </h2>
             </div>
@@ -108,16 +106,16 @@ const Layout = ({ children }) => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition-colors duration-200" size={16} />
                 <Input 
                   placeholder="Search..." 
-                  className="pl-10 w-80 bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-[#5945a3] transition-all duration-200 dark:bg-gray-800 dark:focus:bg-gray-700 dark:text-white"
+                  className="pl-10 w-80 input-professional bg-gray-50 dark:bg-gray-800 border-0 focus:bg-white dark:focus:bg-gray-700 dark:text-white"
                 />
               </div>
               
-              <Button variant="ghost" size="sm" className="relative interactive text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+              <Button variant="ghost" size="sm" className="relative btn-professional text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                 <Bell size={20} />
                 <span className="absolute -top-1 -right-1 h-2 w-2 bg-[#b37e91] rounded-full"></span>
               </Button>
               
-              <Avatar className="h-8 w-8 interactive ring-2 ring-transparent hover:ring-[#5945a3] transition-all duration-200">
+              <Avatar className="h-8 w-8 ring-2 ring-transparent hover:ring-[#5945a3] transition-all duration-200 cursor-pointer">
                 <AvatarImage src="/api/placeholder/32/32" />
                 <AvatarFallback className="bg-[#5945a3] text-white">JD</AvatarFallback>
               </Avatar>
@@ -127,7 +125,7 @@ const Layout = ({ children }) => {
 
         {/* Page Content - Improved spacing and breathing room */}
         <main className="pt-16 min-h-screen">
-          <div className="container section-spacing-lg max-w-[1200px] mx-auto">
+          <div className="container section-spacing-lg max-w-[1200px] mx-auto scroll-professional">
             {children}
           </div>
         </main>
@@ -136,7 +134,7 @@ const Layout = ({ children }) => {
       {/* Quick Action Button - Non-overlapping, side panel trigger */}
       <Button
         onClick={() => setShowQuickActions(true)}
-        className="fixed bottom-8 right-8 h-14 px-6 bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 shadow-lg hover:shadow-xl interactive text-white border-0 z-50 transition-all duration-200 ease-in-out"
+        className="fixed bottom-8 right-8 h-14 px-6 btn-professional bg-gradient-to-r from-[#5945a3] to-[#b37e91] hover:opacity-90 shadow-lg hover:shadow-xl text-white border-0 z-50"
         size="lg"
       >
         <Plus size={20} className="mr-2 transition-transform duration-200" />
