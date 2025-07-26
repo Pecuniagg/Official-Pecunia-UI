@@ -237,7 +237,7 @@ const Dashboard = () => {
                     Set Category Budget
                   </Button>
                   <Button 
-                    className="w-full justify-start" 
+                    className="w-full justify-start dashboard-trend-box" 
                     variant="outline"
                     onClick={() => toast({ title: "Trend Analysis", description: "Analyzing spending patterns..." })}
                   >
