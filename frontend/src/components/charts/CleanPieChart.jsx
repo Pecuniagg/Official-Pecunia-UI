@@ -43,11 +43,11 @@ const CleanPieChart = ({
   };
 
   return (
-    <Card className="card-system">
+    <div className="card-system h-full">
       {title && (
-        <CardHeader className="pb-4">
+        <div className="px-6 pt-6 pb-4 border-b border-gray-100 dark:border-gray-800">
           <div className="flex justify-between items-center">
-            <CardTitle className="visual-hierarchy-3">{title}</CardTitle>
+            <h3 className="visual-hierarchy-3 text-gray-900 dark:text-white">{title}</h3>
             <div className="text-right">
               <div className="text-lg font-semibold text-[#5945a3]">
                 {centerValue || `$${(total / 1000).toFixed(0)}K`}
@@ -55,10 +55,10 @@ const CleanPieChart = ({
               <div className="text-xs text-muted">Total</div>
             </div>
           </div>
-        </CardHeader>
+        </div>
       )}
-      <CardContent className="p-0">
-        <div className="relative bg-white dark:bg-gray-900">
+      <div className="flex flex-col h-full">
+        <div className="relative bg-white dark:bg-gray-900 px-4 py-2">
           {/* Clean pie chart with proper spacing */}
           <ResponsiveContainer width="100%" height={260}>
             <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
@@ -117,7 +117,7 @@ const CleanPieChart = ({
         </div>
 
         {/* Clean legend with proper spacing */}
-        <div className="px-6 pb-6 pt-2">
+        <div className="px-6 pb-6 pt-2 flex-1">
           <div className="grid grid-cols-1 gap-1">
             {chartData.map((entry, index) => (
               <div 
@@ -149,8 +149,8 @@ const CleanPieChart = ({
             ))}
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
