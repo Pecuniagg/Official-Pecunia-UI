@@ -1,0 +1,298 @@
+/* ================================== */
+/* PECUNIA SINGLE THEME - DARK MODE */
+/* Based on Official Color Guidelines */
+/* ================================== */
+
+:root {
+  /* Primary Base Colors */
+  --color-bg-primary: #0A0A0F;        /* Main app background */
+  --color-surface-dark: #1E1B24;      /* Cards, panels, modals */
+  --color-primary-accent: #5945A3;    /* Buttons, links, graphs */
+  --color-secondary-accent: #B37E91;  /* Subtle highlights, gradients */
+  --color-success-green: #39D98A;     /* Positive metrics */
+  --color-error-red: #FF4D67;         /* Negative metrics */
+  --color-text-white: #F4F4F5;        /* Headings, high-contrast text */
+  --color-text-muted: #9C9C9C;        /* Sub-labels, secondary text */
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #5945A3 0%, #B37E91 100%);
+  --gradient-card-overlay: linear-gradient(180deg, rgba(10,10,15,0) 0%, rgba(10,10,15,0.95) 100%);
+  --gradient-progress: linear-gradient(90deg, #39D98A 0%, #B37E91 100%);
+  
+  /* Semantic Colors */
+  --color-background: #0A0A0F;
+  --color-foreground: #F4F4F5;
+  --color-card: #1E1B24;
+  --color-card-foreground: #F4F4F5;
+  --color-popover: #1E1B24;
+  --color-popover-foreground: #F4F4F5;
+  --color-primary: #5945A3;
+  --color-primary-foreground: #F4F4F5;
+  --color-secondary: #1E1B24;
+  --color-secondary-foreground: #F4F4F5;
+  --color-muted: #1E1B24;
+  --color-muted-foreground: #9C9C9C;
+  --color-accent: #B37E91;
+  --color-accent-foreground: #F4F4F5;
+  --color-destructive: #FF4D67;
+  --color-destructive-foreground: #F4F4F5;
+  --color-border: rgba(244, 244, 245, 0.1);
+  --color-input: #1E1B24;
+  --color-ring: #5945A3;
+  --radius: 0.5rem;
+  
+  /* Extended Color System */
+  --color-surface-elevated: #252229;
+  --color-surface-hover: #2A2631;
+  --color-surface-active: #2F2A37;
+  --color-border-subtle: rgba(244, 244, 245, 0.05);
+  --color-border-strong: rgba(244, 244, 245, 0.15);
+  --color-text-secondary: #BCBCBC;
+  --color-text-tertiary: #9C9C9C;
+  --color-text-inverse: #0A0A0F;
+  
+  /* Interactive States */
+  --color-hover-overlay: rgba(89, 69, 163, 0.1);
+  --color-active-overlay: rgba(89, 69, 163, 0.2);
+  --color-focus-ring: rgba(89, 69, 163, 0.3);
+  --color-selected-overlay: rgba(89, 69, 163, 0.15);
+  
+  /* Shadow System */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  /* Status Colors */
+  --color-positive: #39D98A;
+  --color-negative: #FF4D67;
+  --color-warning: #FFA500;
+  --color-info: #5945A3;
+  --color-success: #39D98A;
+  --color-error: #FF4D67;
+}
+
+/* ==================== BASE STYLES ==================== */
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-white);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== COMPONENT STYLES ==================== */
+
+/* Cards */
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease-out;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.card-elevated {
+  background: var(--gradient-card-overlay), var(--color-surface-elevated);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--color-primary-accent);
+  color: var(--color-text-white);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--gradient-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-secondary-accent);
+  border: 1px solid var(--color-primary-accent);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 500;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--color-hover-overlay);
+  transform: translateY(-1px);
+}
+
+/* Text Styles */
+.text-primary {
+  color: var(--color-text-white);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/* Status Indicators */
+.status-positive {
+  color: var(--color-positive);
+  background: rgba(57, 217, 138, 0.1);
+  border: 1px solid rgba(57, 217, 138, 0.3);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-negative {
+  color: var(--color-negative);
+  background: rgba(255, 77, 103, 0.1);
+  border: 1px solid rgba(255, 77, 103, 0.3);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Progress Bars */
+.progress-bar {
+  background: var(--color-surface-dark);
+  border-radius: 8px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  background: var(--gradient-progress);
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.3s ease-out;
+}
+
+/* Navigation */
+.nav-item {
+  color: var(--color-text-secondary);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 4px 0;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background: var(--color-hover-overlay);
+  color: var(--color-text-white);
+}
+
+.nav-item.active {
+  background: var(--gradient-primary);
+  color: var(--color-text-white);
+}
+
+/* Inputs */
+.input {
+  background: var(--color-input);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--color-text-white);
+  transition: all 0.2s ease-out;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary-accent);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Shadows and Elevation */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-2xl { box-shadow: var(--shadow-2xl); }
+
+/* Hover Effects */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(89, 69, 163, 0.3);
+}
+
+/* Chart Styles */
+.chart-container {
+  background: var(--color-surface-dark);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+    border-radius: 12px;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: rgba(244, 244, 245, 0.3);
+    --color-text-muted: #D0D0D0;
+  }
+}
