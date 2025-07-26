@@ -231,82 +231,89 @@ const AdvancedAnalyticsDashboard = ({ data }) => {
           </div>
         </TabsContent>
 
-        <TabsContent value="trends" className="space-y-6">
-          <TrendLineChart
-            data={mockData.trends}
-            title="Net Worth Trend Analysis"
-            subtitle="Your financial growth over time with projections"
-            showArea={false}
-            showTrends={true}
-            showProjection={true}
-            benchmarkValue={3500}
-            onDataPointClick={(data) => console.log('Trend point clicked:', data)}
-          />
+        <TabsContent value="trends" className="space-y-8">
+          <div className="max-w-6xl mx-auto">
+            <TrendLineChart
+              data={mockData.trends}
+              title="Net Worth Trend Analysis"
+              subtitle="Your financial growth over time with projections"
+              showArea={false}
+              showTrends={true}
+              showProjection={true}
+              benchmarkValue={3500}
+              onDataPointClick={(data) => console.log('Trend point clicked:', data)}
+            />
+          </div>
         </TabsContent>
 
-        <TabsContent value="comparison" className="space-y-6">
-          <ComparisonBarChart
-            data={mockData.comparison}
-            title="Performance vs Peers"
-            subtitle="How you compare to others in your age group and income bracket"
-            showComparison={true}
-            showPercentages={true}
-            benchmarkLabel="Age Group Average"
-            userLabel="Your Performance"
-            onBarClick={(data) => console.log('Comparison bar clicked:', data)}
-          />
+        <TabsContent value="comparison" className="space-y-8">
+          <div className="max-w-6xl mx-auto">
+            <ComparisonBarChart
+              data={mockData.comparison}
+              title="Performance vs Peers"
+              subtitle="How you compare to others in your age group and income bracket"
+              showComparison={true}
+              showPercentages={true}
+              benchmarkLabel="Age Group Average"
+              userLabel="Your Performance"
+              onBarClick={(data) => console.log('Comparison bar clicked:', data)}
+            />
+          </div>
         </TabsContent>
 
-        <TabsContent value="cashflow" className="space-y-6">
-          <CashFlowChart
-            data={mockData.cashFlow}
-            title="Monthly Cash Flow Analysis"
-            subtitle="Income vs expenses with financial health indicators"
-            showProjection={true}
-            onDataPointClick={(data) => console.log('Cash flow point clicked:', data)}
-          />
+        <TabsContent value="cashflow" className="space-y-8">
+          <div className="max-w-6xl mx-auto">
+            <CashFlowChart
+              data={mockData.cashFlow}
+              title="Monthly Cash Flow Analysis"
+              subtitle="Income vs expenses with financial health indicators"
+              showProjection={true}
+              onDataPointClick={(data) => console.log('Cash flow point clicked:', data)}
+            />
+          </div>
         </TabsContent>
       </Tabs>
 
-      {/* Detailed Insight Modal/Panel */}
+      {/* Detailed Insight Panel - Non-overlapping */}
       {selectedInsight && (
-        <Card className="border-2 border-blue-200 bg-blue-50">
-          <CardHeader>
+        <Card className="border-2 border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800 mt-8 card-system">
+          <CardHeader className="pb-4">
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center gap-2">
-                <Info className="text-blue-600" size={20} />
-                Detailed Insight: {selectedInsight}
+                <Info className="text-blue-600 dark:text-blue-400" size={20} />
+                <span className="visual-hierarchy-3">Detailed Insight: {selectedInsight}</span>
               </span>
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={() => setSelectedInsight(null)}
+                className="interactive text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 ×
               </Button>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div className="p-4 bg-white rounded-lg">
-                <h4 className="font-semibold mb-2">Analysis Summary</h4>
-                <p className="text-sm text-gray-600">
+            <div className="space-y-6">
+              <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Analysis Summary</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   Based on your {selectedInsight} data, we've identified key patterns and opportunities 
                   for optimization. This analysis uses AI to provide personalized recommendations.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-3 bg-white rounded-lg">
-                  <h5 className="font-medium text-sm mb-2">Key Findings</h5>
-                  <ul className="text-xs space-y-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                  <h5 className="font-medium text-sm mb-3 text-gray-900 dark:text-white">Key Findings</h5>
+                  <ul className="text-sm space-y-2 text-gray-600 dark:text-gray-300">
                     <li>• Performance above average</li>
                     <li>• Positive trend trajectory</li>
                     <li>• Room for optimization</li>
                   </ul>
                 </div>
-                <div className="p-3 bg-white rounded-lg">
-                  <h5 className="font-medium text-sm mb-2">Recommendations</h5>
-                  <ul className="text-xs space-y-1">
+                <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                  <h5 className="font-medium text-sm mb-3 text-gray-900 dark:text-white">Recommendations</h5>
+                  <ul className="text-sm space-y-2 text-gray-600 dark:text-gray-300">
                     <li>• Continue current strategy</li>
                     <li>• Consider rebalancing</li>
                     <li>• Monitor trends closely</li>
