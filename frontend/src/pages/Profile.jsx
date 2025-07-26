@@ -140,7 +140,7 @@ const Profile = () => {
         <div className="flex gap-2">
           <Button 
             size="sm" 
-            className="flex-1 btn-professional"
+            className="flex-1 btn-professional profile-lending-button"
             onClick={() => toast({ title: "Request Approved", description: "Lending request has been approved" })}
           >
             <CheckCircle size={16} className="mr-2" />
