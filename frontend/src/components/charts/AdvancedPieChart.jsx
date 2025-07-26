@@ -35,7 +35,7 @@ const AdvancedPieChart = ({
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg max-w-sm">
+        <div className="ai-message">
           <div className="font-semibold text-gray-800 mb-2">{data.name}</div>
           <div className="space-y-2">
             <div className="flex justify-between">
