@@ -456,7 +456,7 @@ const Profile = () => {
                     <p className="text-professional-body text-sm">Control who can see your profile</p>
                   </div>
                 </div>
-                <Button variant="outline" className="btn-professional">
+                <Button variant="outline" className="btn-professional profile-settings-button">
                   Public
                 </Button>
               </div>
