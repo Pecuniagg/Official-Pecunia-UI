@@ -1000,6 +1000,7 @@ const Planner = () => {
         plan={selectedPlan} 
         onClose={() => setSelectedPlan(null)} 
       />
+      </div>
     </div>
   );
 };
