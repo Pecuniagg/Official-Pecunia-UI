@@ -301,7 +301,18 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="breathing-space-lg">
+    <div className="breathing-space-lg relative">
+      {/* Toggle Button for Enhanced UI */}
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={() => setShowEnhancedUI(true)}
+          className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2 text-sm font-medium"
+        >
+          <ToggleLeft className="h-4 w-4" />
+          Enhanced UI
+        </button>
+      </div>
+
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="grid w-full grid-cols-4 bg-gray-50 dark:bg-gray-800 p-1 rounded-lg mb-8">
           <TabsTrigger value="overview" className="interactive text-sm font-medium">Overview</TabsTrigger>
