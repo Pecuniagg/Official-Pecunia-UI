@@ -316,33 +316,24 @@ const Compare = () => {
   );
 
   return (
-    <div className="mobile-layout" style={{ 
-      background: 'var(--color-bg-primary)', 
-      color: 'var(--color-text-white)',
-      minHeight: '100vh'
-    }}>
-      <div className="mobile-container lg:max-w-7xl lg:mx-auto lg:p-6">
-        {/* Header */}
-        <div className="text-center mb-6 lg:mb-8">
-          <h1 className="mobile-title lg:text-3xl lg:font-bold lg:mb-4" style={{ color: 'var(--color-text-white)' }}>
-            Financial Comparison
-          </h1>
-          <p className="mobile-body lg:text-lg" style={{ color: 'var(--color-text-muted)' }}>
-            Compare your financial progress with friends and public benchmarks
-          </p>
-        </div>
+    <div className="compare-container">
+      {/* Header */}
+      <div className="compare-header">
+        <h1>Financial Comparison</h1>
+        <p>Compare your financial progress with friends and public benchmarks</p>
+      </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="mb-4 lg:mb-8 w-full lg:w-auto animate-silk animate-delay-whisper-2">
-            <TabsTrigger value="friends" className="flex items-center gap-1 lg:gap-2 btn-whisper nav-whisper flex-1 lg:flex-none">
-              <Users size={14} className="icon-whisper" />
-              <span className="text-xs lg:text-sm">Friends</span>
-            </TabsTrigger>
-            <TabsTrigger value="public" className="flex items-center gap-1 lg:gap-2 btn-whisper nav-whisper flex-1 lg:flex-none">
-              <Globe size={14} className="icon-whisper" />
-              <span className="text-xs lg:text-sm">Public Data</span>
-            </TabsTrigger>
-          </TabsList>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="compare-tabs">
+        <TabsList className="tabs-list">
+          <TabsTrigger value="friends" className="tabs-trigger">
+            <Users size={16} />
+            <span>Friends</span>
+          </TabsTrigger>
+          <TabsTrigger value="public" className="tabs-trigger">
+            <Globe size={16} />
+            <span>Public Data</span>
+          </TabsTrigger>
+        </TabsList>
 
           <TabsContent value="friends" className="animate-breath">
             <FriendSelector />
