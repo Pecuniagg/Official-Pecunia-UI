@@ -404,6 +404,7 @@ const Compare = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
           </TabsContent>
         </Tabs>
       </div>
