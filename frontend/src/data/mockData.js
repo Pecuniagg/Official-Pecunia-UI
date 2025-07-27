@@ -249,9 +249,61 @@ export const mockData = {
   },
   compare: {
     friends: [
-      { name: 'Alex Thompson', netWorth: 125000, savingsRate: 25, score: 798 },
-      { name: 'Maria Garcia', netWorth: 98000, savingsRate: 22, score: 745 },
-      { name: 'David Kim', netWorth: 156000, savingsRate: 30, score: 820 }
+      { 
+        name: 'Alex Thompson', 
+        netWorth: '$125K', 
+        growth: '+8.2%',
+        savingsRate: 25, 
+        score: 798 
+      },
+      { 
+        name: 'Maria Garcia', 
+        netWorth: '$98K', 
+        growth: '+6.1%',
+        savingsRate: 22, 
+        score: 745 
+      },
+      { 
+        name: 'David Kim', 
+        netWorth: '$156K', 
+        growth: '+12.3%',
+        savingsRate: 30, 
+        score: 820 
+      }
+    ],
+    metrics: [
+      {
+        category: 'Net Worth',
+        yourScore: 85,
+        average: 68,
+        ranking: 25,
+        trend: 'up',
+        comparison: 'Avg'
+      },
+      {
+        category: 'Investments',
+        yourScore: 92,
+        average: 74,
+        ranking: 15,
+        trend: 'up',
+        comparison: 'Avg'
+      },
+      {
+        category: 'Savings Rate',
+        yourScore: 78,
+        average: 62,
+        ranking: 35,
+        trend: 'up',
+        comparison: 'Avg'
+      },
+      {
+        category: 'Debt Management',
+        yourScore: 88,
+        average: 71,
+        ranking: 20,
+        trend: 'up',
+        comparison: 'Avg'
+      }
     ],
     public: {
       avgNetWorth: 89000,
