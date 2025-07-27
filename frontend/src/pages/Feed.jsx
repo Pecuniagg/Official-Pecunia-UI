@@ -1,267 +1,201 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader } from '../components/ui/card';
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Textarea } from '../components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
-import { Heart, MessageCircle, Share2, TrendingUp, Users, DollarSign, MoreHorizontal, BookOpen } from 'lucide-react';
+import { Textarea } from '../components/ui/textarea';
+import { useToast } from '../hooks/use-toast';
+import { 
+  Heart, 
+  MessageCircle, 
+  Share2, 
+  TrendingUp, 
+  TrendingDown, 
+  DollarSign,
+  Users,
+  Plus,
+  Image,
+  Globe,
+  Lock,
+  Eye,
+  MoreHorizontal,
+  Bookmark,
+  AlertCircle,
+  CheckCircle,
+  Bell
+} from 'lucide-react';
 import { mockData } from '../data/mockData';
 
 const Feed = () => {
   const [newPost, setNewPost] = useState('');
   const [likedPosts, setLikedPosts] = useState(new Set());
-  const { feed } = mockData;
-
-  const handlePost = () => {
-    if (newPost.trim()) {
-      console.log('New post:', newPost);
-      setNewPost('');
-    }
-  };
+  const [bookmarkedPosts, setBookmarkedPosts] = useState(new Set());
+  const [filter, setFilter] = useState('all');
+  const { feed, popularTickers, associates, tips } = mockData;
+  const { toast } = useToast();
 
   const handleLike = (postId) => {
     setLikedPosts(prev => {
-      const newLiked = new Set(prev);
-      if (newLiked.has(postId)) {
-        newLiked.delete(postId);
+      const newSet = new Set(prev);
+      if (newSet.has(postId)) {
+        newSet.delete(postId);
+        toast({ title: "Unliked", description: "Post removed from likes" });
       } else {
-        newLiked.add(postId);
+        newSet.add(postId);
+        toast({ title: "Liked! ❤️", description: "Post added to your likes" });
       }
-      return newLiked;
+      return newSet;
     });
   };
 
-  const PopularTickers = () => (
-    <Card className="card-professional hover-professional">
-      <CardHeader className="pb-4">
-        <h3 className="text-professional-title flex items-center gap-2">
-          <TrendingUp className="text-[#5945a3]" size={20} />
-          Popular Tickers
-        </h3>
-      </CardHeader>
-      <CardContent className="space-y-2">
-        {[
-          { symbol: '$AAPL', price: '+2.3%', color: 'text-green-600' },
-          { symbol: '$TSLA', price: '+15.2%', color: 'text-green-600' },
-          { symbol: '$GOOGL', price: '-1.1%', color: 'text-red-500' },
-          { symbol: '$MSFT', price: '+0.8%', color: 'text-green-600' },
-          { symbol: '$AMZN', price: '-0.5%', color: 'text-red-500' }
-        ].map((ticker, index) => (
-          <div key={index} className="flex justify-between items-center p-3 rounded-lg cursor-pointer interactive group" 
-               style={{ 
-                 transition: 'background-color 0.2s ease',
-                 ':hover': { backgroundColor: 'var(--color-surface-hover)' }
-               }}
-               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
-               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-          >
-            <span className="text-professional-subtitle font-medium">{ticker.symbol}</span>
-            <span className={`text-professional-subtitle font-semibold ${ticker.color} group-hover:scale-105 transition-transform`}>
-              {ticker.price}
-            </span>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
+  const handleBookmark = (postId) => {
+    setBookmarkedPosts(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(postId)) {
+        newSet.delete(postId);
+        toast({ title: "Bookmark removed", description: "Post removed from bookmarks" });
+      } else {
+        newSet.add(postId);
+        toast({ title: "Bookmarked! 📌", description: "Post saved to bookmarks" });
+      }
+      return newSet;
+    });
+  };
 
-  const Associates = () => (
-    <Card className="card-professional hover-professional">
-      <CardHeader className="pb-4">
-        <h3 className="text-professional-title flex items-center gap-2">
-          <Users className="text-[#5945a3]" size={20} />
-          Your Associates
-        </h3>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {[
-          { name: 'Alice Johnson', status: 'online', achievement: 'Saved $5K this month' },
-          { name: 'Bob Smith', status: 'offline', achievement: 'Completed emergency fund' },
-          { name: 'Carol Davis', status: 'online', achievement: 'Reached investment goal' },
-          { name: 'David Wilson', status: 'away', achievement: 'Improved credit score' }
-        ].map((associate, index) => (
-          <div key={index} className="flex items-center justify-between p-3 rounded-lg cursor-pointer interactive group"
-               style={{ 
-                 transition: 'background-color 0.2s ease',
-               }}
-               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
-               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-          >
+  const handlePost = () => {
+    if (!newPost.trim()) return;
+    
+    toast({
+      title: "Post shared! 🎉",
+      description: "Your financial insight has been shared with the community",
+    });
+    setNewPost('');
+  };
+
+  const PostCard = ({ post }) => {
+    const isLiked = likedPosts.has(post.id);
+    const isBookmarked = bookmarkedPosts.has(post.id);
+    
+    return (
+      <Card className="mobile-card lg:card-professional hover:shadow-lg transition-all duration-200">
+        <CardHeader className="mobile-card-header lg:pb-4">
+          <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
-              <div className="relative">
-                <Avatar className="h-10 w-10 ring-2 ring-transparent group-hover:ring-[#5945a3] transition-all">
-                  <AvatarImage src={`/api/placeholder/40/40`} />
-                  <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)' }}>
-                    {associate.name.split(' ').map(n => n[0]).join('')}
-                  </AvatarFallback>
-                </Avatar>
-                <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${
-                  associate.status === 'online' ? 'bg-green-500' : 
-                  associate.status === 'away' ? 'bg-yellow-500' : 'bg-gray-400'
-                }`} />
-              </div>
+              <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
+                <AvatarImage src={post.author.avatar} />
+                <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-sm">
+                  {post.author.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
               <div>
-                <p className="text-professional-subtitle font-medium">{associate.name}</p>
-                <p className="text-professional-body text-sm">{associate.achievement}</p>
+                <h4 className="mobile-subtitle lg:font-semibold">{post.author.name}</h4>
+                <div className="flex items-center gap-2">
+                  <p className="mobile-caption lg:text-sm text-gray-500">{post.timeAgo}</p>
+                  {post.author.verified && (
+                    <CheckCircle className="h-3 w-3 lg:h-4 lg:w-4 text-blue-500" />
+                  )}
+                </div>
               </div>
             </div>
-            <Button variant="outline" size="sm" className="btn-professional opacity-0 group-hover:opacity-100 transition-opacity">
-              View
+            <Button variant="ghost size="sm" className="p-1 lg:p-2">
+              <MoreHorizontal className="h-4 w-4" />
             </Button>
           </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
-
-  const FinancialTips = () => (
-    <Card className="card-professional hover-professional">
-      <CardHeader className="pb-4">
-        <h3 className="text-professional-title flex items-center gap-2">
-          <BookOpen className="text-[#5945a3]" size={20} />
-          Financial Tips
-        </h3>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {[
-          {
-            title: "Emergency Fund Rule",
-            tip: "Save 3-6 months of expenses for emergencies",
-            category: "Savings"
-          },
-          {
-            title: "50/30/20 Rule",
-            tip: "50% needs, 30% wants, 20% savings",
-            category: "Budgeting"
-          },
-          {
-            title: "Credit Score",
-            tip: "Pay bills on time to maintain good credit",
-            category: "Credit"
-          }
-        ].map((tip, index) => (
-          <div key={index} className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-            <div className="flex items-center justify-between mb-2">
-              <h4 className="text-professional-subtitle font-medium">{tip.title}</h4>
-              <Badge variant="outline" className="text-xs">{tip.category}</Badge>
+        </CardHeader>
+        <CardContent className="mobile-card-content">
+          <p className="mobile-body lg:text-gray-700 lg:dark:text-gray-300 mb-4">{post.content}</p>
+          
+          {post.metrics && (
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 lg:p-4 mb-4">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+                {post.metrics.map((metric, index) => (
+                  <div key={index} className="text-center">
+                    <div className={`flex items-center justify-center gap-1 ${metric.trend === 'up' ? 'text-green-600' : 'text-red-500'}`}>
+                      {metric.trend === 'up' ? <TrendingUp className="h-3 w-3 lg:h-4 lg:w-4" /> : <TrendingDown className="h-3 w-3 lg:h-4 lg:w-4" />}
+                      <span className="mobile-caption lg:font-semibold">{metric.value}</span>
+                    </div>
+                    <p className="mobile-caption text-gray-500 mt-1">{metric.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <p className="text-professional-body text-sm">{tip.tip}</p>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
-
-  const PostCard = ({ post }) => (
-    <Card className="card-professional hover-professional">
-      <CardHeader className="pb-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 ring-2 ring-transparent hover:ring-[#5945a3] transition-all">
-              <AvatarImage src={post.avatar} />
-              <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)' }}>
-                {post.author.split(' ').map(n => n[0]).join('')}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-professional-subtitle font-medium">{post.author}</p>
-              <p className="text-professional-body text-sm">{post.time}</p>
+          )}
+          
+          <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700">
+            <div className="flex items-center gap-4 lg:gap-6">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`mobile-btn-sm gap-2 ${isLiked ? 'text-red-500' : 'text-gray-500'}`}
+                onClick={() => handleLike(post.id)}
+              >
+                <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
+                <span className="text-xs lg:text-sm">{post.likes + (isLiked ? 1 : 0)}</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="mobile-btn-sm gap-2 text-gray-500">
+                <MessageCircle className="h-4 w-4" />
+                <span className="text-xs lg:text-sm">{post.comments}</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="mobile-btn-sm gap-2 text-gray-500">
+                <Share2 className="h-4 w-4" />
+                <span className="hidden lg:inline text-xs lg:text-sm">Share</span>
+              </Button>
             </div>
-          </div>
-          <Button variant="ghost" size="sm" className="btn-professional">
-            <MoreHorizontal size={16} />
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-professional-body">{post.content}</p>
-        
-        {post.ticker && (
-          <div className="flex items-center gap-2 p-3 rounded-lg" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
-            <DollarSign className="text-[#5945a3]" size={16} />
-            <span className="text-professional-subtitle font-medium">{post.ticker}</span>
-            <Badge variant="outline" className={`${post.stockPrice.startsWith('+') ? 'text-green-600' : 'text-red-500'}`}>
-              {post.stockPrice}
-            </Badge>
-          </div>
-        )}
-
-        <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
-          <div className="flex items-center gap-6">
             <Button
               variant="ghost"
               size="sm"
-              className={`btn-professional gap-2 ${likedPosts.has(post.id) ? 'text-red-500' : 'text-gray-500'}`}
-              onClick={() => handleLike(post.id)}
+              className={`mobile-btn-sm ${isBookmarked ? 'text-blue-500' : 'text-gray-500'}`}
+              onClick={() => handleBookmark(post.id)}
             >
-              <Heart size={16} className={likedPosts.has(post.id) ? 'fill-current' : ''} />
-              <span>{post.likes + (likedPosts.has(post.id) ? (likedPosts.has(post.id) ? 1 : 0) : 0)}</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500">
-              <MessageCircle size={16} />
-              <span>{post.comments}</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500">
-              <Share2 size={16} />
-              Share
+              <Bookmark className={`h-4 w-4 ${isBookmarked ? 'fill-current' : ''}`} />
             </Button>
           </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
+        </CardContent>
+      </Card>
+    );
+  };
 
   return (
-    <div style={{ 
+    <div className="mobile-layout" style={{ 
       background: 'var(--color-bg-primary)', 
       color: 'var(--color-text-white)',
       minHeight: '100vh'
     }}>
-      <div className="max-w-6xl mx-auto p-6">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-professional-hero">Community Feed</h1>
-          <p className="text-professional-body mt-2">Connect with fellow investors and share financial insights</p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="mobile-container lg:max-w-6xl lg:mx-auto lg:p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
           {/* Main Feed */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Create Post */}
-            <Card className="card-professional">
-              <CardContent className="p-6">
-                <div className="flex gap-4">
-                  <Avatar className="h-12 w-12">
+          <div className="lg:col-span-8">
+            {/* Post Composer */}
+            <Card className="mobile-card lg:card-professional mb-4 lg:mb-6">
+              <CardContent className="mobile-card-content">
+                <div className="flex gap-3 lg:gap-4">
+                  <Avatar className="h-8 w-8 lg:h-10 lg:w-10 flex-shrink-0">
                     <AvatarImage src="/api/placeholder/40/40" />
-                    <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)' }}>
-                      JD
-                    </AvatarFallback>
+                    <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">JD</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <Textarea 
-                      placeholder="What's on your mind about finance?"
+                    <Textarea
+                      placeholder="Share your financial insights..."
                       value={newPost}
                       onChange={(e) => setNewPost(e.target.value)}
-                      className="min-h-[100px] resize-none border-0 focus:ring-0 p-0 text-base"
-                      style={{ 
-                        background: 'transparent',
-                        color: 'var(--color-text-white)'
-                      }}
+                      className="mobile-textarea lg:min-h-[100px] lg:resize-none"
                     />
-                    <div className="flex justify-between items-center mt-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-3 lg:mt-4">
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm" style={{ color: 'var(--color-text-muted)' }}>
-                          💰 Add Topic
+                        <Button variant="ghost" size="sm" className="mobile-btn-sm gap-2">
+                          <Image className="h-4 w-4" />
+                          <span className="hidden sm:inline">Photo</span>
                         </Button>
-                        <Button variant="ghost" size="sm" style={{ color: 'var(--color-text-muted)' }}>
-                          📊 Add Chart
+                        <Button variant="ghost" size="sm" className="mobile-btn-sm gap-2">
+                          <Globe className="h-4 w-4" />
+                          <span className="hidden sm:inline">Public</span>
                         </Button>
                       </div>
                       <Button 
-                        onClick={handlePost} 
+                        onClick={handlePost}
                         disabled={!newPost.trim()}
-                        className="btn-professional"
-                        style={{ background: 'var(--color-primary-accent)' }}
+                        className="mobile-btn lg:btn-professional w-full sm:w-auto"
+                        style={{ background: 'var(--gradient-primary)' }}
                       >
                         Post
                       </Button>
@@ -272,18 +206,87 @@ const Feed = () => {
             </Card>
 
             {/* Feed Posts */}
-            <div className="space-y-6">
-              {feed.map((post) => (
+            <div className="space-y-4 lg:space-y-6">
+              {feed.posts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}
             </div>
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            <PopularTickers />
-            <Associates />
-            <FinancialTips />
+          <div className="lg:col-span-4 space-y-4 lg:space-y-6">
+            {/* Popular Tickers */}
+            <Card className="mobile-card lg:card-professional">
+              <CardHeader className="mobile-card-header">
+                <CardTitle className="mobile-subtitle lg:text-lg">Popular Tickers</CardTitle>
+              </CardHeader>
+              <CardContent className="mobile-card-content">
+                <div className="space-y-2 lg:space-y-3">
+                  {popularTickers.map((ticker, index) => (
+                    <div key={index} className="flex items-center justify-between p-2 lg:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                      <div>
+                        <p className="mobile-caption lg:font-medium">{ticker.symbol}</p>
+                        <p className="mobile-caption text-gray-500">{ticker.name}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="mobile-caption lg:font-semibold">${ticker.price}</p>
+                        <p className={`mobile-caption ${ticker.change.startsWith('+') ? 'text-green-600' : 'text-red-500'}`}>
+                          {ticker.change}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Associates */}
+            <Card className="mobile-card lg:card-professional">
+              <CardHeader className="mobile-card-header">
+                <CardTitle className="mobile-subtitle lg:text-lg">Your Associates</CardTitle>
+              </CardHeader>
+              <CardContent className="mobile-card-content">
+                <div className="space-y-2 lg:space-y-3">
+                  {associates.map((associate, index) => (
+                    <div key={index} className="flex items-center gap-3 p-2 lg:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                      <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
+                        <AvatarImage src={associate.avatar} />
+                        <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-xs">
+                          {associate.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <p className="mobile-caption lg:font-medium">{associate.name}</p>
+                        <p className="mobile-caption text-gray-500">{associate.status}</p>
+                      </div>
+                      <div className={`h-2 w-2 rounded-full ${associate.online ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Financial Tips */}
+            <Card className="mobile-card lg:card-professional">
+              <CardHeader className="mobile-card-header">
+                <CardTitle className="mobile-subtitle lg:text-lg">Financial Tips</CardTitle>
+              </CardHeader>
+              <CardContent className="mobile-card-content">
+                <div className="space-y-3 lg:space-y-4">
+                  {tips.map((tip, index) => (
+                    <div key={index} className="p-3 lg:p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+                      <div className="flex items-start gap-2 lg:gap-3">
+                        <AlertCircle className="h-4 w-4 lg:h-5 lg:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="mobile-caption lg:font-semibold text-blue-900 dark:text-blue-100 mb-1">{tip.title}</h4>
+                          <p className="mobile-caption text-blue-700 dark:text-blue-200">{tip.content}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
