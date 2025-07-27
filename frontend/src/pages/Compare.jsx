@@ -112,19 +112,19 @@ const Compare = () => {
   );
 
   const FriendSelector = () => (
-    <div className="space-y-4 lg:space-y-6">
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 lg:gap-0">
+    <div className="friends-section">
+      <div className="friends-header">
         <div>
-          <h2 className="mobile-title lg:text-2xl lg:font-bold">Compare with Friends</h2>
-          <p className="mobile-body text-gray-600">See how your financial progress stacks up</p>
+          <h2>Compare with Friends</h2>
+          <p>See how your financial progress stacks up</p>
         </div>
-        <Button className="mobile-btn lg:btn-whisper w-full lg:w-auto" style={{ background: 'var(--gradient-primary)' }}>
+        <Button className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white">
           <UserPlus size={16} className="mr-2" />
           Add Friend
         </Button>
       </div>
 
-      <div className="mobile-grid-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+      <div className="friends-grid">
         {compare.friends.map((friend, index) => {
           const isSelected = selectedFriend === friend.name;
           const isHovered = hoveredFriend === friend.name;
@@ -133,11 +133,7 @@ const Compare = () => {
           return (
             <div
               key={index}
-              className={`relative p-3 lg:p-4 border rounded-lg cursor-pointer transition-all duration-300 card-breath group overflow-hidden compare-friends-box ${
-                isSelected 
-                  ? 'border-[#5945a3] bg-gradient-to-br from-purple-50 to-blue-50 shadow-md compare-friend-button active' 
-                  : 'border-gray-200 hover:border-[#5945a3]/30 hover:shadow-sm compare-friend-button'
-              }`}
+              className={`friend-card ${isSelected ? 'selected' : ''}`}
               onClick={() => {
                 setSelectedFriend(selectedFriend === friend.name ? null : friend.name);
                 toast({ 
