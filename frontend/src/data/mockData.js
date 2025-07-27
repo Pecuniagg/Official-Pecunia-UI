@@ -310,5 +310,104 @@ export const mockData = {
       avgSavingsRate: 18,
       avgScore: 680
     }
-  }
+  },
+  feed: {
+    posts: [
+      {
+        id: 1,
+        author: {
+          name: 'Alice Johnson',
+          avatar: '/api/placeholder/40/40',
+          verified: true
+        },
+        content: 'Just reached my emergency fund goal of $15,000! The automated savings really helped me stay consistent.',
+        timeAgo: '2 hours ago',
+        likes: 24,
+        comments: 8,
+        metrics: [
+          { label: 'Savings Rate', value: '25%', trend: 'up' },
+          { label: 'Emergency Fund', value: '$15K', trend: 'up' }
+        ]
+      },
+      {
+        id: 2,
+        author: {
+          name: 'Mike Chen',
+          avatar: '/api/placeholder/40/40',
+          verified: false
+        },
+        content: 'Diversified my portfolio with some international index funds. Risk management is key!',
+        timeAgo: '4 hours ago',
+        likes: 18,
+        comments: 5,
+        metrics: [
+          { label: 'Portfolio Diversity', value: '85%', trend: 'up' },
+          { label: 'Risk Score', value: 'Moderate', trend: 'up' }
+        ]
+      },
+      {
+        id: 3,
+        author: {
+          name: 'Sarah Williams',
+          avatar: '/api/placeholder/40/40',
+          verified: true
+        },
+        content: 'Paid off my credit card debt completely! Now focusing on building my investment portfolio.',
+        timeAgo: '1 day ago',
+        likes: 45,
+        comments: 12,
+        metrics: [
+          { label: 'Debt Free', value: '100%', trend: 'up' },
+          { label: 'Credit Score', value: '750+', trend: 'up' }
+        ]
+      }
+    ]
+  },
+  popularTickers: [
+    { symbol: 'AAPL', name: 'Apple Inc.', price: '185.23', change: '+2.1%' },
+    { symbol: 'MSFT', name: 'Microsoft', price: '378.45', change: '+1.8%' },
+    { symbol: 'TSLA', name: 'Tesla', price: '248.50', change: '-0.5%' },
+    { symbol: 'NVDA', name: 'NVIDIA', price: '415.22', change: '+3.2%' },
+    { symbol: 'AMZN', name: 'Amazon', price: '143.75', change: '+1.1%' }
+  ],
+  associates: [
+    { 
+      name: 'John Smith', 
+      avatar: '/api/placeholder/40/40', 
+      status: 'Investing in crypto', 
+      online: true 
+    },
+    { 
+      name: 'Emma Davis', 
+      avatar: '/api/placeholder/40/40', 
+      status: 'Building emergency fund', 
+      online: false 
+    },
+    { 
+      name: 'Alex Wilson', 
+      avatar: '/api/placeholder/40/40', 
+      status: 'Real estate research', 
+      online: true 
+    },
+    { 
+      name: 'Lisa Brown', 
+      avatar: '/api/placeholder/40/40', 
+      status: 'Retirement planning', 
+      online: true 
+    }
+  ],
+  tips: [
+    {
+      title: 'Emergency Fund Priority',
+      content: 'Build 3-6 months of expenses in a high-yield savings account before investing heavily in stocks.'
+    },
+    {
+      title: 'Dollar-Cost Averaging',
+      content: 'Invest consistently every month regardless of market conditions to reduce timing risk.'
+    },
+    {
+      title: 'Credit Score Boost',
+      content: 'Keep credit utilization below 30% and pay bills on time to maintain excellent credit.'
+    }
+  ]
 };
