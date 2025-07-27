@@ -11,16 +11,13 @@ import {
   Bell,
   Bot,
   Plus,
-  CreditCard,
-  Receipt,
-  Goal,
-  Clock
+  Menu,
+  X
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Toaster } from "./ui/toaster";
 import AIAssistant from "./AIAssistant";
 import QuickActionPanel from "./QuickActionPanel";
@@ -29,6 +26,7 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const [showAI, setShowAI] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigation = [
     { name: "Dashboard", href: "/", icon: Home },
@@ -41,8 +39,71 @@ const Layout = ({ children }) => {
 
   const isActive = (href) => location.pathname === href;
 
-  return (
-    <div className="flex h-screen" style={{ background: 'var(--color-bg-primary)' }}>
+  // Mobile Layout
+  const MobileLayout = () => (
+    <div className="lg:hidden">
+      {/* Mobile Header */}
+      <header className="mobile-header">
+        <div className="mobile-header-content">
+          <h1 className="mobile-logo">Pecunia</h1>
+          <div className="mobile-header-actions">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => setShowAI(true)}
+              className="mobile-ai-assistant"
+            >
+              <Bot size={16} />
+            </Button>
+            <Button variant="ghost" size="sm" className="relative">
+              <Bell size={16} style={{ color: 'var(--color-text-secondary)' }} />
+              <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full" style={{ background: 'var(--color-secondary-accent)' }}></span>
+            </Button>
+            <Avatar className="h-7 w-7">
+              <AvatarImage src="/api/placeholder/28/28" />
+              <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)', fontSize: '0.75rem' }}>JD</AvatarFallback>
+            </Avatar>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Content */}
+      <main className="mobile-page-content">
+        <div className="mobile-container">
+          {children}
+        </div>
+      </main>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="mobile-nav-container">
+        <div className="mobile-nav-list">
+          {navigation.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`mobile-nav-item ${isActive(item.href) ? 'active' : ''}`}
+              >
+                <Icon className="mobile-nav-icon" />
+                <span className="mobile-nav-text">{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+
+      {/* Mobile AI Assistant */}
+      <AIAssistant isOpen={showAI} onClose={() => setShowAI(false)} />
+      
+      {/* Mobile Quick Actions */}
+      <QuickActionPanel isOpen={showQuickActions} onClose={() => setShowQuickActions(false)} />
+    </div>
+  );
+
+  // Desktop Layout
+  const DesktopLayout = () => (
+    <div className="hidden lg:flex h-screen" style={{ background: 'var(--color-bg-primary)' }}>
       {/* Fixed Sidebar */}
       <div className="fixed inset-y-0 left-0 w-[280px] border-r" style={{ 
         background: 'var(--color-surface-dark)', 
@@ -160,10 +221,15 @@ const Layout = ({ children }) => {
       
       {/* Quick Action Panel - Enhanced side panel */}
       <QuickActionPanel isOpen={showQuickActions} onClose={() => setShowQuickActions(false)} />
-      
-      {/* Toast Notifications */}
-      <Toaster />
     </div>
+  );
+
+  return (
+    <>
+      <MobileLayout />
+      <DesktopLayout />
+      <Toaster />
+    </>
   );
 };
 
