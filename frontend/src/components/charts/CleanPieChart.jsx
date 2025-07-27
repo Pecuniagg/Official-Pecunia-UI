@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { getChartColors } from '../../utils/chartColors';
 
 const CleanPieChart = ({ 
   data, 
   title, 
-  colors = ['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f'],
+  colors, // Allow override but default to consistent colors
   centerValue,
   onSegmentClick
 }) => {
@@ -12,11 +13,14 @@ const CleanPieChart = ({
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
   
+  // Use consistent colors unless specifically overridden
+  const chartColors = colors || getChartColors(data.length);
+  
   // Clean data preparation
   const chartData = data.map((item, index) => ({
     ...item,
     percentage: ((item.value / total) * 100).toFixed(1),
-    color: colors[index % colors.length]
+    color: chartColors[index % chartColors.length]
   }));
 
   // Simplified, clean tooltip
@@ -24,9 +28,10 @@ const CleanPieChart = ({
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white dark:bg-gray-800 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm backdrop-blur-sm">
-          <div className="font-medium text-gray-900 dark:text-white text-sm">{data.name}</div>
+        <div className="bg-white dark:bg-gray-800 px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg backdrop-blur-sm">
+          <div className="font-medium text-gray-900 dark:text-white text-sm mb-1">{data.name}</div>
           <div className="text-sm text-gray-600 dark:text-gray-400">${data.value.toLocaleString()}</div>
+          <div className="text-xs text-gray-500 mt-1">{data.percentage}% of total</div>
         </div>
       );
     }
@@ -57,7 +62,7 @@ const CleanPieChart = ({
         </div>
       )}
       <div className="flex flex-col h-full">
-        <div className="relative bg-white dark:bg-gray-900 px-4 py-2">
+        <div className="relative bg-white dark:bg-gray-900 px-4 py-6">
           {/* Clean pie chart with proper spacing */}
           <ResponsiveContainer width="100%" height={260}>
             <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
@@ -65,9 +70,9 @@ const CleanPieChart = ({
                 data={chartData}
                 cx="50%"
                 cy="50%"
-                outerRadius={80}
-                innerRadius={45}
-                paddingAngle={1}
+                outerRadius={85}
+                innerRadius={50}
+                paddingAngle={2}
                 dataKey="value"
                 onMouseEnter={onPieEnter}
                 onMouseLeave={onPieLeave}
@@ -101,8 +106,8 @@ const CleanPieChart = ({
             <div className="text-center">
               <div className="text-lg font-bold text-gray-900 dark:text-white transition-all duration-200">
                 {activeIndex !== null 
-                  ? `${chartData[activeIndex].percentage}%` 
-                  : `${chartData.length}`
+                  ? chartData[activeIndex].percentage + '%'
+                  : chartData.length
                 }
               </div>
               <div className="text-xs text-muted mt-1 transition-all duration-200">
@@ -117,7 +122,7 @@ const CleanPieChart = ({
 
         {/* Clean legend with proper spacing */}
         <div className="px-6 pb-6 pt-2 flex-1">
-          <div className="grid grid-cols-1 gap-1">
+          <div className="space-y-2">
             {chartData.map((entry, index) => (
               <div 
                 key={index}
