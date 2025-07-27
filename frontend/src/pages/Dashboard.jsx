@@ -318,30 +318,30 @@ const Dashboard = () => {
           </div>
 
           {/* Main Grid - Enhanced spacing and mobile responsiveness */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 xl:gap-8">
             {/* Left Column - Interactive Charts */}
-            <div className="lg:col-span-6 space-y-6 lg:space-y-8">
+            <div className="lg:col-span-6 space-y-4 lg:space-y-6 xl:space-y-8">
               {/* Expenses Chart */}
-              <Card className="card-system interactive">
-                <CardHeader className="card-system-header">
-                  <CardTitle className="flex items-center gap-2 visual-hierarchy-3">
-                    <CreditCard className="text-[#5945a3]" size={20} />
-                    Monthly Expenses
+              <Card className="card-system interactive mobile-card">
+                <CardHeader className="card-system-header mobile-card-header">
+                  <CardTitle className="flex items-center gap-2 text-lg lg:text-xl">
+                    <CreditCard className="text-[#5945a3]" size={16} />
+                    <span className="text-sm lg:text-base">Monthly Expenses</span>
                   </CardTitle>
                   <Button 
                     variant="ghost" 
                     size="sm"
                     onClick={() => handleChartClick('Expenses', dashboard.expenses)}
-                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
+                    className="interactive text-[#5945a3] hover:bg-purple-50 border-0 p-1 lg:p-2"
                   >
-                    <Eye size={16} />
+                    <Eye size={14} />
                   </Button>
                 </CardHeader>
-                <CardContent className="p-0">
-                  <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer">
+                <CardContent className="p-0 mobile-card-content">
+                  <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer mobile-chart-container">
                     <CleanPieChart 
                       data={dashboard.expenses} 
-                      colors={['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f']}
+                      colors={['#5945A3', '#B37E91', '#39D98A', '#FF4D67', '#FFB800']}
                       onSegmentClick={(data) => handleChartClick('Expenses', dashboard.expenses)}
                     />
                   </div>
