@@ -221,8 +221,10 @@ export const mockData = {
           name: 'Sarah Smith',
           amount: 2000,
           reason: 'Emergency car repair',
+          term: '6 months',
           duration: '6 months',
           interest: 3.5,
+          riskLevel: 'Low Risk',
           avatar: '/api/placeholder/40/40'
         },
         {
@@ -230,8 +232,10 @@ export const mockData = {
           name: 'Mike Johnson',
           amount: 1500,
           reason: 'Medical expenses',
+          term: '4 months',
           duration: '4 months',
           interest: 4.0,
+          riskLevel: 'Medium Risk',
           avatar: '/api/placeholder/40/40'
         }
       ],
