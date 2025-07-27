@@ -292,31 +292,39 @@ const Compare = () => {
   );
 
   return (
-    <div className="compare-container">
+    <div className="max-w-7xl mx-auto p-6" style={{ 
+      background: 'var(--color-bg-primary)', 
+      color: 'var(--color-text-white)',
+      minHeight: '100vh'
+    }}>
       {/* Header */}
-      <div className="compare-header">
-        <h1>Financial Comparison</h1>
-        <p>Compare your financial progress with friends and public benchmarks</p>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-4" style={{ color: 'var(--color-text-white)' }}>
+          Financial Comparison
+        </h1>
+        <p className="text-lg" style={{ color: 'var(--color-text-muted)' }}>
+          Compare your financial progress with friends and public benchmarks
+        </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="compare-tabs">
-        <TabsList className="tabs-list">
-          <TabsTrigger value="friends" className="tabs-trigger">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="mb-8 w-auto">
+          <TabsTrigger value="friends" className="flex items-center gap-2">
             <Users size={16} />
             <span>Friends</span>
           </TabsTrigger>
-          <TabsTrigger value="public" className="tabs-trigger">
+          <TabsTrigger value="public" className="flex items-center gap-2">
             <Globe size={16} />
             <span>Public Data</span>
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="friends" className="animate-breath">
+        <TabsContent value="friends">
           <FriendSelector />
           <ComparisonCharts />
         </TabsContent>
 
-        <TabsContent value="public" className="space-y-4 lg:space-y-6 animate-breath">
+        <TabsContent value="public" className="space-y-6">
             <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white card-whisper hover-glow-subtle compare-public-data-box">
               <CardContent className="p-4 lg:p-8">
                 <h2 className="mobile-title lg:text-2xl lg:font-bold mb-3 lg:mb-4 animate-silk">How You Compare to Others</h2>
