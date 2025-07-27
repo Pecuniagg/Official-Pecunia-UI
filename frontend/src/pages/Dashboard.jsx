@@ -341,7 +341,6 @@ const Dashboard = () => {
                   <div onClick={() => handleChartClick('Expenses', dashboard.expenses)} className="cursor-pointer mobile-chart-container">
                     <CleanPieChart 
                       data={dashboard.expenses} 
-                      colors={['#5945A3', '#B37E91', '#39D98A', '#FF4D67', '#FFB800']}
                       onSegmentClick={(data) => handleChartClick('Expenses', dashboard.expenses)}
                     />
                   </div>
