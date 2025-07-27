@@ -335,9 +335,6 @@ const Compare = () => {
           </TabsTrigger>
         </TabsList>
 
-          </TabsContent>
-        </Tabs>
-
         <TabsContent value="friends" className="animate-breath">
           <FriendSelector />
           <ComparisonCharts />
