@@ -293,18 +293,18 @@ const Dashboard = () => {
           <TabsTrigger value="detailed" className="interactive text-xs lg:text-sm font-medium hidden lg:block">Detailed Analysis</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-8">
+        <TabsContent value="overview" className="space-y-4 lg:space-y-8">
           {/* Hero Banner - Enhanced spacing and breathing room */}
-          <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-2xl card-spacing-lg text-white card-system shadow-lg transition-all duration-300 hover:shadow-xl">
-            <div className="flex items-center justify-between">
-              <div className="flex-1 mr-8">
-                <h1 className="visual-hierarchy-1 text-white mb-4" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+          <div className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] rounded-xl lg:rounded-2xl p-4 lg:p-8 text-white card-system shadow-lg transition-all duration-300 hover:shadow-xl">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-0">
+              <div className="flex-1 lg:mr-8">
+                <h1 className="text-xl lg:text-3xl font-bold text-white mb-2 lg:mb-4" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
                   My Financial Life Today
                 </h1>
-                <p className="text-lg opacity-90 leading-relaxed max-w-2xl">
+                <p className="text-sm lg:text-lg opacity-90 leading-relaxed max-w-2xl">
                   {loadingInsights ? 'AI is analyzing your finances...' : 
-                   aiInsights?.analysis?.analysis?.substring(0, 100) + '...' || 
-                   'AI Summary: You\'re on track with your savings goals. Consider increasing your emergency fund allocation.'}
+                   aiInsights?.analysis?.analysis?.substring(0, 80) + '...' || 
+                   'AI Summary: You\'re on track with your savings goals.'}
                 </p>
               </div>
               <Button 
