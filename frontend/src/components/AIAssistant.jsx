@@ -246,24 +246,24 @@ const AIAssistant = ({ isOpen, onClose }) => {
       <div className={`side-panel lg:side-panel mobile-ai-panel ${isOpen ? 'open' : ''} ai-assistant-container`}>
         <div className="flex flex-col h-full">
           {/* Header - Enhanced spacing */}
-          <div className="ai-assistant-header">
+          <div className="ai-assistant-header mobile-modal-header">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center shadow-sm">
-                  <Brain className="text-white" size={20} />
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-[#5945a3] to-[#b37e91] rounded-full flex items-center justify-center shadow-sm">
+                  <Brain className="text-white" size={16} />
                 </div>
                 <div>
-                  <h3 className="visual-hierarchy-3 text-gray-900 dark:text-white">AI Assistant</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Your financial advisor</p>
+                  <h3 className="mobile-subtitle lg:visual-hierarchy-3 text-gray-900 dark:text-white">AI Assistant</h3>
+                  <p className="mobile-caption lg:text-sm text-gray-500 dark:text-gray-400">Your financial advisor</p>
                 </div>
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onClose}
-                className="interactive text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="interactive text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-1 lg:p-2"
               >
-                <X size={20} />
+                <X size={16} />
               </Button>
             </div>
           </div>
