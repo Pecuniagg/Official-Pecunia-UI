@@ -327,21 +327,21 @@ const Goals = () => {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="bg-gray-50 dark:bg-gray-800/50 p-1 rounded-lg mb-8">
-            <TabsTrigger value="personal" className="nav-modern-item">
-              <Target className="h-4 w-4 mr-2" />
-              Personal Goals
+          <TabsList className="bg-gray-50 dark:bg-gray-800/50 p-1 rounded-lg mb-4 lg:mb-8 w-full lg:w-auto">
+            <TabsTrigger value="personal" className="nav-modern-item flex-1 lg:flex-none">
+              <Target className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
+              <span className="text-xs lg:text-sm">Personal Goals</span>
             </TabsTrigger>
-            <TabsTrigger value="group" className="nav-modern-item">
-              <Users className="h-4 w-4 mr-2" />
-              Group Goals
+            <TabsTrigger value="group" className="nav-modern-item flex-1 lg:flex-none">
+              <Users className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
+              <span className="text-xs lg:text-sm">Group Goals</span>
             </TabsTrigger>
         </TabsList>
 
         {/* Filter Controls */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row gap-2 lg:gap-4 mb-4 lg:mb-6">
           <Select value={goalFilter} onValueChange={setGoalFilter}>
-            <SelectTrigger className="w-48 input-professional">
+            <SelectTrigger className="mobile-input lg:w-48 lg:input-professional">
               <SelectValue placeholder="Filter goals" />
             </SelectTrigger>
             <SelectContent>
