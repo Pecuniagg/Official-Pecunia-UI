@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Switch } from '../components/ui/switch';
 import { Badge } from '../components/ui/badge';
+import { Switch } from '../components/ui/switch';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { useToast } from '../hooks/use-toast';
+import { Progress } from '../components/ui/progress';
 import { 
-  User, 
-  MessageSquare, 
+  Star, 
+  Edit, 
+  Mail, 
+  Copy, 
   DollarSign, 
   TrendingUp, 
   Users, 
@@ -21,23 +23,17 @@ import {
   Heart,
   MessageCircle,
   Share2,
-  Edit,
-  Copy,
-  Eye,
-  ThumbsUp,
-  Star,
-  Sun,
-  Moon,
-  Palette,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Award,
+  Trophy,
   Target,
+  MessageSquare,
+  Eye,
+  Bell,
+  Smartphone,
+  Globe,
   PiggyBank
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
+import { useToast } from '../hooks/use-toast';
 
 const Profile = () => {
   const [lendingEnabled, setLendingEnabled] = useState(mockData.profile.lending.available);
@@ -54,7 +50,15 @@ const Profile = () => {
   const { profile } = mockData;
   const { toast } = useToast();
 
-  const handleLike = (postId) => {
+  const handleLendingToggle = (enabled) => {
+    setLendingEnabled(enabled);
+    toast({
+      title: enabled ? "Lending Enabled" : "Lending Disabled",
+      description: enabled ? "You're now available for lending" : "Lending has been disabled"
+    });
+  };
+
+  const handlePostLike = (postId) => {
     setLikedPosts(prev => {
       const newSet = new Set(prev);
       if (newSet.has(postId)) {
@@ -64,80 +68,117 @@ const Profile = () => {
       }
       return newSet;
     });
+    toast({ title: "Post liked!", description: "Your interaction has been recorded" });
   };
 
-  const handleLendingToggle = (enabled) => {
-    setLendingEnabled(enabled);
-    toast({
-      title: enabled ? "Lending Enabled" : "Lending Disabled",
-      description: enabled ? "You're now available for lending" : "You're no longer available for lending",
+  const copyEmail = () => {
+    navigator.clipboard.writeText(profile.email);
+    setCopiedEmail(true);
+    toast({ title: "Email copied!", description: "Email address copied to clipboard" });
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const handleNotificationChange = (key, value) => {
+    setNotifications(prev => ({ ...prev, [key]: value }));
+    toast({ 
+      title: "Settings updated", 
+      description: `${key} notifications ${value ? 'enabled' : 'disabled'}` 
     });
   };
 
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(profile.email);
-      setCopiedEmail(true);
-      setTimeout(() => setCopiedEmail(false), 2000);
-      toast({
-        title: "Email Copied",
-        description: "Email address copied to clipboard",
-      });
-    } catch (err) {
-      console.error('Failed to copy email:', err);
-    }
-  };
-
-  const handleNotificationChange = (type, value) => {
-    setNotifications(prev => ({
-      ...prev,
-      [type]: value
-    }));
-    toast({
-      title: "Settings Updated",
-      description: `${type.charAt(0).toUpperCase() + type.slice(1)} notifications ${value ? 'enabled' : 'disabled'}`,
-    });
-  };
-
-  const StatCard = ({ icon: Icon, label, value, color = "text-[#5945a3]", isHovered }) => (
-    <Card 
-      className={`card-professional hover-professional cursor-pointer transition-all duration-200 ${
-        isHovered ? 'ring-2 ring-[#5945a3] ring-opacity-20' : ''
+  const StatCard = ({ icon: Icon, label, value, color, isHovered }) => (
+    <div 
+      className={`mobile-card lg:card-professional p-3 lg:p-4 text-center transition-all duration-200 cursor-pointer ${
+        isHovered ? 'transform scale-105 shadow-lg' : ''
       }`}
       onMouseEnter={() => setHoveredStat(label)}
       onMouseLeave={() => setHoveredStat(null)}
     >
-      <CardContent className="p-6 text-center">
-        <Icon className={`mx-auto mb-4 ${color} transition-transform duration-200 ${isHovered ? 'scale-110' : ''}`} size={32} />
-        <div className="text-2xl font-bold text-professional-title mb-2">{value}</div>
-        <div className="text-professional-body text-sm">{label}</div>
-      </CardContent>
-    </Card>
+      <Icon className={`${color} mx-auto mb-2 transition-transform duration-200 ${isHovered ? 'scale-110' : ''}`} size={isHovered ? 28 : 24} />
+      <p className="mobile-subtitle lg:text-lg lg:font-bold">{value}</p>
+      <p className="mobile-caption text-gray-500">{label}</p>
+      {isHovered && (
+        <div className="mt-2">
+          <Progress value={Math.random() * 100} className="h-1" />
+        </div>
+      )}
+    </div>
   );
 
+  const PostCard = ({ post }) => {
+    const isLiked = likedPosts.has(post.id);
+    
+    return (
+      <Card className="mobile-card lg:card-professional">
+        <CardHeader className="mobile-card-header">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
+                <AvatarImage src={profile.avatar} />
+                <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
+                  {profile.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="mobile-subtitle lg:font-medium">{profile.name}</p>
+                <p className="mobile-caption text-gray-500">{post.time}</p>
+              </div>
+            </div>
+            <Button variant="ghost" size="sm" className="btn-professional profile-post-button">
+              <Edit size={16} />
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="mobile-card-content">
+          <p className="mobile-body mb-4">{post.content}</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`btn-professional gap-2 profile-post-button ${isLiked ? 'text-red-500' : 'text-gray-500'}`}
+                onClick={() => handlePostLike(post.id)}
+              >
+                <Heart size={16} className={isLiked ? 'fill-current' : ''} />
+                <span>{post.likes + (isLiked ? 1 : 0)}</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500 profile-post-button">
+                <MessageCircle size={16} />
+                <span>{post.comments}</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500 profile-post-button">
+                <Share2 size={16} />
+                <span className="hidden lg:inline">Share</span>
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
   const LendingRequestCard = ({ request }) => (
-    <Card className="card-professional hover-professional">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
+    <Card className="mobile-card lg:card-professional">
+      <CardContent className="mobile-card-content">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 lg:gap-0 mb-3">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 ring-2 ring-transparent hover:ring-[#5945a3] transition-all">
+            <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
               <AvatarImage src={request.avatar} />
-              <AvatarFallback className="bg-[#5945a3] text-white">
+              <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-sm">
                 {request.name.split(' ').map(n => n[0]).join('')}
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-professional-subtitle font-medium">{request.name}</p>
-              <p className="text-professional-body text-sm">{request.duration}</p>
+              <p className="mobile-subtitle lg:font-medium">{request.name}</p>
+              <p className="mobile-caption text-gray-500">${request.amount.toLocaleString()} • {request.term}</p>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-professional-title font-bold">${request.amount.toLocaleString()}</p>
-            <p className="text-professional-body text-sm">{request.interest}% interest</p>
-          </div>
+          <Badge variant="outline" className="text-xs">
+            {request.riskLevel}
+          </Badge>
         </div>
-        <p className="text-professional-body mb-4">{request.reason}</p>
-        <div className="flex gap-2">
+        <p className="mobile-body mb-4">{request.reason}</p>
+        <div className="flex flex-col sm:flex-row gap-2">
           <Button 
             size="sm" 
             className="flex-1 btn-professional profile-lending-button"
@@ -160,310 +201,221 @@ const Profile = () => {
     </Card>
   );
 
-  const PostCard = ({ post }) => (
-    <Card className="card-professional hover-professional">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 ring-2 ring-[#5945a3]">
-              <AvatarImage src={post.avatar} />
-              <AvatarFallback className="bg-[#5945a3] text-white">
-                {post.author.split(' ').map(n => n[0]).join('')}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-professional-subtitle font-medium">{post.author}</p>
-              <p className="text-professional-body text-sm">{post.time}</p>
-            </div>
-          </div>
-          <Button variant="ghost" size="sm" className="btn-professional profile-post-button">
-            <Edit size={16} />
-          </Button>
-        </div>
-        <p className="text-professional-body mb-4">{post.content}</p>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`btn-professional gap-2 profile-post-button ${likedPosts.has(post.id) ? 'text-red-500' : 'text-gray-500'}`}
-              onClick={() => handleLike(post.id)}
-            >
-              <Heart size={16} className={likedPosts.has(post.id) ? 'fill-current' : ''} />
-              <span>{post.likes + (likedPosts.has(post.id) ? 1 : 0)}</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500 profile-post-button">
-              <MessageCircle size={16} />
-              <span>{post.comments}</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="btn-professional gap-2 text-gray-500 profile-post-button">
-              <Share2 size={16} />
-              Share
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
   return (
-    <div style={{ 
+    <div className="mobile-layout" style={{ 
       background: 'var(--color-bg-primary)', 
       color: 'var(--color-text-white)',
       minHeight: '100vh'
     }}>
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-professional-hero">My Profile</h1>
-        <p className="text-professional-body mt-2">Manage your financial profile and community presence</p>
-      </div>
-
-      {/* Profile Header */}
-      <Card className="card-professional mb-8">
-        <CardContent className="p-8">
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <Avatar className="h-24 w-24 ring-4 ring-[#5945a3] ring-opacity-20">
-                <AvatarImage src="/api/placeholder/96/96" />
-                <AvatarFallback className="bg-[#5945a3] text-white text-2xl">JD</AvatarFallback>
+      <div className="mobile-container lg:max-w-6xl lg:mx-auto lg:p-6">
+        {/* Profile Header */}
+        <Card className="mobile-card lg:card-professional mb-4 lg:mb-8">
+          <CardContent className="mobile-card-content">
+            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-6">
+              <Avatar className="h-20 w-20 lg:h-24 lg:w-24">
+                <AvatarImage src={profile.avatar} />
+                <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-xl">
+                  {profile.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
               </Avatar>
-              <div className="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-2">
-                <CheckCircle className="text-white" size={16} />
+              <div className="flex-1 text-center lg:text-left">
+                <h1 className="mobile-title lg:text-2xl lg:font-bold lg:mb-2">{profile.name}</h1>
+                <p className="mobile-body text-gray-500 mb-3 lg:mb-4">{profile.title}</p>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center lg:justify-start gap-1">
+                    <Mail size={16} className="text-[#5945a3]" />
+                    <span className="mobile-body">{profile.email}</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={copyEmail}
+                      className="ml-2 p-1"
+                    >
+                      <Copy size={14} className={copiedEmail ? 'text-green-500' : 'text-gray-400'} />
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-center lg:justify-start gap-4">
+                    <div className="flex items-center gap-1">
+                      <Star size={14} className="text-yellow-500 fill-current" />
+                      <span className="mobile-caption">{profile.rating}/5</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Trophy size={14} className="text-[#5945a3]" />
+                      <span className="mobile-caption">Level {profile.level}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
+              <Button className="btn-professional profile-settings-button w-full lg:w-auto">
+                <Edit size={16} className="mr-2" />
+                Edit Profile
+              </Button>
             </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h2 className="text-professional-hero text-2xl">John Doe</h2>
-                <Badge variant="outline" className="text-xs">
-                  <Award size={12} className="mr-1" />
-                  Premium Member
-                </Badge>
-              </div>
-              <div className="flex items-center gap-4 text-professional-body">
-                <div className="flex items-center gap-1">
-                  <Mail size={16} className="text-[#5945a3]" />
-                  <span>{profile.email}</span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={copyEmail}
-                    className="btn-professional p-1"
-                  >
-                    <Copy size={14} className={copiedEmail ? 'text-green-500' : 'text-gray-400'} />
+          </CardContent>
+        </Card>
+
+        {/* Stats Grid */}
+        <div className="mobile-grid-2 lg:grid-cols-4 gap-3 lg:gap-6 mb-4 lg:mb-8">
+          <StatCard 
+            icon={DollarSign} 
+            label="Net Worth" 
+            value={`$${profile.netWorth.toLocaleString()}`} 
+            color="text-green-600"
+            isHovered={hoveredStat === 'Net Worth'}
+          />
+          <StatCard 
+            icon={TrendingUp} 
+            label="Investment Returns" 
+            value="+12.5%" 
+            color="text-blue-600"
+            isHovered={hoveredStat === 'Investment Returns'}
+          />
+          <StatCard 
+            icon={Target} 
+            label="Goals Achieved" 
+            value="8/12" 
+            color="text-purple-600"
+            isHovered={hoveredStat === 'Goals Achieved'}
+          />
+          <StatCard 
+            icon={Users} 
+            label="Network Size" 
+            value="247" 
+            color="text-orange-600"
+            isHovered={hoveredStat === 'Network Size'}
+          />
+        </div>
+
+        {/* Main Content Tabs */}
+        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+          <TabsList className="tabs-professional mb-4 lg:mb-8 w-full lg:w-auto">
+            <TabsTrigger value="posts" className="tab-professional flex-1 lg:flex-none">
+              <MessageSquare className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
+              <span className="text-xs lg:text-sm">Posts</span>
+            </TabsTrigger>
+            <TabsTrigger value="lending" className="tab-professional flex-1 lg:flex-none">
+              <DollarSign className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
+              <span className="text-xs lg:text-sm">Lending</span>
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="tab-professional flex-1 lg:flex-none">
+              <Settings className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
+              <span className="text-xs lg:text-sm">Settings</span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="posts" className="space-y-4 lg:space-y-6">
+            {profile.posts.map((post, index) => (
+              <PostCard key={index} post={post} />
+            ))}
+          </TabsContent>
+
+          <TabsContent value="lending" className="space-y-4 lg:space-y-6">
+            <Card className="mobile-card lg:card-professional">
+              <CardHeader className="mobile-card-header">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
+                  <CardTitle className="mobile-subtitle lg:text-lg">Lending Availability</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <span className="mobile-caption text-sm">Available</span>
+                    <Switch 
+                      checked={lendingEnabled} 
+                      onCheckedChange={handleLendingToggle}
+                      className="focus-professional"
+                    />
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="mobile-card-content">
+                <div className="mobile-grid-1 lg:grid-cols-3 gap-3 lg:gap-4">
+                  <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <p className="mobile-subtitle lg:font-semibold">${profile.lending.totalLent.toLocaleString()}</p>
+                    <p className="mobile-caption text-gray-500">Total Lent</p>
+                  </div>
+                  <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <p className="mobile-subtitle lg:font-semibold">{profile.lending.activeLoan}</p>
+                    <p className="mobile-caption text-gray-500">Active Loans</p>
+                  </div>
+                  <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <p className="mobile-subtitle lg:font-semibold">{profile.lending.rating}/5</p>
+                    <p className="mobile-caption text-gray-500">Rating</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="space-y-3 lg:space-y-4">
+              <h3 className="mobile-subtitle lg:text-lg">Lending Requests</h3>
+              {profile.lending.requests.map((request, index) => (
+                <LendingRequestCard key={index} request={request} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="settings" className="space-y-4 lg:space-y-6">
+            <Card className="mobile-card lg:card-professional">
+              <CardHeader className="mobile-card-header">
+                <CardTitle className="mobile-subtitle lg:text-lg">Notifications</CardTitle>
+              </CardHeader>
+              <CardContent className="mobile-card-content space-y-4 lg:space-y-6">
+                {Object.entries({
+                  email: { label: 'Email Notifications', desc: 'Receive updates via email', icon: Mail },
+                  push: { label: 'Push Notifications', desc: 'Get notifications on your device', icon: Bell },
+                  sms: { label: 'SMS Notifications', desc: 'Receive text message alerts', icon: Smartphone },
+                  weekly: { label: 'Weekly Summary', desc: 'Get weekly financial reports', icon: Eye }
+                }).map(([key, config]) => {
+                  const Icon = config.icon;
+                  return (
+                    <div key={key} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Icon size={20} className="text-[#5945a3]" />
+                        <div>
+                          <p className="mobile-subtitle lg:font-medium">{config.label}</p>
+                          <p className="mobile-caption text-gray-500">{config.desc}</p>
+                        </div>
+                      </div>
+                      <Switch
+                        checked={notifications[key]}
+                        onCheckedChange={(value) => handleNotificationChange(key, value)}
+                        className="focus-professional"
+                      />
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+
+            <Card className="mobile-card lg:card-professional">
+              <CardHeader className="mobile-card-header">
+                <CardTitle className="mobile-subtitle lg:text-lg">Security</CardTitle>
+              </CardHeader>
+              <CardContent className="mobile-card-content space-y-4 lg:space-y-6">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
+                  <div className="flex items-center gap-3">
+                    <Shield size={20} className="text-[#5945a3]" />
+                    <div>
+                      <p className="mobile-subtitle lg:font-medium">Two-Factor Authentication</p>
+                      <p className="mobile-caption text-gray-500">Add an extra layer of security</p>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="btn-professional profile-settings-button w-full lg:w-auto">
+                    Enable
                   </Button>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Calendar size={16} className="text-[#5945a3]" />
-                  <span>Member since Jan 2024</span>
-                </div>
-              </div>
-            </div>
-            <Button className="btn-professional profile-settings-button">
-              <Edit size={16} className="mr-2" />
-              Edit Profile
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <StatCard 
-          icon={DollarSign} 
-          label="Total Savings" 
-          value="$47,500" 
-          color="text-green-600"
-          isHovered={hoveredStat === 'Total Savings'}
-        />
-        <StatCard 
-          icon={TrendingUp} 
-          label="Investment Returns" 
-          value="+12.5%" 
-          color="text-blue-600"
-          isHovered={hoveredStat === 'Investment Returns'}
-        />
-        <StatCard 
-          icon={Target} 
-          label="Goals Achieved" 
-          value="8/12" 
-          color="text-purple-600"
-          isHovered={hoveredStat === 'Goals Achieved'}
-        />
-        <StatCard 
-          icon={Users} 
-          label="Network Size" 
-          value="247" 
-          color="text-orange-600"
-          isHovered={hoveredStat === 'Network Size'}
-        />
-      </div>
-
-      {/* Main Content Tabs */}
-      <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-        <TabsList className="tabs-professional mb-8">
-          <TabsTrigger value="posts" className="tab-professional">
-            <MessageSquare className="h-4 w-4 mr-2" />
-            Posts
-          </TabsTrigger>
-          <TabsTrigger value="lending" className="tab-professional">
-            <DollarSign className="h-4 w-4 mr-2" />
-            Lending
-          </TabsTrigger>
-          <TabsTrigger value="settings" className="tab-professional">
-            <Settings className="h-4 w-4 mr-2" />
-            Settings
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="posts" className="space-y-6">
-          {profile.posts.map((post, index) => (
-            <PostCard key={index} post={post} />
-          ))}
-        </TabsContent>
-
-        <TabsContent value="lending" className="space-y-6">
-          <Card className="card-professional">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-professional-title">Lending Availability</CardTitle>
-                <div className="flex items-center gap-2">
-                  <span className="text-professional-body text-sm">Available</span>
-                  <Switch 
-                    checked={lendingEnabled} 
-                    onCheckedChange={handleLendingToggle}
-                    className="focus-professional"
-                  />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <p className="text-professional-subtitle font-semibold">${profile.lending.totalLent.toLocaleString()}</p>
-                  <p className="text-professional-body text-sm">Total Lent</p>
-                </div>
-                <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <p className="text-professional-subtitle font-semibold">{profile.lending.activeLoan}</p>
-                  <p className="text-professional-body text-sm">Active Loans</p>
-                </div>
-                <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <p className="text-professional-subtitle font-semibold">{profile.lending.rating}/5</p>
-                  <p className="text-professional-body text-sm">Rating</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="space-y-4">
-            <h3 className="text-professional-title">Lending Requests</h3>
-            {profile.lending.requests.map((request, index) => (
-              <LendingRequestCard key={index} request={request} />
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="settings" className="space-y-6">
-          <Card className="card-professional">
-            <CardHeader>
-              <CardTitle className="text-professional-title">Appearance</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Palette className="text-[#5945a3]" size={20} />
-                  <div>
-                    <p className="text-professional-subtitle font-medium">Theme</p>
-                    <p className="text-professional-body text-sm">Choose your preferred theme</p>
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
+                  <div className="flex items-center gap-3">
+                    <Globe size={20} className="text-[#5945a3]" />
+                    <div>
+                      <p className="mobile-subtitle lg:font-medium">Profile Visibility</p>
+                      <p className="mobile-caption text-gray-500">Control who can see your profile</p>
+                    </div>
                   </div>
+                  <Button variant="outline" className="btn-professional profile-settings-button w-full lg:w-auto">
+                    Public
+                  </Button>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="card-professional">
-            <CardHeader>
-              <CardTitle className="text-professional-title">Notifications</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Mail className="text-[#5945a3]" size={20} />
-                  <div>
-                    <p className="text-professional-subtitle font-medium">Email Notifications</p>
-                    <p className="text-professional-body text-sm">Receive updates via email</p>
-                  </div>
-                </div>
-                <Switch 
-                  checked={notifications.email} 
-                  onCheckedChange={(value) => handleNotificationChange('email', value)}
-                  className="focus-professional"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <MessageCircle className="text-[#5945a3]" size={20} />
-                  <div>
-                    <p className="text-professional-subtitle font-medium">Push Notifications</p>
-                    <p className="text-professional-body text-sm">Receive push notifications</p>
-                  </div>
-                </div>
-                <Switch 
-                  checked={notifications.push} 
-                  onCheckedChange={(value) => handleNotificationChange('push', value)}
-                  className="focus-professional"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Phone className="text-[#5945a3]" size={20} />
-                  <div>
-                    <p className="text-professional-subtitle font-medium">SMS Notifications</p>
-                    <p className="text-professional-body text-sm">Receive text messages</p>
-                  </div>
-                </div>
-                <Switch 
-                  checked={notifications.sms} 
-                  onCheckedChange={(value) => handleNotificationChange('sms', value)}
-                  className="focus-professional"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="card-professional">
-            <CardHeader>
-              <CardTitle className="text-professional-title">Privacy & Security</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Shield className="text-[#5945a3]" size={20} />
-                  <div>
-                    <p className="text-professional-subtitle font-medium">Two-Factor Authentication</p>
-                    <p className="text-professional-body text-sm">Add an extra layer of security</p>
-                  </div>
-                </div>
-                <Button variant="outline" className="btn-professional profile-settings-button">
-                  Enable
-                </Button>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Eye className="text-[#5945a3]" size={20} />
-                  <div>
-                    <p className="text-professional-subtitle font-medium">Profile Visibility</p>
-                    <p className="text-professional-body text-sm">Control who can see your profile</p>
-                  </div>
-                </div>
-                <Button variant="outline" className="btn-professional profile-settings-button">
-                  Public
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
