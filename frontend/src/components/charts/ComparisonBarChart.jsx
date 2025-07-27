@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { TrendingUp, TrendingDown, Award, Target, Info, Users, BarChart3 } from 'lucide-react';
+import { PECUNIA_CHART_COLORS } from '../../utils/chartColors';
 
 const ComparisonBarChart = ({ 
   data, 
@@ -12,7 +13,7 @@ const ComparisonBarChart = ({
   xDataKey = 'category',
   yDataKey = 'value',
   comparisonKey = 'benchmark',
-  colors = ['#5945a3', '#b37e91'],
+  colors, // Allow override but use consistent colors by default
   showComparison = true,
   showPercentages = true,
   benchmarkLabel = 'Benchmark',
@@ -22,6 +23,9 @@ const ComparisonBarChart = ({
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortBy, setSortBy] = useState('value');
   const [sortOrder, setSortOrder] = useState('desc');
+
+  // Use consistent colors unless specifically overridden
+  const chartColors = colors || [PECUNIA_CHART_COLORS.primary[0], PECUNIA_CHART_COLORS.primary[1]];
 
   // Enhanced data with calculations and insights
   const enhancedData = data.map(item => {
@@ -67,30 +71,30 @@ const ComparisonBarChart = ({
     if (active && payload && payload.length) {
       const data = sortedData.find(item => item[xDataKey] === label);
       return (
-        <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg max-w-sm">
-          <div className="font-semibold text-gray-800 mb-2">{label}</div>
+        <div className="bg-white dark:bg-gray-800 p-4 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-w-sm">
+          <div className="font-semibold text-gray-800 dark:text-white mb-2">{label}</div>
           <div className="space-y-2">
             {payload.map((entry, index) => (
               <div key={index} className="flex justify-between">
-                <span className="text-sm text-gray-600">{entry.name}:</span>
-                <span className="font-medium">${entry.value.toLocaleString()}</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">{entry.name}:</span>
+                <span className="font-medium text-gray-900 dark:text-white">${entry.value.toLocaleString()}</span>
               </div>
             ))}
             {data && (
               <>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Difference:</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Difference:</span>
                   <span className={`font-medium ${data.performance === 'above' ? 'text-green-500' : 'text-red-500'}`}>
                     {data.performance === 'above' ? '+' : ''}${data.difference.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">% vs Average:</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">% vs Average:</span>
                   <span className={`font-medium ${data.performance === 'above' ? 'text-green-500' : 'text-red-500'}`}>
                     {data.performance === 'above' ? '+' : ''}{data.percentageDiff}%
                   </span>
                 </div>
-                <div className="mt-2 p-2 bg-blue-50 rounded text-xs text-blue-800">
+                <div className="mt-2 p-2 bg-blue-50 dark:bg-blue-900/30 rounded text-xs text-blue-800 dark:text-blue-200">
                   💡 {data.insight}
                 </div>
               </>
@@ -102,22 +106,17 @@ const ComparisonBarChart = ({
     return null;
   };
 
-  const CustomBar = (props) => {
-    const { fill, payload } = props;
-    return <Bar {...props} fill={payload?.performance === 'above' ? colors[0] : colors[1]} />;
-  };
-
   return (
     <Card className="w-full shadow-lg card-premium hover-glow-subtle">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-6">
         <div className="flex justify-between items-start">
           <div>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
               <BarChart3 className="text-[#5945a3]" size={20} />
               {title}
               <Info size={16} className="text-gray-400" />
             </CardTitle>
-            {subtitle && <p className="text-sm text-gray-600 mt-1">{subtitle}</p>}
+            {subtitle && <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{subtitle}</p>}
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -148,64 +147,64 @@ const ComparisonBarChart = ({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-1 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1 space-y-6">
             {/* Performance Summary */}
-            <div className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+            <div className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
               <div className="flex items-center gap-2 mb-3">
-                <Award className="text-purple-600" size={20} />
-                <span className="font-medium text-purple-800">Performance Score</span>
+                <Award className="text-purple-600 dark:text-purple-400" size={20} />
+                <span className="font-medium text-purple-800 dark:text-purple-200">Performance Score</span>
               </div>
-              <div className="text-3xl font-bold text-purple-700 mb-2">{overallScore}%</div>
-              <div className="text-sm text-purple-600">
+              <div className="text-3xl font-bold text-purple-700 dark:text-purple-300 mb-2">{overallScore}%</div>
+              <div className="text-sm text-purple-600 dark:text-purple-400">
                 Above average in {aboveAverage} of {totalCategories} categories
               </div>
             </div>
 
             {/* Quick Stats */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="text-green-600" size={16} />
-                  <span className="text-sm text-green-800">Above Average</span>
+                  <TrendingUp className="text-green-600 dark:text-green-400" size={16} />
+                  <span className="text-sm text-green-800 dark:text-green-200">Above Average</span>
                 </div>
-                <span className="font-bold text-green-700">{aboveAverage}</span>
+                <span className="font-bold text-green-700 dark:text-green-300">{aboveAverage}</span>
               </div>
               
-              <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <TrendingDown className="text-red-600" size={16} />
-                  <span className="text-sm text-red-800">Below Average</span>
+                  <TrendingDown className="text-red-600 dark:text-red-400" size={16} />
+                  <span className="text-sm text-red-800 dark:text-red-200">Below Average</span>
                 </div>
-                <span className="font-bold text-red-700">{belowAverage}</span>
+                <span className="font-bold text-red-700 dark:text-red-300">{belowAverage}</span>
               </div>
               
-              <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <Target className="text-blue-600" size={16} />
-                  <span className="text-sm text-blue-800">On Target</span>
+                  <Target className="text-blue-600 dark:text-blue-400" size={16} />
+                  <span className="text-sm text-blue-800 dark:text-blue-200">On Target</span>
                 </div>
-                <span className="font-bold text-blue-700">
+                <span className="font-bold text-blue-700 dark:text-blue-300">
                   {totalCategories - aboveAverage - belowAverage}
                 </span>
               </div>
             </div>
 
             {/* Top Performers */}
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center gap-2 mb-2">
-                <Users className="text-gray-600" size={16} />
-                <span className="font-medium text-gray-800 text-sm">Top Performers</span>
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="flex items-center gap-2 mb-3">
+                <Users className="text-gray-600 dark:text-gray-400" size={16} />
+                <span className="font-medium text-gray-800 dark:text-gray-200 text-sm">Top Performers</span>
               </div>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 {enhancedData
                   .filter(item => item.performance === 'above')
                   .sort((a, b) => b.percentageDiff - a.percentageDiff)
                   .slice(0, 3)
                   .map((item, index) => (
                     <div key={index} className="flex justify-between text-xs">
-                      <span className="text-gray-600">{item[xDataKey]}</span>
-                      <span className="text-green-600 font-medium">+{item.percentageDiff}%</span>
+                      <span className="text-gray-600 dark:text-gray-400 truncate">{item[xDataKey]}</span>
+                      <span className="text-green-600 dark:text-green-400 font-medium">+{item.percentageDiff}%</span>
                     </div>
                   ))}
               </div>
@@ -234,7 +233,7 @@ const ComparisonBarChart = ({
                 <Bar 
                   dataKey={yDataKey} 
                   name={userLabel}
-                  fill={colors[0]}
+                  fill={chartColors[0]}
                   radius={[4, 4, 0, 0]}
                   onClick={(data) => onBarClick && onBarClick(data)}
                   className="cursor-pointer"
@@ -242,7 +241,7 @@ const ComparisonBarChart = ({
                   {sortedData.map((entry, index) => (
                     <Cell 
                       key={`cell-${index}`} 
-                      fill={entry.performance === 'above' ? colors[0] : colors[1]}
+                      fill={entry.performance === 'above' ? chartColors[0] : chartColors[1]}
                     />
                   ))}
                 </Bar>
@@ -259,21 +258,21 @@ const ComparisonBarChart = ({
             </ResponsiveContainer>
 
             {/* Category Details */}
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               {sortedData.slice(0, 4).map((item, index) => (
                 <div 
                   key={index}
-                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
+                  className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
                     selectedCategory === item[xDataKey] 
-                      ? 'border-purple-300 bg-purple-50' 
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-purple-300 bg-purple-50 dark:border-purple-600 dark:bg-purple-900/20' 
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                   onClick={() => setSelectedCategory(
                     selectedCategory === item[xDataKey] ? null : item[xDataKey]
                   )}
                 >
                   <div className="flex justify-between items-start mb-2">
-                    <span className="font-medium text-sm">{item[xDataKey]}</span>
+                    <span className="font-medium text-sm text-gray-900 dark:text-white">{item[xDataKey]}</span>
                     <Badge 
                       variant={item.performance === 'above' ? 'default' : 'secondary'}
                       className="text-xs"
@@ -281,11 +280,11 @@ const ComparisonBarChart = ({
                       {item.performance === 'above' ? '+' : ''}{item.percentageDiff}%
                     </Badge>
                   </div>
-                  <div className="text-xs text-gray-600 mb-1">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">
                     You: ${item[yDataKey].toLocaleString()} | Avg: ${item[comparisonKey].toLocaleString()}
                   </div>
                   {selectedCategory === item[xDataKey] && (
-                    <div className="text-xs text-blue-600 mt-2 p-2 bg-blue-50 rounded">
+                    <div className="text-xs text-blue-600 dark:text-blue-400 mt-2 p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
                       {item.insight}
                     </div>
                   )}
