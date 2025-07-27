@@ -144,61 +144,41 @@ const Compare = () => {
               onMouseEnter={() => setHoveredFriend(friend.name)}
               onMouseLeave={() => setHoveredFriend(null)}
             >
-              {/* Background gradient effect */}
-              {(isSelected || isHovered) && (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#5945a3]/3 to-[#b37e91]/3"></div>
-              )}
-              
               {/* Selection indicator */}
               {isSelected && (
-                <div className="absolute top-2 right-2">
-                  <Trophy className="text-[#5945a3]" size={16} />
+                <div className="absolute top-3 right-3">
+                  <Trophy className="text-[#5945a3]" size={18} />
                 </div>
               )}
               
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="relative">
-                    <Avatar className="h-10 w-10 lg:h-12 lg:w-12 hover-breath">
-                      <AvatarImage src="/api/placeholder/48/48" />
-                      <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
-                        {friend.name.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    {/* Online status indicator */}
-                    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                  </div>
-                  <div className="flex-1">
-                    <p className="mobile-subtitle lg:font-medium hover:text-[#5945a3] transition-colors">{friend.name}</p>
-                    <div className="flex items-center gap-2">
-                      <p className="mobile-caption text-gray-600">Score: {friend.score}</p>
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            size={12} 
-                            className={i < Math.floor(friend.score / 200) ? 'text-yellow-400 fill-current' : 'text-gray-300'} 
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+              <div className="friend-card-header">
+                <div className="friend-avatar">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src="/api/placeholder/48/48" />
+                    <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
+                      {friend.name.split(' ').map(n => n[0]).join('')}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="friend-status"></div>
                 </div>
-
-                {/* Friend stats */}
-                <div className="mobile-grid-2 gap-2 mb-3">
-                  <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
-                    <p className="mobile-caption font-semibold">{friend.netWorth}</p>
-                    <p className="mobile-caption text-gray-500 text-xs">Net Worth</p>
-                  </div>
-                  <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
-                    <p className="mobile-caption font-semibold text-green-600">{friend.growth}</p>
-                    <p className="mobile-caption text-gray-500 text-xs">Growth</p>
-                  </div>
+                <div className="friend-info">
+                  <h3>{friend.name}</h3>
+                  <p>Score: {friend.score}</p>
                 </div>
+              </div>
 
-                {/* Action buttons */}
-                <div className="flex gap-2">
+              <div className="friend-stats">
+                <div className="friend-stat">
+                  <div className="friend-stat-value">{friend.netWorth}</div>
+                  <div className="friend-stat-label">Net Worth</div>
+                </div>
+                <div className="friend-stat">
+                  <div className="friend-stat-value text-green-600">{friend.growth}</div>
+                  <div className="friend-stat-label">Growth</div>
+                </div>
+              </div>
+
+              <div className="friend-actions">
                   <Button
                     variant="ghost"
                     size="sm"
