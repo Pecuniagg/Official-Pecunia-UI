@@ -335,12 +335,15 @@ const Compare = () => {
           </TabsTrigger>
         </TabsList>
 
-          <TabsContent value="friends" className="animate-breath">
-            <FriendSelector />
-            <ComparisonCharts />
           </TabsContent>
+        </Tabs>
 
-          <TabsContent value="public" className="space-y-4 lg:space-y-6 animate-breath">
+        <TabsContent value="friends" className="animate-breath">
+          <FriendSelector />
+          <ComparisonCharts />
+        </TabsContent>
+
+        <TabsContent value="public" className="space-y-4 lg:space-y-6 animate-breath">
             <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white card-whisper hover-glow-subtle compare-public-data-box">
               <CardContent className="p-4 lg:p-8">
                 <h2 className="mobile-title lg:text-2xl lg:font-bold mb-3 lg:mb-4 animate-silk">How You Compare to Others</h2>
