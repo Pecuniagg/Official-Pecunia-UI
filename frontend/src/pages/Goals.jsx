@@ -294,29 +294,29 @@ const Goals = () => {
   };
 
   return (
-    <div style={{ 
+    <div className="mobile-layout" style={{ 
       background: 'var(--color-bg-primary)', 
       color: 'var(--color-text-white)',
       minHeight: '100vh'
     }}>
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="mobile-container lg:max-w-7xl lg:mx-auto lg:p-6">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-0 mb-4 lg:mb-8">
           <div>
-            <h1 className="text-modern-hero">Financial Goals</h1>
-            <p className="text-modern-subtitle mt-2">Track and achieve your financial objectives with AI-powered strategies</p>
+            <h1 className="mobile-title lg:text-modern-hero">Financial Goals</h1>
+            <p className="mobile-body lg:text-modern-subtitle mt-1 lg:mt-2">Track and achieve your financial objectives with AI-powered strategies</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 w-full lg:w-auto">
             <Button
               variant="outline"
               size="sm"
-              className="btn-modern-secondary"
+              className="mobile-btn-sm lg:btn-modern-secondary flex-1 lg:flex-none"
               onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
             >
               {viewMode === 'grid' ? 'List View' : 'Grid View'}
             </Button>
             <Button
-              className="btn-modern-primary"
+              className="mobile-btn lg:btn-modern-primary flex-1 lg:flex-none"
               onClick={() => setShowNewGoal(true)}
             >
               <Plus size={16} className="mr-2" />
