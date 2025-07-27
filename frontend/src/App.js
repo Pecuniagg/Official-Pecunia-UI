@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import "./styles/animations.css";
 import "./styles/pecunia-theme.css";
+import "./styles/ai-assistant-refined.css";
+import "./styles/compare-refined.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AIProvider } from "./contexts/AIContext";
 import Layout from "./components/Layout";
