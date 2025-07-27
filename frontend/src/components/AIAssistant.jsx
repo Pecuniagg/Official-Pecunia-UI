@@ -243,7 +243,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
       />
       
       {/* Side Panel */}
-      <div className={`side-panel ${isOpen ? 'open' : ''} ai-assistant-container`}>
+      <div className={`side-panel lg:side-panel mobile-ai-panel ${isOpen ? 'open' : ''} ai-assistant-container`}>
         <div className="flex flex-col h-full">
           {/* Header - Enhanced spacing */}
           <div className="ai-assistant-header">
