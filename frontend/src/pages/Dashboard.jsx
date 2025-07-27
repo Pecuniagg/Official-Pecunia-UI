@@ -276,17 +276,18 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto p-6" style={{ 
+    <div className="max-w-7xl mx-auto p-3 lg:p-6" style={{ 
       background: 'var(--color-bg-primary)', 
       color: 'var(--color-text-white)',
       minHeight: '100vh'
     }}>
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 bg-gray-50 dark:bg-gray-800 p-1 rounded-lg mb-8">
-          <TabsTrigger value="overview" className="interactive text-sm font-medium">Overview</TabsTrigger>
-          <TabsTrigger value="ai-insights" className="interactive flex items-center gap-2 text-sm font-medium">
-            <Brain className="h-4 w-4" />
-            AI Insights
+        <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-gray-50 dark:bg-gray-800 p-1 rounded-lg mb-4 lg:mb-8">
+          <TabsTrigger value="overview" className="interactive text-xs lg:text-sm font-medium">Overview</TabsTrigger>
+          <TabsTrigger value="ai-insights" className="interactive flex items-center gap-1 lg:gap-2 text-xs lg:text-sm font-medium">
+            <Brain className="h-3 w-3 lg:h-4 lg:w-4" />
+            <span className="hidden sm:inline">AI Insights</span>
+            <span className="sm:hidden">AI</span>
           </TabsTrigger>
           <TabsTrigger value="advanced" className="interactive text-sm font-medium">Advanced Analytics</TabsTrigger>
           <TabsTrigger value="detailed" className="interactive text-sm font-medium">Detailed Analysis</TabsTrigger>
