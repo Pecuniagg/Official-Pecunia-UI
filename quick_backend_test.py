@@ -8,7 +8,7 @@ import aiohttp
 import json
 from datetime import datetime
 
-BACKEND_URL = "https://29ebef05-dbf9-4586-a1aa-edf2fc5c5871.preview.emergentagent.com/api"
+BACKEND_URL = "https://afd8ed04-a23c-40e2-bfae-73d0845d2a1f.preview.emergentagent.com/api"
 
 async def test_endpoint(session, endpoint, method="GET", data=None):
     """Test a single endpoint"""
