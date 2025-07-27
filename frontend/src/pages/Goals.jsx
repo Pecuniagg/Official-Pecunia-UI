@@ -353,16 +353,16 @@ const Goals = () => {
           </Select>
         </div>
 
-        <TabsContent value="personal" className="space-y-6">
-          <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
+        <TabsContent value="personal" className="space-y-4 lg:space-y-6">
+          <div className={`grid ${viewMode === 'grid' ? 'mobile-grid-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-4 lg:gap-6`}>
             {filteredGoals.map((goal) => (
               <GoalCard key={goal.id} goal={goal} />
             ))}
           </div>
         </TabsContent>
 
-        <TabsContent value="group" className="space-y-6">
-          <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
+        <TabsContent value="group" className="space-y-4 lg:space-y-6">
+          <div className={`grid ${viewMode === 'grid' ? 'mobile-grid-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-4 lg:gap-6`}>
             {goals.group.map((goal) => (
               <GoalCard key={goal.id} goal={goal} isGroup={true} />
             ))}
