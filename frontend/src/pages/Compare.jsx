@@ -112,11 +112,11 @@ const Compare = () => {
   );
 
   const FriendSelector = () => (
-    <div className="friends-section">
-      <div className="friends-header">
+    <div className="space-y-6">
+      <div className="flex justify-between items-center gap-4">
         <div>
-          <h2>Compare with Friends</h2>
-          <p>See how your financial progress stacks up</p>
+          <h2 className="text-2xl font-bold text-white">Compare with Friends</h2>
+          <p className="text-gray-400">See how your financial progress stacks up</p>
         </div>
         <Button className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white">
           <UserPlus size={16} className="mr-2" />
@@ -124,7 +124,7 @@ const Compare = () => {
         </Button>
       </div>
 
-      <div className="friends-grid">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {compare.friends.map((friend, index) => {
           const isSelected = selectedFriend === friend.name;
           const isHovered = hoveredFriend === friend.name;
@@ -133,7 +133,11 @@ const Compare = () => {
           return (
             <div
               key={index}
-              className={`friend-card ${isSelected ? 'selected' : ''}`}
+              className={`friend-card p-6 bg-white rounded-xl border-2 transition-all duration-300 cursor-pointer ${
+                isSelected 
+                  ? 'border-[#5945a3] shadow-lg' 
+                  : 'border-gray-200 hover:border-[#5945a3]/30 hover:shadow-md'
+              }`}
               onClick={() => {
                 setSelectedFriend(selectedFriend === friend.name ? null : friend.name);
                 toast({ 
