@@ -25,7 +25,8 @@ import {
   UserPlus,
   TrendingDown,
   Award,
-  Crown
+  Crown,
+  PiggyBank
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 
