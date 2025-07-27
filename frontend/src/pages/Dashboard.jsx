@@ -196,7 +196,7 @@ const Dashboard = () => {
                       <div className="flex items-center gap-3">
                         <div 
                           className="w-4 h-4 rounded-full"
-                          style={{ backgroundColor: ['#5945a3', '#b37e91', '#1e1b24', '#3b345b', '#0a0a0f'][index] }}
+                          style={{ backgroundColor: ['#5945A3', '#B37E91', '#39D98A', '#FF4D67', '#FFB800'][index] }}
                         />
                         <span className="font-medium">{item.name}</span>
                       </div>
