@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { TrendingUp, TrendingDown, Calendar, Info, Target, BarChart3 } from 'lucide-react';
+import { PECUNIA_CHART_COLORS } from '../../utils/chartColors';
 
 const TrendLineChart = ({ 
   data, 
@@ -11,7 +12,7 @@ const TrendLineChart = ({
   subtitle,
   xDataKey = 'month',
   yDataKey = 'value',
-  color = '#5945a3',
+  color = PECUNIA_CHART_COLORS.primary[0], // Use consistent primary color
   showArea = false,
   showTrends = true,
   showProjection = true,
@@ -64,28 +65,28 @@ const TrendLineChart = ({
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg">
-          <div className="font-semibold text-gray-800 mb-2">{label}</div>
+        <div className="bg-white dark:bg-gray-800 p-4 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
+          <div className="font-semibold text-gray-800 dark:text-white mb-2">{label}</div>
           <div className="space-y-2">
             <div className="flex justify-between">
-              <span className="text-sm text-gray-600">Value:</span>
-              <span className="font-medium">${payload[0].value.toLocaleString()}</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Value:</span>
+              <span className="font-medium text-gray-900 dark:text-white">${payload[0].value.toLocaleString()}</span>
             </div>
             {data.projected && (
-              <div className="text-xs text-blue-600 font-medium">
+              <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">
                 📈 Projected value
               </div>
             )}
             {benchmarkValue && (
               <div className="flex justify-between">
-                <span className="text-sm text-gray-600">vs. Benchmark:</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">vs. Benchmark:</span>
                 <span className={`text-sm ${payload[0].value > benchmarkValue ? 'text-green-500' : 'text-red-500'}`}>
                   {payload[0].value > benchmarkValue ? 'Above' : 'Below'} (${benchmarkValue.toLocaleString()})
                 </span>
               </div>
             )}
             {data.insight && (
-              <div className="mt-2 p-2 bg-blue-50 rounded text-xs text-blue-800">
+              <div className="mt-2 p-2 bg-blue-50 dark:bg-blue-900/30 rounded text-xs text-blue-800 dark:text-blue-200">
                 💡 {data.insight}
               </div>
             )}
@@ -130,18 +131,18 @@ const TrendLineChart = ({
 
   return (
     <Card className="w-full shadow-lg card-premium hover-glow-subtle">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-6">
         <div className="flex justify-between items-start">
           <div>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
               <BarChart3 className="text-[#5945a3]" size={20} />
               {title}
               <Info size={16} className="text-gray-400" />
             </CardTitle>
-            {subtitle && <p className="text-sm text-gray-600 mt-1">{subtitle}</p>}
+            {subtitle && <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{subtitle}</p>}
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex bg-gray-100 rounded-lg p-1">
+            <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
               {periods.map((period) => (
                 <Button
                   key={period}
@@ -150,7 +151,7 @@ const TrendLineChart = ({
                   className={`px-3 py-1 text-xs ${
                     selectedPeriod === period 
                       ? 'bg-[#5945a3] text-white' 
-                      : 'text-gray-600 hover:text-gray-900'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                   }`}
                   onClick={() => setSelectedPeriod(period)}
                 >
@@ -162,13 +163,13 @@ const TrendLineChart = ({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-1 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1 space-y-6">
             {/* Key Metrics */}
-            <div className="space-y-3">
-              <div className="p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Current</span>
+            <div className="space-y-4">
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Current</span>
                   <div className="flex items-center gap-2">
                     {showTrends && (
                       <>
@@ -189,16 +190,16 @@ const TrendLineChart = ({
                 </div>
               </div>
 
-              <div className="p-3 bg-gray-50 rounded-lg">
-                <div className="text-sm text-gray-600">Average</div>
-                <div className="text-lg font-semibold">
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Average</div>
+                <div className="text-lg font-semibold text-gray-900 dark:text-white">
                   ${avgValue.toLocaleString()}
                 </div>
               </div>
 
-              <div className="p-3 bg-gray-50 rounded-lg">
-                <div className="text-sm text-gray-600">Range</div>
-                <div className="text-sm font-medium">
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Range</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-white">
                   ${minValue.toLocaleString()} - ${maxValue.toLocaleString()}
                 </div>
               </div>
@@ -206,8 +207,8 @@ const TrendLineChart = ({
 
             {/* Benchmark Toggle */}
             {benchmarkValue && (
-              <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm text-blue-800">Show Benchmark</span>
+              <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                <span className="text-sm text-blue-800 dark:text-blue-200">Show Benchmark</span>
                 <Button
                   variant={showBenchmark ? "default" : "outline"}
                   size="sm"
@@ -220,12 +221,12 @@ const TrendLineChart = ({
             )}
 
             {/* Quick Insights */}
-            <div className="p-3 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
-              <div className="flex items-center gap-2 mb-2">
-                <Target className="text-green-600" size={16} />
-                <span className="font-medium text-green-800 text-sm">Insights</span>
+            <div className="p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-lg border border-green-200 dark:border-green-800">
+              <div className="flex items-center gap-2 mb-3">
+                <Target className="text-green-600 dark:text-green-400" size={16} />
+                <span className="font-medium text-green-800 dark:text-green-200 text-sm">Insights</span>
               </div>
-              <div className="space-y-1 text-xs text-green-700">
+              <div className="space-y-1 text-xs text-green-700 dark:text-green-300">
                 <div>• {trend === 'up' ? 'Positive' : 'Negative'} trend ({trendPercentage}%)</div>
                 <div>• {latestValue > avgValue ? 'Above' : 'Below'} average</div>
                 {benchmarkValue && (
@@ -263,7 +264,7 @@ const TrendLineChart = ({
                     <Line
                       type="monotone"
                       dataKey={() => benchmarkValue}
-                      stroke="#fbbf24"
+                      stroke={PECUNIA_CHART_COLORS.primary[4]} // Warning yellow
                       strokeDasharray="5 5"
                       strokeWidth={2}
                       dot={false}
@@ -297,7 +298,7 @@ const TrendLineChart = ({
                     <Line
                       type="monotone"
                       dataKey={() => benchmarkValue}
-                      stroke="#fbbf24"
+                      stroke={PECUNIA_CHART_COLORS.primary[4]} // Warning yellow
                       strokeDasharray="5 5"
                       strokeWidth={2}
                       dot={false}

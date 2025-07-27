@@ -1,7 +1,11 @@
 import React from 'react';
+import { getChartColors } from '../../utils/chartColors';
 
-const PieChartComponent = ({ data, colors = ['#5945A3', '#B37E91', '#39D98A', '#FF4D67', '#FFB800', '#00D4FF'] }) => {
+const PieChartComponent = ({ data, colors }) => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
+  
+  // Use consistent colors unless specifically overridden
+  const chartColors = colors || getChartColors(data.length);
   
   let cumulativePercentage = 0;
   const segments = data.map((item, index) => {
@@ -25,7 +29,7 @@ const PieChartComponent = ({ data, colors = ['#5945A3', '#B37E91', '#39D98A', '#
     
     return {
       path: pathData,
-      color: colors[index % colors.length],
+      color: chartColors[index % chartColors.length],
       percentage: percentage.toFixed(1),
       ...item
     };
@@ -61,11 +65,11 @@ const PieChartComponent = ({ data, colors = ['#5945A3', '#B37E91', '#39D98A', '#
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: segment.color }}
                 />
-                <span className="text-sm font-medium text-gray-700">{segment.name}</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{segment.name}</span>
               </div>
               <div className="text-right">
-                <div className="text-sm font-semibold">${segment.value.toLocaleString()}</div>
-                <div className="text-xs text-gray-500">{segment.percentage}%</div>
+                <div className="text-sm font-semibold text-gray-900 dark:text-white">${segment.value.toLocaleString()}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">{segment.percentage}%</div>
               </div>
             </div>
           ))}
