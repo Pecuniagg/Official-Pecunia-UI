@@ -815,19 +815,19 @@ const Planner = () => {
   );
 
   return (
-    <div style={{ 
+    <div className="mobile-layout" style={{ 
       background: 'var(--color-bg-primary)', 
       color: 'var(--color-text-white)',
       minHeight: '100vh'
     }}>
-      <div className="max-w-7xl mx-auto p-6 space-y-8">
+      <div className="mobile-container lg:max-w-7xl lg:mx-auto lg:p-6 lg:space-y-8">
         {/* Header */}
-      <div className="flex justify-between items-start">
+      <div className="flex flex-col lg:flex-row justify-between items-start gap-4 lg:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-[#0a0a0f] mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
+          <h1 className="mobile-title lg:text-3xl lg:font-bold text-[#0a0a0f] mb-1 lg:mb-2" style={{ fontFamily: 'Neurial Grotesk, sans-serif' }}>
             AI Planner
           </h1>
-          <p className="text-[#3b345b]">Let AI plan your perfect experiences within your budget</p>
+          <p className="mobile-body lg:text-[#3b345b]">Let AI plan your perfect experiences within your budget</p>
         </div>
         
         <Button 
