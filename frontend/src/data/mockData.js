@@ -170,8 +170,13 @@ export const mockData = {
   profile: {
     name: 'John Doe',
     email: 'john.doe@example.com',
+    avatar: '/api/placeholder/100/100',
+    title: 'Senior Financial Analyst',
     joinDate: 'January 2024',
     pecuniaScore: 782,
+    rating: 4.8,
+    level: 7,
+    netWorth: 125000,
     posts: [
       {
         id: 1,
