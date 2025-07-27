@@ -289,8 +289,8 @@ const Dashboard = () => {
             <span className="hidden sm:inline">AI Insights</span>
             <span className="sm:hidden">AI</span>
           </TabsTrigger>
-          <TabsTrigger value="advanced" className="interactive text-sm font-medium">Advanced Analytics</TabsTrigger>
-          <TabsTrigger value="detailed" className="interactive text-sm font-medium">Detailed Analysis</TabsTrigger>
+          <TabsTrigger value="advanced" className="interactive text-xs lg:text-sm font-medium hidden lg:block">Advanced Analytics</TabsTrigger>
+          <TabsTrigger value="detailed" className="interactive text-xs lg:text-sm font-medium hidden lg:block">Detailed Analysis</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-8">
