@@ -295,39 +295,47 @@ const Compare = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto p-6" style={{ 
+    <div className="max-w-7xl mx-auto p-8" style={{ 
       background: 'var(--color-bg-primary)', 
       color: 'var(--color-text-white)',
       minHeight: '100vh'
     }}>
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-4" style={{ color: 'var(--color-text-white)' }}>
+      {/* Header with generous spacing */}
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold mb-6" style={{ color: 'var(--color-text-white)' }}>
           Financial Comparison
         </h1>
-        <p className="text-lg" style={{ color: 'var(--color-text-muted)' }}>
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
           Compare your financial progress with friends and public benchmarks
         </p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="mb-8 w-auto">
-          <TabsTrigger value="friends" className="flex items-center gap-2">
-            <Users size={16} />
-            <span>Friends</span>
-          </TabsTrigger>
-          <TabsTrigger value="public" className="flex items-center gap-2">
-            <Globe size={16} />
-            <span>Public Data</span>
-          </TabsTrigger>
-        </TabsList>
+        <div className="flex justify-center mb-10">
+          <TabsList className="bg-white/10 backdrop-blur-sm p-2 rounded-xl">
+            <TabsTrigger 
+              value="friends" 
+              className="flex items-center gap-3 px-6 py-3 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-gray-900"
+            >
+              <Users size={18} />
+              <span>Friends</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="public" 
+              className="flex items-center gap-3 px-6 py-3 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-gray-900"
+            >
+              <Globe size={18} />
+              <span>Public Data</span>
+            </TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="friends">
           <FriendSelector />
           <ComparisonCharts />
         </TabsContent>
 
-        <TabsContent value="public" className="space-y-6">
+        <TabsContent value="public" className="space-y-8">
             <Card className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white card-whisper hover-glow-subtle compare-public-data-box">
               <CardContent className="p-4 lg:p-8">
                 <h2 className="mobile-title lg:text-2xl lg:font-bold mb-3 lg:mb-4 animate-silk">How You Compare to Others</h2>
