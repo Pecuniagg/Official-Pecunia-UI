@@ -346,16 +346,16 @@ const Feed = () => {
               </CardHeader>
               <CardContent className="mobile-card-content">
                 <div className="space-y-2 lg:space-y-3">
-                  {popularTickers.map((ticker, index) => (
+                  {(popularTickers || []).map((ticker, index) => (
                     <div key={index} className="flex items-center justify-between p-2 lg:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
                       <div>
-                        <p className="mobile-caption lg:font-medium">{ticker.symbol}</p>
-                        <p className="mobile-caption text-gray-500">{ticker.name}</p>
+                        <p className="mobile-caption lg:font-medium">{ticker.symbol || 'N/A'}</p>
+                        <p className="mobile-caption text-gray-500">{ticker.name || 'Unknown'}</p>
                       </div>
                       <div className="text-right">
-                        <p className="mobile-caption lg:font-semibold">${ticker.price}</p>
-                        <p className={`mobile-caption ${ticker.change.startsWith('+') ? 'text-green-600' : 'text-red-500'}`}>
-                          {ticker.change}
+                        <p className="mobile-caption lg:font-semibold">${ticker.price || '0.00'}</p>
+                        <p className={`mobile-caption ${(ticker.change && ticker.change.startsWith('+')) ? 'text-green-600' : 'text-red-500'}`}>
+                          {ticker.change || '0.0%'}
                         </p>
                       </div>
                     </div>
