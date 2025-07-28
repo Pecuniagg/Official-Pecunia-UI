@@ -368,6 +368,7 @@ const Dashboard = () => {
                   <div onClick={() => handleChartClick('Assets', dashboard.assets)} className="cursor-pointer">
                     <CleanPieChart 
                       data={dashboard.assets} 
+                      title="Assets"
                       centerValue="$56K"
                       onSegmentClick={(data) => handleChartClick('Assets', dashboard.assets)}
                     />
