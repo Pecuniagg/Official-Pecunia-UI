@@ -297,6 +297,32 @@ const Goals = () => {
             </div>
           )}
 
+          {/* Automated Contribution Suggestion */}
+          <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Calculator className="text-green-600" size={16} />
+                <span className="text-professional-subtitle text-sm font-medium text-green-800 dark:text-green-300">
+                  Smart Contribution
+                </span>
+              </div>
+              <Badge className="bg-green-100 text-green-800 text-xs">
+                {goal.priority} priority
+              </Badge>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-professional-body text-sm text-green-700 dark:text-green-300">
+                Suggested monthly amount:
+              </span>
+              <span className="font-bold text-green-800 dark:text-green-200">
+                ${getAutomatedContribution(goal).toLocaleString()}
+              </span>
+            </div>
+            <div className="text-xs text-green-600 dark:text-green-400 mt-1">
+              Based on deadline and priority level
+            </div>
+          </div>
+
           <div className="flex gap-2">
             <Button
               size="sm"
