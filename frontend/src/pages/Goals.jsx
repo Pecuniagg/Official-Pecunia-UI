@@ -297,31 +297,79 @@ const Goals = () => {
             </div>
           )}
 
-          {/* Automated Contribution Suggestion */}
-          <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Calculator className="text-green-600" size={16} />
-                <span className="text-professional-subtitle text-sm font-medium text-green-800 dark:text-green-300">
-                  Smart Contribution
+          {/* Group Goal Member Contributions */}
+          {isGroup && goal.members && goal.contributions && (
+            <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+              <div className="flex items-center gap-2 mb-3">
+                <Users className="text-purple-600" size={16} />
+                <span className="text-professional-subtitle text-sm font-medium text-purple-800 dark:text-purple-300">
+                  Member Contributions
                 </span>
               </div>
-              <Badge className="bg-green-100 text-green-800 text-xs">
-                {goal.priority} priority
-              </Badge>
+              <div className="space-y-2">
+                {goal.members.map((member, index) => {
+                  const contribution = goal.contributions[member] || 0;
+                  const percentage = ((contribution / goal.target) * 100).toFixed(1);
+                  return (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          {member.split(' ')[0][0]}
+                        </div>
+                        <span className="text-sm font-medium text-purple-800 dark:text-purple-200">
+                          {member}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-bold text-purple-800 dark:text-purple-200">
+                          ${contribution.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-purple-600 dark:text-purple-400">
+                          {percentage}% of goal
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-3 pt-2 border-t border-purple-200 dark:border-purple-700">
+                <div className="flex justify-between text-sm">
+                  <span className="text-purple-700 dark:text-purple-300">Total from members:</span>
+                  <span className="font-bold text-purple-800 dark:text-purple-200">
+                    ${Object.values(goal.contributions).reduce((sum, contrib) => sum + contrib, 0).toLocaleString()}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-professional-body text-sm text-green-700 dark:text-green-300">
-                Suggested monthly amount:
-              </span>
-              <span className="font-bold text-green-800 dark:text-green-200">
-                ${getAutomatedContribution(goal).toLocaleString()}
-              </span>
+          )}
+
+          {/* Automated Contribution Suggestion */}
+          {!isGroup && (
+            <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Calculator className="text-green-600" size={16} />
+                  <span className="text-professional-subtitle text-sm font-medium text-green-800 dark:text-green-300">
+                    Smart Contribution
+                  </span>
+                </div>
+                <Badge className="bg-green-100 text-green-800 text-xs">
+                  {goal.priority} priority
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-professional-body text-sm text-green-700 dark:text-green-300">
+                  Suggested monthly amount:
+                </span>
+                <span className="font-bold text-green-800 dark:text-green-200">
+                  ${getAutomatedContribution(goal).toLocaleString()}
+                </span>
+              </div>
+              <div className="text-xs text-green-600 dark:text-green-400 mt-1">
+                Based on deadline and priority level
+              </div>
             </div>
-            <div className="text-xs text-green-600 dark:text-green-400 mt-1">
-              Based on deadline and priority level
-            </div>
-          </div>
+          )}
 
           <div className="flex gap-2">
             <Button
