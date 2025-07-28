@@ -198,6 +198,51 @@ const Feed = () => {
       minHeight: '100vh'
     }}>
       <div className="mobile-container lg:max-w-6xl lg:mx-auto lg:p-6">
+        {/* Search and Filter Bar */}
+        <div className="mb-6 space-y-4">
+          <div className="flex gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Input
+                placeholder="Search posts, users, or tickers..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+              />
+            </div>
+            <Button
+              variant="outline"
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+              onClick={() => toast({ title: "Communities", description: "Explore financial communities feature coming soon!" })}
+            >
+              <Users className="h-4 w-4 mr-2" />
+              Communities
+            </Button>
+          </div>
+          
+          {/* Filter Tabs */}
+          <div className="flex gap-2">
+            {[
+              { key: 'all', label: 'All Posts' },
+              { key: 'investments', label: 'Investments' },
+              { key: 'community', label: 'Community' }
+            ].map((tab) => (
+              <Button
+                key={tab.key}
+                variant={filter === tab.key ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setFilter(tab.key)}
+                className={filter === tab.key 
+                  ? 'bg-[#5945a3] text-white' 
+                  : 'text-gray-300 hover:text-white hover:bg-white/10'
+                }
+              >
+                {tab.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
           {/* Main Feed */}
           <div className="lg:col-span-8">
