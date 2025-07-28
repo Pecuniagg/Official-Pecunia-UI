@@ -291,7 +291,7 @@ const Feed = () => {
 
             {/* Feed Posts */}
             <div className="space-y-4 lg:space-y-6">
-              {filteredFeed.map((post) => (
+              {safeFeed.map((post) => (
                 <div key={post.id} className="relative">
                   <PostCard post={post} />
                   {/* Swipe Right to DM overlay */}
