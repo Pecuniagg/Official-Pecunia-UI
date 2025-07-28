@@ -97,7 +97,8 @@ export const mockData = {
       likes: 24,
       comments: 8,
       ticker: '$AAPL',
-      stockPrice: '+2.3%'
+      stockPrice: '+2.3%',
+      mentions: ['AAPL']
     },
     {
       id: 2,
@@ -108,7 +109,8 @@ export const mockData = {
       likes: 18,
       comments: 12,
       ticker: '$TSLA',
-      stockPrice: '+15.2%'
+      stockPrice: '+15.2%',
+      mentions: ['TSLA']
     },
     {
       id: 3,
@@ -118,6 +120,8 @@ export const mockData = {
       content: 'Monthly meetup this Friday! We\'ll discuss Q2 investment strategies and portfolio rebalancing.',
       likes: 45,
       comments: 23,
+      mentions: []
+    },
       isGroup: true
     },
     {
