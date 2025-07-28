@@ -189,12 +189,12 @@ const CashFlowChart = ({
               <YAxis stroke="#666" fontSize={12} tickFormatter={(value) => `$${(value / 1000).toFixed(0)}K`} />
               <Tooltip content={<CustomTooltip />} />
               <Legend />
-              <Bar dataKey="income" fill="#10b981" name="Income" opacity={0.7} />
-              <Bar dataKey="expenses" fill="#ef4444" name="Expenses" opacity={0.7} />
+              <Bar dataKey="income" fill={PECUNIA_CHART_COLORS.primary[2]} name="Income" opacity={0.7} />
+              <Bar dataKey="expenses" fill={PECUNIA_CHART_COLORS.primary[3]} name="Expenses" opacity={0.7} />
               <Line 
                 type="monotone" 
                 dataKey="netFlow" 
-                stroke="#5945a3" 
+                stroke={PECUNIA_CHART_COLORS.primary[0]} 
                 strokeWidth={3}
                 dot={{ fill: '#5945a3', r: 5 }}
                 name="Net Flow"
