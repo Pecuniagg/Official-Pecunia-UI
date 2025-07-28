@@ -217,22 +217,22 @@ const Compare = () => {
 
   const ComparisonCharts = () => (
     selectedFriend && (
-      <div className="space-y-4 lg:space-y-6 mt-6 lg:mt-8">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 lg:gap-0">
-          <h3 className="mobile-title lg:text-xl lg:font-bold">Detailed Comparison with {selectedFriend}</h3>
+      <div className="mt-16 space-y-8">
+        <div className="flex justify-between items-center gap-4">
+          <h3 className="text-2xl font-bold text-white">Detailed Comparison with {selectedFriend}</h3>
           <Button
             variant="outline"
-            size="sm"
+            size="lg"
             onClick={() => setShowInsights(!showInsights)}
-            className="mobile-btn-sm lg:btn-whisper w-full lg:w-auto"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20 px-6 py-3"
           >
-            <Sparkles size={16} className="mr-2" />
+            <Sparkles size={18} className="mr-2" />
             {showInsights ? 'Hide' : 'Show'} AI Insights
           </Button>
         </div>
 
-        {/* Comparison metrics grid */}
-        <div className="mobile-grid-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
+        {/* Comparison metrics grid with better spacing */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
           {compare.metrics.map((metric, index) => (
             <ComparisonCard
               key={index}
