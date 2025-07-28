@@ -155,57 +155,57 @@ const Compare = () => {
                 </div>
               )}
               
-              <div className="flex items-center gap-4 mb-4">
+              <div className="flex items-center gap-4 mb-6">
                 <div className="relative">
-                  <Avatar className="h-12 w-12">
+                  <Avatar className="h-14 w-14">
                     <AvatarImage src="/api/placeholder/48/48" />
-                    <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
+                    <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-lg font-semibold">
                       {friend.name.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">{friend.name}</h3>
-                  <p className="text-sm text-gray-600">Score: {friend.score}</p>
+                  <h3 className="font-bold text-gray-900 text-lg">{friend.name}</h3>
+                  <p className="text-gray-600 font-medium">Score: {friend.score}</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="font-semibold text-gray-900">{friend.netWorth}</div>
-                  <div className="text-xs text-gray-600">Net Worth</div>
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="text-center p-4 bg-gray-50 rounded-xl">
+                  <div className="font-bold text-gray-900 text-lg">{friend.netWorth}</div>
+                  <div className="text-sm text-gray-600 mt-1">Net Worth</div>
                 </div>
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="font-semibold text-green-600">{friend.growth}</div>
-                  <div className="text-xs text-gray-600">Growth</div>
+                <div className="text-center p-4 bg-gray-50 rounded-xl">
+                  <div className="font-bold text-green-600 text-lg">{friend.growth}</div>
+                  <div className="text-sm text-gray-600 mt-1">Growth</div>
                 </div>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <Button
                   variant="ghost"
-                  size="sm"
-                  className={`flex-1 gap-1 transition-all duration-200 ${isLiked ? 'text-red-500' : 'text-gray-500'}`}
+                  size="lg"
+                  className={`flex-1 gap-2 transition-all duration-200 h-12 ${isLiked ? 'text-red-500 bg-red-50' : 'text-gray-500 hover:bg-gray-50'}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     handleLikeFriend(friend.name);
                   }}
                 >
-                  <Heart size={14} className={isLiked ? 'fill-current' : ''} />
-                  <span className="text-xs">{isLiked ? 'Liked' : 'Like'}</span>
+                  <Heart size={16} className={isLiked ? 'fill-current' : ''} />
+                  <span className="font-medium">{isLiked ? 'Liked' : 'Like'}</span>
                 </Button>
                 <Button
                   variant="ghost"
-                  size="sm"
-                  className="flex-1 gap-1 text-gray-500"
+                  size="lg"
+                  className="flex-1 gap-2 text-gray-500 hover:bg-gray-50 h-12"
                   onClick={(e) => {
                     e.stopPropagation();
                     toast({ title: "Profile viewed", description: `Viewing ${friend.name}'s profile` });
                   }}
                 >
-                  <Eye size={14} />
-                  <span className="text-xs">View</span>
+                  <Eye size={16} />
+                  <span className="font-medium">View</span>
                 </Button>
               </div>
             </div>
