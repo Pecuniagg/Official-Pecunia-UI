@@ -147,8 +147,8 @@ const CashFlowChart = ({
                 type="monotone" 
                 dataKey="income" 
                 stackId="1" 
-                stroke="#10b981" 
-                fill="#10b981" 
+                stroke={PECUNIA_CHART_COLORS.primary[2]} 
+                fill={PECUNIA_CHART_COLORS.primary[2]} 
                 fillOpacity={0.3}
                 name="Income"
               />
@@ -156,8 +156,8 @@ const CashFlowChart = ({
                 type="monotone" 
                 dataKey="expenses" 
                 stackId="2" 
-                stroke="#ef4444" 
-                fill="#ef4444" 
+                stroke={PECUNIA_CHART_COLORS.primary[3]} 
+                fill={PECUNIA_CHART_COLORS.primary[3]} 
                 fillOpacity={0.3}
                 name="Expenses"
               />
