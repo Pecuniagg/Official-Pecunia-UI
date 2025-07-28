@@ -143,7 +143,7 @@ const Feed = () => {
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
               <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
-                <AvatarImage src={post.author.avatar} />
+                <AvatarImage src={post.avatar} />
                 <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-sm">
                   {post.author.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
