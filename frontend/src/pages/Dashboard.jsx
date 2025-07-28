@@ -666,42 +666,6 @@ const Dashboard = () => {
                       </div>
                     </div>
                   )}
-                        strokeWidth="8"
-                        fill="none"
-                      />
-                      <circle
-                        cx="64"
-                        cy="64"
-                        r="56"
-                        stroke="url(#gradient)"
-                        strokeWidth="8"
-                        fill="none"
-                        strokeDasharray={`${(pecuniaScore.current / 100) * 351.86} 351.86`}
-                        strokeLinecap="round"
-                        className="transition-all duration-300"
-                      />
-                      <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#5945a3" />
-                          <stop offset="100%" stopColor="#b37e91" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-3xl font-bold">{pecuniaScore.current}</span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted mb-3">
-                    +{pecuniaScore.change} from last month
-                  </p>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    className="w-full interactive border-gray-200"
-                    onClick={() => toast({ title: "Improvement Plan", description: "3 steps to reach 800+ score" })}
-                  >
-                    Improve Score
-                  </Button>
                 </CardContent>
               </Card>
 
