@@ -71,23 +71,27 @@ const Goals = () => {
   // Load AI strategies for goals
   useEffect(() => {
     const loadGoalStrategies = async () => {
+      if (!goals.personal || !getGoalStrategy) return;
+      
       for (const goal of goals.personal) {
         if (!goalStrategies[goal.id]) {
           try {
             const strategy = await getGoalStrategy(goal);
-            setGoalStrategies(prev => ({
-              ...prev,
-              [goal.id]: strategy
-            }));
+            if (strategy) {
+              setGoalStrategies(prev => ({
+                ...prev,
+                [goal.id]: strategy
+              }));
+            }
           } catch (error) {
-            console.error('Failed to load strategy for goal:', goal.id);
+            console.error('Failed to load strategy for goal:', goal.id, error);
           }
         }
       }
     };
 
     loadGoalStrategies();
-  }, []);
+  }, [goals.personal, getGoalStrategy, goalStrategies]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
