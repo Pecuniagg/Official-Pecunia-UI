@@ -1,0 +1,606 @@
+/* ================================== */
+/* UI/UX IMPROVEMENTS - 2025 */
+/* Perfect alignment, cleaner hierarchy, improved clarity */
+/* ================================== */
+
+/* ================================== */
+/* 1. DASHBOARD IMPROVEMENTS */
+/* ================================== */
+
+/* AI Insights Panel - Perfect Alignment */
+.dashboard-ai-insights-box {
+  background: var(--pecunia-surface) !important;
+  border: 1px solid var(--pecunia-border) !important;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.dashboard-ai-insights-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+/* AI Insights Content - Vertical Layout with Uniform Spacing */
+.ai-insights-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+}
+
+.ai-insight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--pecunia-border);
+}
+
+.ai-insight-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ai-insight-badge {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  min-width: fit-content;
+}
+
+.ai-insight-text {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--pecunia-text-primary);
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Badge Color Variants */
+.badge-success {
+  background: rgba(34, 197, 94, 0.1) !important;
+  color: #059669 !important;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.badge-info {
+  background: rgba(59, 130, 246, 0.1) !important;
+  color: #2563eb !important;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.1) !important;
+  color: #d97706 !important;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Accounts Panel - Consistent Alignment */
+.accounts-panel {
+  background: var(--pecunia-surface) !important;
+  border: 1px solid var(--pecunia-border) !important;
+}
+
+.account-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--pecunia-border);
+  transition: all 0.15s ease;
+}
+
+.account-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.account-item:hover {
+  background: var(--pecunia-surface-hover);
+  border-radius: 8px;
+  padding: 12px 8px;
+  margin: 0 -8px;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.account-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pecunia-text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.account-type {
+  font-size: 12px;
+  color: var(--pecunia-text-muted);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.account-balance-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.account-balance {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pecunia-text-primary);
+}
+
+/* Market Recommendations - No White Boxes */
+.market-recommendation-card {
+  background: var(--pecunia-surface-elevated) !important;
+  border: 1px solid var(--pecunia-border) !important;
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.market-recommendation-card:hover {
+  background: var(--pecunia-surface-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ================================== */
+/* 2. FEED IMPROVEMENTS */
+/* ================================== */
+
+/* 12-Column Responsive Grid Layout */
+.feed-container {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 1024px) {
+  .feed-container {
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .feed-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 16px;
+  }
+  
+  .feed-sidebar {
+    order: -1;
+  }
+}
+
+/* Main Feed Area (8-9 columns equivalent) */
+.feed-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Sidebar (3-4 columns equivalent) */
+.feed-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Post Creation Card - Decluttered */
+.post-creation-card {
+  background: var(--pecunia-surface) !important;
+  border: 1px solid var(--pecunia-border) !important;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.post-creation-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.post-creation-input-area {
+  margin-bottom: 16px;
+}
+
+.post-creation-input {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid var(--pecunia-border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.15s ease;
+}
+
+.post-creation-input:focus {
+  border-color: #5945a3;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(89, 69, 163, 0.1);
+}
+
+.post-creation-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-creation-options {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.post-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--pecunia-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.post-option:hover {
+  color: #5945a3;
+}
+
+.post-submit-button {
+  background: linear-gradient(135deg, #5945a3, #6b59a8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.post-submit-button:hover {
+  background: linear-gradient(135deg, #4a3d8f, #5945a3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(89, 69, 163, 0.3);
+}
+
+/* Feed Posts - Strong Hierarchy */
+.feed-post-card {
+  background: var(--pecunia-surface) !important;
+  border: 1px solid var(--pecunia-border) !important;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.feed-post-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.feed-post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.feed-post-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feed-post-user-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--pecunia-text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.feed-post-timestamp {
+  font-size: 13px;
+  color: var(--pecunia-text-muted);
+  opacity: 0.7;
+  margin-left: 8px;
+}
+
+.feed-post-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--pecunia-text-primary);
+  margin-bottom: 16px;
+  word-spacing: 1px;
+}
+
+.feed-post-stock-mentions {
+  margin: 12px 0;
+  padding: 8px 0;
+  border-top: 1px solid var(--pecunia-border);
+  border-bottom: 1px solid var(--pecunia-border);
+}
+
+.stock-mention {
+  display: inline-block;
+  background: rgba(89, 69, 163, 0.1);
+  color: #5945a3;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 2px;
+}
+
+.feed-post-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+}
+
+.feed-post-action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pecunia-text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.feed-post-action:hover {
+  color: #5945a3;
+}
+
+/* ================================== */
+/* 3. PROFILE TAB IMPROVEMENTS */
+/* ================================== */
+
+/* Enhanced Tab Selector */
+.profile-tabs-container {
+  background: var(--pecunia-surface-elevated);
+  border: 1px solid var(--pecunia-border);
+  border-radius: 12px;
+  padding: 6px;
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.profile-tab-trigger {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--pecunia-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+}
+
+.profile-tab-trigger:hover {
+  background: var(--pecunia-surface-hover);
+  color: var(--pecunia-text-primary);
+}
+
+.profile-tab-trigger[data-state="active"] {
+  background: linear-gradient(135deg, #5945a3, #6b59a8);
+  color: white;
+  box-shadow: 0 2px 8px rgba(89, 69, 163, 0.25);
+}
+
+.profile-tab-trigger[data-state="active"] .tab-icon {
+  color: white;
+}
+
+.tab-icon {
+  transition: color 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .profile-tab-trigger {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  
+  .profile-tab-text {
+    display: none;
+  }
+}
+
+/* ================================== */
+/* 4. AI ASSISTANT TEXT IMPROVEMENTS */
+/* ================================== */
+
+/* Fix text truncation and improve readability */
+.ai-suggestion-button {
+  white-space: normal !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-overflow: clip !important;
+  padding: 16px !important;
+  min-height: auto;
+  height: auto;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.ai-message {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.6;
+}
+
+.ai-message .whitespace-pre-wrap {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+
+/* Ensure proper text wrapping in AI responses */
+.word-wrap {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+}
+
+.break-words {
+  word-break: break-word;
+}
+
+/* Button text improvements */
+.ai-assistant-button {
+  white-space: normal;
+  word-wrap: break-word;
+  text-overflow: clip;
+  overflow: visible;
+  padding: 8px 16px;
+  min-height: 36px;
+  height: auto;
+  line-height: 1.4;
+}
+
+/* Quick action buttons */
+.quick-action-button {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  position: relative;
+}
+
+.quick-action-button:hover {
+  overflow: visible;
+  white-space: normal;
+  z-index: 10;
+  background: var(--pecunia-surface);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+}
+
+/* ================================== */
+/* 5. RESPONSIVE IMPROVEMENTS */
+/* ================================== */
+
+@media (max-width: 640px) {
+  .ai-insights-content {
+    gap: 12px;
+  }
+  
+  .ai-insight-item {
+    padding: 10px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .ai-insight-badge {
+    align-self: flex-start;
+  }
+  
+  .account-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .account-balance-container {
+    align-self: flex-end;
+  }
+  
+  .post-creation-footer {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .post-creation-options {
+    justify-content: center;
+  }
+  
+  .post-submit-button {
+    width: 100%;
+  }
+}
+
+/* ================================== */
+/* 6. ACCESSIBILITY IMPROVEMENTS */
+/* ================================== */
+
+/* Focus states */
+.ai-insight-item:focus,
+.account-item:focus,
+.feed-post-action:focus,
+.profile-tab-trigger:focus {
+  outline: 2px solid #5945a3;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ai-insight-badge,
+  .badge-success,
+  .badge-info,
+  .badge-warning {
+    border-width: 2px;
+  }
+  
+  .feed-post-card,
+  .post-creation-card,
+  .dashboard-ai-insights-box,
+  .accounts-panel {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-ai-insights-box,
+  .feed-post-card,
+  .post-creation-card,
+  .profile-tab-trigger,
+  .post-submit-button,
+  .feed-post-action {
+    transition: none;
+  }
+  
+  .post-submit-button:hover,
+  .feed-post-card:hover {
+    transform: none;
+  }
+}
