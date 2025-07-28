@@ -288,10 +288,54 @@ const Feed = () => {
 
             {/* Feed Posts */}
             <div className="space-y-4 lg:space-y-6">
-              {feed.posts.map((post) => (
-                <PostCard key={post.id} post={post} />
+              {filteredFeed.map((post) => (
+                <div key={post.id} className="relative">
+                  <PostCard post={post} />
+                  {/* Swipe Right to DM overlay */}
+                  <div className="absolute top-2 right-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleSwipeRight(post.author)}
+                      className="bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 border border-blue-400/30"
+                    >
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
               ))}
+              
+              {filteredFeed.length === 0 && (
+                <div className="text-center py-12">
+                  <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-400">No posts found matching your search</p>
+                </div>
+              )}
             </div>
+            
+            {/* DM Modal */}
+            {showDM && (
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                  <h3 className="text-lg font-bold mb-4 text-gray-900">Send Message to {showDM}</h3>
+                  <Textarea
+                    placeholder="Type your message..."
+                    value={dmMessage}
+                    onChange={(e) => setDmMessage(e.target.value)}
+                    className="mb-4"
+                  />
+                  <div className="flex gap-2">
+                    <Button onClick={handleSendDM} className="flex-1">
+                      <Send className="h-4 w-4 mr-2" />
+                      Send
+                    </Button>
+                    <Button variant="outline" onClick={() => setShowDM(null)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}
