@@ -112,19 +112,19 @@ const Compare = () => {
   );
 
   const FriendSelector = () => (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex justify-between items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white">Compare with Friends</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">Compare with Friends</h2>
           <p className="text-gray-400">See how your financial progress stacks up</p>
         </div>
-        <Button className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white">
+        <Button className="bg-gradient-to-r from-[#5945a3] to-[#b37e91] text-white px-6 py-3">
           <UserPlus size={16} className="mr-2" />
           Add Friend
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
         {compare.friends.map((friend, index) => {
           const isSelected = selectedFriend === friend.name;
           const isHovered = hoveredFriend === friend.name;
@@ -133,10 +133,10 @@ const Compare = () => {
           return (
             <div
               key={index}
-              className={`friend-card p-6 bg-white rounded-xl border-2 transition-all duration-300 cursor-pointer ${
+              className={`p-6 bg-white rounded-2xl border-2 transition-all duration-300 cursor-pointer relative overflow-hidden ${
                 isSelected 
-                  ? 'border-[#5945a3] shadow-lg' 
-                  : 'border-gray-200 hover:border-[#5945a3]/30 hover:shadow-md'
+                  ? 'border-[#5945a3] shadow-xl transform scale-[1.02]' 
+                  : 'border-gray-200 hover:border-[#5945a3]/40 hover:shadow-lg hover:transform hover:scale-[1.01]'
               }`}
               onClick={() => {
                 setSelectedFriend(selectedFriend === friend.name ? null : friend.name);
