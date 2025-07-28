@@ -542,30 +542,130 @@ const Dashboard = () => {
 
             {/* Right Column - Enhanced spacing */}
             <div className="lg:col-span-3 space-y-4 lg:space-y-6 xl:space-y-8">
-              {/* Interactive Pecunia Score */}
+              {/* Enhanced Pecunia Score with Breakdown */}
               <Card className="card-system interactive">
                 <CardHeader className="card-system-header">
                   <CardTitle className="visual-hierarchy-3">Pecunia Score</CardTitle>
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    onClick={() => toast({ title: "Score History", description: "Viewing score improvement tips..." })}
+                    onClick={() => setShowScoreBreakdown(!showScoreBreakdown)}
                     className="interactive text-[#5945a3] hover:bg-purple-50 border-0"
                   >
                     <Eye size={16} />
                   </Button>
                 </CardHeader>
-                <CardContent className="card-system-content text-center">
-                  <div 
-                    className="relative w-32 h-32 mx-auto mb-4 cursor-pointer interactive"
-                    onClick={() => toast({ title: "Score Breakdown", description: "Credit: 780, Savings: 795, Debt Ratio: 770" })}
-                  >
-                    <svg className="w-32 h-32 transform -rotate-90">
-                      <circle
-                        cx="64"
-                        cy="64"
-                        r="56"
-                        stroke="#e5e7eb"
+                <CardContent className="card-system-content">
+                  <div className="text-center mb-6">
+                    <div 
+                      className="relative w-32 h-32 mx-auto mb-4 cursor-pointer interactive"
+                      onClick={() => setShowScoreBreakdown(!showScoreBreakdown)}
+                    >
+                      <svg className="w-32 h-32 transform -rotate-90">
+                        <circle
+                          cx="64"
+                          cy="64"
+                          r="56"
+                          stroke="#e5e7eb"
+                          strokeWidth="8"
+                          fill="none"
+                        />
+                        <circle
+                          cx="64"
+                          cy="64"
+                          r="56"
+                          stroke="url(#scoreGradient)"
+                          strokeWidth="8"
+                          fill="none"
+                          strokeDasharray={`${(782/1000) * 351.86} 351.86`}
+                          className="transition-all duration-1000 ease-out"
+                        />
+                        <defs>
+                          <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#5945a3" />
+                            <stop offset="100%" stopColor="#b37e91" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-3xl font-bold text-[#5945a3]">782</div>
+                          <div className="text-xs text-muted">Excellent</div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted">Click to see breakdown</p>
+                  </div>
+
+                  {/* Score Breakdown */}
+                  {showScoreBreakdown && (
+                    <div className="space-y-4 animate-in slide-in-from-top-2 duration-300">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="text-center p-3 bg-green-50 rounded-lg">
+                          <div className="text-lg font-bold text-green-600">825</div>
+                          <div className="text-xs text-green-700">Savings Rate</div>
+                          <div className="text-xs text-gray-500">23% monthly</div>
+                        </div>
+                        <div className="text-center p-3 bg-blue-50 rounded-lg">
+                          <div className="text-lg font-bold text-blue-600">795</div>
+                          <div className="text-xs text-blue-700">Budget Control</div>
+                          <div className="text-xs text-gray-500">Under by $1,250</div>
+                        </div>
+                        <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                          <div className="text-lg font-bold text-yellow-600">750</div>
+                          <div className="text-xs text-yellow-700">Debt Ratio</div>
+                          <div className="text-xs text-gray-500">18% of income</div>
+                        </div>
+                        <div className="text-center p-3 bg-purple-50 rounded-lg">
+                          <div className="text-lg font-bold text-purple-600">760</div>
+                          <div className="text-xs text-purple-700">Investment Mix</div>
+                          <div className="text-xs text-gray-500">80% diversified</div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <h4 className="font-semibold text-sm mb-2">How it's calculated:</h4>
+                        <div className="space-y-2 text-xs text-gray-600">
+                          <div className="flex justify-between">
+                            <span>Savings Rate (30%)</span>
+                            <span>825 × 0.30 = 248</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Budget Control (25%)</span>
+                            <span>795 × 0.25 = 199</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Debt Management (25%)</span>
+                            <span>750 × 0.25 = 188</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Investment Strategy (20%)</span>
+                            <span>760 × 0.20 = 152</span>
+                          </div>
+                          <hr className="my-2" />
+                          <div className="flex justify-between font-semibold">
+                            <span>Total Score</span>
+                            <span>787 → 782</span>
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            *Score adjusted for recent spending patterns
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-blue-50 rounded-lg p-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Target className="text-blue-600" size={16} />
+                          <span className="font-semibold text-blue-800 text-sm">To reach 800+:</span>
+                        </div>
+                        <ul className="text-xs text-blue-700 space-y-1">
+                          <li>• Reduce debt ratio to under 15% (+15 points)</li>
+                          <li>• Increase emergency fund to 6 months (+10 points)</li>
+                          <li>• Diversify investments further (+8 points)</li>
+                        </ul>
+                      </div>
+                    </div>
+                  )}
                         strokeWidth="8"
                         fill="none"
                       />
