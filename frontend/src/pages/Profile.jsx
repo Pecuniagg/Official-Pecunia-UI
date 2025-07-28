@@ -286,136 +286,155 @@ const Profile = () => {
           />
         </div>
 
-        {/* Main Content Tabs */}
-        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="tabs-professional mb-4 lg:mb-8 w-full lg:w-auto">
-            <TabsTrigger value="posts" className="tab-professional flex-1 lg:flex-none">
-              <MessageSquare className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
-              <span className="text-xs lg:text-sm">Posts</span>
-            </TabsTrigger>
-            <TabsTrigger value="lending" className="tab-professional flex-1 lg:flex-none">
-              <DollarSign className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
-              <span className="text-xs lg:text-sm">Lending</span>
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="tab-professional flex-1 lg:flex-none">
-              <Settings className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
-              <span className="text-xs lg:text-sm">Settings</span>
-            </TabsTrigger>
-          </TabsList>
+        {/* Enhanced Tab Selector with Unified Structure */}
+        <div className="profile-tabs-container">
+          <button
+            className={`profile-tab-trigger ${selectedTab === 'posts' ? 'active' : ''}`}
+            data-state={selectedTab === 'posts' ? 'active' : 'inactive'}
+            onClick={() => setSelectedTab('posts')}
+          >
+            <MessageSquare className="tab-icon h-3 w-3 lg:h-4 lg:w-4" />
+            <span className="profile-tab-text text-xs lg:text-sm">Posts</span>
+          </button>
+          <button
+            className={`profile-tab-trigger ${selectedTab === 'lending' ? 'active' : ''}`}
+            data-state={selectedTab === 'lending' ? 'active' : 'inactive'}
+            onClick={() => setSelectedTab('lending')}
+          >
+            <DollarSign className="tab-icon h-3 w-3 lg:h-4 lg:w-4" />
+            <span className="profile-tab-text text-xs lg:text-sm">Lending</span>
+          </button>
+          <button
+            className={`profile-tab-trigger ${selectedTab === 'settings' ? 'active' : ''}`}
+            data-state={selectedTab === 'settings' ? 'active' : 'inactive'}
+            onClick={() => setSelectedTab('settings')}
+          >
+            <Settings className="tab-icon h-3 w-3 lg:h-4 lg:w-4" />
+            <span className="profile-tab-text text-xs lg:text-sm">Settings</span>
+          </button>
+        </div>
 
-          <TabsContent value="posts" className="space-y-4 lg:space-y-6">
-            {profile.posts.map((post, index) => (
-              <PostCard key={index} post={post} />
-            ))}
-          </TabsContent>
-
-          <TabsContent value="lending" className="space-y-4 lg:space-y-6">
-            <Card className="mobile-card lg:card-professional">
-              <CardHeader className="mobile-card-header">
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
-                  <CardTitle className="mobile-subtitle lg:text-lg">Lending Availability</CardTitle>
-                  <div className="flex items-center gap-2">
-                    <span className="mobile-caption text-sm">Available</span>
-                    <Switch 
-                      checked={lendingEnabled} 
-                      onCheckedChange={handleLendingToggle}
-                      className="focus-professional"
-                    />
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="mobile-card-content">
-                <div className="mobile-grid-1 lg:grid-cols-3 gap-3 lg:gap-4">
-                  <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="mobile-subtitle lg:font-semibold">${profile.lending.totalLent.toLocaleString()}</p>
-                    <p className="mobile-caption text-gray-500">Total Lent</p>
-                  </div>
-                  <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="mobile-subtitle lg:font-semibold">{profile.lending.activeLoan}</p>
-                    <p className="mobile-caption text-gray-500">Active Loans</p>
-                  </div>
-                  <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="mobile-subtitle lg:font-semibold">{profile.lending.rating}/5</p>
-                    <p className="mobile-caption text-gray-500">Rating</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="space-y-3 lg:space-y-4">
-              <h3 className="mobile-subtitle lg:text-lg">Lending Requests</h3>
-              {profile.lending.requests.map((request, index) => (
-                <LendingRequestCard key={index} request={request} />
+        {/* Tab Content */}
+        <div className="tab-content">
+          {selectedTab === 'posts' && (
+            <div className="space-y-4 lg:space-y-6">
+              {profile.posts.map((post, index) => (
+                <PostCard key={index} post={post} />
               ))}
             </div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="settings" className="space-y-4 lg:space-y-6">
-            <Card className="mobile-card lg:card-professional">
-              <CardHeader className="mobile-card-header">
-                <CardTitle className="mobile-subtitle lg:text-lg">Notifications</CardTitle>
-              </CardHeader>
-              <CardContent className="mobile-card-content space-y-4 lg:space-y-6">
-                {Object.entries({
-                  email: { label: 'Email Notifications', desc: 'Receive updates via email', icon: Mail },
-                  push: { label: 'Push Notifications', desc: 'Get notifications on your device', icon: Bell },
-                  sms: { label: 'SMS Notifications', desc: 'Receive text message alerts', icon: Smartphone },
-                  weekly: { label: 'Weekly Summary', desc: 'Get weekly financial reports', icon: Eye }
-                }).map(([key, config]) => {
-                  const Icon = config.icon;
-                  return (
-                    <div key={key} className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Icon size={20} className="text-[#5945a3]" />
-                        <div>
-                          <p className="mobile-subtitle lg:font-medium">{config.label}</p>
-                          <p className="mobile-caption text-gray-500">{config.desc}</p>
-                        </div>
-                      </div>
-                      <Switch
-                        checked={notifications[key]}
-                        onCheckedChange={(value) => handleNotificationChange(key, value)}
+          {selectedTab === 'lending' && (
+            <div className="space-y-4 lg:space-y-6">
+              <Card className="mobile-card lg:card-professional">
+                <CardHeader className="mobile-card-header">
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
+                    <CardTitle className="mobile-subtitle lg:text-lg">Lending Availability</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <span className="mobile-caption text-sm">Available</span>
+                      <Switch 
+                        checked={lendingEnabled} 
+                        onCheckedChange={handleLendingToggle}
                         className="focus-professional"
                       />
                     </div>
-                  );
-                })}
-              </CardContent>
-            </Card>
+                  </div>
+                </CardHeader>
+                <CardContent className="mobile-card-content">
+                  <div className="mobile-grid-1 lg:grid-cols-3 gap-3 lg:gap-4">
+                    <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <p className="mobile-subtitle lg:font-semibold">${profile.lending.totalLent.toLocaleString()}</p>
+                      <p className="mobile-caption text-gray-500">Total Lent</p>
+                    </div>
+                    <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <p className="mobile-subtitle lg:font-semibold">{profile.lending.activeLoan}</p>
+                      <p className="mobile-caption text-gray-500">Active Loans</p>
+                    </div>
+                    <div className="text-center p-3 lg:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <p className="mobile-subtitle lg:font-semibold">{profile.lending.rating}/5</p>
+                      <p className="mobile-caption text-gray-500">Rating</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card className="mobile-card lg:card-professional">
-              <CardHeader className="mobile-card-header">
-                <CardTitle className="mobile-subtitle lg:text-lg">Security</CardTitle>
-              </CardHeader>
-              <CardContent className="mobile-card-content space-y-4 lg:space-y-6">
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
-                  <div className="flex items-center gap-3">
-                    <Shield size={20} className="text-[#5945a3]" />
-                    <div>
-                      <p className="mobile-subtitle lg:font-medium">Two-Factor Authentication</p>
-                      <p className="mobile-caption text-gray-500">Add an extra layer of security</p>
+              <div className="space-y-3 lg:space-y-4">
+                <h3 className="mobile-subtitle lg:text-lg">Lending Requests</h3>
+                {profile.lending.requests.map((request, index) => (
+                  <LendingRequestCard key={index} request={request} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {selectedTab === 'settings' && (
+            <div className="space-y-4 lg:space-y-6">
+              <Card className="mobile-card lg:card-professional">
+                <CardHeader className="mobile-card-header">
+                  <CardTitle className="mobile-subtitle lg:text-lg">Notifications</CardTitle>
+                </CardHeader>
+                <CardContent className="mobile-card-content space-y-4 lg:space-y-6">
+                  {Object.entries({
+                    email: { label: 'Email Notifications', desc: 'Receive updates via email', icon: Mail },
+                    push: { label: 'Push Notifications', desc: 'Get notifications on your device', icon: Bell },
+                    sms: { label: 'SMS Notifications', desc: 'Receive text message alerts', icon: Smartphone },
+                    weekly: { label: 'Weekly Summary', desc: 'Get weekly financial reports', icon: Eye }
+                  }).map(([key, config]) => {
+                    const Icon = config.icon;
+                    return (
+                      <div key={key} className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Icon size={20} className="text-[#5945a3]" />
+                          <div>
+                            <p className="mobile-subtitle lg:font-medium">{config.label}</p>
+                            <p className="mobile-caption text-gray-500">{config.desc}</p>
+                          </div>
+                        </div>
+                        <Switch
+                          checked={notifications[key]}
+                          onCheckedChange={(value) => handleNotificationChange(key, value)}
+                          className="focus-professional"
+                        />
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </Card>
+
+              <Card className="mobile-card lg:card-professional">
+                <CardHeader className="mobile-card-header">
+                  <CardTitle className="mobile-subtitle lg:text-lg">Security</CardTitle>
+                </CardHeader>
+                <CardContent className="mobile-card-content space-y-4 lg:space-y-6">
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
+                    <div className="flex items-center gap-3">
+                      <Shield size={20} className="text-[#5945a3]" />
+                      <div>
+                        <p className="mobile-subtitle lg:font-medium">Two-Factor Authentication</p>
+                        <p className="mobile-caption text-gray-500">Add an extra layer of security</p>
+                      </div>
                     </div>
+                    <Button variant="outline" className="btn-professional profile-settings-button w-full lg:w-auto">
+                      Enable
+                    </Button>
                   </div>
-                  <Button variant="outline" className="btn-professional profile-settings-button w-full lg:w-auto">
-                    Enable
-                  </Button>
-                </div>
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
-                  <div className="flex items-center gap-3">
-                    <Globe size={20} className="text-[#5945a3]" />
-                    <div>
-                      <p className="mobile-subtitle lg:font-medium">Profile Visibility</p>
-                      <p className="mobile-caption text-gray-500">Control who can see your profile</p>
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0">
+                    <div className="flex items-center gap-3">
+                      <Globe size={20} className="text-[#5945a3]" />
+                      <div>
+                        <p className="mobile-subtitle lg:font-medium">Profile Visibility</p>
+                        <p className="mobile-caption text-gray-500">Control who can see your profile</p>
+                      </div>
                     </div>
+                    <Button variant="outline" className="btn-professional profile-settings-button w-full lg:w-auto">
+                      Public
+                    </Button>
                   </div>
-                  <Button variant="outline" className="btn-professional profile-settings-button w-full lg:w-auto">
-                    Public
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
