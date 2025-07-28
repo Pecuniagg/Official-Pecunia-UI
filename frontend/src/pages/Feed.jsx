@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
 import { Textarea } from '../components/ui/textarea';
+import { Input } from '../components/ui/input';
 import { useToast } from '../hooks/use-toast';
 import { 
   Heart, 
@@ -22,7 +23,11 @@ import {
   Bookmark,
   AlertCircle,
   CheckCircle,
-  Bell
+  Bell,
+  Search,
+  Send,
+  UserPlus,
+  Settings
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 
@@ -31,6 +36,9 @@ const Feed = () => {
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [bookmarkedPosts, setBookmarkedPosts] = useState(new Set());
   const [filter, setFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showDM, setShowDM] = useState(null);
+  const [dmMessage, setDmMessage] = useState('');
   const { feed, popularTickers, associates, tips } = mockData;
   const { toast } = useToast();
 
