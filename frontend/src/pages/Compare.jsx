@@ -368,8 +368,8 @@ const Compare = () => {
               </CardContent>
             </Card>
 
-            {/* Detailed benchmarks */}
-            <div className="mobile-grid-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+            {/* Detailed benchmarks with improved spacing */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
               {[
                 { title: "Age Group Average", subtitle: "25-35 years", value: "$45,200", comparison: "+$12,800", trend: "up" },
                 { title: "Income Bracket", subtitle: "$50K-75K", value: "68th percentile", comparison: "Top third", trend: "up" },
@@ -378,22 +378,22 @@ const Compare = () => {
                 { title: "Education Level", subtitle: "College graduate", value: "Above average", comparison: "+$8,500", trend: "up" },
                 { title: "Industry Peers", subtitle: "Technology sector", value: "75th percentile", comparison: "Strong position", trend: "up" }
               ].map((benchmark, index) => (
-                <Card key={index} className="mobile-card lg:card-whisper hover:shadow-lg transition-all duration-200 cursor-pointer" 
+                <Card key={index} className="bg-white rounded-2xl border border-gray-200 hover:border-[#5945a3]/30 hover:shadow-lg transition-all duration-300 cursor-pointer p-6" 
                       onClick={() => toast({ title: benchmark.title, description: `Detailed ${benchmark.title.toLowerCase()} analysis` })}>
-                  <CardContent className="mobile-card-content">
-                    <div className="flex justify-between items-start mb-3">
+                  <CardContent className="p-0">
+                    <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className="mobile-subtitle lg:font-semibold">{benchmark.title}</h3>
-                        <p className="mobile-caption text-gray-500">{benchmark.subtitle}</p>
+                        <h3 className="font-bold text-gray-900 text-lg">{benchmark.title}</h3>
+                        <p className="text-gray-600 text-sm mt-1">{benchmark.subtitle}</p>
                       </div>
-                      <Badge variant="outline" className={benchmark.trend === 'up' ? 'text-green-600' : 'text-red-600'}>
+                      <Badge variant="outline" className={`px-3 py-1 font-medium ${benchmark.trend === 'up' ? 'text-green-600 border-green-200 bg-green-50' : 'text-red-600 border-red-200 bg-red-50'}`}>
                         {benchmark.comparison}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="mobile-body font-semibold">{benchmark.value}</span>
-                      <div className={`p-1 rounded-full ${benchmark.trend === 'up' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
-                        {benchmark.trend === 'up' ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+                      <span className="text-xl font-bold text-gray-900">{benchmark.value}</span>
+                      <div className={`p-2 rounded-full ${benchmark.trend === 'up' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                        {benchmark.trend === 'up' ? <TrendingUp size={18} /> : <TrendingDown size={18} />}
                       </div>
                     </div>
                   </CardContent>
