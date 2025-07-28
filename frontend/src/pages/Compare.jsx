@@ -208,6 +208,7 @@ const Compare = () => {
                   <span className="text-xs">View</span>
                 </Button>
               </div>
+            </div>
           );
         })}
       </div>
