@@ -60,7 +60,6 @@ const Dashboard = () => {
   const [loadingInsights, setLoadingInsights] = useState(false);
   const [smartMode, setSmartMode] = useState(false);
   const [showScoreBreakdown, setShowScoreBreakdown] = useState(false);
-  const [showScoreBreakdown, setShowScoreBreakdown] = useState(false);
 
   // Load AI insights on component mount
   useEffect(() => {
