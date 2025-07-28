@@ -296,14 +296,15 @@ const AIAssistant = ({ isOpen, onClose }) => {
                         </div>
                         <div className="space-y-3">
                           {category.prompts.map((prompt, promptIdx) => (
-                            <Button
+                            <button
                               key={promptIdx}
-                              variant="outline"
-                              className="text-left h-auto p-4 text-sm ai-suggestion-button w-full justify-start"
+                              className="ai-suggestion-button w-full text-left"
                               onClick={() => handlePromptClick(prompt)}
                             >
-                              {prompt}
-                            </Button>
+                              <span className="word-wrap overflow-wrap-anywhere break-words">
+                                {prompt}
+                              </span>
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -325,7 +326,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
                               <Brain className="text-[#5945a3] mt-1 flex-shrink-0" size={16} />
                             )}
                             <div className="flex-1 min-w-0">
-                              <div className="whitespace-pre-wrap text-sm leading-relaxed break-words word-wrap overflow-wrap-anywhere">
+                              <div className="word-wrap overflow-wrap-anywhere break-words text-sm leading-relaxed">
                                 {msg.content}
                               </div>
                               {msg.timestamp && (
@@ -367,13 +368,13 @@ const AIAssistant = ({ isOpen, onClose }) => {
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="Ask me anything about your finances..."
-                  className="flex-1 ai-assistant-input"
+                  className="flex-1 ai-assistant-input word-wrap overflow-wrap-anywhere"
                   disabled={isTyping}
                 />
                 <Button
                   onClick={handleSend}
                   disabled={!message.trim() || isTyping}
-                  className="bg-[#5945a3] hover:bg-[#4a3d8f] text-white interactive border-0 px-4 py-2"
+                  className="ai-assistant-button bg-[#5945a3] hover:bg-[#4a3d8f] text-white interactive border-0 px-4 py-2"
                 >
                   {isTyping ? (
                     <Loader2 className="animate-spin" size={18} />

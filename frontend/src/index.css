@@ -9,6 +9,7 @@
 @import './styles/theme.css';
 @import './styles/theme-fixes.css';
 @import './styles/mobile-responsive.css';
+@import './styles/ui-improvements.css';
 
 /* Base styles with enhanced dark mode support */
 * {
