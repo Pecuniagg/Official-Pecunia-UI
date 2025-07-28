@@ -165,11 +165,11 @@ const Feed = () => {
                 onClick={() => handleLike(post.id)}
               >
                 <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
-                <span className="text-xs lg:text-sm">{post.likes + (isLiked ? 1 : 0)}</span>
+                <span className="text-xs lg:text-sm">{(post.likes || 0) + (isLiked ? 1 : 0)}</span>
               </Button>
               <Button variant="ghost" size="sm" className="mobile-btn-sm gap-2 text-gray-500">
                 <MessageCircle className="h-4 w-4" />
-                <span className="text-xs lg:text-sm">{post.comments}</span>
+                <span className="text-xs lg:text-sm">{post.comments || 0}</span>
               </Button>
               <Button variant="ghost" size="sm" className="mobile-btn-sm gap-2 text-gray-500">
                 <Share2 className="h-4 w-4" />
