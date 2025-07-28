@@ -371,19 +371,35 @@ const Feed = () => {
               </CardHeader>
               <CardContent className="mobile-card-content">
                 <div className="space-y-2 lg:space-y-3">
-                  {associates.map((associate, index) => (
+                  {(associates || []).map((associate, index) => (
                     <div key={index} className="flex items-center gap-3 p-2 lg:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
                       <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
                         <AvatarImage src={associate.avatar} />
                         <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-xs">
-                          {associate.name.split(' ').map(n => n[0]).join('')}
+                          {associate.name ? associate.name.split(' ').map(n => n[0]).join('') : 'U'}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
-                        <p className="mobile-caption lg:font-medium">{associate.name}</p>
-                        <p className="mobile-caption text-gray-500">{associate.status}</p>
+                        <p className="mobile-caption lg:font-medium">{associate.name || 'Unknown User'}</p>
+                        <p className="mobile-caption text-gray-500">{associate.status || 'No status'}</p>
                       </div>
-                      <div className={`h-2 w-2 rounded-full ${associate.online ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleSwipeRight(associate.name || 'User')}
+                          className="text-blue-500 hover:text-blue-600"
+                        >
+                          <Send size={14} />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-green-500 hover:text-green-600"
+                        >
+                          <UserPlus size={14} />
+                        </Button>
+                      </div>
                     </div>
                   ))}
                 </div>
