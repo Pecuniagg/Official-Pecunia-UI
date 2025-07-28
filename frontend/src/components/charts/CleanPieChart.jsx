@@ -107,13 +107,13 @@ const CleanPieChart = ({
               <div className="text-lg font-bold text-gray-900 dark:text-white transition-all duration-200">
                 {activeIndex !== null 
                   ? chartData[activeIndex].percentage + '%'
-                  : chartData.length
+                  : `$${(total / 1000).toFixed(0)}K`
                 }
               </div>
               <div className="text-xs text-muted mt-1 transition-all duration-200">
                 {activeIndex !== null 
                   ? chartData[activeIndex].name 
-                  : 'Categories'
+                  : (title || 'Total')
                 }
               </div>
             </div>
