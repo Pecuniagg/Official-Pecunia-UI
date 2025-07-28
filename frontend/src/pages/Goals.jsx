@@ -171,7 +171,7 @@ const Goals = () => {
     });
   };
 
-  const filteredGoals = goals[activeTab].filter(goal => {
+  const filteredGoals = (goals[activeTab] || []).filter(goal => {
     if (goalFilter === 'all') return true;
     const percentage = getProgressPercentage(goal.current, goal.target);
     switch (goalFilter) {
