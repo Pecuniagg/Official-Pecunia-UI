@@ -120,8 +120,7 @@ export const mockData = {
       content: 'Monthly meetup this Friday! We\'ll discuss Q2 investment strategies and portfolio rebalancing.',
       likes: 45,
       comments: 23,
-      mentions: []
-    },
+      mentions: [],
       isGroup: true
     },
     {
@@ -131,7 +130,8 @@ export const mockData = {
       time: '8 hours ago',
       content: 'Emergency fund complete! Having 6 months of expenses saved gives me such peace of mind.',
       likes: 32,
-      comments: 15
+      comments: 15,
+      mentions: []
     },
     {
       id: 5,
@@ -142,7 +142,8 @@ export const mockData = {
       likes: 27,
       comments: 9,
       ticker: '$VTI',
-      stockPrice: '+1.8%'
+      stockPrice: '+1.8%',
+      mentions: ['VTI']
     }
   ],
   plans: [
