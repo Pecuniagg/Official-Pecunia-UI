@@ -394,7 +394,6 @@ const Compare = () => {
             </div>
           </TabsContent>
         </Tabs>
-      </div>
     </div>
   );
 };
