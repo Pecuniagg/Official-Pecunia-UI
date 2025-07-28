@@ -72,15 +72,17 @@ const Feed = () => {
     }
   };
 
-  const filteredFeed = feed.filter(post => {
+  const filteredFeed = (feed || []).filter(post => {
+    if (!post) return false;
+    
     if (searchQuery) {
-      return post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-             post.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      return (post.content && post.content.toLowerCase().includes(searchQuery.toLowerCase())) ||
+             (post.author && post.author.toLowerCase().includes(searchQuery.toLowerCase())) ||
              (post.ticker && post.ticker.toLowerCase().includes(searchQuery.toLowerCase()));
     }
     if (filter === 'all') return true;
     if (filter === 'investments') return post.ticker;
-    if (filter === 'community') return post.author.includes('Group');
+    if (filter === 'community') return post.author && post.author.includes('Group');
     return true;
   });
 
