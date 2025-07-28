@@ -413,13 +413,13 @@ const Feed = () => {
               </CardHeader>
               <CardContent className="mobile-card-content">
                 <div className="space-y-3 lg:space-y-4">
-                  {tips.map((tip, index) => (
+                  {(tips || []).map((tip, index) => (
                     <div key={index} className="p-3 lg:p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
                       <div className="flex items-start gap-2 lg:gap-3">
                         <AlertCircle className="h-4 w-4 lg:h-5 lg:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <h4 className="mobile-caption lg:font-semibold text-blue-900 dark:text-blue-100 mb-1">{tip.title}</h4>
-                          <p className="mobile-caption text-blue-700 dark:text-blue-200">{tip.content}</p>
+                          <h4 className="mobile-caption lg:font-semibold text-blue-900 dark:text-blue-100 mb-1">{tip.title || 'Financial Tip'}</h4>
+                          <p className="mobile-caption text-blue-700 dark:text-blue-200">{tip.content || 'No content available'}</p>
                         </div>
                       </div>
                     </div>
