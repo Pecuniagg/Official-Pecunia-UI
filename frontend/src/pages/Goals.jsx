@@ -73,25 +73,25 @@ const Goals = () => {
     const loadGoalStrategies = async () => {
       if (!goals.personal || !getGoalStrategy) return;
       
-      for (const goal of goals.personal) {
-        if (!goalStrategies[goal.id]) {
-          try {
-            const strategy = await getGoalStrategy(goal);
-            if (strategy) {
-              setGoalStrategies(prev => ({
-                ...prev,
-                [goal.id]: strategy
-              }));
-            }
-          } catch (error) {
-            console.error('Failed to load strategy for goal:', goal.id, error);
+      const strategiesToLoad = goals.personal.filter(goal => !goalStrategies[goal.id]);
+      
+      for (const goal of strategiesToLoad) {
+        try {
+          const strategy = await getGoalStrategy(goal);
+          if (strategy) {
+            setGoalStrategies(prev => ({
+              ...prev,
+              [goal.id]: strategy
+            }));
           }
+        } catch (error) {
+          console.error('Failed to load strategy for goal:', goal.id, error);
         }
       }
     };
 
     loadGoalStrategies();
-  }, [goals.personal, getGoalStrategy, goalStrategies]);
+  }, [goals.personal, getGoalStrategy]); // Removed goalStrategies from dependencies to prevent infinite loop
 
   const formatDate = (dateString) => {
     if (!dateString) return 'No deadline set';
