@@ -39,30 +39,8 @@ const Feed = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showDM, setShowDM] = useState(null);
   const [dmMessage, setDmMessage] = useState('');
-  const [error, setError] = useState(null);
   
-  // Safe data extraction with error handling
-  let feed, popularTickers, associates, tips;
-  try {
-    const data = mockData || {};
-    feed = data.feed || [];
-    popularTickers = data.popularTickers || [];
-    associates = data.associates || [];
-    tips = data.tips || [];
-  } catch (err) {
-    console.error('Error loading mockData:', err);
-    setError('Failed to load feed data');
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center p-8">
-          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-red-600 mb-2">Error Loading Feed</h2>
-          <p className="text-gray-600">Please try refreshing the page</p>
-        </div>
-      </div>
-    );
-  }
-  
+  const { feed, popularTickers, associates, tips } = mockData;
   const { toast } = useToast();
 
   const handleLike = (postId) => {
