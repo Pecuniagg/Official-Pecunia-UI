@@ -253,7 +253,7 @@ const Goals = () => {
             </Badge>
           </div>
 
-          {strategy && (
+          {strategy && strategy.strategy && (
             <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="text-blue-600" size={16} />
@@ -262,7 +262,10 @@ const Goals = () => {
                 </span>
               </div>
               <p className="text-professional-body text-sm text-blue-700 dark:text-blue-300">
-                {strategy.strategy?.substring(0, 120)}...
+                {typeof strategy.strategy === 'string' 
+                  ? strategy.strategy.substring(0, 120) + (strategy.strategy.length > 120 ? '...' : '')
+                  : 'Strategy loading...'
+                }
               </p>
             </div>
           )}
