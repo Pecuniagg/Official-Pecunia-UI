@@ -56,6 +56,34 @@ const Feed = () => {
     });
   };
 
+  const handleSwipeRight = (userId) => {
+    setShowDM(userId);
+    toast({ title: "DM opened", description: `Start a conversation with ${userId}` });
+  };
+
+  const handleSendDM = () => {
+    if (dmMessage.trim()) {
+      toast({ 
+        title: "Message sent! 📨", 
+        description: `Your message has been sent to ${showDM}` 
+      });
+      setDmMessage('');
+      setShowDM(null);
+    }
+  };
+
+  const filteredFeed = feed.filter(post => {
+    if (searchQuery) {
+      return post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+             post.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+             (post.ticker && post.ticker.toLowerCase().includes(searchQuery.toLowerCase()));
+    }
+    if (filter === 'all') return true;
+    if (filter === 'investments') return post.ticker;
+    if (filter === 'community') return post.author.includes('Group');
+    return true;
+  });
+
   const handleBookmark = (postId) => {
     setBookmarkedPosts(prev => {
       const newSet = new Set(prev);
