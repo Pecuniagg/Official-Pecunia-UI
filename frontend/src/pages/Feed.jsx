@@ -87,6 +87,9 @@ const Feed = () => {
     return true;
   });
 
+  // Ensure we have an array to work with
+  const safeFeed = Array.isArray(filteredFeed) ? filteredFeed : [];
+
   const handleBookmark = (postId) => {
     setBookmarkedPosts(prev => {
       const newSet = new Set(prev);
