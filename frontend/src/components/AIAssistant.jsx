@@ -325,7 +325,7 @@ const AIAssistant = ({ isOpen, onClose }) => {
                               <Brain className="text-[#5945a3] mt-1 flex-shrink-0" size={16} />
                             )}
                             <div className="flex-1 min-w-0">
-                              <div className="whitespace-pre-wrap text-sm leading-relaxed break-words">
+                              <div className="whitespace-pre-wrap text-sm leading-relaxed break-words word-wrap overflow-wrap-anywhere">
                                 {msg.content}
                               </div>
                               {msg.timestamp && (
