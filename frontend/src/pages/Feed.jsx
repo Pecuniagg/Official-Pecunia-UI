@@ -308,7 +308,7 @@ const Feed = () => {
                 </div>
               ))}
               
-              {filteredFeed.length === 0 && (
+              {safeFeed.length === 0 && (
                 <div className="text-center py-12">
                   <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                   <p className="text-gray-400">No posts found matching your search</p>
