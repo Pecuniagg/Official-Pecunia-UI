@@ -155,59 +155,58 @@ const Compare = () => {
                 </div>
               )}
               
-              <div className="friend-card-header">
-                <div className="friend-avatar">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="relative">
                   <Avatar className="h-12 w-12">
                     <AvatarImage src="/api/placeholder/48/48" />
                     <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white">
                       {friend.name.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="friend-status"></div>
+                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                 </div>
-                <div className="friend-info">
-                  <h3>{friend.name}</h3>
-                  <p>Score: {friend.score}</p>
-                </div>
-              </div>
-
-              <div className="friend-stats">
-                <div className="friend-stat">
-                  <div className="friend-stat-value">{friend.netWorth}</div>
-                  <div className="friend-stat-label">Net Worth</div>
-                </div>
-                <div className="friend-stat">
-                  <div className="friend-stat-value text-green-600">{friend.growth}</div>
-                  <div className="friend-stat-label">Growth</div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900">{friend.name}</h3>
+                  <p className="text-sm text-gray-600">Score: {friend.score}</p>
                 </div>
               </div>
 
-              <div className="friend-actions">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`flex-1 gap-1 transition-all duration-200 ${isLiked ? 'text-red-500' : 'text-gray-500'}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleLikeFriend(friend.name);
-                    }}
-                  >
-                    <Heart size={14} className={isLiked ? 'fill-current' : ''} />
-                    <span className="text-xs">{isLiked ? 'Liked' : 'Like'}</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="flex-1 gap-1 text-gray-500"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toast({ title: "Profile viewed", description: `Viewing ${friend.name}'s profile` });
-                    }}
-                  >
-                    <Eye size={14} />
-                    <span className="text-xs">View</span>
-                  </Button>
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <div className="font-semibold text-gray-900">{friend.netWorth}</div>
+                  <div className="text-xs text-gray-600">Net Worth</div>
                 </div>
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <div className="font-semibold text-green-600">{friend.growth}</div>
+                  <div className="text-xs text-gray-600">Growth</div>
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`flex-1 gap-1 transition-all duration-200 ${isLiked ? 'text-red-500' : 'text-gray-500'}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleLikeFriend(friend.name);
+                  }}
+                >
+                  <Heart size={14} className={isLiked ? 'fill-current' : ''} />
+                  <span className="text-xs">{isLiked ? 'Liked' : 'Like'}</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex-1 gap-1 text-gray-500"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toast({ title: "Profile viewed", description: `Viewing ${friend.name}'s profile` });
+                  }}
+                >
+                  <Eye size={14} />
+                  <span className="text-xs">View</span>
+                </Button>
               </div>
             </div>
           );
