@@ -125,6 +125,27 @@ const Goals = () => {
     return { text: 'Needs Attention', variant: 'destructive', color: 'text-red-600' };
   };
 
+  const getAutomatedContribution = (goal) => {
+    const monthsUntilDeadline = Math.max(1, Math.ceil((new Date(goal.deadline) - new Date()) / (1000 * 60 * 60 * 24 * 30)));
+    const remaining = goal.target - goal.current;
+    const baseAmount = remaining / monthsUntilDeadline;
+    
+    // Adjust based on priority
+    const priorityMultiplier = {
+      'high': 1.5,
+      'medium': 1.0,
+      'low': 0.7
+    };
+    
+    const adjustedAmount = baseAmount * (priorityMultiplier[goal.priority] || 1.0);
+    
+    // Cap at reasonable monthly amount (20% of assumed monthly income)
+    const monthlyIncomeEstimate = 6500; // Should come from user profile
+    const maxMonthlyContribution = monthlyIncomeEstimate * 0.2;
+    
+    return Math.min(Math.round(adjustedAmount), maxMonthlyContribution);
+  };
+
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high': return 'bg-red-100 text-red-800 border-red-200';
