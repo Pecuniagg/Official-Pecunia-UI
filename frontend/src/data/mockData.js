@@ -315,58 +315,7 @@ export const mockData = {
       avgScore: 680
     }
   },
-  feed: {
-    posts: [
-      {
-        id: 1,
-        author: {
-          name: 'Alice Johnson',
-          avatar: '/api/placeholder/40/40',
-          verified: true
-        },
-        content: 'Just reached my emergency fund goal of $15,000! The automated savings really helped me stay consistent.',
-        timeAgo: '2 hours ago',
-        likes: 24,
-        comments: 8,
-        metrics: [
-          { label: 'Savings Rate', value: '25%', trend: 'up' },
-          { label: 'Emergency Fund', value: '$15K', trend: 'up' }
-        ]
-      },
-      {
-        id: 2,
-        author: {
-          name: 'Mike Chen',
-          avatar: '/api/placeholder/40/40',
-          verified: false
-        },
-        content: 'Diversified my portfolio with some international index funds. Risk management is key!',
-        timeAgo: '4 hours ago',
-        likes: 18,
-        comments: 5,
-        metrics: [
-          { label: 'Portfolio Diversity', value: '85%', trend: 'up' },
-          { label: 'Risk Score', value: 'Moderate', trend: 'up' }
-        ]
-      },
-      {
-        id: 3,
-        author: {
-          name: 'Sarah Williams',
-          avatar: '/api/placeholder/40/40',
-          verified: true
-        },
-        content: 'Paid off my credit card debt completely! Now focusing on building my investment portfolio.',
-        timeAgo: '1 day ago',
-        likes: 45,
-        comments: 12,
-        metrics: [
-          { label: 'Debt Free', value: '100%', trend: 'up' },
-          { label: 'Credit Score', value: '750+', trend: 'up' }
-        ]
-      }
-    ]
-  },
+
   popularTickers: [
     { symbol: 'AAPL', name: 'Apple Inc.', price: '185.23', change: '+2.1%' },
     { symbol: 'MSFT', name: 'Microsoft', price: '378.45', change: '+1.8%' },
