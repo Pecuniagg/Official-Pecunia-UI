@@ -140,18 +140,18 @@ const Feed = () => {
         <CardContent className="mobile-card-content">
           <p className="mobile-body lg:text-gray-700 lg:dark:text-gray-300 mb-4">{post.content}</p>
           
-          {post.metrics && (
+          {/* Stock ticker information */}
+          {post.ticker && post.stockPrice && (
             <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 lg:p-4 mb-4">
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
-                {post.metrics.map((metric, index) => (
-                  <div key={index} className="text-center">
-                    <div className={`flex items-center justify-center gap-1 ${metric.trend === 'up' ? 'text-green-600' : 'text-red-500'}`}>
-                      {metric.trend === 'up' ? <TrendingUp className="h-3 w-3 lg:h-4 lg:w-4" /> : <TrendingDown className="h-3 w-3 lg:h-4 lg:w-4" />}
-                      <span className="mobile-caption lg:font-semibold">{metric.value}</span>
-                    </div>
-                    <p className="mobile-caption text-gray-500 mt-1">{metric.label}</p>
-                  </div>
-                ))}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <DollarSign className="h-4 w-4 text-green-600" />
+                  <span className="font-semibold text-gray-900 dark:text-white">{post.ticker}</span>
+                </div>
+                <div className={`flex items-center gap-1 ${post.stockPrice.startsWith('+') ? 'text-green-600' : 'text-red-500'}`}>
+                  {post.stockPrice.startsWith('+') ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
+                  <span className="font-semibold">{post.stockPrice}</span>
+                </div>
               </div>
             </div>
           )}
