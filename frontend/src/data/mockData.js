@@ -317,11 +317,11 @@ export const mockData = {
   },
 
   popularTickers: [
-    { symbol: 'AAPL', name: 'Apple Inc.', price: '185.23', change: '+2.1%' },
-    { symbol: 'MSFT', name: 'Microsoft', price: '378.45', change: '+1.8%' },
-    { symbol: 'TSLA', name: 'Tesla', price: '248.50', change: '-0.5%' },
-    { symbol: 'NVDA', name: 'NVIDIA', price: '415.22', change: '+3.2%' },
-    { symbol: 'AMZN', name: 'Amazon', price: '143.75', change: '+1.1%' }
+    { symbol: 'AAPL', name: 'Apple Inc.', price: '185.23', change: 2.1 },
+    { symbol: 'MSFT', name: 'Microsoft', price: '378.45', change: 1.8 },
+    { symbol: 'TSLA', name: 'Tesla', price: '248.50', change: -0.5 },
+    { symbol: 'NVDA', name: 'NVIDIA', price: '415.22', change: 3.2 },
+    { symbol: 'AMZN', name: 'Amazon', price: '143.75', change: 1.1 }
   ],
   associates: [
     { 
