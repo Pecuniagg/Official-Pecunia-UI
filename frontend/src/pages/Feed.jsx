@@ -120,16 +120,13 @@ const Feed = () => {
               <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
                 <AvatarImage src={post.author.avatar} />
                 <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-sm">
-                  {post.author.name.split(' ').map(n => n[0]).join('')}
+                  {post.author.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h4 className="mobile-subtitle lg:font-semibold">{post.author.name}</h4>
+                <h4 className="mobile-subtitle lg:font-semibold">{post.author}</h4>
                 <div className="flex items-center gap-2">
-                  <p className="mobile-caption lg:text-sm text-gray-500">{post.timeAgo}</p>
-                  {post.author.verified && (
-                    <CheckCircle className="h-3 w-3 lg:h-4 lg:w-4 text-blue-500" />
-                  )}
+                  <p className="mobile-caption lg:text-sm text-gray-500">{post.time}</p>
                 </div>
               </div>
             </div>
