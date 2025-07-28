@@ -7,68 +7,7 @@
 
 
 
-/* ================================== */
-/* 3. PROFILE TAB IMPROVEMENTS */
-/* ================================== */
 
-/* Enhanced Tab Selector */
-.profile-tabs-container {
-  background: var(--pecunia-surface-elevated);
-  border: 1px solid var(--pecunia-border);
-  border-radius: 12px;
-  padding: 6px;
-  display: flex;
-  gap: 4px;
-  margin-bottom: 24px;
-}
-
-.profile-tab-trigger {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: none;
-  background: transparent;
-  color: var(--pecunia-text-secondary);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
-}
-
-.profile-tab-trigger:hover {
-  background: var(--pecunia-surface-hover);
-  color: var(--pecunia-text-primary);
-}
-
-.profile-tab-trigger[data-state="active"] {
-  background: linear-gradient(135deg, #5945a3, #6b59a8);
-  color: white;
-  box-shadow: 0 2px 8px rgba(89, 69, 163, 0.25);
-}
-
-.profile-tab-trigger[data-state="active"] .tab-icon {
-  color: white;
-}
-
-.tab-icon {
-  transition: color 0.2s ease;
-}
-
-@media (max-width: 768px) {
-  .profile-tab-trigger {
-    padding: 10px 12px;
-    font-size: 12px;
-  }
-  
-  .profile-tab-text {
-    display: none;
-  }
-}
 
 /* ================================== */
 /* 4. AI ASSISTANT TEXT IMPROVEMENTS */
