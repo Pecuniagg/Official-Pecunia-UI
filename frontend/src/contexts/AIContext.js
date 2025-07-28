@@ -87,7 +87,7 @@ export const AIProvider = ({ children }) => {
   // Get goal strategy
   const getGoalStrategy = async (goal) => {
     try {
-      return await aiService.getGoalStrategy(goal, userProfile);
+      return await aiService.generateGoalStrategy(goal);
     } catch (error) {
       console.error('Goal strategy error:', error);
       return null;
