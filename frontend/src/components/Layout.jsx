@@ -35,6 +35,7 @@ import QuickActionPanel from "./QuickActionPanel";
 
 const Layout = ({ children }) => {
   const location = useLocation();
+  const { user, logout } = useAuth();
   const [showAI, setShowAI] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,6 +50,17 @@ const Layout = ({ children }) => {
   ];
 
   const isActive = (href) => location.pathname === href;
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  const getUserInitials = () => {
+    if (user?.name) {
+      return user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+    }
+    return 'U';
+  };
 
   // Mobile Layout
   const MobileLayout = () => (
