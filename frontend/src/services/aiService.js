@@ -78,7 +78,7 @@ class PecuniaAIService {
       location: this.userContext.location,
       ...customData
     };
-    return await this.makeRequest('/ai/smart-budget', requestData, 'POST');
+    return await this.makeRequest('/api/ai/smart-budget', requestData, 'POST');
   }
 
   // ==============================================
