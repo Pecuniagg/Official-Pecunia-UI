@@ -152,7 +152,7 @@ class PecuniaAIService {
   // PORTFOLIO OPTIMIZATION
   // ==============================================
   async optimizePortfolio(portfolioData) {
-    return await this.makeRequest('/ai/portfolio-optimization', { portfolio_data: portfolioData }, 'POST');
+    return await this.makeRequest('/api/ai/portfolio-optimization', { portfolio_data: portfolioData }, 'POST');
   }
 
   // ==============================================
