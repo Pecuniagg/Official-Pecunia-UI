@@ -342,20 +342,20 @@ const AISmartDashboard = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <DollarSign className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-              <p className="text-sm font-medium">Bond Yields</p>
-              <p className="text-xs text-gray-600">Attractive at current rates</p>
+            <div className="text-center p-4 bg-gray-800/50 dark:bg-gray-800/70 rounded-lg border border-gray-700/50 hover:bg-gray-700/60 transition-all duration-200">
+              <DollarSign className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+              <p className="text-sm font-medium text-white">Bond Yields</p>
+              <p className="text-xs text-gray-300">Attractive at current rates</p>
             </div>
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-2" />
-              <p className="text-sm font-medium">Tech Stocks</p>
-              <p className="text-xs text-gray-600">Bull market continues</p>
+            <div className="text-center p-4 bg-gray-800/50 dark:bg-gray-800/70 rounded-lg border border-gray-700/50 hover:bg-gray-700/60 transition-all duration-200">
+              <TrendingUp className="h-8 w-8 text-green-400 mx-auto mb-2" />
+              <p className="text-sm font-medium text-white">Tech Stocks</p>
+              <p className="text-xs text-gray-300">Bull market continues</p>
             </div>
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <Shield className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-sm font-medium">Diversification</p>
-              <p className="text-xs text-gray-600">Hedge against volatility</p>
+            <div className="text-center p-4 bg-gray-800/50 dark:bg-gray-800/70 rounded-lg border border-gray-700/50 hover:bg-gray-700/60 transition-all duration-200">
+              <Shield className="h-8 w-8 text-purple-400 mx-auto mb-2" />
+              <p className="text-sm font-medium text-white">Diversification</p>
+              <p className="text-xs text-gray-300">Hedge against volatility</p>
             </div>
           </div>
           
