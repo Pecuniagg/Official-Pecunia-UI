@@ -92,7 +92,7 @@ class PecuniaAIService {
       timeline: '10+ years',
       ...customData
     };
-    return await this.makeRequest('/ai/investment-strategy', requestData, 'POST');
+    return await this.makeRequest('/api/ai/investment-strategy', requestData, 'POST');
   }
 
   // ==============================================
