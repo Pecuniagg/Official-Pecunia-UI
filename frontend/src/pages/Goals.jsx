@@ -32,8 +32,7 @@ import {
   PiggyBank,
   Calculator,
   Sparkles,
-  Loader2,
-  Calendar
+  Loader2
 } from 'lucide-react';
 import { mockData } from '../data/mockData';
 import { useToast } from '../hooks/use-toast';
