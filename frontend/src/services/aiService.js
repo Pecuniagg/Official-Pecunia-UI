@@ -108,7 +108,7 @@ class PecuniaAIService {
       dates: travelData.dates || 'flexible',
       ...travelData
     };
-    return await this.makeRequest('/ai/travel-plan', requestData, 'POST');
+    return await this.makeRequest('/api/ai/travel-plan', requestData, 'POST');
   }
 
   // ==============================================
