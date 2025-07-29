@@ -352,11 +352,21 @@ const Planner = () => {
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Relaxing">Relaxing</SelectItem>
-                  <SelectItem value="Professional">Professional</SelectItem>
-                  <SelectItem value="Family">Family</SelectItem>
-                  <SelectItem value="Adventure">Adventure</SelectItem>
-                  <SelectItem value="Cultural">Cultural</SelectItem>
+                  <SelectItem value="Travel">✈️ Travel & Vacations</SelectItem>
+                  <SelectItem value="Dining">🍽️ Dining & Food Experiences</SelectItem>
+                  <SelectItem value="Sports">⚽ Sports Events</SelectItem>
+                  <SelectItem value="Local Events">🎪 Local Events & Activities</SelectItem>
+                  <SelectItem value="Concerts">🎵 Concerts & Music</SelectItem>
+                  <SelectItem value="Festivals">🎭 Festivals & Shows</SelectItem>
+                  <SelectItem value="Adventure">🏔️ Adventure & Outdoor</SelectItem>
+                  <SelectItem value="Cultural">🏛️ Cultural & Museums</SelectItem>
+                  <SelectItem value="Professional">💼 Professional & Business</SelectItem>
+                  <SelectItem value="Family">👨‍👩‍👧‍👦 Family & Kids</SelectItem>
+                  <SelectItem value="Relaxing">🧘 Wellness & Relaxation</SelectItem>
+                  <SelectItem value="Shopping">🛍️ Shopping & Retail</SelectItem>
+                  <SelectItem value="Education">📚 Learning & Workshops</SelectItem>
+                  <SelectItem value="Romance">💕 Romantic & Date Ideas</SelectItem>
+                  <SelectItem value="Fitness">💪 Fitness & Health</SelectItem>
                 </SelectContent>
               </Select>
             </div>
