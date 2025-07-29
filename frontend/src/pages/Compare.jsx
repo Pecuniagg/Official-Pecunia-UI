@@ -322,131 +322,118 @@ const Compare = () => {
           </Card>
         )}
       </div>
+    )
+  );
 
-      {/* Enhanced Detailed Profile Comparison Modal */}
-      {selectedFriend && (() => {
-        const friend = compare.friends.find(f => f.name === selectedFriend);
-        if (!friend) return null;
-        
-        return (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              {/* Modal Header */}
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <Avatar className="h-16 w-16">
-                      <AvatarImage src="/api/placeholder/64/64" />
-                      <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-xl font-bold">
-                        {friend.name.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{friend.name}</h2>
-                      <p className="text-gray-600 dark:text-gray-400">Detailed Financial Comparison</p>
-                    </div>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setSelectedFriend(null)}
-                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                  >
-                    ✕
-                  </Button>
+  const renderDetailedModal = () => {
+    if (!selectedFriend) return null;
+    
+    const friend = compare.friends.find(f => f.name === selectedFriend);
+    if (!friend) return null;
+    
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          {/* Modal Header */}
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Avatar className="h-16 w-16">
+                  <AvatarImage src="/api/placeholder/64/64" />
+                  <AvatarFallback className="bg-gradient-to-br from-[#5945a3] to-[#b37e91] text-white text-xl font-bold">
+                    {friend.name.split(' ').map(n => n[0]).join('')}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{friend.name}</h2>
+                  <p className="text-gray-600 dark:text-gray-400">Detailed Financial Comparison</p>
                 </div>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedFriend(null)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                ✕
+              </Button>
+            </div>
+          </div>
 
-              {/* Modal Content */}
-              <div className="p-6 space-y-8">
-                {/* Financial Overview Comparison */}
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-[#5945a3]" />
-                    Financial Overview
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <h4 className="font-medium text-gray-700 dark:text-gray-300">Your Stats</h4>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Pecunia Score</span>
-                          <span className="font-medium">782</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Monthly Savings</span>
-                          <span className="font-medium">$2,500</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Investment Portfolio</span>
-                          <span className="font-medium">$45,000</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Debt-to-Income Ratio</span>
-                          <span className="font-medium text-green-600">15%</span>
-                        </div>
-                      </div>
+          {/* Modal Content */}
+          <div className="p-6 space-y-8">
+            {/* Financial Overview Comparison */}
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-[#5945a3]" />
+                Financial Overview
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-700 dark:text-gray-300">Your Stats</h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Pecunia Score</span>
+                      <span className="font-medium">782</span>
                     </div>
-                    <div className="space-y-4">
-                      <h4 className="font-medium text-gray-700 dark:text-gray-300">{friend.name}&apos;s Stats</h4>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Pecunia Score</span>
-                          <span className="font-medium">{friend.score}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Monthly Savings</span>
-                          <span className="font-medium">${(Math.random() * 3000 + 1000).toFixed(0)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Investment Portfolio</span>
-                          <span className="font-medium">${(Math.random() * 60000 + 20000).toFixed(0)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Debt-to-Income Ratio</span>
-                          <span className="font-medium text-orange-600">{(Math.random() * 25 + 10).toFixed(0)}%</span>
-                        </div>
-                      </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Monthly Savings</span>
+                      <span className="font-medium">$2,500</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Investment Portfolio</span>
+                      <span className="font-medium">$45,000</span>
                     </div>
                   </div>
                 </div>
-
-                {/* Learning Insights */}
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-[#5945a3]" />
-                    What You Can Learn
-                  </h3>
-                  <div className="bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-lg p-6">
-                    <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-[#5945a3] rounded-full mt-2"></div>
-                        <p className="text-gray-700 dark:text-gray-300">
-                          <strong>{friend.name}</strong> allocates 15% more to investments, which could boost your long-term wealth
-                        </p>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-[#5945a3] rounded-full mt-2"></div>
-                        <p className="text-gray-700 dark:text-gray-300">
-                          Their spending on dining out is 25% lower, freeing up more for savings goals
-                        </p>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-[#5945a3] rounded-full mt-2"></div>
-                        <p className="text-gray-700 dark:text-gray-300">
-                          Consider adopting their automated savings approach for consistent growth
-                        </p>
-                      </div>
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-700 dark:text-gray-300">{friend.name}&apos;s Stats</h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Pecunia Score</span>
+                      <span className="font-medium">{friend.score}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Monthly Savings</span>
+                      <span className="font-medium">${(Math.random() * 3000 + 1000).toFixed(0)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Investment Portfolio</span>
+                      <span className="font-medium">${(Math.random() * 60000 + 20000).toFixed(0)}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Learning Insights */}
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-[#5945a3]" />
+                What You Can Learn
+              </h3>
+              <div className="bg-gradient-to-r from-[#5945a3]/10 to-[#b37e91]/10 rounded-lg p-6">
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#5945a3] rounded-full mt-2"></div>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      <strong>{friend.name}</strong> allocates 15% more to investments, which could boost your long-term wealth
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#5945a3] rounded-full mt-2"></div>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Their spending on dining out is 25% lower, freeing up more for savings goals
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        );
-      })()}
-    )
-  );
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
