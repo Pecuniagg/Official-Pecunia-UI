@@ -389,6 +389,31 @@ const OnboardingPage = () => {
                     Please complete all sections to continue
                   </p>
                 )}
+
+                {/* Bypass Onboarding Button */}
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 mt-6">
+                  <Button
+                    type="button"
+                    onClick={handleBypassOnboarding}
+                    disabled={loading}
+                    className="w-full h-12 bg-gradient-to-r from-[#f59e0b] to-[#d97706] hover:from-[#d97706] hover:to-[#b45309] text-white font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                  >
+                    {loading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Bypassing...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="h-4 w-4" />
+                        <span>Skip Onboarding & Go to Dashboard</span>
+                      </div>
+                    )}
+                  </Button>
+                  <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2">
+                    Skip onboarding and go directly to your dashboard
+                  </p>
+                </div>
               </div>
             </form>
           </CardContent>
