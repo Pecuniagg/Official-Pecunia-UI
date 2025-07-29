@@ -344,6 +344,34 @@ async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow()}
 
 # Error handlers
+# ================================
+# PLACEHOLDER ENDPOINTS (for UI images)
+# ================================
+
+@app.get("/api/placeholder/{width}/{height}")
+async def get_placeholder_image(width: int, height: int):
+    """
+    Return a simple placeholder image response for UI images
+    """
+    # Create a simple SVG placeholder
+    svg_content = f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">
+    <rect width="{width}" height="{height}" fill="#e5e7eb"/>
+    <text x="50%" y="50%" text-anchor="middle" dy="0.35em" font-family="Arial, sans-serif" font-size="12" fill="#9ca3af">
+        {width}x{height}
+    </text>
+</svg>'''
+    
+    return Response(
+        content=svg_content,
+        media_type="image/svg+xml",
+        headers={"Cache-Control": "public, max-age=3600"}
+    )
+
+# ================================
+# EXCEPTION HANDLERS
+# ================================
+
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(
