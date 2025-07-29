@@ -239,6 +239,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     completeOnboarding,
     bypassAuthentication,
+    bypassOnboarding,
   };
 
   return (
