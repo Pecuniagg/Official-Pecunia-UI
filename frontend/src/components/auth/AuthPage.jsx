@@ -18,7 +18,7 @@ const AuthPage = () => {
   });
   const [errors, setErrors] = useState({});
 
-  const { login, register } = useAuth();
+  const { login, register, bypassAuthentication } = useAuth();
 
   const validateForm = () => {
     const newErrors = {};
