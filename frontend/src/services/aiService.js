@@ -123,7 +123,7 @@ class PecuniaAIService {
       monthly_income: this.userContext.monthly_income,
       ...goalData
     };
-    return await this.makeRequest('/ai/goal-strategy', requestData, 'POST');
+    return await this.makeRequest('/api/ai/goal-strategy', requestData, 'POST');
   }
 
   // ==============================================
