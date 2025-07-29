@@ -171,7 +171,7 @@ class PecuniaAIService {
       message,
       user_context: { ...this.userContext, ...customContext }
     };
-    return await this.makeRequest('/ai/chat', requestData, 'POST');
+    return await this.makeRequest('/api/ai/chat', requestData, 'POST');
   }
 
   // ==============================================
