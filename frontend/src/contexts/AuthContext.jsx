@@ -188,6 +188,32 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const bypassAuthentication = () => {
+    // Create a demo user for bypassing authentication
+    const demoUser = {
+      id: "demo-bypass-user",
+      name: "Demo User",
+      email: "demo@pecunia.com",
+      is_authenticated: true,
+      onboarding_complete: false
+    };
+
+    // Set authentication state without backend call
+    setUser(demoUser);
+    setIsAuthenticated(true);
+    setOnboardingComplete(false);
+    
+    // Store a demo token for consistency
+    localStorage.setItem('pecunia_token', 'demo-bypass-token');
+
+    toast({
+      title: "Authentication Bypassed! 🚀",
+      description: "Proceeding directly to onboarding",
+    });
+
+    return { success: true, user: demoUser };
+  };
+
   const value = {
     user,
     isAuthenticated,
