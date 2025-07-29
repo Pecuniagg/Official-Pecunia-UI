@@ -14,7 +14,7 @@ from typing import Dict, Any, List
 import traceback
 
 # Test configuration
-BACKEND_URL = "https://5889c54b-f4d9-4a8f-8d34-d199c61be47b.preview.emergentagent.com/api"
+BACKEND_URL = "https://0edaf726-afb6-4e0f-ac44-d8dc0f57b767.preview.emergentagent.com/api"
 TEST_RESULTS = []
 
 class ChartColorBackendTester:
