@@ -160,7 +160,7 @@ class PecuniaAIService {
   // ==============================================
   async getSmartRecommendations(customData = {}) {
     const requestData = { ...this.userContext, ...customData };
-    return await this.makeRequest('/ai/smart-recommendations', requestData, 'POST');
+    return await this.makeRequest('/api/ai/smart-recommendations', requestData, 'POST');
   }
 
   // ==============================================
