@@ -223,6 +223,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     completeOnboarding,
+    bypassAuthentication,
   };
 
   return (
