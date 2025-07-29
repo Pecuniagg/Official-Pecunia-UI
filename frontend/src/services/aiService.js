@@ -145,7 +145,7 @@ class PecuniaAIService {
   // SPENDING ANALYSIS
   // ==============================================
   async analyzeSpending(spendingData) {
-    return await this.makeRequest('/ai/spending-analysis', { spending_data: spendingData }, 'POST');
+    return await this.makeRequest('/api/ai/spending-analysis', { spending_data: spendingData }, 'POST');
   }
 
   // ==============================================
