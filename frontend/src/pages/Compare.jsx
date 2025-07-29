@@ -326,6 +326,8 @@ const Compare = () => {
       {/* Enhanced Detailed Profile Comparison Modal */}
       {selectedFriend && (() => {
         const friend = compare.friends.find(f => f.name === selectedFriend);
+        if (!friend) return null;
+        
         return (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -386,7 +388,7 @@ const Compare = () => {
                       </div>
                     </div>
                     <div className="space-y-4">
-                      <h4 className="font-medium text-gray-700 dark:text-gray-300">{friend.name}'s Stats</h4>
+                      <h4 className="font-medium text-gray-700 dark:text-gray-300">{friend.name}&apos;s Stats</h4>
                       <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600 dark:text-gray-400">Pecunia Score</span>
@@ -406,62 +408,6 @@ const Compare = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                {/* Spending Categories Comparison */}
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <PieChart className="h-5 w-5 text-[#5945a3]" />
-                    Spending Breakdown
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {['Housing', 'Food & Dining', 'Transportation', 'Entertainment', 'Savings'].map((category) => (
-                      <div key={category} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                        <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-3">{category}</h4>
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-600 dark:text-gray-400">You</span>
-                            <span className="font-medium">${(Math.random() * 1000 + 200).toFixed(0)}</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-600 dark:text-gray-400">{friend.name}</span>
-                            <span className="font-medium">${(Math.random() * 1000 + 200).toFixed(0)}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Financial Goals Comparison */}
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Target className="h-5 w-5 text-[#5945a3]" />
-                    Financial Goals Progress
-                  </h3>
-                  <div className="space-y-4">
-                    {['Emergency Fund', 'Retirement Savings', 'Vacation Fund'].map((goal, index) => (
-                      <div key={goal} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                        <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">{goal}</h4>
-                        <div className="space-y-3">
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span className="text-gray-600 dark:text-gray-400">Your Progress</span>
-                              <span className="font-medium">{65 + index * 10}%</span>
-                            </div>
-                            <Progress value={65 + index * 10} className="h-2" />
-                          </div>
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span className="text-gray-600 dark:text-gray-400">{friend.name}'s Progress</span>
-                              <span className="font-medium">{Math.floor(Math.random() * 40 + 40)}%</span>
-                            </div>
-                            <Progress value={Math.floor(Math.random() * 40 + 40)} className="h-2" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </div>
 
