@@ -126,6 +126,18 @@ const OnboardingPage = () => {
     }
   };
 
+  const handleBypassOnboarding = async () => {
+    setLoading(true);
+    try {
+      await bypassOnboarding();
+      // The App.js will automatically redirect to dashboard since onboardingComplete becomes true
+    } catch (error) {
+      console.error('Bypass onboarding error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const progressPercentage = (() => {
     let completed = 0;
     if (formData.country) completed++;
