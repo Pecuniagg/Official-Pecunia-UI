@@ -64,7 +64,7 @@ class PecuniaAIService {
   // ==============================================
   async getComprehensiveAnalysis(customData = {}) {
     const requestData = { ...this.userContext, ...customData };
-    return await this.makeRequest('/ai/comprehensive-analysis', requestData, 'POST');
+    return await this.makeRequest('/api/ai/comprehensive-analysis', requestData, 'POST');
   }
 
   // ==============================================
