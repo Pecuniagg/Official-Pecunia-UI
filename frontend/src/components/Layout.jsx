@@ -12,13 +12,24 @@ import {
   Bot,
   Plus,
   Menu,
-  X
+  X,
+  LogOut,
+  Settings
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Toaster } from "./ui/toaster";
+import { useAuth } from "../contexts/AuthContext";
 import AIAssistant from "./AIAssistant";
 import QuickActionPanel from "./QuickActionPanel";
 
