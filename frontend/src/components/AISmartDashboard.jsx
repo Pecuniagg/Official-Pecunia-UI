@@ -184,25 +184,25 @@ const AISmartDashboard = () => {
       )}
 
       {/* Main AI Insights Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Financial Health Score */}
         <Card className="card-premium hover-glow-subtle">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">AI Financial Health Score</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+            <CardTitle className="text-base font-semibold">AI Financial Health Score</CardTitle>
+            <Activity className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-[#5945a3] mb-2">
+          <CardContent className="pt-2">
+            <div className="text-3xl font-bold text-[#5945a3] mb-3">
               {smartInsights?.competitive?.competitive_score || 78}/100
             </div>
             <Progress 
               value={smartInsights?.competitive?.competitive_score || 78} 
-              className="w-full mb-2 progress-silk" 
+              className="w-full mb-3 progress-silk h-2" 
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-sm text-muted-foreground mb-3">
               {smartInsights?.competitive?.percentile_ranking || 65}th percentile in your age group
             </p>
-            <Badge variant="secondary" className="mt-2">
+            <Badge variant="secondary" className="mt-1">
               {smartInsights?.competitive?.improvement_potential > 0.8 ? 'High' : 'Medium'} Growth Potential
             </Badge>
           </CardContent>
@@ -210,12 +210,12 @@ const AISmartDashboard = () => {
 
         {/* Smart Budget Optimization */}
         <Card className="card-premium hover-glow-subtle">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Smart Budget Optimization</CardTitle>
-            <PiggyBank className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+            <CardTitle className="text-base font-semibold">Smart Budget Optimization</CardTitle>
+            <PiggyBank className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600 mb-2">
+          <CardContent className="pt-2">
+            <div className="text-3xl font-bold text-green-600 mb-3">
               ${smartInsights?.recommendations?.optimized_budget?.savings_rate * 100 || 850}/month
             </div>
             <p className="text-xs text-muted-foreground mb-2">
