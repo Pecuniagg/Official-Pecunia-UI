@@ -563,47 +563,88 @@ const Goals = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Contribution Dialog */}
+      {/* Enhanced Contribution Dialog with Refined Animation */}
       <Dialog open={showContribution !== null} onOpenChange={() => setShowContribution(null)}>
-        <DialogContent className="sm:max-w-[425px] card-professional">
-          <DialogHeader>
-            <DialogTitle className="text-professional-title">Add Contribution</DialogTitle>
+        <DialogContent className="sm:max-w-[500px] card-professional overflow-hidden">
+          <DialogHeader className="pb-6">
+            <DialogTitle className="text-xl font-semibold text-professional-title flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-[#5945a3]" />
+              Add Contribution
+            </DialogTitle>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Boost your savings goal with a new contribution
+            </p>
           </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="amount" className="text-professional-subtitle">Amount</Label>
-              <Input
-                id="amount"
-                type="number"
-                placeholder="Enter contribution amount"
-                value={contributionAmount}
-                onChange={(e) => setContributionAmount(e.target.value)}
-                className="input-professional"
-              />
+          
+          <div className="space-y-6">
+            {/* Amount Input with Enhanced Styling */}
+            <div className="space-y-2">
+              <Label htmlFor="amount" className="text-sm font-medium text-professional-subtitle">
+                Contribution Amount
+              </Label>
+              <div className="relative">
+                <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  id="amount"
+                  type="number"
+                  placeholder="0.00"
+                  value={contributionAmount}
+                  onChange={(e) => setContributionAmount(e.target.value)}
+                  className="input-professional pl-10 text-lg font-medium h-12 transition-all duration-200 focus:ring-2 focus:ring-[#5945a3]/20 focus:border-[#5945a3]"
+                />
+              </div>
+              {contributionAmount && (
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 animate-in fade-in duration-200">
+                  ${contributionAmount} will be added to your goal
+                </p>
+              )}
             </div>
-            <div>
-              <Label htmlFor="type" className="text-professional-subtitle">Type</Label>
+
+            {/* Type Selection with Better Styling */}
+            <div className="space-y-2">
+              <Label htmlFor="type" className="text-sm font-medium text-professional-subtitle">
+                Contribution Type
+              </Label>
               <Select value={contributionType} onValueChange={setContributionType}>
-                <SelectTrigger className="input-professional">
-                  <SelectValue placeholder="Select type" />
+                <SelectTrigger className="input-professional h-12 transition-all duration-200 focus:ring-2 focus:ring-[#5945a3]/20">
+                  <SelectValue placeholder="Choose contribution frequency" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="one-time">One-time</SelectItem>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="weekly">Weekly</SelectItem>
+                <SelectContent className="animate-in slide-in-from-top-2 duration-200">
+                  <SelectItem value="one-time" className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <Zap className="h-4 w-4 text-orange-500" />
+                      One-time Payment
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="monthly" className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-blue-500" />
+                      Monthly Recurring
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="weekly" className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4 text-green-500" />
+                      Weekly Recurring
+                    </div>
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex gap-2">
+
+            {/* Action Buttons with Enhanced Styling */}
+            <div className="flex gap-3 pt-4">
               <Button
-                className="flex-1 btn-professional"
+                className="flex-1 h-12 bg-gradient-to-r from-[#5945a3] to-[#6b59a8] hover:from-[#4a3d8f] hover:to-[#5945a3] text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => handleContribution(showContribution, contributionAmount, contributionType)}
+                disabled={!contributionAmount || contributionAmount <= 0}
               >
+                <Plus className="h-4 w-4 mr-2" />
                 Add Contribution
               </Button>
               <Button
                 variant="outline"
-                className="btn-professional"
+                className="h-12 px-6 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
                 onClick={() => setShowContribution(null)}
               >
                 Cancel
