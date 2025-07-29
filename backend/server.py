@@ -1,477 +1,364 @@
-from fastapi import FastAPI, HTTPException
+import logging
+import traceback
+from fastapi import FastAPI, HTTPException, Depends, status, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import Dict, Any, List, Optional
-import uvicorn
-import asyncio
-from datetime import datetime, timedelta
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field
+from typing import List, Optional, Dict, Any
 import json
-import os
-from motor.motor_asyncio import AsyncIOMotorClient
-from ai_service import PecuniaAI
+from datetime import datetime, timedelta
 import uuid
+import asyncio
+import httpx
+import os
+from dotenv import load_dotenv
 
-# Initialize FastAPI app
-app = FastAPI(title="Pecunia API", version="1.0.0", root_path="/api")
+# Import authentication service
+from auth_service import (
+    AuthService, 
+    UserRegister, 
+    UserLogin, 
+    OnboardingData,
+    Token,
+    UserResponse,
+    get_current_user,
+    verify_token
+)
 
-# Add CORS middleware
+# Load environment variables
+load_dotenv()
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+app = FastAPI(title="Pecunia API", version="1.0.0")
+
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
-# Initialize AI service
-ai_service = PecuniaAI()
+# ================================
+# AUTHENTICATION ENDPOINTS
+# ================================
 
-# Initialize MongoDB client
-mongo_client = AsyncIOMotorClient(os.environ.get('MONGO_URL', 'mongodb://localhost:27017'))
-db = mongo_client[os.environ.get('DB_NAME', 'pecunia_db')]
+@app.post("/api/auth/register", response_model=Dict[str, Any])
+async def register(user_data: UserRegister):
+    """Register a new user"""
+    try:
+        result = AuthService.register_user(user_data)
+        logger.info(f"User registered successfully: {user_data.email}")
+        return result
+    except HTTPException as e:
+        logger.error(f"Registration failed: {e.detail}")
+        raise e
+    except Exception as e:
+        logger.error(f"Registration error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Registration failed"
+        )
 
-# Pydantic models for request/response
-class StatusCreate(BaseModel):
-    client_name: str
+@app.post("/api/auth/login", response_model=Dict[str, Any])
+async def login(login_data: UserLogin):
+    """Login user"""
+    try:
+        result = AuthService.login_user(login_data)
+        logger.info(f"User logged in successfully: {login_data.email}")
+        return result
+    except HTTPException as e:
+        logger.error(f"Login failed: {e.detail}")
+        raise e
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Login failed"
+        )
 
-class StatusResponse(BaseModel):
-    id: str
-    client_name: str
-    timestamp: str
+@app.post("/api/auth/onboarding")
+async def complete_onboarding(
+    onboarding_data: OnboardingData,
+    current_user: dict = Depends(get_current_user)
+):
+    """Complete user onboarding"""
+    try:
+        result = AuthService.complete_onboarding(onboarding_data, current_user)
+        logger.info(f"Onboarding completed for user: {current_user['email']}")
+        return result
+    except Exception as e:
+        logger.error(f"Onboarding error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Onboarding failed"
+        )
 
-class AIMessage(BaseModel):
-    message: str
-    user_context: Optional[Dict[str, Any]] = None
+@app.get("/api/auth/profile", response_model=Dict[str, Any])
+async def get_profile(current_user: dict = Depends(get_current_user)):
+    """Get user profile"""
+    try:
+        result = AuthService.get_user_profile(current_user)
+        return result
+    except Exception as e:
+        logger.error(f"Profile fetch error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch profile"
+        )
 
-class FinancialAnalysisRequest(BaseModel):
-    monthly_income: float
-    monthly_expenses: float
-    pecunia_score: int
-    age: int
-    risk_tolerance: str = "medium"
-    goals: List[Dict[str, Any]] = []
-    investments: Dict[str, Any] = {}
-    location: str = "United States"
-    expenses: Dict[str, Any] = {}
-    assets: Dict[str, Any] = {}
-    liabilities: Dict[str, Any] = {}
+@app.get("/api/auth/verify")
+async def verify_auth(current_user: dict = Depends(get_current_user)):
+    """Verify authentication status"""
+    return {
+        "is_authenticated": True,
+        "onboarding_complete": current_user.get("onboarding_complete", False),
+        "user": {
+            "id": current_user["id"],
+            "name": current_user["name"],
+            "email": current_user["email"]
+        }
+    }
 
-class SmartBudgetRequest(BaseModel):
-    monthly_income: float
-    expenses: Dict[str, Any] = {}
-    goals: List[Dict[str, Any]] = []
-    location: str = "United States"
+# ================================
+# EXISTING AI ENDPOINTS
+# ================================
 
-class InvestmentStrategyRequest(BaseModel):
-    investable_amount: float
-    risk_tolerance: str = "medium"
-    age: int
-    timeline: str = "10+ years"
+# User context storage
+user_contexts = {}
 
-class TravelPlanRequest(BaseModel):
-    budget: float
+class UserContext(BaseModel):
+    monthly_income: Optional[float] = None
+    monthly_expenses: Optional[float] = None
+    expenses: Optional[Dict[str, float]] = None
+    assets: Optional[Dict[str, float]] = None
+    liabilities: Optional[Dict[str, float]] = None
+
+class UserProfile(BaseModel):
+    monthly_budget: Optional[float] = None
+    emergency_fund: Optional[float] = None
+    
+class FinancialQuery(BaseModel):
+    query: str
+    context: Optional[str] = None
+
+class TravelRequest(BaseModel):
     destination: str = "flexible"
+    budget: float = 2000
     duration: str = "1 week"
-    interests: List[str] = []
+    interests: List[str] = Field(default_factory=lambda: ["sightseeing", "food"])
     group_size: int = 1
-    dates: str = "flexible"
 
-class GoalStrategyRequest(BaseModel):
+class GoalRequest(BaseModel):
     title: str
     target: float
-    current: float
-    deadline: str
-    monthly_income: float
+    current: float = 0
+    deadline: str = "2025-12-31"
+    monthly_income: Optional[float] = None
 
-class CompetitiveInsightsRequest(BaseModel):
-    age: int
-    income: float
-    net_worth: float
-    pecunia_score: int
-    location: str = "United States"
+# Mock AI responses
+def get_mock_comprehensive_analysis():
+    return {
+        "analysis": "Your financial health shows strong fundamentals with a good savings rate of 23% and well-diversified portfolio. Your emergency fund at 85% completion is excellent progress. Consider focusing on debt reduction to improve your overall score.",
+        "score": 782,
+        "strengths": [
+            "High savings rate compared to peers",
+            "Diversified investment portfolio",
+            "Strong emergency fund progress"
+        ],
+        "recommendations": [
+            "Reduce high-interest debt by $200/month",
+            "Complete emergency fund in next 2 months",
+            "Consider increasing 401k contribution by 2%"
+        ],
+        "action_items": [
+            "Set up automatic debt payment",
+            "Review and optimize monthly subscriptions",
+            "Schedule financial review quarterly"
+        ]
+    }
 
-class SpendingAnalysisRequest(BaseModel):
-    spending_data: List[Dict[str, Any]]
+def get_mock_budget_optimization():
+    return {
+        "budget": "Based on your $6,500 monthly income, I recommend allocating: Housing 30% ($1,950), Food 15% ($975), Transportation 12% ($780), Savings 23% ($1,495), Entertainment 8% ($520), Other 12% ($780).",
+        "savings_rate": 23,
+        "optimization_score": 85,
+        "recommendations": [
+            "Reduce dining out by $150/month",
+            "Switch to high-yield savings account",
+            "Consider generic brands for groceries"
+        ]
+    }
 
-class PortfolioOptimizationRequest(BaseModel):
-    portfolio_data: Dict[str, Any]
+def get_mock_investment_strategy():
+    return {
+        "strategy": "For your risk profile and timeline, I recommend a balanced approach: 60% stock index funds (mix of domestic and international), 30% bonds, 10% REITs. Start with low-cost ETFs like VTI and BND.",
+        "expected_return": 0.078,
+        "risk_score": 65,
+        "asset_allocation": {
+            "stocks": 60,
+            "bonds": 30,
+            "reits": 10
+        }
+    }
 
+def get_mock_competitive_insights():
+    return {
+        "insights": "You're performing better than 75% of peers in your age group. Your savings rate of 23% exceeds the national average of 13%. Focus on investment diversification to reach top 10%.",
+        "percentile_ranking": 75,
+        "competitive_score": 78,
+        "peer_comparison": {
+            "savings_rate": "Above average",
+            "investment_return": "Good",
+            "debt_ratio": "Excellent"
+        }
+    }
+
+def get_mock_travel_plan(request: TravelRequest):
+    return {
+        "plan": f"Perfect {request.duration} trip to {request.destination}! Day 1-2: Explore historic downtown and local cuisine ($200/day). Day 3-4: Museum visits and shopping ($150/day). Day 5-7: Relaxation and scenic tours ($180/day). Includes accommodation, meals, and activities.",
+        "total_budget": request.budget,
+        "daily_breakdown": request.budget / 7,
+        "savings_goal": f"Save ${request.budget/6:.0f} monthly for 6 months"
+    }
+
+def get_mock_goal_strategy(request: GoalRequest):
+    months_to_deadline = 12
+    monthly_target = (request.target - request.current) / months_to_deadline
+    
+    return {
+        "strategy": f"To reach your ${request.target:,.0f} goal by {request.deadline}, save ${monthly_target:,.0f} monthly. Set up automatic transfers and track progress weekly. Consider high-yield savings for this goal.",
+        "monthly_target": monthly_target,
+        "timeline": f"{months_to_deadline} months",
+        "progress_percentage": (request.current / request.target) * 100
+    }
+
+@app.post("/api/context")
+async def update_context(context: UserContext):
+    user_contexts['default'] = context.dict()
+    return {"status": "success", "message": "Context updated successfully"}
+
+@app.post("/api/profile")  
+async def update_profile(profile: UserProfile):
+    if 'default' not in user_contexts:
+        user_contexts['default'] = {}
+    user_contexts['default'].update(profile.dict(exclude_none=True))
+    return {"status": "success", "message": "Profile updated successfully"}
+
+@app.post("/api/ai/comprehensive-analysis")
+async def comprehensive_analysis(request: Dict[str, Any]):
+    await asyncio.sleep(1)  # Simulate processing time
+    return get_mock_comprehensive_analysis()
+
+@app.post("/api/ai/smart-budget")
+async def smart_budget(request: Dict[str, Any]):
+    await asyncio.sleep(1)
+    return get_mock_budget_optimization()
+
+@app.post("/api/ai/investment-strategy")
+async def investment_strategy(request: Dict[str, Any]):
+    await asyncio.sleep(1)
+    return get_mock_investment_strategy()
+
+@app.post("/api/ai/competitive-insights")
+async def competitive_insights(request: Dict[str, Any]):
+    await asyncio.sleep(1)
+    return get_mock_competitive_insights()
+
+@app.post("/api/ai/portfolio-optimization")
+async def portfolio_optimization(request: Dict[str, Any]):
+    await asyncio.sleep(1)
+    return {
+        "optimization": "Your portfolio shows good diversification. Consider rebalancing: reduce tech stocks by 5%, increase international exposure by 8%. Add 3% REITs for stability.",
+        "rebalancing_score": 88,
+        "suggested_changes": [
+            "Reduce AAPL position by 2%",
+            "Add VTIAX for international exposure", 
+            "Consider VNQ for REIT exposure"
+        ]
+    }
+
+@app.post("/api/ai/recommendations")
+async def smart_recommendations(request: Dict[str, Any]):
+    await asyncio.sleep(1)
+    return {
+        "recommendations": "Based on your profile: 1) Switch to Ally Bank for 4.5% savings rate (+$180/year), 2) Use Chase Sapphire for travel rewards, 3) Consider I-bonds for inflation protection, 4) Automate investments to avoid timing mistakes.",
+        "priority_score": 92,
+        "estimated_savings": 1800,
+        "actions": [
+            {"type": "banking", "priority": "high", "savings": 180},
+            {"type": "credit_card", "priority": "medium", "rewards": 500},
+            {"type": "investments", "priority": "high", "return": 1200}
+        ]
+    }
+
+@app.post("/api/ai/travel-plan")
+async def travel_plan(request: TravelRequest):
+    await asyncio.sleep(1)
+    return get_mock_travel_plan(request)
+
+@app.post("/api/ai/goal-strategy") 
+async def goal_strategy(request: GoalRequest):
+    await asyncio.sleep(1)
+    return get_mock_goal_strategy(request)
+
+@app.post("/api/ai/chat")
+async def ai_chat(query: FinancialQuery):
+    await asyncio.sleep(1)
+    
+    # Simple response based on query content
+    query_lower = query.query.lower()
+    
+    if "budget" in query_lower:
+        response = "Based on your income, I recommend the 50/30/20 rule: 50% needs, 30% wants, 20% savings. Would you like me to create a detailed budget plan?"
+    elif "invest" in query_lower or "portfolio" in query_lower:
+        response = "For long-term wealth building, consider a diversified portfolio of low-cost index funds. Start with 70% stocks, 30% bonds, and adjust based on your risk tolerance."
+    elif "save" in query_lower or "emergency" in query_lower:
+        response = "Build an emergency fund of 3-6 months expenses first. Use a high-yield savings account that earns 4-5% APY. This should be your financial foundation."
+    elif "debt" in query_lower:
+        response = "Focus on high-interest debt first (credit cards). Consider the avalanche method: minimum payments on all debts, extra money on highest interest rate debt."
+    else:
+        response = "I'm here to help with your financial questions! I can assist with budgeting, investing, saving strategies, debt management, and goal planning. What specific area would you like guidance on?"
+    
+    return {
+        "response": response,
+        "timestamp": datetime.utcnow().isoformat(),
+        "context": query.context
+    }
+
+# Health check endpoints
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Pecunia API is running", "version": "1.0.0"}
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "timestamp": datetime.now().isoformat()}
+    return {"status": "healthy", "timestamp": datetime.utcnow()}
 
-# Status endpoints for testing
-@app.post("/status", response_model=StatusResponse)
-async def create_status(status: StatusCreate):
-    try:
-        status_data = {
-            "id": str(uuid.uuid4()),
-            "client_name": status.client_name,
-            "timestamp": datetime.now().isoformat()
-        }
-        
-        result = await db.status.insert_one(status_data)
-        return StatusResponse(**status_data)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# Error handlers
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail}
+    )
 
-@app.get("/status")
-async def get_status():
-    try:
-        statuses = []
-        async for status in db.status.find():
-            status['_id'] = str(status['_id'])
-            statuses.append(status)
-        return statuses
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Enhanced AI endpoints
-@app.post("/ai/comprehensive-analysis")
-async def get_comprehensive_analysis(request: FinancialAnalysisRequest):
-    """Get comprehensive financial analysis with AI-powered insights"""
-    try:
-        user_data = request.dict()
-        analysis = await ai_service.get_comprehensive_financial_analysis(user_data)
-        return analysis
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/smart-budget")
-async def generate_smart_budget(request: SmartBudgetRequest):
-    """Generate AI-optimized smart budget"""
-    try:
-        user_data = request.dict()
-        budget = await ai_service.generate_smart_budget(user_data)
-        return budget
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/investment-strategy")
-async def generate_investment_strategy(request: InvestmentStrategyRequest):
-    """Generate AI-powered investment strategy"""
-    try:
-        user_data = request.dict()
-        strategy = await ai_service.generate_investment_strategy(user_data)
-        return strategy
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/travel-plan")
-async def generate_travel_plan(request: TravelPlanRequest):
-    """Generate comprehensive AI travel plan"""
-    try:
-        travel_data = request.dict()
-        plan = await ai_service.generate_travel_plan(travel_data)
-        return plan
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/goal-strategy")
-async def generate_goal_strategy(request: GoalStrategyRequest):
-    """Generate AI-powered goal achievement strategy"""
-    try:
-        goal_data = request.dict()
-        strategy = await ai_service.generate_goal_strategy(goal_data)
-        return strategy
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/competitive-insights")
-async def get_competitive_insights(request: CompetitiveInsightsRequest):
-    """Get competitive analysis and strategies to outperform peers"""
-    try:
-        user_data = request.dict()
-        insights = await ai_service.get_competitive_insights(user_data)
-        return insights
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/spending-analysis")
-async def analyze_spending_patterns(request: SpendingAnalysisRequest):
-    """Analyze spending patterns with AI insights"""
-    try:
-        analysis = await ai_service.analyze_spending_patterns(request.spending_data)
-        return analysis
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/portfolio-optimization")
-async def optimize_portfolio(request: PortfolioOptimizationRequest):
-    """Optimize investment portfolio with AI recommendations"""
-    try:
-        optimization = await ai_service.optimize_portfolio(request.portfolio_data)
-        return optimization
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/ai/chat")
-async def chat_with_ai(message: AIMessage):
-    """Chat with AI assistant"""
-    try:
-        response = await ai_service.chat_with_ai(message.message, message.user_context)
-        return response
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Legacy endpoints for backward compatibility
-@app.post("/ai/financial-insights")
-async def get_financial_insights(request: FinancialAnalysisRequest):
-    """Legacy endpoint - redirect to comprehensive analysis"""
-    return await get_comprehensive_analysis(request)
-
-@app.post("/ai/analyze-spending")
-async def analyze_spending(request: SpendingAnalysisRequest):
-    """Legacy endpoint - redirect to spending analysis"""
-    return await analyze_spending_patterns(request)
-
-# User profile and preferences endpoints
-@app.post("/user/profile")
-async def update_user_profile(profile_data: Dict[str, Any]):
-    """Update user profile information"""
-    try:
-        profile_data["updated_at"] = datetime.now().isoformat()
-        profile_data["id"] = profile_data.get("id", str(uuid.uuid4()))
-        
-        await db.user_profiles.replace_one(
-            {"id": profile_data["id"]},
-            profile_data,
-            upsert=True
-        )
-        
-        return {"success": True, "message": "Profile updated successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/user/profile/{user_id}")
-async def get_user_profile(user_id: str):
-    """Get user profile information"""
-    try:
-        profile = await db.user_profiles.find_one({"id": user_id})
-        if profile:
-            profile["_id"] = str(profile["_id"])
-            return profile
-        else:
-            raise HTTPException(status_code=404, detail="Profile not found")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Goals management endpoints
-@app.post("/goals")
-async def create_goal(goal_data: Dict[str, Any]):
-    """Create a new financial goal"""
-    try:
-        goal_data["id"] = str(uuid.uuid4())
-        goal_data["created_at"] = datetime.now().isoformat()
-        goal_data["updated_at"] = datetime.now().isoformat()
-        
-        await db.goals.insert_one(goal_data)
-        return {"success": True, "goal_id": goal_data["id"]}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/goals/{user_id}")
-async def get_user_goals(user_id: str):
-    """Get user's financial goals"""
-    try:
-        goals = []
-        async for goal in db.goals.find({"user_id": user_id}):
-            goal["_id"] = str(goal["_id"])
-            goals.append(goal)
-        return goals
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.put("/goals/{goal_id}")
-async def update_goal(goal_id: str, goal_data: Dict[str, Any]):
-    """Update an existing goal"""
-    try:
-        goal_data["updated_at"] = datetime.now().isoformat()
-        
-        result = await db.goals.update_one(
-            {"id": goal_id},
-            {"$set": goal_data}
-        )
-        
-        if result.matched_count == 0:
-            raise HTTPException(status_code=404, detail="Goal not found")
-        
-        return {"success": True, "message": "Goal updated successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Budget management endpoints
-@app.post("/budget")
-async def create_budget(budget_data: Dict[str, Any]):
-    """Create or update budget"""
-    try:
-        budget_data["id"] = budget_data.get("id", str(uuid.uuid4()))
-        budget_data["updated_at"] = datetime.now().isoformat()
-        
-        await db.budgets.replace_one(
-            {"id": budget_data["id"]},
-            budget_data,
-            upsert=True
-        )
-        
-        return {"success": True, "budget_id": budget_data["id"]}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/budget/{user_id}")
-async def get_user_budget(user_id: str):
-    """Get user's budget"""
-    try:
-        budget = await db.budgets.find_one({"user_id": user_id})
-        if budget:
-            budget["_id"] = str(budget["_id"])
-            return budget
-        else:
-            raise HTTPException(status_code=404, detail="Budget not found")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Travel plans management endpoints
-@app.post("/travel-plans")
-async def create_travel_plan(plan_data: Dict[str, Any]):
-    """Create a new travel plan"""
-    try:
-        plan_data["id"] = str(uuid.uuid4())
-        plan_data["created_at"] = datetime.now().isoformat()
-        
-        await db.travel_plans.insert_one(plan_data)
-        return {"success": True, "plan_id": plan_data["id"]}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/travel-plans/{user_id}")
-async def get_user_travel_plans(user_id: str):
-    """Get user's travel plans"""
-    try:
-        plans = []
-        async for plan in db.travel_plans.find({"user_id": user_id}):
-            plan["_id"] = str(plan["_id"])
-            plans.append(plan)
-        return plans
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Analytics and insights endpoints
-@app.get("/analytics/dashboard/{user_id}")
-async def get_dashboard_analytics(user_id: str):
-    """Get comprehensive dashboard analytics"""
-    try:
-        # Get user profile
-        profile = await db.user_profiles.find_one({"id": user_id})
-        if profile:
-            profile["_id"] = str(profile["_id"])
-        
-        # Get goals
-        goals = []
-        async for goal in db.goals.find({"user_id": user_id}):
-            goal["_id"] = str(goal["_id"])
-            goals.append(goal)
-        
-        # Get budget
-        budget = await db.budgets.find_one({"user_id": user_id})
-        if budget:
-            budget["_id"] = str(budget["_id"])
-        
-        # Generate AI insights based on user data
-        if profile:
-            profile["goals"] = goals
-            if budget:
-                profile["expenses"] = budget.get("expenses", {})
-            
-            insights = await ai_service.get_comprehensive_financial_analysis(profile)
-            
-            return {
-                "profile": profile,
-                "goals": goals,
-                "budget": budget,
-                "ai_insights": insights,
-                "generated_at": datetime.now().isoformat()
-            }
-        else:
-            raise HTTPException(status_code=404, detail="User profile not found")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Market data and competitive insights
-@app.get("/market/insights")
-async def get_market_insights():
-    """Get current market insights and trends"""
-    try:
-        # This would integrate with real market data APIs
-        market_data = {
-            "market_summary": {
-                "sp500_change": "+0.8%",
-                "nasdaq_change": "+1.2%",
-                "dow_change": "+0.5%",
-                "vix": 18.5,
-                "ten_year_treasury": "4.25%"
-            },
-            "trending_sectors": ["Technology", "Healthcare", "Energy"],
-            "economic_indicators": {
-                "inflation_rate": "3.2%",
-                "unemployment_rate": "3.8%",
-                "gdp_growth": "2.1%",
-                "federal_funds_rate": "5.25%"
-            },
-            "ai_analysis": "Market conditions favor diversified portfolios with tech overweight. Bond yields attractive for income investors.",
-            "last_updated": datetime.now().isoformat()
-        }
-        
-        return market_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Smart recommendations endpoint
-@app.post("/ai/smart-recommendations")
-async def get_smart_recommendations(request: FinancialAnalysisRequest):
-    """Get AI-powered smart recommendations for all aspects of financial life"""
-    try:
-        user_data = request.dict()
-        
-        # Get comprehensive analysis
-        analysis = await ai_service.get_comprehensive_financial_analysis(user_data)
-        
-        # Get budget optimization
-        budget = await ai_service.generate_smart_budget(user_data)
-        
-        # Get investment strategy
-        investment_data = {
-            "investable_amount": user_data.get("monthly_income", 0) * 0.2,  # 20% of income
-            "risk_tolerance": user_data.get("risk_tolerance", "medium"),
-            "age": user_data.get("age", 30),
-            "timeline": "10+ years"
-        }
-        investment_strategy = await ai_service.generate_investment_strategy(investment_data)
-        
-        # Get competitive insights
-        competitive_data = {
-            "age": user_data.get("age", 30),
-            "income": user_data.get("monthly_income", 0) * 12,
-            "net_worth": sum(user_data.get("assets", {}).values()) - sum(user_data.get("liabilities", {}).values()),
-            "pecunia_score": user_data.get("pecunia_score", 0),
-            "location": user_data.get("location", "United States")
-        }
-        competitive_insights = await ai_service.get_competitive_insights(competitive_data)
-        
-        return {
-            "comprehensive_analysis": analysis,
-            "smart_budget": budget,
-            "investment_strategy": investment_strategy,
-            "competitive_insights": competitive_insights,
-            "generated_at": datetime.now().isoformat(),
-            "user_id": user_data.get("user_id", "anonymous")
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Unexpected error: {str(exc)}")
+    logger.error(traceback.format_exc())
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error"}
+    )
 
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
