@@ -36,7 +36,7 @@ export const AIProvider = ({ children }) => {
     setLoading(true);
     try {
       const data = customData || userProfile;
-      const insights = await aiService.getFinancialInsights(data);
+      const insights = await aiService.getComprehensiveAnalysis(data);
       setAiInsights(insights);
       return insights;
     } catch (error) {
