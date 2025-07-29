@@ -29,7 +29,7 @@ const OnboardingPage = () => {
     expectations: ''
   });
   const [errors, setErrors] = useState({});
-  const { completeOnboarding, user } = useAuth();
+  const { completeOnboarding, bypassOnboarding, user } = useAuth();
 
   const countries = [
     'United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 
