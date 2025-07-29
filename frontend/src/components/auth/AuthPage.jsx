@@ -20,6 +20,18 @@ const AuthPage = () => {
 
   const { login, register, bypassAuthentication } = useAuth();
 
+  const handleBypassAuth = async () => {
+    setLoading(true);
+    try {
+      await bypassAuthentication();
+      // The App.js will automatically redirect to onboarding since onboardingComplete is false
+    } catch (error) {
+      console.error('Bypass authentication error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
