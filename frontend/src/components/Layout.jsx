@@ -82,10 +82,42 @@ const Layout = ({ children }) => {
               <Bell size={16} style={{ color: 'var(--color-text-secondary)' }} />
               <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full" style={{ background: 'var(--color-secondary-accent)' }}></span>
             </Button>
-            <Avatar className="h-7 w-7">
-              <AvatarImage src="/api/placeholder/28/28" />
-              <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)', fontSize: '0.75rem' }}>JD</AvatarFallback>
-            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="h-7 w-7 cursor-pointer">
+                  <AvatarImage src="/api/placeholder/28/28" />
+                  <AvatarFallback style={{ background: 'var(--color-primary-accent)', color: 'var(--color-text-white)', fontSize: '0.75rem' }}>
+                    {getUserInitials()}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{user?.name}</p>
+                    <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="flex items-center">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/settings" className="flex items-center">
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="text-red-600 focus:text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
