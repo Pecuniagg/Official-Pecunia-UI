@@ -225,7 +225,7 @@ class PecuniaAIService {
   // ==============================================
   async getMarketAwareRecommendations() {
     // First get current market insights
-    const marketData = await this.makeRequest('/market/insights');
+    const marketData = await this.makeRequest('/api/market/insights');
     
     // Then get personalized recommendations based on market conditions
     const recommendations = await this.getSmartRecommendations({
