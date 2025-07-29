@@ -619,7 +619,7 @@ const Goals = () => {
                   </SelectItem>
                   <SelectItem value="monthly" className="cursor-pointer">
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-blue-500" />
+                      <CalendarIcon className="h-4 w-4 text-blue-500" />
                       Monthly Recurring
                     </div>
                   </SelectItem>
