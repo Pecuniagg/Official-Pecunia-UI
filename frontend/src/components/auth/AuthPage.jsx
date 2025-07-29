@@ -286,6 +286,33 @@ const AuthPage = () => {
                 </div>
               </div>
             )}
+
+            {/* Bypass Authentication Button */}
+            {isLogin && (
+              <div className="pt-4">
+                <Button
+                  type="button"
+                  onClick={handleBypassAuth}
+                  disabled={loading}
+                  className="w-full h-12 bg-gradient-to-r from-[#10b981] to-[#059669] hover:from-[#0f766e] hover:to-[#047857] text-white font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span>Bypassing...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4" />
+                      <span>Skip Authentication & Go to Onboarding</span>
+                    </div>
+                  )}
+                </Button>
+                <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2">
+                  Skip login and go directly to the onboarding process
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
 
