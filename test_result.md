@@ -588,8 +588,8 @@
 
 ## test_plan:
   current_focus:
-    - "Pecunia authentication and onboarding flow testing completed successfully"
-    - "All core authentication features working perfectly"
+    - "PC responsiveness testing for Pecunia authentication system completed successfully"
+    - "All authentication features working perfectly across 5 PC screen sizes"
     - "Minor logout UI improvement needed but not blocking"
   stuck_tasks: []
   test_all: false
