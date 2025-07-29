@@ -138,7 +138,7 @@ class PecuniaAIService {
       location: this.userContext.location,
       ...customData
     };
-    return await this.makeRequest('/ai/competitive-insights', requestData, 'POST');
+    return await this.makeRequest('/api/ai/competitive-insights', requestData, 'POST');
   }
 
   // ==============================================
