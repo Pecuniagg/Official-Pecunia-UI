@@ -214,6 +214,21 @@ export const AuthProvider = ({ children }) => {
     return { success: true, user: demoUser };
   };
 
+  const bypassOnboarding = () => {
+    // Mark onboarding as complete for current user
+    setOnboardingComplete(true);
+    
+    // Store the bypass state
+    localStorage.setItem('onboarding_bypassed', 'true');
+
+    toast({
+      title: "Onboarding Bypassed! ⚡",
+      description: "Welcome to your Pecunia Dashboard",
+    });
+
+    return { success: true };
+  };
+
   const value = {
     user,
     isAuthenticated,
