@@ -544,6 +544,9 @@ const Compare = () => {
           </TabsContent>
         </Tabs>
       </div>
+      
+      {/* Render detailed comparison modal */}
+      {renderDetailedModal()}
     </div>
   );
 };
